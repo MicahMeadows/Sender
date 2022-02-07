@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sender/constants/colors.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +16,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        backgroundColor: primaryBackground,
+        scaffoldBackgroundColor: primaryBackground,
+        canvasColor: primaryBackground,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -30,11 +35,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _selectedTabIndex = 0;
 
-  void _incrementCounter() {
+  void _tabChanged(int index) {
     setState(() {
-      _counter++;
+      _selectedTabIndex = index;
     });
   }
 
@@ -42,27 +47,95 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white,
+        title: const Text(
+          "Sender",
+          style: TextStyle(
+            fontFamily: 'Nunito',
+            fontSize: 24,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w900,
+          ),
         ),
+        centerTitle: true,
+        elevation: 0,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      backgroundColor: primaryBackground,
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                  ),
+                ),
+              ),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(35),
+                  bottomLeft: Radius.circular(35),
+                ),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 4,
+                    offset: Offset(
+                      0,
+                      4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 55,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  iconSize: 30,
+                  onPressed: () {},
+                  icon: const Icon(Icons.home_rounded),
+                  color: Colors.white,
+                ),
+                IconButton(
+                  iconSize: 30,
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.stacked_bar_chart,
+                  ),
+                  color: Colors.white,
+                ),
+                IconButton(
+                  iconSize: 30,
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.person_rounded,
+                  ),
+                  color: Colors.white,
+                ),
+                IconButton(
+                  iconSize: 30,
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.stacked_bar_chart,
+                  ),
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
