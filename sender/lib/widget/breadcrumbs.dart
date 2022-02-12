@@ -52,11 +52,11 @@ class Breadcrumbs extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (renderOne) outsideCircle,
-        if (renderTwo) innerOutsideCircle,
-        if (renderThree) middleCircle,
-        if (renderFour) innerOutsideCircle,
-        if (renderFive) outsideCircle,
+        Visibility(visible: renderOne, child: outsideCircle),
+        Visibility(visible: renderTwo, child: innerOutsideCircle),
+        Visibility(visible: renderThree, child: middleCircle),
+        Visibility(visible: renderFour, child: innerOutsideCircle),
+        Visibility(visible: renderFive, child: outsideCircle),
       ],
     );
   }
