@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Breadcrums extends StatelessWidget {
+class Breadcrumbs extends StatelessWidget {
   final int itemCount;
   final int index;
-  const Breadcrums({required this.itemCount, required this.index, Key? key})
+  const Breadcrumbs({required this.itemCount, required this.index, Key? key})
       : super(key: key);
 
   bool get renderOne {
