@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/data/models/climbing_route.dart';
-import 'package:sender/widget/breadcrums.dart';
+import 'package:sender/widget/breadcrumbs.dart';
 import 'package:sender/widget/rating_widget.dart';
 
 class SwipeableCard extends StatefulWidget {
@@ -34,7 +34,7 @@ class SwipeableCard extends StatefulWidget {
 }
 
 class _SwipableCardState extends State<SwipeableCard> {
-  int page = 0;
+  int _pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _SwipableCardState extends State<SwipeableCard> {
                 color: Colors.green,
               ),
               child: Image.network(
-                widget.route.imageUrls[page],
+                widget.route.imageUrls[_pageIndex],
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -91,28 +91,21 @@ class _SwipableCardState extends State<SwipeableCard> {
                       ),
                     ),
                     RatingWidget(rating: widget.route.averageRating),
-                    // Row(
-                    // children: const [
-                    // Icon(Icons.star, size: 18, color: Colors.yellow),
-                    // Icon(Icons.star, size: 18, color: Colors.yellow),
-                    // Icon(Icons.star, size: 18, color: Colors.yellow),
-                    // Icon(Icons.star, size: 18, color: Colors.yellow),
-                    // Icon(Icons.star, size: 18, color: Colors.yellow),
-                    // ],
-                    // ),
-                    Breadcrums(itemCount: 5, index: 2)
-                    // Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // children: const [
-                    // Icon(Icons.circle, size: 6, color: Colors.white70),
-                    // SizedBox(width: 1),
-                    // Icon(Icons.circle, size: 10, color: Colors.white),
-                    // SizedBox(width: 1),
-                    // Icon(Icons.circle, size: 6, color: Colors.white70),
-                    // ],
-                    // )
+                    const SizedBox(height: 8)
                   ],
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Breadcrumbs(
+                itemCount: widget.route.imageUrls.length,
+                index: _pageIndex,
               ),
             ),
           ),

@@ -19,11 +19,11 @@ class Breadcrumbs extends StatelessWidget {
   }
 
   bool get renderFour {
-    return itemCount >= 3 && index < itemCount - 1;
+    return index < itemCount - 1;
   }
 
   bool get renderFive {
-    return itemCount >= 4 && index < itemCount - 2;
+    return index < itemCount - 2;
   }
 
   Widget get outsideCircle {
@@ -50,6 +50,7 @@ class Breadcrumbs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (renderOne) outsideCircle,
         if (renderTwo) innerOutsideCircle,
