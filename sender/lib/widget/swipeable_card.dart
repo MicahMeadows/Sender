@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/data/models/climbing_route.dart';
+import 'package:sender/widget/breadcrums.dart';
 import 'package:sender/widget/rating_widget.dart';
 
 class SwipeableCard extends StatefulWidget {
@@ -99,16 +100,17 @@ class _SwipableCardState extends State<SwipeableCard> {
                     // Icon(Icons.star, size: 18, color: Colors.yellow),
                     // ],
                     // ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.circle, size: 6, color: Colors.white70),
-                        SizedBox(width: 1),
-                        Icon(Icons.circle, size: 10, color: Colors.white),
-                        SizedBox(width: 1),
-                        Icon(Icons.circle, size: 6, color: Colors.white70),
-                      ],
-                    )
+                    Breadcrums(itemCount: 5, index: 2)
+                    // Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // children: const [
+                    // Icon(Icons.circle, size: 6, color: Colors.white70),
+                    // SizedBox(width: 1),
+                    // Icon(Icons.circle, size: 10, color: Colors.white),
+                    // SizedBox(width: 1),
+                    // Icon(Icons.circle, size: 6, color: Colors.white70),
+                    // ],
+                    // )
                   ],
                 ),
               ),
