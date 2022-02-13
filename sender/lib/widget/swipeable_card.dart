@@ -11,9 +11,11 @@ class SwipeableCard extends StatefulWidget {
   final void Function(Offset, DragEndDetails)? onSwipeCancel;
   final void Function(Offset)? onSwipeLeft;
   final void Function(Offset)? onSwipeRight;
+  final double? offsetAngle;
 
   const SwipeableCard({
     required this.route,
+    this.offsetAngle,
     this.onSwipeCancel,
     this.onPositionChanged,
     this.onSwipeLeft,
@@ -27,7 +29,7 @@ class SwipeableCard extends StatefulWidget {
 
 class _SwipableCardState extends State<SwipeableCard> {
   int _pageIndex = 0;
-  List<Image> _routeImages = [];
+  final List<Image> _routeImages = [];
 
   void _nextPage() {
     if (_pageIndex < widget.route.imageUrls.length - 1) {
@@ -71,68 +73,72 @@ class _SwipableCardState extends State<SwipeableCard> {
   @override
   Widget build(BuildContext context) {
     return Swipable(
+      animationCurve: Curves.easeInCubic,
       onSwipeCancel: widget.onSwipeCancel,
       onPositionChanged: widget.onPositionChanged,
       onSwipeRight: widget.onSwipeRight,
       onSwipeLeft: widget.onSwipeLeft,
       verticalSwipe: false,
       animationDuration: 150,
-      child: GestureDetector(
-        onTapUp: (details) {
-          if (details.globalPosition.dx >
-              MediaQuery.of(context).size.width / 2) {
-            _nextPage();
-          } else {
-            _previousPage();
-          }
-        },
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+      child: Transform.rotate(
+        angle: widget.offsetAngle ?? 0,
+        child: GestureDetector(
+          onTapUp: (details) {
+            if (details.globalPosition.dx >
+                MediaQuery.of(context).size.width / 2) {
+              _nextPage();
+            } else {
+              _previousPage();
+            }
+          },
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(30)),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: _routeImages[_pageIndex],
                   ),
-                  child: _routeImages[_pageIndex],
                 ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                left: 0,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      stops: [.7, 1],
-                      colors: [
-                        Colors.black38,
-                        Colors.transparent,
-                      ],
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  left: 0,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        stops: [.7, 1],
+                        colors: [
+                          Colors.black38,
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(19.0),
+                      child: currentPageInfo,
                     ),
                   ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
                   child: Padding(
-                    padding: const EdgeInsets.all(19.0),
-                    child: currentPageInfo,
+                    padding: const EdgeInsets.all(8.0),
+                    child: Breadcrumbs(
+                      itemCount: widget.route.imageUrls.length,
+                      index: _pageIndex,
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Breadcrumbs(
-                    itemCount: widget.route.imageUrls.length,
-                    index: _pageIndex,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

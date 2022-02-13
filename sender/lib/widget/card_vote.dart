@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widget/home_page.dart';
@@ -16,6 +18,24 @@ class _CardVoteState extends State<CardVote> {
   Offset? startPos;
   Offset? posFromStart;
 
+  double get _cardRotationAngle {
+    if (posFromStart == null) {
+      return 0;
+    }
+    Size screenSize = MediaQuery.of(context).size;
+    Offset screenMiddle = Offset(screenSize.width / 2, screenSize.height / 2);
+    Offset cardMiddlePos = screenMiddle + posFromStart!;
+    num dX = cardMiddlePos.dx - screenSize.width / 2;
+    num dY = cardMiddlePos.dy + 250;
+
+    print('dy: $dY');
+    print('dx: $dX');
+
+    var angle = atan2(dX, dY);
+    print(angle);
+    return angle;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -28,6 +48,19 @@ class _CardVoteState extends State<CardVote> {
                 duration: const Duration(milliseconds: 300),
                 padding: const EdgeInsets.all(8),
                 child: SwipeableCard(
+                  offsetAngle: i == 0 ? _cardRotationAngle : 0,
+                  onPositionChanged: (details) {
+                    startPos ??= details.localPosition;
+                    setState(() {
+                      posFromStart = details.localPosition - startPos!;
+                    });
+                  },
+                  onSwipeCancel: (offset, details) {
+                    setState(() {
+                      posFromStart = null;
+                      startPos = null;
+                    });
+                  },
                   route: widget.routes[i],
                 ),
               ),
