@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/data/models/climbing_route.dart';
-import 'package:sender/widget/breadcrumbs.dart';
-import 'package:sender/widget/rating_widget.dart';
+import 'package:sender/widgets/breadcrumbs.dart';
+import 'package:sender/widgets/rating_widget.dart';
 
 class SwipeableCard extends StatefulWidget {
   final ClimbingRoute route;

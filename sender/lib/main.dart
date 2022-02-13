@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sender/constants/colors.dart';
-import 'package:sender/widget/home_page.dart';
+import 'package:sender/widgets/home_page.dart';
 
 void main() {
   runApp(const MyApp());

@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sender/data/models/climbing_route.dart';
-import 'package:sender/widget/home_page.dart';
-import 'package:sender/widget/swipeable_card.dart';
+import 'package:sender/widgets/home_page.dart';
+import 'package:sender/widgets/swipeable_card.dart';
 
 class CardVote extends StatefulWidget {
   final List<ClimbingRoute> routes;
@@ -23,17 +23,15 @@ class _CardVoteState extends State<CardVote> {
       return 0;
     }
     Size screenSize = MediaQuery.of(context).size;
+
     Offset screenMiddle = Offset(screenSize.width / 2, screenSize.height / 2);
+
     Offset cardMiddlePos = screenMiddle + posFromStart!;
+
     num dX = cardMiddlePos.dx - screenSize.width / 2;
     num dY = cardMiddlePos.dy + 250;
 
-    print('dy: $dY');
-    print('dx: $dX');
-
-    var angle = atan2(dX, dY);
-    print(angle);
-    return angle;
+    return atan2(dX, dY);
   }
 
   @override

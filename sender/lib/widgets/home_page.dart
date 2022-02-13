@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sender/constants/colors.dart';
 import 'package:sender/data/models/climbing_route.dart';
-import 'package:sender/widget/custom_tab_bar.dart';
-import 'package:sender/widget/card_vote.dart';
+import 'package:sender/widgets/custom_tab_bar.dart';
+import 'package:sender/widgets/card_vote.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const List<ClimbingRoute> routes = [
+List<ClimbingRoute> routes = const [
   ClimbingRoute(
     name: 'Different Strokes',
     grade: '5.11c',
@@ -79,8 +79,8 @@ class HomePage extends StatelessWidget {
           Expanded(
             child: Container(
               child: Stack(
-                children: const [
-                  Center(
+                children: [
+                  const Center(
                     child: Text(
                       'There are currently no routes to be displayed.',
                       style: TextStyle(color: Colors.black),
