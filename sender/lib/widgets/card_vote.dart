@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sender/data/models/climbing_route.dart';
-import 'package:sender/widgets/home_page.dart';
 import 'package:sender/widgets/swipeable_card.dart';
 
 class CardVote extends StatefulWidget {
