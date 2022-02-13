@@ -29,7 +29,7 @@ class RatingWidget extends StatelessWidget {
         if (_hasHalfStar)
           Icon(
             Icons.star_half_rounded,
-            color: Colors.yellow,
+            color: ratingStarColor,
             size: height,
           ),
       ],

@@ -78,7 +78,17 @@ class HomePage extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              child: const CardVote(routes: routes),
+              child: Stack(
+                children: const [
+                  Center(
+                    child: Text(
+                      'There are currently no routes to be displayed.',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  CardVote(routes: routes),
+                ],
+              ),
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(35),

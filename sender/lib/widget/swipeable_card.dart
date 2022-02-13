@@ -27,6 +27,7 @@ class SwipeableCard extends StatefulWidget {
 
 class _SwipableCardState extends State<SwipeableCard> {
   int _pageIndex = 0;
+  List<Image> _routeImages = [];
 
   void _nextPage() {
     if (_pageIndex < widget.route.imageUrls.length - 1) {
@@ -41,6 +42,29 @@ class _SwipableCardState extends State<SwipeableCard> {
       setState(() {
         _pageIndex--;
       });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    for (var imageUrl in widget.route.imageUrls) {
+      _routeImages.add(
+        Image.network(
+          imageUrl,
+          fit: BoxFit.fitHeight,
+        ),
+      );
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    for (var image in _routeImages) {
+      precacheImage(image.image, context);
     }
   }
 
@@ -71,10 +95,7 @@ class _SwipableCardState extends State<SwipeableCard> {
                   decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
-                  child: Image.network(
-                    widget.route.imageUrls[_pageIndex],
-                    fit: BoxFit.fitHeight,
-                  ),
+                  child: _routeImages[_pageIndex],
                 ),
               ),
               Positioned(
@@ -160,7 +181,7 @@ class _SwipableCardState extends State<SwipeableCard> {
       children: [
         const SizedBox(height: 10),
         Text(
-          widget.route.heightFeet.toString(),
+          '${widget.route.heightFeet.toString()}ft',
           style: GoogleFonts.nunito(
             color: Colors.white,
             fontSize: 36,
@@ -169,7 +190,7 @@ class _SwipableCardState extends State<SwipeableCard> {
         ),
         const SizedBox(height: 5),
         Text(
-          widget.route.firstAscent,
+          'FA: ${widget.route.firstAscent}',
           style: GoogleFonts.roboto(
             fontSize: 24,
             fontWeight: FontWeight.w300,
