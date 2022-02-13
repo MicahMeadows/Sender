@@ -28,7 +28,7 @@ class _CardVoteState extends State<CardVote> {
                 duration: const Duration(milliseconds: 300),
                 padding: const EdgeInsets.all(8),
                 child: SwipeableCard(
-                  route: widget.routes[0],
+                  route: widget.routes[i],
                 ),
               ),
             ),

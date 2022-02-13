@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: primaryBackground,
         scaffoldBackgroundColor: primaryBackground,
         canvasColor: primaryBackground,
+        fontFamily: 'Nunito',
       ),
       home: const HomePage(),
     );

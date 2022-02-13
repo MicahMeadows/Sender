@@ -29,21 +29,19 @@ class _SwipableCardState extends State<SwipeableCard> {
   int _pageIndex = 0;
 
   void _nextPage() {
-    setState(() {
-      _pageIndex++;
-      if (_pageIndex >= widget.route.imageUrls.length) {
-        _pageIndex = 0;
-      }
-    });
+    if (_pageIndex < widget.route.imageUrls.length - 1) {
+      setState(() {
+        _pageIndex++;
+      });
+    }
   }
 
   void _previousPage() {
-    setState(() {
-      _pageIndex--;
-      if (_pageIndex < 0) {
-        _pageIndex = widget.route.imageUrls.length - 1;
-      }
-    });
+    if (_pageIndex > 0) {
+      setState(() {
+        _pageIndex--;
+      });
+    }
   }
 
   @override
@@ -162,7 +160,7 @@ class _SwipableCardState extends State<SwipeableCard> {
       children: [
         const SizedBox(height: 10),
         Text(
-          widget.route.height,
+          widget.route.heightFeet.toString(),
           style: GoogleFonts.nunito(
             color: Colors.white,
             fontSize: 36,
@@ -190,7 +188,7 @@ class _SwipableCardState extends State<SwipeableCard> {
       children: [
         const SizedBox(height: 10),
         Text(
-          'Description',
+          'Description:',
           style: GoogleFonts.nunito(
             color: Colors.white,
             fontSize: 24,
@@ -200,6 +198,8 @@ class _SwipableCardState extends State<SwipeableCard> {
         const SizedBox(height: 5),
         Text(
           widget.route.description,
+          maxLines: 4,
+          overflow: TextOverflow.ellipsis,
           style: GoogleFonts.roboto(
             fontSize: 18,
             fontWeight: FontWeight.w300,

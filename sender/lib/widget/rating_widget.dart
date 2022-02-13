@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sender/constants/colors.dart';
 
 class RatingWidget extends StatelessWidget {
   final double height;
@@ -24,7 +25,7 @@ class RatingWidget extends StatelessWidget {
     return Row(
       children: [
         for (int i = 0; i < _numFullStars; i++)
-          Icon(Icons.star_rounded, color: Colors.yellow, size: height),
+          Icon(Icons.star_rounded, color: ratingStarColor, size: height),
         if (_hasHalfStar)
           Icon(
             Icons.star_half_rounded,

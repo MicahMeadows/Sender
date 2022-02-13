@@ -3,7 +3,8 @@ class ClimbingRoute {
   final String grade;
   final String description;
   final String type;
-  final String height;
+  final double heightFeet;
+  final double heightMeters;
   final String firstAscent;
   final double averageRating;
   final List<String> imageUrls;
@@ -14,7 +15,8 @@ class ClimbingRoute {
     required this.grade,
     required this.description,
     required this.type,
-    required this.height,
+    required this.heightFeet,
+    required this.heightMeters,
     required this.firstAscent,
     required this.averageRating,
     required this.imageUrls,
