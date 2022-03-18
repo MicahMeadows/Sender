@@ -1,25 +1,31 @@
+import 'package:sender/data/models/area.dart';
+
 class ClimbingRoute {
   final String name;
   final String grade;
-  final String description;
   final String type;
-  final double heightFeet;
-  final double heightMeters;
+  final double rating;
+  final int height;
   final String firstAscent;
-  final double averageRating;
+  final String description;
+  final String protection;
+  final String location;
+  final List<Area> areas;
   final List<String> imageUrls;
-  final List<String> area;
+  final int routeId;
 
   const ClimbingRoute({
     required this.name,
     required this.grade,
-    required this.description,
     required this.type,
-    required this.heightFeet,
-    required this.heightMeters,
+    required this.rating,
+    required this.height,
     required this.firstAscent,
-    required this.averageRating,
+    required this.description,
+    required this.protection,
+    required this.location,
+    required this.areas,
     required this.imageUrls,
-    required this.area,
+    required this.routeId,
   });
 }

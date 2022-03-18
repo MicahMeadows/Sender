@@ -16,7 +16,11 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     emit(RouteQueueLoading());
     try {
       var routes = await _queueRouteRepository.getClimbingRoutes();
-      emit(RouteQueueLoaded(routes: routes));
+      if (routes.isEmpty) {
+        emit(RouteQueueEmpty());
+      } else {
+        emit(RouteQueueLoaded(routes: routes));
+      }
     } catch (e) {
       emit(RouteQueueError(errorMessage: e.toString()));
     }

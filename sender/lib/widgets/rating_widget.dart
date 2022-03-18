@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sender/constants/colors.dart';
+import 'package:sender/common/constants/colors.dart';
 
 class RatingWidget extends StatelessWidget {
   final double height;

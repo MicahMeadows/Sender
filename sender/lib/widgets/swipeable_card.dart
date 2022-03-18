@@ -174,7 +174,7 @@ class _SwipableCardState extends State<SwipeableCard> {
             color: Colors.white,
           ),
         ),
-        RatingWidget(rating: widget.route.averageRating),
+        RatingWidget(rating: widget.route.rating),
         const SizedBox(height: 8)
       ],
     );
@@ -187,7 +187,7 @@ class _SwipableCardState extends State<SwipeableCard> {
       children: [
         const SizedBox(height: 10),
         Text(
-          '${widget.route.heightFeet.toString()}ft',
+          '${widget.route.height.toString()}ft',
           style: GoogleFonts.nunito(
             color: Colors.white,
             fontSize: 36,
