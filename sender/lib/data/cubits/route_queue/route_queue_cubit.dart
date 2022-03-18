@@ -8,7 +8,9 @@ part 'route_queue_state.dart';
 class RouteQueueCubit extends Cubit<RouteQueueState> {
   final IQueueRouteRepository _queueRouteRepository;
 
-  RouteQueueCubit(this._queueRouteRepository) : super(RouteQueueEmpty());
+  RouteQueueCubit(this._queueRouteRepository) : super(RouteQueueEmpty()) {
+    loadRoutes();
+  }
 
   Future<void> loadRoutes() async {
     emit(RouteQueueLoading());

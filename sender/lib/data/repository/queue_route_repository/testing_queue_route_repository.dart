@@ -5,7 +5,7 @@ class TestingQueueRouteRepository implements IQueueRouteRepository {
   @override
   Future<List<ClimbingRoute>> getClimbingRoutes() {
     return Future.delayed(
-      const Duration(milliseconds: 100),
+      const Duration(milliseconds: 1700),
       () {
         return const [
           ClimbingRoute(

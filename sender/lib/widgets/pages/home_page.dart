@@ -5,6 +5,7 @@ import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/widgets/custom_tab_bar.dart';
 import 'package:sender/widgets/card_vote.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sender/widgets/knot_progress_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,11 +20,6 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<RouteQueueCubit, RouteQueueState>(
       builder: (context, state) {
         return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              context.read<RouteQueueCubit>().loadRoutes();
-            },
-          ),
           appBar: AppBar(
             foregroundColor: Colors.black,
             backgroundColor: Colors.white,
@@ -76,7 +72,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildMainContent(RouteQueueState state) {
     if (state is RouteQueueLoading) {
-      return const Text('loading...');
+      return const KnotProgressIndicator();
     }
     if (state is RouteQueueLoaded) {
       return CardVote(routes: state.routes);
