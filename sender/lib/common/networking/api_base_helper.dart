@@ -11,10 +11,28 @@ class ApiBaseHelper {
     dynamic responseJson;
     try {
       final response = await http.get(Uri.parse(_baseUrl + url));
-      print('response: ${response.body}');
       responseJson = _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No internet connection.');
+    }
+    return responseJson;
+  }
+
+  Future<dynamic> post(String url,
+      {Object? body, Map<String, String>? headers}) async {
+    dynamic responseJson;
+    try {
+      final response = await http.post(
+        Uri.parse(_baseUrl + url),
+        body: body,
+        headers: headers ??
+            {
+              'Content-Type': 'application/json',
+            },
+      );
+      responseJson = _returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No internet connection. ');
     }
     return responseJson;
   }
@@ -29,6 +47,8 @@ class ApiBaseHelper {
       case 401:
       case 403:
         throw UnauthorizedException(response.body.toString());
+      case 404:
+        throw NotFoundException(response.body.toString());
       case 500:
       default:
         throw FetchDataException(

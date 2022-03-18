@@ -1,5 +1,9 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:sender/data/models/area.dart';
 
+part 'climbing_route.g.dart';
+
+@JsonSerializable()
 class ClimbingRoute {
   final String name;
   final String grade;
@@ -12,7 +16,7 @@ class ClimbingRoute {
   final String location;
   final List<Area> areas;
   final List<String> imageUrls;
-  final int routeId;
+  final String routeId;
 
   const ClimbingRoute({
     required this.name,
@@ -28,4 +32,8 @@ class ClimbingRoute {
     required this.imageUrls,
     required this.routeId,
   });
+
+  factory ClimbingRoute.fromJson(Map<String, dynamic> json) =>
+      _$ClimbingRouteFromJson(json);
+  Map<String, dynamic> toJson() => _$ClimbingRouteToJson(this);
 }

@@ -10,6 +10,11 @@ class BadRequestException extends AppException {
       : super(message: message, prefix: 'Invalid request: ');
 }
 
+class NotFoundException extends AppException {
+  NotFoundException(String message)
+      : super(message: message, prefix: '404 Not found: ');
+}
+
 class UnauthorizedException extends AppException {
   UnauthorizedException(String message)
       : super(message: message, prefix: 'Unauthorized: ');
