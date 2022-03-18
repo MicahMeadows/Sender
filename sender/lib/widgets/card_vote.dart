@@ -39,7 +39,7 @@ class _CardVoteState extends State<CardVote> {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          for (int i = routes.length - 1; i >= 0; i--)
+          for (int i = widget.routes.length - 1; i >= 0; i--)
             Positioned(
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),

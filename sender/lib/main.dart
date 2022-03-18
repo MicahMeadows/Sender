@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
             canvasColor: primaryBackground,
             fontFamily: 'Nunito',
           ),
-          home: const HomePage(),
           routes: {
             '/': (context) => const HomePage(),
           },
