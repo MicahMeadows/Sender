@@ -114,7 +114,7 @@ class _SwipableCardState extends State<SwipeableCard> {
                         end: Alignment.topCenter,
                         stops: [.7, 1],
                         colors: [
-                          Colors.black38,
+                          Colors.black45,
                           Colors.transparent,
                         ],
                       ),

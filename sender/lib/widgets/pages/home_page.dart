@@ -4,7 +4,6 @@ import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/widgets/custom_tab_bar.dart';
 import 'package:sender/widgets/card_vote.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/widgets/knot_progress_indicator.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,23 +19,34 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<RouteQueueCubit, RouteQueueState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            foregroundColor: Colors.black,
-            backgroundColor: Colors.white,
-            title: Text(
-              "Sender",
-              style: GoogleFonts.nunito(
-                fontSize: 24,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-            centerTitle: true,
-            elevation: 0,
-          ),
           backgroundColor: primaryBackground,
           body: Column(
             children: [
+              Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).viewPadding.top,
+                width: double.infinity,
+              ),
+              Container(
+                padding: EdgeInsets.zero,
+                margin: EdgeInsets.zero,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    width: 0,
+                    color: Colors.white,
+                  ),
+                ),
+                height: 5,
+              ),
+              Container(
+                color: Colors.white,
+                width: double.infinity,
+                child: Image.asset(
+                  'assets/images/sender_header_logo.png',
+                  height: 40,
+                ),
+              ),
               Expanded(
                 child: Container(
                   child: Stack(

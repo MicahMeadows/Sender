@@ -27,7 +27,7 @@ class _KnotProgressIndicatorState extends State<KnotProgressIndicator> {
       height: widget.size.height,
       width: widget.size.width,
       child: RiveAnimation.asset(
-        'assets/FigureEightIcon.riv',
+        'assets/rive/FigureEightIcon.riv',
         controllers: [_controller],
         onInit: (_) => setState(() {}),
       ),
