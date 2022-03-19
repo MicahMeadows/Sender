@@ -8,38 +8,64 @@ class CustomTabBar extends StatelessWidget {
     return SizedBox(
       height: 55,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          IconButton(
-            iconSize: 30,
-            onPressed: () {},
-            icon: const Icon(Icons.home_rounded),
-            color: Colors.white,
-          ),
-          IconButton(
-            iconSize: 30,
-            onPressed: () {},
-            icon: const Icon(
-              Icons.stacked_bar_chart,
+          GestureDetector(
+            onTap: () {},
+            child: Image.asset(
+              'assets/images/icon/icon_nav_home.png',
+              width: 22,
+              height: 22,
             ),
-            color: Colors.white,
           ),
-          IconButton(
-            iconSize: 30,
-            onPressed: () {},
-            icon: const Icon(
-              Icons.person_rounded,
+          GestureDetector(
+            onTap: () {},
+            child: Image.asset(
+              'assets/images/icon/icon_nav_stack.png',
+              width: 22,
+              height: 22,
             ),
-            color: Colors.white,
           ),
-          IconButton(
-            iconSize: 30,
-            onPressed: () {},
-            icon: const Icon(
-              Icons.stacked_bar_chart,
+          GestureDetector(
+            onTap: () {},
+            child: Image.asset(
+              'assets/images/icon/icon_nav_profile.png',
+              width: 22,
+              height: 22,
             ),
-            color: Colors.white,
           ),
+          GestureDetector(
+            onTap: () {},
+            child: Image.asset(
+              'assets/images/icon/icon_nav_settings.png',
+              width: 22,
+              height: 22,
+            ),
+          ),
+          // IconButton(
+          //   iconSize: 30,
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Icons.stacked_bar_chart,
+          //   ),
+          //   color: Colors.white,
+          // ),
+          // IconButton(
+          //   iconSize: 30,
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Icons.person_rounded,
+          //   ),
+          //   color: Colors.white,
+          // ),
+          // IconButton(
+          //   iconSize: 30,
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Icons.stacked_bar_chart,
+          //   ),
+          //   color: Colors.white,
+          // ),
         ],
       ),
     );

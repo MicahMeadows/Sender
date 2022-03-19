@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/breadcrumbs.dart';
 import 'package:sender/widgets/rating_widget.dart';
@@ -91,53 +92,64 @@ class _SwipableCardState extends State<SwipeableCard> {
               _previousPage();
             }
           },
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+          child: Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [cardGradientTop, cardGradientBottom],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(35)),
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: _routeImages[_pageIndex],
                     ),
-                    child: _routeImages[_pageIndex],
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        stops: [.7, 1],
-                        colors: [
-                          Colors.black45,
-                          Colors.transparent,
-                        ],
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          stops: [.7, 1],
+                          colors: [
+                            Colors.black45,
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(19.0),
+                        child: currentPageInfo,
                       ),
                     ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
                     child: Padding(
-                      padding: const EdgeInsets.all(19.0),
-                      child: currentPageInfo,
+                      padding: const EdgeInsets.all(8.0),
+                      child: Breadcrumbs(
+                        itemCount: widget.route.imageUrls.length,
+                        index: _pageIndex,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Breadcrumbs(
-                      itemCount: widget.route.imageUrls.length,
-                      index: _pageIndex,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
