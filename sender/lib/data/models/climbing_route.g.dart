@@ -22,7 +22,7 @@ ClimbingRoute _$ClimbingRouteFromJson(Map<String, dynamic> json) =>
           .toList(),
       imageUrls:
           (json['imageUrls'] as List<dynamic>).map((e) => e as String).toList(),
-      routeId: json['routeId'] as String,
+      id: json['id'] as String,
     );
 
 Map<String, dynamic> _$ClimbingRouteToJson(ClimbingRoute instance) =>
@@ -38,5 +38,5 @@ Map<String, dynamic> _$ClimbingRouteToJson(ClimbingRoute instance) =>
       'location': instance.location,
       'areas': instance.areas,
       'imageUrls': instance.imageUrls,
-      'routeId': instance.routeId,
+      'id': instance.id,
     };

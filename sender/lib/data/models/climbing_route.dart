@@ -16,7 +16,7 @@ class ClimbingRoute {
   final String location;
   final List<Area> areas;
   final List<String> imageUrls;
-  final String routeId;
+  final String id;
 
   const ClimbingRoute({
     required this.name,
@@ -30,7 +30,7 @@ class ClimbingRoute {
     required this.location,
     required this.areas,
     required this.imageUrls,
-    required this.routeId,
+    required this.id,
   });
 
   factory ClimbingRoute.fromJson(Map<String, dynamic> json) =>

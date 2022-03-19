@@ -55,7 +55,7 @@ class _SwipableCardState extends State<SwipeableCard> {
       _routeImages.add(
         Image.network(
           imageUrl,
-          fit: BoxFit.fitHeight,
+          fit: BoxFit.cover,
         ),
       );
     }

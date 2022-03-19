@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/swipeable_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardVote extends StatefulWidget {
   final List<ClimbingRoute> routes;
@@ -16,6 +18,8 @@ class CardVote extends StatefulWidget {
 class _CardVoteState extends State<CardVote> {
   Offset? startPos;
   Offset? posFromStart;
+
+  late final _queueCubit = context.read<RouteQueueCubit>();
 
   double get _cardRotationAngle {
     if (posFromStart == null) {
@@ -33,6 +37,13 @@ class _CardVoteState extends State<CardVote> {
     return atan2(dX, dY);
   }
 
+  void _resetSwipePosition() {
+    setState(() {
+      posFromStart = null;
+      startPos = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -46,6 +57,14 @@ class _CardVoteState extends State<CardVote> {
                 padding: const EdgeInsets.all(8),
                 child: SwipeableCard(
                   offsetAngle: i == 0 ? _cardRotationAngle : 0,
+                  onSwipeLeft: (_) {
+                    _queueCubit.declineRoute();
+                    _resetSwipePosition();
+                  },
+                  onSwipeRight: (_) {
+                    _queueCubit.declineRoute();
+                    _resetSwipePosition();
+                  },
                   onPositionChanged: (details) {
                     startPos ??= details.localPosition;
                     setState(() {
@@ -53,10 +72,7 @@ class _CardVoteState extends State<CardVote> {
                     });
                   },
                   onSwipeCancel: (offset, details) {
-                    setState(() {
-                      posFromStart = null;
-                      startPos = null;
-                    });
+                    _resetSwipePosition();
                   },
                   route: widget.routes[i],
                 ),

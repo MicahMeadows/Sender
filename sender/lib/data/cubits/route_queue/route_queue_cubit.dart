@@ -16,8 +16,10 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     emit(RouteQueueLoading());
     try {
       var routes = await _queueRouteRepository.getClimbingRoutes([
+        "110969192",
         "106702950",
         "118297380",
+        "112311069",
       ]);
       if (routes.isEmpty) {
         emit(RouteQueueEmpty());
@@ -26,6 +28,24 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
       }
     } catch (e) {
       emit(RouteQueueError(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> declineRoute() async {
+    try {
+      if (state is! RouteQueueLoaded) {
+        throw Exception('No routes loaded');
+      }
+      final routeState = state as RouteQueueLoaded;
+      final declinedRoute = routeState.routes.first;
+      var routes = [...routeState.routes.skip(1)];
+      if (routes.isEmpty) {
+        emit(RouteQueueEmpty());
+      } else {
+        emit(RouteQueueLoaded(routes: routes));
+      }
+    } catch (e) {
+      return Future.error(e.toString());
     }
   }
 }
