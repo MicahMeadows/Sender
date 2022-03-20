@@ -41,6 +41,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   void initState() {
     _scrollController.addListener(() {
       setState(() {});
+      var scrollPos = _scrollController.position;
+      print('scroll pos: $scrollPos');
     });
 
     super.initState();
@@ -54,11 +56,14 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
     );
 
     Completer<ui.Image> completer = Completer<ui.Image>();
-    image.image
-        .resolve(const ImageConfiguration())
-        .addListener(ImageStreamListener((ImageInfo image, bool _) {
-      completer.complete(image.image);
-    }));
+    image.image.resolve(const ImageConfiguration()).addListener(
+      ImageStreamListener(
+        (ImageInfo image, bool _) {
+          completer.complete(image.image);
+          setState(() {});
+        },
+      ),
+    );
 
     return FutureBuilder(
       future: completer.future,
@@ -79,6 +84,13 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             _lastBelowAppBarDistanceFromTop =
                 belowAppBarRenderObj.localToGlobal(Offset.zero).dy;
             print('last below dist: $_lastBelowAppBarDistanceFromTop');
+
+            if (!_initialized) {
+              _scrollController
+                  .jumpTo(MediaQuery.of(context).size.height * .55);
+            }
+
+            _initialized = true;
           });
           var imgHeight = snapshot.data!.height;
           print('img height: $imgHeight');
@@ -98,7 +110,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                   child: BackdropFilter(
                     filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Container(
-                      color: Colors.black.withOpacity(.45),
+                      color: Colors.white.withOpacity(.05),
                     ),
                   ),
                 ),
@@ -127,10 +139,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                       SliverToBoxAdapter(
                         child: Container(
                           width: double.infinity,
-                          // height: snapshot.data!.height.toDouble() -
-                          //     _statusHeight -
-                          //     (_lastBelowAppBarDistanceFromTop -
-                          //         _lastAboveAppBarDistanceFromTop),
                           height: MediaQuery.of(context).size.height -
                               (_lastBelowAppBarDistanceFromTop -
                                   _lastAboveAppBarDistanceFromTop),
@@ -160,7 +168,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                           if (!_initialized) {
                             heightSize = 0;
                           }
-                          _initialized = true;
                           return heightSize;
                         }(),
                         flexibleSpace: FlexibleSpaceBar(
