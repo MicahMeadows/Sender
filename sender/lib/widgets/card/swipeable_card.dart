@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/breadcrumbs.dart';
+import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 import 'package:sender/widgets/rating_widget.dart';
 
 class SwipeableCard extends StatefulWidget {
@@ -96,7 +97,10 @@ class _SwipableCardState extends State<SwipeableCard> {
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [cardGradientTop, cardGradientBottom],
+                colors: [
+                  cardGradientTop,
+                  cardGradientBottom,
+                ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -130,9 +134,22 @@ class _SwipableCardState extends State<SwipeableCard> {
                           ],
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(19.0),
-                        child: currentPageInfo,
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          // Navigator.of(context)
+                          //     .pushNamed(RouteDetailsPage.routeName);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  RouteDetailsPage(route: widget.route),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(19.0),
+                          child: currentPageInfo,
+                        ),
                       ),
                     ),
                   ),

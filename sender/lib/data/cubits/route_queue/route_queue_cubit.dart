@@ -37,7 +37,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
         throw Exception('No routes loaded');
       }
       final routeState = state as RouteQueueLoaded;
-      final declinedRoute = routeState.routes.first;
+      // final declinedRoute = routeState.routes.first;
       var routes = [...routeState.routes.skip(1)];
       if (routes.isEmpty) {
         emit(RouteQueueEmpty());

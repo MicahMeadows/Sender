@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
-import 'package:sender/widgets/custom_tab_bar.dart';
-import 'package:sender/widgets/card_vote.dart';
+import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
+import 'package:sender/widgets/card/card_vote.dart';
 import 'package:sender/widgets/knot_progress_indicator.dart';
 
 class HomePage extends StatefulWidget {

@@ -25,7 +25,6 @@ class ApiQueueRouteRepository extends IQueueRouteRepository {
 
       return routes;
     } catch (e) {
-      print(e.toString());
       rethrow;
     }
   }

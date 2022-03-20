@@ -4,7 +4,7 @@ import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/repository/queue_route_repository/api_queue_route_repository.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
-import 'package:sender/widgets/pages/home_page.dart';
+import 'package:sender/widgets/pages/home/home_page.dart';
 
 IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository();
 
@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             '/': (context) => const HomePage(),
+            // RouteDetailsPage.routeName: (context) => const RouteDetailsPage(),
           },
         ),
       ),

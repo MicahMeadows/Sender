@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/models/climbing_route.dart';
-import 'package:sender/widgets/swipeable_card.dart';
+import 'package:sender/widgets/card/swipeable_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardVote extends StatefulWidget {
