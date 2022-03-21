@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/models/climbing_route.dart';
+import 'package:sender/widgets/breadcrumbs.dart';
 import 'package:sender/widgets/rating_widget.dart';
 
 class RouteDetailsPage extends StatefulWidget {
@@ -129,14 +130,33 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                 ),
                 Positioned(
                   child: SizedBox(
-                    child: PageView(
-                      onPageChanged: (idx) {
-                        setState(() {
-                          _selectedImageIdx = idx;
-                        });
-                      },
-                      children: images,
-                      controller: _imageController,
+                    child: Stack(
+                      children: [
+                        PageView(
+                          onPageChanged: (idx) {
+                            setState(() {
+                              _selectedImageIdx = idx;
+                              initalScrollPos =
+                                  _imageController.page!.roundToDouble() *
+                                      MediaQuery.of(context).size.width;
+                              startDragPos = null;
+                            });
+                          },
+                          children: images,
+                          controller: _imageController,
+                        ),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: _lastBelowAppBarDistanceFromTop -
+                              _lastAboveAppBarDistanceFromTop +
+                              5,
+                          child: Breadcrumbs(
+                            itemCount: images.length,
+                            index: _selectedImageIdx,
+                          ),
+                        ),
+                      ],
                     ),
                     width: double.infinity,
                     height: max(0, _lastBelowAppBarDistanceFromTop),
@@ -160,6 +180,28 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                               (_lastBelowAppBarDistanceFromTop -
                                   _lastAboveAppBarDistanceFromTop),
                           child: GestureDetector(
+                            onTapDown: (details) {
+                              var tapPosX = details.globalPosition.dx;
+                              const buttonScaler = .3;
+                              const pageFlipDuration =
+                                  const Duration(milliseconds: 250);
+                              const pageFlipCurve = Curves.easeIn;
+                              final screenWidth =
+                                  MediaQuery.of(context).size.width;
+                              final buttonSize = screenWidth * buttonScaler;
+
+                              if (tapPosX < buttonSize) {
+                                _imageController.previousPage(
+                                  duration: pageFlipDuration,
+                                  curve: pageFlipCurve,
+                                );
+                              } else if (tapPosX > screenWidth - buttonSize) {
+                                _imageController.nextPage(
+                                  duration: pageFlipDuration,
+                                  curve: pageFlipCurve,
+                                );
+                              }
+                            },
                             onHorizontalDragStart: (details) {
                               startDragPos = details.localPosition;
                             },
@@ -228,13 +270,16 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                               const Spacer(flex: 1),
                               Expanded(
                                 flex: 4,
-                                child: Text(
-                                  widget.route.name,
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.nunito(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    widget.route.name,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.nunito(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -397,9 +442,9 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           ),
         ],
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         child: child,
       ),
     );

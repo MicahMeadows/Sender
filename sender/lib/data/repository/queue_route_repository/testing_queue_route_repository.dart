@@ -1,80 +1,236 @@
-// import 'package:sender/data/models/area.dart';
-// import 'package:sender/data/models/climbing_route.dart';
-// import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
+import 'dart:convert';
 
-// class TestingQueueRouteRepository implements IQueueRouteRepository {
-//   @override
-//   Future<List<ClimbingRoute>> getClimbingRoutes() {
-//     return Future.delayed(
-//       const Duration(milliseconds: 1700),
-//       () {
-//         return const [
-//           ClimbingRoute(
-//             name: 'Different Strokes',
-//             grade: '5.11c',
-//             description:
-//                 'Climb the enjoyable face making use of side pulls and pinches the whole way up. Awesome route.',
-//             type: 'Sport',
-//             height: 50,
-//             firstAscent: 'Terry Kindred - 2001',
-//             rating: 3,
-//             location: 'loc',
-//             protection: 'prot',
-//             routeId: 1234,
-//             imageUrls: [
-//               'https://cdn2.apstatic.com/photos/climb/106860992_large_1494146441.jpg',
-//               'https://cdn2.apstatic.com/photos/climb/119791512_large_1603427278.jpg',
-//               'https://cdn2.apstatic.com/photos/climb/116166209_large_1544139626.jpg',
-//             ],
-//             areas: [
-//               Area(
-//                 id: 1234,
-//                 name: 'Kentucky',
-//               ),
-//               Area(
-//                 id: 1234,
-//                 name: 'Red River Gorge',
-//               ),
-//               Area(
-//                 id: 1234,
-//                 name: 'Pendergrass-Murray Recreational Preserver (PMRP)',
-//               ),
-//               Area(
-//                 id: 1234,
-//                 name: 'Gallery',
-//               ),
-//               // 'Kentucky',
-//               // 'Red River Gorge',
-//               // 'Pendergrass-Murray Recreational Preserve (PMRP)',
-//               // 'Gallery',
-//             ],
-//           ),
-//           ClimbingRoute(
-//             name: 'Tesseract',
-//             grade: '5.10d',
-//             description:
-//                 'Looks can be deceiving and while this route may appear short and easy, it is quite pumpy. Begin with a high step and follow the line of the bolts that trend right. Avoid climbing into the choss up and left by staying closer to the bolt line. A final hard pull off a left hand sidepull at the last bolt requires a little oomph right when the pump is really kicking in. Despite only a moderate amount of vertical gain, the amount of traversing and overhang really add to the distance covered on this route.',
-//             type: 'Sport',
-//             heightFeet: 55,
-//             heightMeters: 15,
-//             firstAscent: 'Sara Wells and Dave Linz 2014',
-//             averageRating: 3.6,
-//             imageUrls: [
-//               'https://cdn2.apstatic.com/photos/climb/119898576_large_1605046800_topo.jpg',
-//               'https://cdn2.apstatic.com/photos/climb/113713111_large_1508173295_topo.jpg',
-//               'https://cdn2.apstatic.com/photos/climb/119931068_large_1605627689.jpg',
-//               'https://cdn2.apstatic.com/photos/climb/119824246_large_1603984679.jpg',
-//               'https://cdn2.apstatic.com/photos/climb/113832591_large_1510802959.jpg',
-//             ],
-//             area: [
-//               'Kentucky',
-//               'Red River Gorge',
-//               'Miller Fork Recreational Reserve (MFRP)'
-//                   'Portal',
-//             ],
-//           ),
-//         ];
-//       },
-//     );
-//   }
-// }
+import 'package:sender/data/models/area.dart';
+import 'package:sender/data/models/climbing_route.dart';
+import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
+import 'dart:io';
+
+class TestingQueueRouteRepository implements IQueueRouteRepository {
+  @override
+  Future<List<ClimbingRoute>> getClimbingRoutes(List<String> routeIds) async {
+    return Future.delayed(const Duration(milliseconds: 1700), () {
+      String jsonString = '''[
+    {
+        "name": "Different Strokes ",
+        "grade": "5.11c",
+        "type": "Sport",
+        "rating": 3,
+        "height": 50,
+        "firstAscent": "Terry Kindred - 2001",
+        "description": "Climb the enjoyable face making use of side pulls and pinches the whole way up. Awesome route.",
+        "protection": "Six bolts, bolted anchors.",
+        "location": "Starts 30' right of Smack Dab, left of a chimney.",
+        "areas": [
+            {
+                "id": "105868674",
+                "name": "Kentucky"
+            },
+            {
+                "id": "105841134",
+                "name": "Red River Gorge"
+            },
+            {
+                "id": "106585368",
+                "name": "Pendergrass Murray Recreational Preserve Pmrp"
+            },
+            {
+                "id": "106124262",
+                "name": "The Gallery"
+            }
+        ],
+        "imageUrls": [
+            "https://cdn2.apstatic.com/photos/climb/119791512_medium_1603427278.jpg",
+            "https://cdn2.apstatic.com/photos/climb/116166209_medium_1544139626.jpg",
+            "https://cdn2.apstatic.com/photos/climb/106860997_medium_1494146441.jpg",
+            "https://cdn2.apstatic.com/photos/climb/111146270_medium_1494341296.jpg",
+            "https://cdn2.apstatic.com/photos/climb/106860992_medium_1494146441.jpg"
+        ],
+        "id": "106702950"
+    },
+    {
+        "name": "Fugaku ",
+        "grade": "5.12d",
+        "type": "Sport",
+        "rating": 2.8,
+        "height": 65,
+        "firstAscent": "Ken Saitoh 1/26/20",
+        "description": "Right of Starry Night is this similar, but harder climb. Climb out the juggy roof similar to Starry Night, but you'll have to work a little harder through the bouldery finish to get to the chains. Be aware of loose rock as with all new routes. ",
+        "protection": "6 Bolts",
+        "location": "20 feet right of starry night. Also goes out the massive roof",
+        "areas": [
+            {
+                "id": "105868674",
+                "name": "Kentucky"
+            },
+            {
+                "id": "105841134",
+                "name": "Red River Gorge"
+            },
+            {
+                "id": "106585368",
+                "name": "Pendergrass Murray Recreational Preserve Pmrp"
+            },
+            {
+                "id": "106124262",
+                "name": "The Gallery"
+            }
+        ],
+        "imageUrls": [
+            "https://cdn2.apstatic.com/photos/climb/119034251_medium_1592097414.jpg",
+            "https://cdn2.apstatic.com/photos/climb/119034229_medium_1592097294.jpg"
+        ],
+        "id": "118297380"
+    },
+    {
+        "name": "Different Strokes ",
+        "grade": "5.11c",
+        "type": "Sport",
+        "rating": 3,
+        "height": 50,
+        "firstAscent": "Terry Kindred - 2001",
+        "description": "Climb the enjoyable face making use of side pulls and pinches the whole way up. Awesome route.",
+        "protection": "Six bolts, bolted anchors.",
+        "location": "Starts 30' right of Smack Dab, left of a chimney.",
+        "areas": [
+            {
+                "id": "105868674",
+                "name": "Kentucky"
+            },
+            {
+                "id": "105841134",
+                "name": "Red River Gorge"
+            },
+            {
+                "id": "106585368",
+                "name": "Pendergrass Murray Recreational Preserve Pmrp"
+            },
+            {
+                "id": "106124262",
+                "name": "The Gallery"
+            }
+        ],
+        "imageUrls": [
+            "https://cdn2.apstatic.com/photos/climb/119791512_medium_1603427278.jpg",
+            "https://cdn2.apstatic.com/photos/climb/116166209_medium_1544139626.jpg",
+            "https://cdn2.apstatic.com/photos/climb/106860997_medium_1494146441.jpg",
+            "https://cdn2.apstatic.com/photos/climb/111146270_medium_1494341296.jpg",
+            "https://cdn2.apstatic.com/photos/climb/106860992_medium_1494146441.jpg"
+        ],
+        "id": "106702950"
+    },
+    {
+        "name": "Fugaku ",
+        "grade": "5.12d",
+        "type": "Sport",
+        "rating": 2.8,
+        "height": 65,
+        "firstAscent": "Ken Saitoh 1/26/20",
+        "description": "Right of Starry Night is this similar, but harder climb. Climb out the juggy roof similar to Starry Night, but you'll have to work a little harder through the bouldery finish to get to the chains. Be aware of loose rock as with all new routes. ",
+        "protection": "6 Bolts",
+        "location": "20 feet right of starry night. Also goes out the massive roof",
+        "areas": [
+            {
+                "id": "105868674",
+                "name": "Kentucky"
+            },
+            {
+                "id": "105841134",
+                "name": "Red River Gorge"
+            },
+            {
+                "id": "106585368",
+                "name": "Pendergrass Murray Recreational Preserve Pmrp"
+            },
+            {
+                "id": "106124262",
+                "name": "The Gallery"
+            }
+        ],
+        "imageUrls": [
+            "https://cdn2.apstatic.com/photos/climb/119034251_medium_1592097414.jpg",
+            "https://cdn2.apstatic.com/photos/climb/119034229_medium_1592097294.jpg"
+        ],
+        "id": "118297380"
+    },
+    {
+        "name": "Different Strokes ",
+        "grade": "5.11c",
+        "type": "Sport",
+        "rating": 3,
+        "height": 50,
+        "firstAscent": "Terry Kindred - 2001",
+        "description": "Climb the enjoyable face making use of side pulls and pinches the whole way up. Awesome route.",
+        "protection": "Six bolts, bolted anchors.",
+        "location": "Starts 30' right of Smack Dab, left of a chimney.",
+        "areas": [
+            {
+                "id": "105868674",
+                "name": "Kentucky"
+            },
+            {
+                "id": "105841134",
+                "name": "Red River Gorge"
+            },
+            {
+                "id": "106585368",
+                "name": "Pendergrass Murray Recreational Preserve Pmrp"
+            },
+            {
+                "id": "106124262",
+                "name": "The Gallery"
+            }
+        ],
+        "imageUrls": [
+            "https://cdn2.apstatic.com/photos/climb/119791512_medium_1603427278.jpg",
+            "https://cdn2.apstatic.com/photos/climb/116166209_medium_1544139626.jpg",
+            "https://cdn2.apstatic.com/photos/climb/106860997_medium_1494146441.jpg",
+            "https://cdn2.apstatic.com/photos/climb/111146270_medium_1494341296.jpg",
+            "https://cdn2.apstatic.com/photos/climb/106860992_medium_1494146441.jpg"
+        ],
+        "id": "106702950"
+    },
+    {
+        "name": "Fugaku ",
+        "grade": "5.12d",
+        "type": "Sport",
+        "rating": 2.8,
+        "height": 65,
+        "firstAscent": "Ken Saitoh 1/26/20",
+        "description": "Right of Starry Night is this similar, but harder climb. Climb out the juggy roof similar to Starry Night, but you'll have to work a little harder through the bouldery finish to get to the chains. Be aware of loose rock as with all new routes. ",
+        "protection": "6 Bolts",
+        "location": "20 feet right of starry night. Also goes out the massive roof",
+        "areas": [
+            {
+                "id": "105868674",
+                "name": "Kentucky"
+            },
+            {
+                "id": "105841134",
+                "name": "Red River Gorge"
+            },
+            {
+                "id": "106585368",
+                "name": "Pendergrass Murray Recreational Preserve Pmrp"
+            },
+            {
+                "id": "106124262",
+                "name": "The Gallery"
+            }
+        ],
+        "imageUrls": [
+            "https://cdn2.apstatic.com/photos/climb/119034251_medium_1592097414.jpg",
+            "https://cdn2.apstatic.com/photos/climb/119034229_medium_1592097294.jpg"
+        ],
+        "id": "118297380"
+    }
+]''';
+      var json = jsonDecode(jsonString);
+
+      List<ClimbingRoute> routes = [];
+      for (int i = 0; i < json.length; i++) {
+        routes.add(ClimbingRoute.fromJson(json[i]));
+      }
+      return routes;
+    });
+  }
+}
