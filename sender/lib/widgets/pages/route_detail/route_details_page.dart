@@ -246,32 +246,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // const Spacer(flex: 1),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _selectedImageIdx++;
-                                      _selectedImageIdx = _selectedImageIdx % 2;
-                                      _imageController.jumpTo(
-                                        250,
-                                        // duration: Duration(milliseconds: 150),
-                                        // curve: Curves.easeIn,
-                                      );
-                                      // _imageController.animateToPage(
-                                      //   _selectedImageIdx,
-                                      //   duration: Duration(milliseconds: 150),
-                                      //   curve: Curves.easeIn,
-                                      // );
-                                    });
-                                  },
-                                  icon: const Icon(
-                                    Icons.plus_one,
-                                    size: 30,
-                                  ),
-                                ),
-                              ),
+                              const Spacer(flex: 1),
                               Expanded(
                                 flex: 4,
                                 child: Text(
@@ -459,7 +434,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       ),
       onPressed: onPress,
       child: Text(
-        'Add to Send Stack',
+        text,
         style: GoogleFonts.nunito(fontSize: 18),
       ),
     );
