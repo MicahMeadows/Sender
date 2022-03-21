@@ -2,6 +2,8 @@ import 'dart:math';
 import 'dart:ui' as ui;
 import 'dart:async';
 
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/common/constants/colors.dart';
@@ -29,6 +31,9 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   double _lastAboveAppBarDistanceFromTop = 0;
   double _lastBelowAppBarDistanceFromTop = 0;
 
+  Offset? startDragPos;
+  double initalScrollPos = 0;
+
   double get _statusHeight {
     return MediaQuery.of(context).viewPadding.top;
   }
@@ -37,11 +42,21 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
     return max(0, min(_lastAboveAppBarDistanceFromTop, _statusHeight));
   }
 
-  final ScrollController _scrollController = ScrollController();
+  final _scrollController = ScrollController();
+  final _imageController = PageController(initialPage: 0);
   bool _initialized = false;
+
+  late List<Image> images;
 
   @override
   void initState() {
+    images = widget.route.imageUrls.map((imageUrl) {
+      return Image.network(
+        imageUrl,
+        fit: BoxFit.fitWidth,
+      );
+    }).toList();
+
     _scrollController.addListener(() {
       setState(() {});
     });
@@ -51,13 +66,12 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    Image image = Image.network(
-      widget.route.imageUrls[_selectedImageIdx],
-      fit: BoxFit.fitWidth,
-    );
-
     Completer<ui.Image> completer = Completer<ui.Image>();
-    image.image.resolve(const ImageConfiguration()).addListener(
+    images[_selectedImageIdx]
+        .image
+        .resolve(const ImageConfiguration())
+        .addListener(
+      // image.image.resolve(const ImageConfiguration()).addListener(
       ImageStreamListener(
         (ImageInfo image, bool _) {
           completer.complete(image.image);
@@ -97,14 +111,14 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           // print('img height: $imgHeight');
           return Scaffold(
             backgroundColor: Colors.white,
-            extendBodyBehindAppBar: true,
+            // extendBodyBehindAppBar: false,
             body: Stack(
-              clipBehavior: Clip.none,
+              // clipBehavior: Clip.none,
               children: [
                 Positioned(
                   width: MediaQuery.of(context).size.height,
                   height: MediaQuery.of(context).size.height,
-                  child: image,
+                  child: images[_selectedImageIdx],
                 ),
                 Positioned(
                   width: MediaQuery.of(context).size.height,
@@ -118,7 +132,28 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                 ),
                 Positioned(
                   child: SizedBox(
-                    child: image,
+                    // child: CarouselSlider.builder(
+                    //   itemCount: widget.route.imageUrls.length,
+                    //   itemBuilder: (ctx, itemIdx, pageIdx) {
+                    //     return images[itemIdx];
+                    //   },
+                    //   options: CarouselOptions(),
+                    // ),
+                    // child: images[_selectedImageIdx],
+                    child: PageView(
+                      onPageChanged: (idx) {
+                        setState(() {
+                          _selectedImageIdx = idx;
+                        });
+                      },
+                      children: images,
+                      controller: _imageController,
+                    ),
+                    // child: TextButton(
+                    //     child: Text("testo"),
+                    //     onPressed: () {
+                    //       print('tapped');
+                    //     },),
                     width: double.infinity,
                     height: max(0, _lastBelowAppBarDistanceFromTop),
                   ),
@@ -140,6 +175,41 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                           height: MediaQuery.of(context).size.height -
                               (_lastBelowAppBarDistanceFromTop -
                                   _lastAboveAppBarDistanceFromTop),
+                          // child: PageView(
+                          //   children: images,
+                          //   controller: _imageController,
+                          // ),
+                          child: GestureDetector(
+                            onHorizontalDragStart: (details) {
+                              startDragPos = details.localPosition;
+                            },
+                            onHorizontalDragUpdate: (details) {
+                              print('offset: $initalScrollPos');
+                              if (startDragPos != null) {
+                                var dragChangeX =
+                                    startDragPos!.dx - details.localPosition.dx;
+
+                                _imageController
+                                    .jumpTo(initalScrollPos + dragChangeX);
+                              }
+                            },
+                            onHorizontalDragEnd: (details) {
+                              initalScrollPos =
+                                  _imageController.page!.roundToDouble() *
+                                      MediaQuery.of(context).size.width;
+                              startDragPos = null;
+                            },
+                            onHorizontalDragCancel: () {
+                              initalScrollPos =
+                                  _imageController.page!.roundToDouble() *
+                                      MediaQuery.of(context).size.width;
+                              startDragPos = null;
+                            },
+                          ),
+                          // child: Container(
+                          //   child: images[_selectedImageIdx],
+                          //   height: max(0, _lastBelowAppBarDistanceFromTop),
+                          // ),
                         ),
                       ),
                       SliverToBoxAdapter(
@@ -176,7 +246,32 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Spacer(flex: 1),
+                              // const Spacer(flex: 1),
+                              Expanded(
+                                flex: 1,
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _selectedImageIdx++;
+                                      _selectedImageIdx = _selectedImageIdx % 2;
+                                      _imageController.jumpTo(
+                                        250,
+                                        // duration: Duration(milliseconds: 150),
+                                        // curve: Curves.easeIn,
+                                      );
+                                      // _imageController.animateToPage(
+                                      //   _selectedImageIdx,
+                                      //   duration: Duration(milliseconds: 150),
+                                      //   curve: Curves.easeIn,
+                                      // );
+                                    });
+                                  },
+                                  icon: const Icon(
+                                    Icons.plus_one,
+                                    size: 30,
+                                  ),
+                                ),
+                              ),
                               Expanded(
                                 flex: 4,
                                 child: Text(
@@ -273,9 +368,17 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           _buildDetailHeader('Location'),
           _buildTextCard(widget.route.location),
           const SizedBox(height: 30),
-          _buildBlueButton('Add to Send Stack', () {}),
+          _buildBlueButton('Add to Send Stack', () {
+            setState(() {
+              // _selectedImageIdx--;
+            });
+          }),
           const SizedBox(height: 3),
-          _buildBlueButton('Add to Todo List', () {}),
+          _buildBlueButton('Add to Todo List', () {
+            setState(() {
+              // _selectedImageIdx++;
+            });
+          }),
         ],
       ),
     );
@@ -354,7 +457,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
         backgroundColor: MaterialStateProperty.all<Color?>(primaryColor),
         foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
       ),
-      onPressed: () {},
+      onPressed: onPress,
       child: Text(
         'Add to Send Stack',
         style: GoogleFonts.nunito(fontSize: 18),
