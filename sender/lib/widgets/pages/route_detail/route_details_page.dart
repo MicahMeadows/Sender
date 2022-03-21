@@ -44,8 +44,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   void initState() {
     _scrollController.addListener(() {
       setState(() {});
-      var scrollPos = _scrollController.position;
-      print('scroll pos: $scrollPos');
     });
 
     super.initState();
@@ -82,11 +80,11 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
 
             _lastAboveAppBarDistanceFromTop =
                 aboveAppBarRenderObj.localToGlobal(Offset.zero).dy;
-            print('last above dist: $_lastAboveAppBarDistanceFromTop');
+            // print('last above dist: $_lastAboveAppBarDistanceFromTop');
 
             _lastBelowAppBarDistanceFromTop =
                 belowAppBarRenderObj.localToGlobal(Offset.zero).dy;
-            print('last below dist: $_lastBelowAppBarDistanceFromTop');
+            // print('last below dist: $_lastBelowAppBarDistanceFromTop');
 
             if (!_initialized) {
               _scrollController
@@ -96,7 +94,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             _initialized = true;
           });
           var imgHeight = snapshot.data!.height;
-          print('img height: $imgHeight');
+          // print('img height: $imgHeight');
           return Scaffold(
             backgroundColor: Colors.white,
             extendBodyBehindAppBar: true,
@@ -222,20 +220,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                       SliverToBoxAdapter(
                         child: _buildRouteDetailsWidget(context),
                       ),
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return Container(
-                              color: index.isOdd ? Colors.white : Colors.green,
-                              height: 100.0,
-                              child: Center(
-                                child: Text('$index', textScaleFactor: 5),
-                              ),
-                            );
-                          },
-                          childCount: 20,
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -244,64 +228,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           );
         }
       },
-    );
-  }
-
-  Widget _buildDetailHeader(String text) {
-    return Container(
-      width: double.infinity,
-      color: const Color(0xfff4f4f4),
-      alignment: Alignment.centerLeft,
-      margin: EdgeInsets.only(bottom: 5),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        child: Text(
-          'Details',
-          // style: GoogleFonts.nunito(
-          //   fontSize: 16,
-          // ),
-          style: _appTextTheme.bodyText1,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDetailCard(String title, String content) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        boxShadow: [
-          BoxShadow(
-            offset: Offset.zero,
-            blurRadius: 4,
-            color: Colors.black26,
-          ),
-        ],
-      ),
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              // style: GoogleFonts.nunito(fontSize: 16),
-              style: _appTextTheme.bodyText1,
-            ),
-            const SizedBox(width: 15),
-            Expanded(
-              child: Text(
-                content,
-                style: _appTextTheme.bodyText1,
-                textAlign: ui.TextAlign.end,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -328,10 +254,110 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           ),
           const SizedBox(height: 5),
           _buildDetailHeader('Details'),
-          _buildDetailCard('Type:', widget.route.type),
-          _buildDetailCard('Height:', widget.route.height.toString()),
-          _buildDetailCard('Protection:', widget.route.protection),
+          _buildLabledCard('Type:', widget.route.type),
+          _buildLabledCard('Height:', widget.route.height.toString()),
+          _buildLabledCard('Protection:', widget.route.protection),
+          _buildLabledCard('Grade:', widget.route.grade),
+          _buildLabledCard('First Ascent:', widget.route.firstAscent),
+          const SizedBox(height: 23),
+          _buildDetailHeader('Area'),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              children: [
+                for (var area in widget.route.areas) _buildTextCard(area.name),
+              ],
+            ),
+          ),
+          const SizedBox(height: 23),
+          _buildDetailHeader('Location'),
+          _buildTextCard(widget.route.location),
+          const SizedBox(height: 30),
+          _buildBlueButton('Add to Send Stack', () {}),
+          const SizedBox(height: 3),
+          _buildBlueButton('Add to Todo List', () {}),
         ],
+      ),
+    );
+  }
+
+  Widget _buildDetailHeader(String text) {
+    return Container(
+      width: double.infinity,
+      color: const Color(0xfff4f4f4),
+      alignment: Alignment.centerLeft,
+      margin: const EdgeInsets.only(bottom: 5),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: Text(
+          text,
+          style: _appTextTheme.bodyText1,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLabledCard(String title, String content) {
+    return _buildDetailCard(Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: _appTextTheme.bodyText1,
+        ),
+        const SizedBox(width: 15),
+        Expanded(
+          child: Text(
+            content,
+            style: _appTextTheme.bodyText1,
+            textAlign: ui.TextAlign.end,
+          ),
+        ),
+      ],
+    ));
+  }
+
+  Widget _buildTextCard(String text) {
+    return _buildDetailCard(
+      Text(
+        text,
+        style: _appTextTheme.bodyText1,
+      ),
+    );
+  }
+
+  Widget _buildDetailCard(Widget child) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset.zero,
+            blurRadius: 4,
+            color: Colors.black26,
+          ),
+        ],
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+        child: child,
+      ),
+    );
+  }
+
+  Widget _buildBlueButton(String text, void Function() onPress) {
+    return TextButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color?>(primaryColor),
+        foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
+      ),
+      onPressed: () {},
+      child: Text(
+        'Add to Send Stack',
+        style: GoogleFonts.nunito(fontSize: 18),
       ),
     );
   }
