@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-Color primaryBackground = const Color(0xFF00A3FF);
+Color primaryColor = const Color(0xFF00A3FF);
 Color ratingStarColor = const Color(0xffFFFCAB);
 
 Color cardGradientTop = const Color.fromRGBO(0, 163, 255, .65);

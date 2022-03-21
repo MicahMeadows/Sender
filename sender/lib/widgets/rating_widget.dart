@@ -4,8 +4,15 @@ import 'package:sender/common/constants/colors.dart';
 class RatingWidget extends StatelessWidget {
   final double height;
   final double rating;
-  const RatingWidget({required this.rating, this.height = 18, Key? key})
-      : super(key: key);
+  late Color color;
+  RatingWidget({
+    required this.rating,
+    Color? color,
+    this.height = 18,
+    Key? key,
+  }) : super(key: key) {
+    this.color = color ?? ratingStarColor;
+  }
 
   int get _numFullStars {
     return rating.floor();
@@ -22,17 +29,19 @@ class RatingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        for (int i = 0; i < _numFullStars; i++)
-          Icon(Icons.star_rounded, color: ratingStarColor, size: height),
-        if (_hasHalfStar)
-          Icon(
-            Icons.star_half_rounded,
-            color: ratingStarColor,
-            size: height,
-          ),
-      ],
+    return IntrinsicWidth(
+      child: Row(
+        children: [
+          for (int i = 0; i < _numFullStars; i++)
+            Icon(Icons.star_rounded, color: color, size: height),
+          if (_hasHalfStar)
+            Icon(
+              Icons.star_half_rounded,
+              color: color,
+              size: height,
+            ),
+        ],
+      ),
     );
   }
 }

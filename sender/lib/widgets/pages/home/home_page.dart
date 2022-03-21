@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<RouteQueueCubit, RouteQueueState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: primaryBackground,
+          backgroundColor: primaryColor,
           body: Column(
             children: [
               Container(

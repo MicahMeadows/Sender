@@ -5,6 +5,7 @@ import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/repository/queue_route_repository/api_queue_route_repository.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 import 'package:sender/widgets/pages/home/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository();
 
@@ -34,10 +35,15 @@ class MyApp extends StatelessWidget {
           title: 'Sender',
           theme: ThemeData(
             primarySwatch: Colors.blue,
-            backgroundColor: primaryBackground,
-            scaffoldBackgroundColor: primaryBackground,
-            canvasColor: primaryBackground,
+            backgroundColor: primaryColor,
+            scaffoldBackgroundColor: primaryColor,
+            canvasColor: primaryColor,
             fontFamily: 'Nunito',
+            textTheme: TextTheme(
+              bodyText1: GoogleFonts.nunito(
+                fontSize: 16,
+              ),
+            ),
           ),
           routes: {
             '/': (context) => const HomePage(),

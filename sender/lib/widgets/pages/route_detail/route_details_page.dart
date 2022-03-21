@@ -1,10 +1,12 @@
 import 'dart:math';
-import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/models/climbing_route.dart';
+import 'package:sender/widgets/rating_widget.dart';
 
 class RouteDetailsPage extends StatefulWidget {
   static const String routeName = '/route-details';
@@ -19,8 +21,9 @@ class RouteDetailsPage extends StatefulWidget {
 class _RouteDetailsPageState extends State<RouteDetailsPage> {
   final GlobalKey _aboveAppBarKey = GlobalKey();
   final GlobalKey _belowAppBarKey = GlobalKey();
+  late final _appTextTheme = Theme.of(context).textTheme;
 
-  int _selectedImageIdx = 1;
+  int _selectedImageIdx = 0;
 
   // double lastDistanceFromHeader = 0;
   double _lastAboveAppBarDistanceFromTop = 0;
@@ -101,9 +104,10 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
               clipBehavior: Clip.none,
               children: [
                 Positioned(
-                    width: MediaQuery.of(context).size.height,
-                    height: MediaQuery.of(context).size.height,
-                    child: image),
+                  width: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height,
+                  child: image,
+                ),
                 Positioned(
                   width: MediaQuery.of(context).size.height,
                   height: MediaQuery.of(context).size.height,
@@ -115,18 +119,14 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                   ),
                 ),
                 Positioned(
-                  // child: Container(
-                  //   child: image,
-                  //   height: 250,
-                  // ),
-                  child: Container(
+                  child: SizedBox(
                     child: image,
+                    width: double.infinity,
                     height: max(0, _lastBelowAppBarDistanceFromTop),
                   ),
                   right: 0,
                   left: 0,
                   top: 0,
-                  // top: -(.5 * (image.height ?? 0)),
                 ),
                 Positioned.fill(
                   // top: -_statusHeight,
@@ -151,7 +151,9 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                         ),
                       ),
                       SliverAppBar(
-                        elevation: 0,
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        elevation: 2,
                         pinned: true,
                         automaticallyImplyLeading: false,
                         shape: const RoundedRectangleBorder(
@@ -171,18 +173,44 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                           return heightSize;
                         }(),
                         flexibleSpace: FlexibleSpaceBar(
+                          titlePadding: EdgeInsets.zero,
                           centerTitle: true,
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Spacer(),
-                              Expanded(child: Text(widget.route.name)),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.close),
+                              const Spacer(flex: 1),
+                              Expanded(
+                                flex: 4,
+                                child: Text(
+                                  widget.route.name,
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.nunito(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  icon: const Icon(
+                                    Icons.close_rounded,
+                                    size: 30,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Container(
+                          height: 10,
+                          color: Colors.white,
                         ),
                       ),
                       SliverToBoxAdapter(
@@ -190,6 +218,9 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                           height: 0,
                           key: _belowAppBarKey,
                         ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: _buildRouteDetailsWidget(context),
                       ),
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
@@ -213,6 +244,95 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           );
         }
       },
+    );
+  }
+
+  Widget _buildDetailHeader(String text) {
+    return Container(
+      width: double.infinity,
+      color: const Color(0xfff4f4f4),
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(bottom: 5),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: Text(
+          'Details',
+          // style: GoogleFonts.nunito(
+          //   fontSize: 16,
+          // ),
+          style: _appTextTheme.bodyText1,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailCard(String title, String content) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset.zero,
+            blurRadius: 4,
+            color: Colors.black26,
+          ),
+        ],
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              // style: GoogleFonts.nunito(fontSize: 16),
+              style: _appTextTheme.bodyText1,
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Text(
+                content,
+                style: _appTextTheme.bodyText1,
+                textAlign: ui.TextAlign.end,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRouteDetailsWidget(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Text(
+              widget.route.description,
+              // style: GoogleFonts.nunito(
+              //   fontSize: 16,
+              // ),
+              style: _appTextTheme.bodyText1,
+            ),
+          ),
+          RatingWidget(
+            rating: widget.route.rating,
+            height: 25,
+            color: primaryColor,
+          ),
+          const SizedBox(height: 5),
+          _buildDetailHeader('Details'),
+          _buildDetailCard('Type:', widget.route.type),
+          _buildDetailCard('Height:', widget.route.height.toString()),
+          _buildDetailCard('Protection:', widget.route.protection),
+        ],
+      ),
     );
   }
 }
