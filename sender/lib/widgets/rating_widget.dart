@@ -4,7 +4,7 @@ import 'package:sender/common/constants/colors.dart';
 class RatingWidget extends StatelessWidget {
   final double height;
   final double rating;
-  late Color color;
+  late final Color color;
   RatingWidget({
     required this.rating,
     Color? color,

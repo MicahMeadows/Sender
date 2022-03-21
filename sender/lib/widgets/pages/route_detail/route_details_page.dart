@@ -2,8 +2,6 @@ import 'dart:math';
 import 'dart:ui' as ui;
 import 'dart:async';
 
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/common/constants/colors.dart';
@@ -84,7 +82,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       future: completer.future,
       builder: (context, AsyncSnapshot<ui.Image> snapshot) {
         if (!snapshot.hasData) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else {
           WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
             RenderBox aboveAppBarRenderObj =
@@ -107,7 +105,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
 
             _initialized = true;
           });
-          var imgHeight = snapshot.data!.height;
           // print('img height: $imgHeight');
           return Scaffold(
             backgroundColor: Colors.white,
@@ -132,14 +129,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                 ),
                 Positioned(
                   child: SizedBox(
-                    // child: CarouselSlider.builder(
-                    //   itemCount: widget.route.imageUrls.length,
-                    //   itemBuilder: (ctx, itemIdx, pageIdx) {
-                    //     return images[itemIdx];
-                    //   },
-                    //   options: CarouselOptions(),
-                    // ),
-                    // child: images[_selectedImageIdx],
                     child: PageView(
                       onPageChanged: (idx) {
                         setState(() {
@@ -149,11 +138,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                       children: images,
                       controller: _imageController,
                     ),
-                    // child: TextButton(
-                    //     child: Text("testo"),
-                    //     onPressed: () {
-                    //       print('tapped');
-                    //     },),
                     width: double.infinity,
                     height: max(0, _lastBelowAppBarDistanceFromTop),
                   ),
@@ -170,21 +154,16 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                     controller: _scrollController,
                     slivers: [
                       SliverToBoxAdapter(
-                        child: Container(
+                        child: SizedBox(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height -
                               (_lastBelowAppBarDistanceFromTop -
                                   _lastAboveAppBarDistanceFromTop),
-                          // child: PageView(
-                          //   children: images,
-                          //   controller: _imageController,
-                          // ),
                           child: GestureDetector(
                             onHorizontalDragStart: (details) {
                               startDragPos = details.localPosition;
                             },
                             onHorizontalDragUpdate: (details) {
-                              print('offset: $initalScrollPos');
                               if (startDragPos != null) {
                                 var dragChangeX =
                                     startDragPos!.dx - details.localPosition.dx;
