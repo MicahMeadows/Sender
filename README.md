@@ -5,7 +5,7 @@
 
 ---
 
-![Home page design](https://i.imgur.com/2x0e5y7.png)
+![Home page design](https://i.imgur.com/KdVyB7h.png)
 ![Details design](https://i.imgur.com/GqW2HyS.png)
 ![List pages](https://i.imgur.com/adlnTny.png)
 
