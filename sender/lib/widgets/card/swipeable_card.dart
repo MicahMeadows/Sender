@@ -3,6 +3,7 @@ import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/breadcrumbs.dart';
+import 'package:sender/widgets/knot_progress_indicator.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 import 'package:sender/widgets/rating_widget.dart';
 
@@ -56,6 +57,12 @@ class _SwipableCardState extends State<SwipeableCard> {
       _routeImages.add(
         Image.network(
           imageUrl,
+          loadingBuilder: (ctx, widget, progress) {
+            if (progress == null) {
+              return widget;
+            }
+            return const Center(child: KnotProgressIndicator());
+          },
           fit: BoxFit.cover,
         ),
       );

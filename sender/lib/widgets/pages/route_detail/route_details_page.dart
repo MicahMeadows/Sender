@@ -26,11 +26,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
 
   int _selectedImageIdx = 0;
 
-  // double lastDistanceFromHeader = 0;
-  // late final double _initialImageSectionHeight = 0;
   late final _initialImageSectionHeight =
-      MediaQuery.of(context).size.height * .55;
-  // final _initialImageSectionHeight = 100.0;
+      MediaQuery.of(context).size.height * .5;
   double _lastAboveAppBarDistanceFromTop = 0;
   double _lastBelowAppBarDistanceFromTop = 0;
 
@@ -165,7 +162,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                   top: 0,
                 ),
                 Positioned.fill(
-                  // top: -_statusHeight,
                   right: 0,
                   left: 0,
                   bottom: 0,
