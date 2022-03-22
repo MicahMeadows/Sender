@@ -6,8 +6,8 @@
 ---
 
 ![Home page design](https://i.imgur.com/2x0e5y7.png)
-![Details design](https://i.imgur.com/MJ6b2za.png)
-![List pages](https://i.imgur.com/Y1nX2CF.png)
+![Details design](https://i.imgur.com/GqW2HyS.png)
+![List pages](https://i.imgur.com/adlnTny.png)
 
 ---
 
@@ -34,7 +34,7 @@ The goal for this app is for me to complete a full stack project. And build an a
 
 --- 
 
-## - Technologoies:
+## - Technologies:
 - Frontend: Flutter
 - Backend: Node.js (API), Puppeteer (Scraping), SQL Server (Database)
 - Design: Figma (Design), Rive (Animation)
