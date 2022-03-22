@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/breadcrumbs.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
@@ -94,18 +93,6 @@ class _SwipableCardState extends State<SwipeableCard> {
             }
           },
           child: Container(
-            // padding: const EdgeInsets.all(6),
-            // decoration: BoxDecoration(
-            //   gradient: LinearGradient(
-            //     colors: [
-            //       cardGradientTop,
-            //       cardGradientBottom,
-            //     ],
-            //     begin: Alignment.topCenter,
-            //     end: Alignment.bottomCenter,
-            //   ),
-            //   borderRadius: const BorderRadius.all(Radius.circular(35)),
-            // ),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(30)),
               child: Stack(

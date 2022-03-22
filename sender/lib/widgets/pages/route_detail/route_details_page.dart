@@ -37,14 +37,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   Offset? startDragPos;
   double initalScrollPos = 0;
 
-  double get _statusHeight {
-    return MediaQuery.of(context).viewPadding.top;
-  }
-
-  double get _lastDistanceFromHeader {
-    return max(0, min(_lastAboveAppBarDistanceFromTop, _statusHeight));
-  }
-
   final _scrollController = ScrollController();
   final _imageController = PageController(initialPage: 0);
   bool _initialized = false;
@@ -190,9 +182,11 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                             onTapDown: (details) {
                               var tapPosX = details.globalPosition.dx;
                               const buttonScaler = .3;
-                              const pageFlipDuration =
-                                  const Duration(milliseconds: 250);
-                              const pageFlipCurve = Curves.easeIn;
+                              const pageFlipDuration = Duration(
+                                milliseconds: 200,
+                              );
+                              const pageFlipCurve =
+                                  Curves.fastLinearToSlowEaseIn;
                               final screenWidth =
                                   MediaQuery.of(context).size.width;
                               final buttonSize = screenWidth * buttonScaler;
@@ -249,6 +243,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                       SliverAppBar(
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.black,
+                        toolbarHeight: 0,
                         elevation: 2,
                         pinned: true,
                         automaticallyImplyLeading: false,
@@ -257,21 +252,11 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                             top: Radius.circular(35),
                           ),
                         ),
-                        snap: false,
+                        snap: true,
                         floating: true,
-                        toolbarHeight: () {
-                          var heightSize =
-                              MediaQuery.of(context).viewPadding.top -
-                                  _lastDistanceFromHeader;
-                          if (!_initialized) {
-                            heightSize = 0;
-                          }
-                          return heightSize;
-                        }(),
-                        flexibleSpace: FlexibleSpaceBar(
-                          titlePadding: EdgeInsets.zero,
-                          centerTitle: true,
-                          title: Row(
+                        bottom: PreferredSize(
+                          preferredSize: const Size.fromHeight(50),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Spacer(flex: 1),
@@ -304,12 +289,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Container(
-                          height: 10,
-                          color: Colors.white,
                         ),
                       ),
                       SliverToBoxAdapter(

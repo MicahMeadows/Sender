@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:sender/common/networking/api_exception.dart';
 
 class ApiBaseHelper {
-  final String _baseUrl = 'http://10.0.2.2:8080/';
+  // final String _baseUrl = 'http://10.0.2.2:8080/';
+  final String _baseUrl = 'http://9aaa-157-89-160-33.ngrok.io/';
 
   Future<dynamic> get(String url) async {
     dynamic responseJson;

@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:sender/data/models/area.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
-import 'dart:io';
 
 class TestingQueueRouteRepository implements IQueueRouteRepository {
   @override
