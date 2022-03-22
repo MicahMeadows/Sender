@@ -94,18 +94,18 @@ class _SwipableCardState extends State<SwipeableCard> {
             }
           },
           child: Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  cardGradientTop,
-                  cardGradientBottom,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(35)),
-            ),
+            // padding: const EdgeInsets.all(6),
+            // decoration: BoxDecoration(
+            //   gradient: LinearGradient(
+            //     colors: [
+            //       cardGradientTop,
+            //       cardGradientBottom,
+            //     ],
+            //     begin: Alignment.topCenter,
+            //     end: Alignment.bottomCenter,
+            //   ),
+            //   borderRadius: const BorderRadius.all(Radius.circular(35)),
+            // ),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(30)),
               child: Stack(

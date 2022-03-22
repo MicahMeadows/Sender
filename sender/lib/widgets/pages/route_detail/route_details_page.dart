@@ -27,6 +27,10 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   int _selectedImageIdx = 0;
 
   // double lastDistanceFromHeader = 0;
+  // late final double _initialImageSectionHeight = 0;
+  late final _initialImageSectionHeight =
+      MediaQuery.of(context).size.height * .55;
+  // final _initialImageSectionHeight = 100.0;
   double _lastAboveAppBarDistanceFromTop = 0;
   double _lastBelowAppBarDistanceFromTop = 0;
 
@@ -100,9 +104,12 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             // print('last below dist: $_lastBelowAppBarDistanceFromTop');
 
             if (!_initialized) {
-              _scrollController
-                  .jumpTo(MediaQuery.of(context).size.height * .55);
+              // _scrollController
+              //     .jumpTo(MediaQuery.of(context).size.height * .55);
+              setState(() {});
+              _scrollController.jumpTo(_initialImageSectionHeight);
             }
+            setState(() {});
 
             _initialized = true;
           });
@@ -124,7 +131,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                   child: BackdropFilter(
                     filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Container(
-                      color: Colors.white.withOpacity(.05),
+                      color: Colors.black.withOpacity(.3),
                     ),
                   ),
                 ),

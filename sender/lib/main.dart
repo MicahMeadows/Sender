@@ -9,7 +9,7 @@ import 'package:sender/widgets/pages/home/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository();
-IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository();
+IQueueRouteRepository _queueRouteRepository = TestingQueueRouteRepository();
 
 void main() {
   runApp(const MyApp());
