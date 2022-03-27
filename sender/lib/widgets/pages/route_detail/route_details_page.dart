@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/models/climbing_route.dart';
-import 'package:sender/widgets/breadcrumbs.dart';
-import 'package:sender/widgets/rating_widget.dart';
+import 'package:sender/widgets/common/breadcrumbs.dart';
+import 'package:sender/widgets/common/rating_widget.dart';
 
 class RouteDetailsPage extends StatefulWidget {
   static const String routeName = '/route-details';

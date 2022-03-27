@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
+import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/card/card_vote.dart';
-import 'package:sender/widgets/knot_progress_indicator.dart';
+import 'package:sender/widgets/pages/home/no_results.dart';
+import 'package:sender/widgets/pages/home/queue_error.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -88,8 +90,8 @@ class _HomePageState extends State<HomePage> {
       return CardVote(routes: state.routes);
     }
     if (state is RouteQueueEmpty) {
-      return const Text('There were no routes to be loaded.');
+      return const NoQueueResults();
     }
-    return const Text('Error loading routes');
+    return const QueueError();
   }
 }
