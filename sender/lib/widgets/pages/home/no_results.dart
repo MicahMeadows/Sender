@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sender/common/constants/colors.dart';
+import 'package:sender/widgets/common/thick_button.dart';
 
 class NoQueueResults extends StatelessWidget {
   const NoQueueResults({Key? key}) : super(key: key);
@@ -30,31 +30,12 @@ class NoQueueResults extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 35),
-          Container(
-            height: 48,
-            width: 170,
-            child: Center(
-              child: Text(
-                'Edit Filters',
-                style: _appTextTheme.bodyText1,
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                width: 1,
-                color: primaryColor,
-              ),
-              borderRadius: BorderRadius.circular(17),
-              boxShadow: [
-                BoxShadow(
-                  color: primaryColor,
-                  blurRadius: 0,
-                  offset: const Offset(4, 4),
-                ),
-              ],
-            ),
-          ),
+          ThickButton(
+            text: 'Edit Filters',
+            onPressed: () {
+              print('edit filter pressed...');
+            },
+          )
         ],
       ),
     );
