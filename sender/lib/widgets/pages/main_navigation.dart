@@ -13,7 +13,7 @@ class MainNavigation extends StatefulWidget {
 }
 
 class _MainNavigationState extends State<MainNavigation> {
-  final _pageController = PageController(initialPage: 1);
+  final _pageController = PageController(initialPage: 0);
 
   ScrollPhysics get dynamicScrollPhysics {
     try {
@@ -97,7 +97,7 @@ class _MainNavigationState extends State<MainNavigation> {
             tapHome: () async {
               _pageController.animateToPage(
                 0,
-                duration: Duration(milliseconds: 150),
+                duration: const Duration(milliseconds: 150),
                 curve: Curves.easeIn,
               );
             },

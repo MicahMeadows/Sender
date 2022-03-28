@@ -5,6 +5,7 @@ import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/card/swipeable_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 
 class CardVote extends StatefulWidget {
   final List<ClimbingRoute> routes;
@@ -57,6 +58,16 @@ class _CardVoteState extends State<CardVote> {
                 padding: const EdgeInsets.all(8),
                 child: SwipeableCard(
                   offsetAngle: i == 0 ? _cardRotationAngle : 0,
+                  onSwipeDown: (_) {
+                    print('swipe down');
+                    Navigator.of(context).push(
+                      // MaterialPageRoute(
+                      //   builder: (context) =>
+                      //       RouteDetailsPage(route: widget.routes[i]),
+                      // ),
+                      _createDetailsRoute(i),
+                    );
+                  },
                   onSwipeLeft: (_) {
                     _queueCubit.declineRoute();
                     _resetSwipePosition();
@@ -80,6 +91,26 @@ class _CardVoteState extends State<CardVote> {
             ),
         ],
       ),
+    );
+  }
+
+  Route _createDetailsRoute(int idx) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          RouteDetailsPage(route: widget.routes[idx]),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, -1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
     );
   }
 }
