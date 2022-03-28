@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 
 class NoQueueResults extends StatelessWidget {
@@ -34,6 +36,7 @@ class NoQueueResults extends StatelessWidget {
             text: 'Edit Filters',
             onPressed: () {
               print('edit filter pressed...');
+              context.read<RouteQueueCubit>().loadRoutes();
             },
           )
         ],

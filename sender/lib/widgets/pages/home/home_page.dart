@@ -6,6 +6,7 @@ import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/card/card_vote.dart';
 import 'package:sender/widgets/pages/home/no_results.dart';
+import 'package:sender/widgets/pages/home/queue_error.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -91,6 +92,6 @@ class _HomePageState extends State<HomePage> {
     if (state is RouteQueueEmpty) {
       return const NoQueueResults();
     }
-    return const NoQueueResults();
+    return const QueueError();
   }
 }

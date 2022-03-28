@@ -24,7 +24,7 @@ class ThickButton extends StatelessWidget {
         width: 170,
         child: Center(
           child: Text(
-            'Edit Filters',
+            text,
             style: _appTextTheme.bodyText1,
           ),
         ),
@@ -37,7 +37,7 @@ class ThickButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(17),
           boxShadow: [
             BoxShadow(
-              color: primaryColor,
+              color: color,
               blurRadius: 0,
               offset: const Offset(4, 4),
             ),

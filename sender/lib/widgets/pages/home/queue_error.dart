@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sender/common/constants/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
+import 'package:sender/widgets/common/thick_button.dart';
 
 class QueueError extends StatelessWidget {
   const QueueError({Key? key}) : super(key: key);
@@ -23,31 +25,12 @@ class QueueError extends StatelessWidget {
             style: _appTextTheme.bodyText1?.copyWith(fontSize: 18),
           ),
           const SizedBox(height: 35),
-          Container(
-            height: 48,
-            width: 170,
-            child: Center(
-              child: Text(
-                'Reload',
-                style: _appTextTheme.bodyText1,
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                width: 1,
-                color: primaryColor,
-              ),
-              borderRadius: BorderRadius.circular(17),
-              boxShadow: [
-                BoxShadow(
-                  color: primaryColor,
-                  blurRadius: 0,
-                  offset: const Offset(4, 4),
-                ),
-              ],
-            ),
-          ),
+          ThickButton(
+            text: 'Reload',
+            onPressed: () {
+              context.read<RouteQueueCubit>().loadRoutes();
+            },
+          )
         ],
       ),
     );

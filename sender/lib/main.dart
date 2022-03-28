@@ -45,10 +45,9 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          routes: {
-            '/': (context) => const HomePage(),
-            // RouteDetailsPage.routeName: (context) => const RouteDetailsPage(),
-          },
+          initialRoute: '/',
+          home: const HomePage(),
+          routes: const {},
         ),
       ),
     );
