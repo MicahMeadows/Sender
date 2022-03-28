@@ -9,8 +9,13 @@ import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 
 class CardVote extends StatefulWidget {
   final List<ClimbingRoute> routes;
+  final void Function(List<ClimbingRoute> newRoutes)? onRoutesChanged;
 
-  const CardVote({required this.routes, Key? key}) : super(key: key);
+  const CardVote({
+    required this.routes,
+    this.onRoutesChanged,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CardVote> createState() => _CardVoteState();
@@ -47,50 +52,53 @@ class _CardVoteState extends State<CardVote> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          for (int i = widget.routes.length - 1; i >= 0; i--)
-            Positioned(
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.all(8),
-                child: SwipeableCard(
-                  offsetAngle: i == 0 ? _cardRotationAngle : 0,
-                  onSwipeDown: (_) {
-                    print('swipe down');
-                    Navigator.of(context).push(
-                      // MaterialPageRoute(
-                      //   builder: (context) =>
-                      //       RouteDetailsPage(route: widget.routes[i]),
-                      // ),
-                      _createDetailsRoute(i),
-                    );
-                  },
-                  onSwipeLeft: (_) {
-                    _queueCubit.declineRoute();
-                    _resetSwipePosition();
-                  },
-                  onSwipeRight: (_) {
-                    _queueCubit.declineRoute();
-                    _resetSwipePosition();
-                  },
-                  onPositionChanged: (details) {
-                    startPos ??= details.localPosition;
+    print('built...');
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        for (int i = widget.routes.length - 1; i >= 0; i--)
+          Positioned(
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              child: SwipeableCard(
+                offsetAngle: i == 0 ? _cardRotationAngle : 0,
+                onSwipeDown: (_) {
+                  _resetSwipePosition();
+                  Navigator.of(context)
+                      .push(
+                    _createDetailsRoute(i),
+                  )
+                      .then((value) {
                     setState(() {
-                      posFromStart = details.localPosition - startPos!;
+                      print('detail closed');
                     });
-                  },
-                  onSwipeCancel: (offset, details) {
-                    _resetSwipePosition();
-                  },
-                  route: widget.routes[i],
-                ),
+                  });
+                  widget.onRoutesChanged?.call(widget.routes);
+                },
+                onSwipeLeft: (_) {
+                  _queueCubit.declineRoute();
+                  _resetSwipePosition();
+                  widget.onRoutesChanged?.call(widget.routes);
+                },
+                onSwipeRight: (_) {
+                  _queueCubit.declineRoute();
+                  _resetSwipePosition();
+                  widget.onRoutesChanged?.call(widget.routes);
+                },
+                onPositionChanged: (details) {
+                  startPos ??= details.localPosition;
+                  setState(() {
+                    posFromStart = details.localPosition - startPos!;
+                  });
+                },
+                onSwipeCancel: (offset, details) {
+                  _resetSwipePosition();
+                },
+                route: widget.routes[i],
               ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 
@@ -99,9 +107,9 @@ class _CardVoteState extends State<CardVote> {
       pageBuilder: (context, animation, secondaryAnimation) =>
           RouteDetailsPage(route: widget.routes[idx]),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, -1.0);
+        const begin = Offset(0, -1);
         const end = Offset.zero;
-        const curve = Curves.ease;
+        const curve = Curves.easeIn;
 
         var tween =
             Tween(begin: begin, end: end).chain(CurveTween(curve: curve));

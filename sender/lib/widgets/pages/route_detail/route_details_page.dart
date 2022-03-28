@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/common/breadcrumbs.dart';
+import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 
 class RouteDetailsPage extends StatefulWidget {
@@ -76,7 +77,12 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       future: completer.future,
       builder: (context, AsyncSnapshot<ui.Image> snapshot) {
         if (!snapshot.hasData) {
-          return const CircularProgressIndicator();
+          return Container(
+            color: Colors.white,
+            child: const Center(
+              child: KnotProgressIndicator(),
+            ),
+          );
         } else {
           WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
             RenderBox aboveAppBarRenderObj =

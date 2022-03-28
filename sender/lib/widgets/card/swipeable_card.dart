@@ -85,6 +85,9 @@ class _SwipableCardState extends State<SwipeableCard> {
   @override
   Widget build(BuildContext context) {
     return Swipable(
+      onSwipeEnd: (_, __) {
+        setState(() {});
+      },
       animationCurve: Curves.easeInCubic,
       onSwipeCancel: widget.onSwipeCancel,
       onPositionChanged: widget.onPositionChanged,

@@ -6,9 +6,14 @@ import 'package:sender/widgets/card/card_vote.dart';
 import 'package:sender/widgets/pages/home/no_results.dart';
 import 'package:sender/widgets/pages/home/queue_error.dart';
 
-class HomeContent extends StatelessWidget {
+class HomeContent extends StatefulWidget {
   const HomeContent({Key? key}) : super(key: key);
 
+  @override
+  State<HomeContent> createState() => _HomeContentState();
+}
+
+class _HomeContentState extends State<HomeContent> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RouteQueueCubit, RouteQueueState>(
@@ -29,7 +34,13 @@ class HomeContent extends StatelessWidget {
       return const KnotProgressIndicator();
     }
     if (state is RouteQueueLoaded) {
-      return CardVote(routes: state.routes);
+      return CardVote(
+        key: UniqueKey(),
+        routes: state.routes,
+        onRoutesChanged: (routes) {
+          setState(() {});
+        },
+      );
     }
     if (state is RouteQueueEmpty) {
       return const NoQueueResults();

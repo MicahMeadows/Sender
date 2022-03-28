@@ -104,21 +104,21 @@ class _MainNavigationState extends State<MainNavigation> {
             tapTodo: () async {
               await _pageController.animateToPage(
                 1,
-                duration: Duration(milliseconds: 150),
+                duration: const Duration(milliseconds: 150),
                 curve: Curves.easeIn,
               );
             },
             tapProfile: () async {
               await _pageController.animateToPage(
                 2,
-                duration: Duration(milliseconds: 150),
+                duration: const Duration(milliseconds: 150),
                 curve: Curves.easeIn,
               );
             },
             tapSettings: () async {
               _pageController.animateToPage(
                 3,
-                duration: Duration(milliseconds: 150),
+                duration: const Duration(milliseconds: 150),
                 curve: Curves.easeIn,
               );
             },
