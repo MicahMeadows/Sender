@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
-import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
-import 'package:sender/widgets/card/card_vote.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
-import 'package:sender/widgets/pages/home/no_results.dart';
-import 'package:sender/widgets/pages/home/queue_error.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
@@ -18,6 +14,25 @@ class MainNavigation extends StatefulWidget {
 
 class _MainNavigationState extends State<MainNavigation> {
   final _pageController = PageController(initialPage: 1);
+
+  ScrollPhysics get dynamicScrollPhysics {
+    try {
+      if (_pageController.page! == 0) {
+        return const NeverScrollableScrollPhysics();
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return const AlwaysScrollableScrollPhysics();
+  }
+
+  @override
+  void initState() {
+    _pageController.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +69,7 @@ class _MainNavigationState extends State<MainNavigation> {
             child: Container(
               child: PageView(
                 controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: dynamicScrollPhysics,
                 children: const [
                   HomeContent(),
                   Center(child: Text("hello TODO")),
