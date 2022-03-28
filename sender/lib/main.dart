@@ -4,8 +4,9 @@ import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/repository/queue_route_repository/api_queue_route_repository.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
-import 'package:sender/widgets/pages/home/home_page.dart';
+import 'package:sender/widgets/pages/home/home_content.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sender/widgets/pages/main_navigation.dart';
 
 IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository();
 
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           initialRoute: '/',
-          home: const HomePage(),
+          home: const MainNavigation(),
           routes: const {},
         ),
       ),
