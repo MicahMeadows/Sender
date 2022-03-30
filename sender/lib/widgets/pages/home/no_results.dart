@@ -23,12 +23,12 @@ class NoQueueResults extends StatelessWidget {
           Text(
             'No results to be shown!',
             textAlign: TextAlign.center,
-            style: _appTextTheme.bodyText1?.copyWith(fontSize: 18),
+            style: _appTextTheme.bodySmall?.copyWith(fontSize: 18),
           ),
           const SizedBox(height: 15),
           Text(
             'Change your filters in order to see more results.',
-            style: _appTextTheme.bodyText1,
+            style: _appTextTheme.bodySmall,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 35),

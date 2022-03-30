@@ -52,7 +52,6 @@ class _CardVoteState extends State<CardVote> {
 
   @override
   Widget build(BuildContext context) {
-    print('built...');
     return Stack(
       clipBehavior: Clip.none,
       children: [

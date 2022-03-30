@@ -7,6 +7,7 @@ import 'package:sender/data/repository/queue_route_repository/i_queue_route_repo
 import 'package:sender/widgets/pages/home/home_content.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/widgets/pages/main_navigation.dart';
+import 'package:sender/widgets/pages/settings/settings_page.dart';
 
 IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository();
 
@@ -41,14 +42,16 @@ class MyApp extends StatelessWidget {
             canvasColor: primaryColor,
             fontFamily: 'Nunito',
             textTheme: TextTheme(
-              bodyText1: GoogleFonts.nunito(
-                fontSize: 16,
-              ),
+              bodySmall: GoogleFonts.nunito(fontSize: 16),
+              bodyMedium: GoogleFonts.nunito(fontSize: 18),
+              titleMedium: GoogleFonts.nunito(fontSize: 24),
             ),
           ),
           initialRoute: '/',
           home: const MainNavigation(),
-          routes: const {},
+          routes: {
+            SettingsPage.routeName: (context) => SettingsPage(),
+          },
         ),
       ),
     );

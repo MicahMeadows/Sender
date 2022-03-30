@@ -22,7 +22,7 @@ class QueueError extends StatelessWidget {
           Text(
             'Something went wrong!',
             textAlign: TextAlign.center,
-            style: _appTextTheme.bodyText1?.copyWith(fontSize: 18),
+            style: _appTextTheme.bodySmall?.copyWith(fontSize: 18),
           ),
           const SizedBox(height: 35),
           ThickButton(

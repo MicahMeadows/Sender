@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/models/climbing_route.dart';
+import 'package:sender/widgets/common/base_card.dart';
 import 'package:sender/widgets/common/breadcrumbs.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
+import 'package:sender/widgets/common/section_banner.dart';
 
 class RouteDetailsPage extends StatefulWidget {
   static const String routeName = '/route-details';
@@ -326,7 +328,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
               // style: GoogleFonts.nunito(
               //   fontSize: 16,
               // ),
-              style: _appTextTheme.bodyText1,
+              style: _appTextTheme.bodySmall,
             ),
           ),
           RatingWidget(
@@ -335,14 +337,14 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             color: primaryColor,
           ),
           const SizedBox(height: 5),
-          _buildDetailHeader('Details'),
+          const SectionBanner(text: 'Details'),
           _buildLabledCard('Type:', widget.route.type),
           _buildLabledCard('Height:', widget.route.height.toString()),
           _buildLabledCard('Protection:', widget.route.protection),
           _buildLabledCard('Grade:', widget.route.grade),
           _buildLabledCard('First Ascent:', widget.route.firstAscent),
           const SizedBox(height: 23),
-          _buildDetailHeader('Area'),
+          const SectionBanner(text: 'Area'),
           Align(
             alignment: Alignment.centerLeft,
             child: Wrap(
@@ -352,7 +354,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             ),
           ),
           const SizedBox(height: 23),
-          _buildDetailHeader('Location'),
+          const SectionBanner(text: 'Location'),
           _buildTextCard(widget.route.location),
           const SizedBox(height: 30),
           _buildBlueButton('Add to Send Stack', () {
@@ -371,36 +373,21 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
     );
   }
 
-  Widget _buildDetailHeader(String text) {
-    return Container(
-      width: double.infinity,
-      color: const Color(0xfff4f4f4),
-      alignment: Alignment.centerLeft,
-      margin: const EdgeInsets.only(bottom: 5),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        child: Text(
-          text,
-          style: _appTextTheme.bodyText1,
-        ),
-      ),
-    );
-  }
-
   Widget _buildLabledCard(String title, String content) {
-    return _buildDetailCard(Row(
+    return BaseCard(
+        child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
-          style: _appTextTheme.bodyText1,
+          style: _appTextTheme.bodySmall,
         ),
         const SizedBox(width: 15),
         Expanded(
           child: Text(
             content,
-            style: _appTextTheme.bodyText1,
+            style: _appTextTheme.bodySmall,
             textAlign: ui.TextAlign.end,
           ),
         ),
@@ -409,31 +396,10 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   }
 
   Widget _buildTextCard(String text) {
-    return _buildDetailCard(
-      Text(
+    return BaseCard(
+      child: Text(
         text,
-        style: _appTextTheme.bodyText1,
-      ),
-    );
-  }
-
-  Widget _buildDetailCard(Widget child) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        boxShadow: [
-          BoxShadow(
-            offset: Offset.zero,
-            blurRadius: 4,
-            color: Colors.black26,
-          ),
-        ],
-      ),
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        child: child,
+        style: _appTextTheme.bodySmall,
       ),
     );
   }

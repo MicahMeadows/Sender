@@ -4,6 +4,7 @@ import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
+import 'package:sender/widgets/pages/settings/settings_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
@@ -74,7 +75,6 @@ class _MainNavigationState extends State<MainNavigation> {
                   HomeContent(),
                   Center(child: Text("hello TODO")),
                   Center(child: Text("hello Profile")),
-                  Center(child: Text("hello Settings")),
                 ],
               ),
               decoration: const BoxDecoration(
@@ -115,12 +115,8 @@ class _MainNavigationState extends State<MainNavigation> {
                 curve: Curves.easeIn,
               );
             },
-            tapSettings: () async {
-              _pageController.animateToPage(
-                3,
-                duration: const Duration(milliseconds: 150),
-                curve: Curves.easeIn,
-              );
+            tapSettings: () {
+              Navigator.of(context).pushNamed(SettingsPage.routeName);
             },
           ),
         ],

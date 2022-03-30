@@ -25,7 +25,7 @@ class ThickButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: _appTextTheme.bodyText1,
+            style: _appTextTheme.bodySmall,
           ),
         ),
         decoration: BoxDecoration(
