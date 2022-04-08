@@ -2,32 +2,14 @@
 ### Do you ever day dream about finding the perfect match?
 ### Do you get sweaty hands thinking about putting your hands in their pockets?
 ### Well with sender. You dont have to anymore! Just swipe left and right to filter down climbing routes until you've found your next project!
-
+---
+### [API Repository](https://github.com/micahmeadows/sender-api)
+### [Figma Design](https://www.figma.com/file/7Z9lCK1SgUi1mQmRCTCgEa/Sender?node-id=0%3A1)
 ---
 
 <p align="center">
   <img src="./readme_images/home.png" alt="Home screen images"/>
 </p>
-<p align="center">
-  <img src="./readme_images/details.png" alt="Details images image"/>
-</p>
-<p align="center">
-  <img src="./readme_images/details2.png" alt="Details details images"/>
-</p>
-<p align="center">
-  <img src="./readme_images/error-screens.png" alt=""/>
-</p>
-<p align="center">
-  <img src="./readme_images/profile.png" alt=""/>
-</p>
-<p align="center">
-  <img src="./readme_images/todo.png" alt=""/>
-</p>
-<p align="center">
-  <img src="./readme_images/settings.png" alt=""/>
-</p>
-
----
 
 ## - Description:
 Sender is an app for finding rock climbing routes around the world that you might want to climb. You will be able to filter to choose what routes you want to see. Sport, Trad, Boulder, etc. As well as grade, location, and more.
@@ -56,3 +38,23 @@ The goal for this app is for me to complete a full stack project. And build an a
 - Frontend: Flutter
 - Backend: Node.js (API), Puppeteer (Scraping), SQL Server (Database)
 - Design: Figma (Design), Rive (Animation)
+
+## - More Images:
+<p align="center">
+  <img src="./readme_images/details.png" alt="Details images image"/>
+</p>
+<p align="center">
+  <img src="./readme_images/details2.png" alt="Details details images"/>
+</p>
+<p align="center">
+  <img src="./readme_images/error-screens.png" alt=""/>
+</p>
+<p align="center">
+  <img src="./readme_images/profile.png" alt=""/>
+</p>
+<p align="center">
+  <img src="./readme_images/todo.png" alt=""/>
+</p>
+<p align="center">
+  <img src="./readme_images/settings.png" alt=""/>
+</p>
