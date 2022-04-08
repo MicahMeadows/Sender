@@ -8,20 +8,6 @@
 <!-- ![Home page design](https://i.imgur.com/KdVyB7h.png)
 ![Details design](https://i.imgur.com/GqW2HyS.png)
 ![List pages](https://i.imgur.com/adlnTny.png) -->
-<!--
-https://ibb.co/nBM62J1
-https://ibb.co/zVHhR0t
-https://ibb.co/DYbD3jm
-https://ibb.co/1L2WWsH
-https://ibb.co/zR2mqZt
-https://ibb.co/C0H5MtW 
--->
-<p align="center"> <img width="460" height="300" src="https://ibb.co/nBM62J1"> </p>
-<p align="center"> <img width="460" height="300" src="https://ibb.co/zVHhR0t"> </p>
-<p align="center"> <img width="460" height="300" src="https://ibb.co/DYbD3jm"> </p>
-<p align="center"> <img width="460" height="300" src="https://ibb.co/1L2WWsH"> </p>
-<p align="center"> <img width="460" height="300" src="https://ibb.co/zR2mqZt"> </p>
-<p align="center"> <img width="460" height="300" src="https://ibb.co/C0H5MtW"> </p>
 
 ---
 
