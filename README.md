@@ -5,9 +5,27 @@
 
 ---
 
-<!-- ![Home page design](https://i.imgur.com/KdVyB7h.png)
-![Details design](https://i.imgur.com/GqW2HyS.png)
-![List pages](https://i.imgur.com/adlnTny.png) -->
+<p align="center">
+  <img src="./readme_images/home.png" alt="Home screen images"/>
+</p>
+<p align="center">
+  <img src="./readme_images/details.png" alt="Details images image"/>
+</p>
+<p align="center">
+  <img src="./readme_images/details2.png" alt="Details details images"/>
+</p>
+<p align="center">
+  <img src="./readme_images/error-screens.png" alt=""/>
+</p>
+<p align="center">
+  <img src="./readme_images/profile.png" alt=""/>
+</p>
+<p align="center">
+  <img src="./readme_images/todo.png" alt=""/>
+</p>
+<p align="center">
+  <img src="./readme_images/settings.png" alt=""/>
+</p>
 
 ---
 
