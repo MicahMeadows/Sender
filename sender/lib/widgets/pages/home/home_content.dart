@@ -18,10 +18,41 @@ class _HomeContentState extends State<HomeContent> {
   Widget build(BuildContext context) {
     return BlocBuilder<RouteQueueCubit, RouteQueueState>(
       builder: (context, state) {
-        return Stack(
+        return Column(
           children: [
-            Center(
-              child: _buildMainContent(state),
+            Container(
+              color: Colors.white,
+              height: MediaQuery.of(context).viewPadding.top,
+              width: double.infinity,
+            ),
+            Container(
+              padding: EdgeInsets.zero,
+              margin: EdgeInsets.zero,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  width: 0,
+                  color: Colors.white,
+                ),
+              ),
+              height: 5,
+            ),
+            Container(
+              color: Colors.white,
+              width: double.infinity,
+              child: Image.asset(
+                'assets/images/sender_header_logo.png',
+                height: 40,
+              ),
+            ),
+            Expanded(
+              child: Stack(
+                children: [
+                  Center(
+                    child: _buildMainContent(state),
+                  ),
+                ],
+              ),
             ),
           ],
         );
@@ -35,6 +66,7 @@ class _HomeContentState extends State<HomeContent> {
     }
     if (state is RouteQueueLoaded) {
       return CardVote(
+        queueCubit: context.read<RouteQueueCubit>(),
         key: UniqueKey(),
         routes: state.routes,
         onRoutesChanged: (routes) {
@@ -43,7 +75,9 @@ class _HomeContentState extends State<HomeContent> {
       );
     }
     if (state is RouteQueueEmpty) {
-      return const NoQueueResults();
+      return NoQueueResults(
+        queueCubit: context.read<RouteQueueCubit>(),
+      );
     }
     return const QueueError();
   }

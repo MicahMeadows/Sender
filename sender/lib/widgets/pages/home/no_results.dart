@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 
 class NoQueueResults extends StatelessWidget {
-  const NoQueueResults({Key? key}) : super(key: key);
+  final RouteQueueCubit queueCubit;
+  const NoQueueResults({required this.queueCubit, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,8 @@ class NoQueueResults extends StatelessWidget {
             text: 'Edit Filters',
             onPressed: () {
               print('edit filter pressed...');
-              context.read<RouteQueueCubit>().loadRoutes();
+              // context.read<RouteQueueCubit>().loadRoutes();
+              queueCubit.loadRoutes();
             },
           )
         ],

@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/card/swipeable_card.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 
 class CardVote extends StatefulWidget {
+  final RouteQueueCubit queueCubit;
   final List<ClimbingRoute> routes;
   final void Function(List<ClimbingRoute> newRoutes)? onRoutesChanged;
 
   const CardVote({
     required this.routes,
+    required this.queueCubit,
     this.onRoutesChanged,
     Key? key,
   }) : super(key: key);
@@ -25,7 +26,7 @@ class _CardVoteState extends State<CardVote> {
   Offset? startPos;
   Offset? posFromStart;
 
-  late final _queueCubit = context.read<RouteQueueCubit>();
+  // late final _queueCubit = context.read<RouteQueueCubit>();
 
   double get _cardRotationAngle {
     if (posFromStart == null) {
@@ -75,12 +76,12 @@ class _CardVoteState extends State<CardVote> {
                   widget.onRoutesChanged?.call(widget.routes);
                 },
                 onSwipeLeft: (_) {
-                  _queueCubit.declineRoute();
+                  widget.queueCubit.declineRoute();
                   _resetSwipePosition();
                   widget.onRoutesChanged?.call(widget.routes);
                 },
                 onSwipeRight: (_) {
-                  _queueCubit.declineRoute();
+                  widget.queueCubit.declineRoute();
                   _resetSwipePosition();
                   widget.onRoutesChanged?.call(widget.routes);
                 },
