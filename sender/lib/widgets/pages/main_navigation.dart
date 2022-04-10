@@ -14,16 +14,16 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   final _pageController = PageController(initialPage: 0);
 
-  ScrollPhysics get dynamicScrollPhysics {
-    try {
-      if (_pageController.page! == 0) {
-        return const NeverScrollableScrollPhysics();
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-    return const AlwaysScrollableScrollPhysics();
-  }
+  // ScrollPhysics get dynamicScrollPhysics {
+  //   try {
+  //     if (_pageController.page! == 0) {
+  //       return const NeverScrollableScrollPhysics();
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  //   return const AlwaysScrollableScrollPhysics();
+  // }
 
   @override
   void initState() {
@@ -65,7 +65,8 @@ class _MainNavigationState extends State<MainNavigation> {
                 ),
                 child: PageView(
                   controller: _pageController,
-                  physics: dynamicScrollPhysics,
+                  // physics: dynamicScrollPhysics,
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     HomeContent(),
                     Center(child: Text("hello TODO")),
