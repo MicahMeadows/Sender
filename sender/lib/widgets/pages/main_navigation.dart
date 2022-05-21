@@ -14,17 +14,6 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   final _pageController = PageController(initialPage: 0);
 
-  // ScrollPhysics get dynamicScrollPhysics {
-  //   try {
-  //     if (_pageController.page! == 0) {
-  //       return const NeverScrollableScrollPhysics();
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  //   return const AlwaysScrollableScrollPhysics();
-  // }
-
   @override
   void initState() {
     _pageController.addListener(() {
@@ -38,8 +27,6 @@ class _MainNavigationState extends State<MainNavigation> {
     return Scaffold(
       backgroundColor: primaryColor,
       body: Stack(
-        // clipBehavior: Clip.none,
-        // fit: StackFit.expand,
         children: [
           Positioned(
             top: 0,

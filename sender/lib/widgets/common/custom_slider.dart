@@ -68,7 +68,7 @@ class _CustomSliderState extends State<CustomSlider> {
               });
             }
           },
-          child: Container(
+          child: SizedBox(
             width: 450,
             height: 50,
             child: Stack(

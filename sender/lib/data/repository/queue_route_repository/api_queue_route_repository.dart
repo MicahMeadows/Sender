@@ -18,10 +18,9 @@ class ApiQueueRouteRepository extends IQueueRouteRepository {
 
       var response = await _api.post('routes/details', body: _body);
 
-      List<ClimbingRoute> routes = [];
-      for (int i = 0; i < response.length; i++) {
-        routes.add(ClimbingRoute.fromJson(response[i]));
-      }
+      var routes = (response as List<dynamic>)
+          .map((routeJson) => ClimbingRoute.fromJson(routeJson))
+          .toList();
 
       return routes;
     } catch (e) {
