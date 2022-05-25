@@ -33,8 +33,6 @@ class SwipeableCard extends StatefulWidget {
 }
 
 class _SwipableCardState extends State<SwipeableCard> {
-  late final _appTextTheme = Theme.of(context).textTheme;
-
   int _pageIndex = 0;
   final List<Image> _routeImages = [];
 
@@ -242,7 +240,7 @@ class _SwipableCardState extends State<SwipeableCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        Text(
+        const Text(
           'Description:',
           // style: GoogleFonts.nunito(
           //   color: Colors.white,

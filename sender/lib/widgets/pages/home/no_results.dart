@@ -35,7 +35,7 @@ class NoQueueResults extends StatelessWidget {
           ThickButton(
             text: 'Edit Filters',
             onPressed: () {
-              print('edit filter pressed...');
+              debugPrint('edit filter pressed...');
               // context.read<RouteQueueCubit>().loadRoutes();
               // queueCubit.loadRoutes();
             },

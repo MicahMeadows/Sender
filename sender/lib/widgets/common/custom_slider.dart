@@ -99,7 +99,7 @@ class _CustomSliderState extends State<CustomSlider> {
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                            offset: Offset(0, 0),
+                            offset: const Offset(0, 0),
                             blurRadius: 5,
                             color: Colors.black.withOpacity(.25),
                           ),

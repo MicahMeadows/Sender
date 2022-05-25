@@ -6,6 +6,8 @@ import 'package:sender/widgets/common/custom_slider.dart';
 class SettingsPageContent extends StatelessWidget {
   late final TextTheme _appTextTheme;
   static const routeName = '/settings';
+
+  // ignore: prefer_const_constructors_in_immutables
   SettingsPageContent({Key? key}) : super(key: key);
 
   @override
@@ -24,8 +26,8 @@ class SettingsPageContent extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(
-                  child: const CircleAvatar(
+                const Center(
+                  child: CircleAvatar(
                     backgroundColor: Colors.blue,
                   ),
                 ),
@@ -49,7 +51,7 @@ class SettingsPageContent extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 10),
-                Text(
+                const Text(
                   'Settings',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -61,7 +63,8 @@ class SettingsPageContent extends StatelessWidget {
                 const SectionBanner(text: 'Route Preferences'),
                 BaseCard(
                   width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 17, vertical: 8),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 17, vertical: 8),
                   child: Column(children: const [
                     Text('Minimum Rating'),
                     SizedBox(height: 18),
@@ -80,13 +83,14 @@ class SettingsPageContent extends StatelessWidget {
                 ),
                 BaseCard(
                   width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 17, vertical: 8),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 17, vertical: 8),
                   child: Column(
-                    children: [
+                    children: const [
                       Text('Sort By'),
-                      const SizedBox(height: 18),
+                      SizedBox(height: 18),
                       Placeholder(fallbackHeight: 25),
-                      const SizedBox(height: 18),
+                      SizedBox(height: 18),
                     ],
                   ),
                 ),
@@ -97,44 +101,44 @@ class SettingsPageContent extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 8.0),
                     child: IconButton(
                       onPressed: () {
-                        print('press add route pref');
+                        debugPrint('press add route pref');
                       },
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                     ),
                   ),
                 ),
                 _buildGradeSettingCard(
-                  icon: Icon(Icons.rocket_launch_sharp),
+                  icon: const Icon(Icons.rocket_launch_sharp),
                   title: 'Sport',
                   onDelete: () {
-                    print('delete sport');
+                    debugPrint('delete sport');
                   },
                 ),
                 _buildGradeSettingCard(
-                  icon: Icon(Icons.umbrella_outlined),
+                  icon: const Icon(Icons.umbrella_outlined),
                   title: 'Boulder',
                   onDelete: () {
-                    print('delete sport');
+                    debugPrint('delete sport');
                   },
                 ),
                 _buildGradeSettingCard(
-                  icon: Icon(Icons.umbrella_outlined),
+                  icon: const Icon(Icons.umbrella_outlined),
                   title: 'Boulder',
                   onDelete: () {
-                    print('delete sport');
+                    debugPrint('delete sport');
                   },
                 ),
                 _buildGradeSettingCard(
-                  icon: Icon(Icons.umbrella_outlined),
+                  icon: const Icon(Icons.umbrella_outlined),
                   title: 'Boulder',
                   onDelete: () {
-                    print('delete sport');
+                    debugPrint('delete sport');
                   },
                 ),
               ],
             ),
           ),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
         ],
       ),
     );

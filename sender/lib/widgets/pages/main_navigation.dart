@@ -5,7 +5,6 @@ import 'package:sender/data/cubits/cubit/route_settings_cubit.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
-import 'package:sender/widgets/pages/settings/settings_page.dart';
 import 'package:sender/widgets/pages/settings/temp_settings_page.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -60,7 +59,7 @@ class _MainNavigationState extends State<MainNavigation> {
     var currentPage = pageNumberFromNavState(_navigationCubit.state);
 
     if (currentPage == null) {
-      print('do error page stuff......');
+      debugPrint('do error page stuff......');
       return;
     }
 

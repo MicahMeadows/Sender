@@ -86,7 +86,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             ),
           );
         } else {
-          WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
             RenderBox aboveAppBarRenderObj =
                 _aboveAppBarKey.currentContext?.findRenderObject() as RenderBox;
             RenderBox belowAppBarRenderObj =

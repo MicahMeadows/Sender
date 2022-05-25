@@ -46,7 +46,7 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
         sort1Controller.text = settings.sort1;
         sort2Controller.text = settings.sort2;
       },
-      orElse: () => print('fail'),
+      orElse: () => debugPrint('fail'),
     );
   }
 
@@ -77,7 +77,7 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
           color: Colors.green,
           child: ListView(
             children: [
-              Text('Area Id'),
+              const Text('Area Id'),
               TextField(
                 onChanged: (val) {
                   setState(() {
@@ -85,19 +85,19 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
                   });
                 },
               ),
-              Text('Min Grade'),
+              const Text('Min Grade'),
               TextField(onChanged: (val) {
                 setState(() {
                   minGradeController.text = val;
                 });
               }),
-              Text('Max Grade'),
+              const Text('Max Grade'),
               TextField(onChanged: (val) {
                 setState(() {
                   maxGradeController.text = val;
                 });
               }),
-              Text('Enable Trad'),
+              const Text('Enable Trad'),
               Switch(
                 value: showTradCheck,
                 onChanged: (val) {
@@ -106,7 +106,7 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
                   });
                 },
               ),
-              Text('Enable Sport'),
+              const Text('Enable Sport'),
               Switch(
                 value: showSportCheck,
                 onChanged: (val) {
@@ -115,7 +115,7 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
                   });
                 },
               ),
-              Text('Enable TopRope'),
+              const Text('Enable TopRope'),
               Switch(
                   value: showTopRopeCheck,
                   onChanged: (val) {
@@ -123,7 +123,7 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
                       showTopRopeCheck = val;
                     });
                   }),
-              Text('Rating Group'),
+              const Text('Rating Group'),
               TextField(
                 onChanged: (val) {
                   setState(() {
@@ -131,7 +131,7 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
                   });
                 },
               ),
-              Text('Pitches Group'),
+              const Text('Pitches Group'),
               TextField(
                 onChanged: (val) {
                   setState(() {
@@ -139,7 +139,7 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
                   });
                 },
               ),
-              Text('Sort 1'),
+              const Text('Sort 1'),
               TextField(
                 onChanged: (val) {
                   setState(() {
@@ -147,7 +147,7 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
                   });
                 },
               ),
-              Text('Sort 2'),
+              const Text('Sort 2'),
               TextField(
                 onChanged: (val) {
                   setState(() {
@@ -161,7 +161,7 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
                     saveSettings();
                   });
                 },
-                child: Text('Save'),
+                child: const Text('Save'),
               ),
             ],
           ),

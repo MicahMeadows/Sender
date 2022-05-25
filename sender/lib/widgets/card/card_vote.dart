@@ -70,7 +70,7 @@ class _CardVoteState extends State<CardVote> {
                   )
                       .then((value) {
                     setState(() {
-                      print('detail closed');
+                      debugPrint('detail closed');
                     });
                   });
                   widget.onRoutesChanged?.call(widget.routes);
