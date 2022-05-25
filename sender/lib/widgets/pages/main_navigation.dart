@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sender/data/cubits/cubit/route_settings_cubit.dart';
+import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
 import 'package:sender/widgets/pages/settings/settings_page.dart';
+import 'package:sender/widgets/pages/settings/temp_settings_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
@@ -12,14 +16,59 @@ class MainNavigation extends StatefulWidget {
 }
 
 class _MainNavigationState extends State<MainNavigation> {
-  final _pageController = PageController(initialPage: 0);
+  late final NavigationCubit _navigationCubit;
+  late final PageController _pageController;
 
   @override
   void initState() {
+    _navigationCubit = context.read<NavigationCubit>();
+
+    _pageController = PageController(
+      initialPage: pageNumberFromNavState(_navigationCubit.state) ?? 0,
+    );
+
     _pageController.addListener(() {
       setState(() {});
     });
     super.initState();
+  }
+
+  int? pageNumberFromNavState(NavigationState state) {
+    return state.when(
+      home: () => 0,
+      profile: () => 2,
+      settings: () => 3,
+      todo: () => 1,
+      error: (msg) => 0,
+    );
+  }
+
+  void goHome() => changePage((navCubit) => navCubit.showHome());
+
+  void goSettings() => changePage((navCubit) => navCubit.showSettings());
+
+  void goProfile() => changePage((navCubit) => navCubit.showProfile());
+
+  void goTodo() => changePage((navCubit) => navCubit.showTodo());
+
+  void changePage(void Function(NavigationCubit navCubit) pageAction) {
+    pageAction(_navigationCubit);
+    updateCurrentPage();
+  }
+
+  void updateCurrentPage() async {
+    var currentPage = pageNumberFromNavState(_navigationCubit.state);
+
+    if (currentPage == null) {
+      print('do error page stuff......');
+      return;
+    }
+
+    await _pageController.animateToPage(
+      currentPage,
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.ease,
+    );
   }
 
   @override
@@ -37,17 +86,18 @@ class _MainNavigationState extends State<MainNavigation> {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                      offset: Offset(0, 4),
-                      blurRadius: 8,
-                      color: Colors.black.withOpacity(.25)),
+                    offset: const Offset(0, 4),
+                    blurRadius: 8,
+                    color: Colors.black.withOpacity(.25),
+                  ),
                 ],
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(35),
                 ),
                 color: Colors.white,
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(35),
                 ),
                 child: PageView(
@@ -55,10 +105,12 @@ class _MainNavigationState extends State<MainNavigation> {
                   // physics: dynamicScrollPhysics,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    HomeContent(),
-                    Center(child: Text("hello TODO")),
-                    Center(child: Text("hello Profile")),
-                    SettingsPageContent(),
+                    const HomeContent(),
+                    const Center(child: Text("hello TODO")),
+                    const Center(child: Text("hello Profile")),
+                    TempSettingsPage(
+                      routeSettingsCubit: context.read<RouteSettingsCubit>(),
+                    ),
                   ],
                 ),
               ),
@@ -69,35 +121,10 @@ class _MainNavigationState extends State<MainNavigation> {
             right: 0,
             left: 0,
             child: CustomTabBar(
-              tapHome: () async {
-                _pageController.animateToPage(
-                  0,
-                  duration: const Duration(milliseconds: 150),
-                  curve: Curves.easeIn,
-                );
-              },
-              tapTodo: () async {
-                await _pageController.animateToPage(
-                  1,
-                  duration: const Duration(milliseconds: 150),
-                  curve: Curves.easeIn,
-                );
-              },
-              tapProfile: () async {
-                await _pageController.animateToPage(
-                  2,
-                  duration: const Duration(milliseconds: 150),
-                  curve: Curves.easeIn,
-                );
-              },
-              tapSettings: () async {
-                // Navigator.of(context).pushNamed(SettingsPage.routeName);
-                await _pageController.animateToPage(
-                  3,
-                  duration: const Duration(milliseconds: 150),
-                  curve: Curves.easeIn,
-                );
-              },
+              tapHome: () => goHome(),
+              tapTodo: () => goTodo(),
+              tapProfile: () => goProfile(),
+              tapSettings: () => goSettings(),
             ),
           ),
         ],

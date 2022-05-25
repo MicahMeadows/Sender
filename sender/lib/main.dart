@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart';
+import 'package:sender/data/cubits/cubit/route_settings_cubit.dart';
+import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/repository/queue_route_repository/api_queue_route_repository.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => RouteQueueCubit(_queueRouteRepository),
           ),
+          BlocProvider(create: (context) => NavigationCubit()),
+          BlocProvider(create: (context) => RouteSettingsCubit()),
         ],
         child: MaterialApp(
           title: 'Sender',
