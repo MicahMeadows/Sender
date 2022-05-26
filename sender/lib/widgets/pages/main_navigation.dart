@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sender/data/cubits/cubit/route_settings_cubit.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
@@ -103,13 +102,13 @@ class _MainNavigationState extends State<MainNavigation> {
                   controller: _pageController,
                   // physics: dynamicScrollPhysics,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    const HomeContent(),
-                    const Center(child: Text("hello TODO")),
-                    const Center(child: Text("hello Profile")),
+                  children: const [
+                    HomeContent(),
+                    Center(child: Text("hello TODO")),
+                    Center(child: Text("hello Profile")),
                     TempSettingsPage(
-                      routeSettingsCubit: context.read<RouteSettingsCubit>(),
-                    ),
+                        // routeSettingsCubit: context.read<RouteSettingsCubit>(),
+                        ),
                   ],
                 ),
               ),

@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+RouteSettings _$RouteSettingsFromJson(Map<String, dynamic> json) {
+  return _RouteSettings.fromJson(json);
+}
+
 /// @nodoc
 mixin _$RouteSettings {
   String get areaId => throw _privateConstructorUsedError;
@@ -27,6 +31,7 @@ mixin _$RouteSettings {
   String get sort1 => throw _privateConstructorUsedError;
   String get sort2 => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $RouteSettingsCopyWith<RouteSettings> get copyWith =>
       throw _privateConstructorUsedError;
@@ -207,7 +212,7 @@ class __$$_RouteSettingsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_RouteSettings implements _RouteSettings {
   const _$_RouteSettings(
       {required this.areaId,
@@ -220,6 +225,9 @@ class _$_RouteSettings implements _RouteSettings {
       required this.pitchesGroup,
       required this.sort1,
       required this.sort2});
+
+  factory _$_RouteSettings.fromJson(Map<String, dynamic> json) =>
+      _$$_RouteSettingsFromJson(json);
 
   @override
   final String areaId;
@@ -267,6 +275,7 @@ class _$_RouteSettings implements _RouteSettings {
             const DeepCollectionEquality().equals(other.sort2, sort2));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -285,6 +294,11 @@ class _$_RouteSettings implements _RouteSettings {
   @override
   _$$_RouteSettingsCopyWith<_$_RouteSettings> get copyWith =>
       __$$_RouteSettingsCopyWithImpl<_$_RouteSettings>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_RouteSettingsToJson(this);
+  }
 }
 
 abstract class _RouteSettings implements RouteSettings {
@@ -299,6 +313,9 @@ abstract class _RouteSettings implements RouteSettings {
       required final int pitchesGroup,
       required final String sort1,
       required final String sort2}) = _$_RouteSettings;
+
+  factory _RouteSettings.fromJson(Map<String, dynamic> json) =
+      _$_RouteSettings.fromJson;
 
   @override
   String get areaId => throw _privateConstructorUsedError;

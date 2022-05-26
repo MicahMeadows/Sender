@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
+
+import '../../models/climbing_route/climbing_route.dart';
 
 part 'route_queue_state.dart';
 

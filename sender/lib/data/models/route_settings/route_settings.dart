@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'route_settings.freezed.dart';
+part 'route_settings.g.dart';
 
 @freezed
 class RouteSettings with _$RouteSettings {
@@ -16,4 +17,7 @@ class RouteSettings with _$RouteSettings {
     required String sort1,
     required String sort2,
   }) = _RouteSettings;
+
+  factory RouteSettings.fromJson(Map<String, dynamic> json) =>
+      _$RouteSettingsFromJson(json);
 }
