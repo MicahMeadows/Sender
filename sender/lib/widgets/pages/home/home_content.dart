@@ -1,24 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sender/common/constants/colors.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
-import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/card/card_vote.dart';
 import 'package:sender/widgets/pages/home/no_results.dart';
 import 'package:sender/widgets/pages/home/queue_error.dart';
 
-class HomeContent extends StatelessWidget {
+class HomeContent extends StatefulWidget {
   const HomeContent({Key? key}) : super(key: key);
 
+  @override
+  State<HomeContent> createState() => _HomeContentState();
+}
+
+class _HomeContentState extends State<HomeContent> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RouteQueueCubit, RouteQueueState>(
       builder: (context, state) {
-        return Stack(
+        return Column(
           children: [
-            Center(
-              child: _buildMainContent(state),
+            Container(
+              color: Colors.white,
+              height: MediaQuery.of(context).viewPadding.top,
+              width: double.infinity,
+            ),
+            Container(
+              padding: EdgeInsets.zero,
+              margin: EdgeInsets.zero,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  width: 0,
+                  color: Colors.white,
+                ),
+              ),
+              height: 5,
+            ),
+            Container(
+              color: Colors.white,
+              width: double.infinity,
+              child: Image.asset(
+                'assets/images/sender_header_logo.png',
+                height: 40,
+              ),
+            ),
+            Expanded(
+              child: Stack(
+                children: [
+                  Center(
+                    child: _buildMainContent(state),
+                  ),
+                ],
+              ),
             ),
           ],
         );
@@ -31,10 +65,19 @@ class HomeContent extends StatelessWidget {
       return const KnotProgressIndicator();
     }
     if (state is RouteQueueLoaded) {
-      return CardVote(routes: state.routes);
+      return CardVote(
+        queueCubit: context.read<RouteQueueCubit>(),
+        key: UniqueKey(),
+        routes: state.routes,
+        onRoutesChanged: (routes) {
+          setState(() {});
+        },
+      );
     }
     if (state is RouteQueueEmpty) {
-      return const NoQueueResults();
+      return NoQueueResults(
+        queueCubit: context.read<RouteQueueCubit>(),
+      );
     }
     return const QueueError();
   }

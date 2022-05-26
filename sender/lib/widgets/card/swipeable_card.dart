@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/common/breadcrumbs.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
-import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
+
+import '../../data/models/climbing_route/climbing_route.dart';
 
 class SwipeableCard extends StatefulWidget {
   final ClimbingRoute route;
@@ -13,6 +13,8 @@ class SwipeableCard extends StatefulWidget {
   final void Function(Offset, DragEndDetails)? onSwipeCancel;
   final void Function(Offset)? onSwipeLeft;
   final void Function(Offset)? onSwipeRight;
+  final void Function(Offset)? onSwipeUp;
+  final void Function(Offset)? onSwipeDown;
   final double? offsetAngle;
 
   const SwipeableCard({
@@ -22,6 +24,8 @@ class SwipeableCard extends StatefulWidget {
     this.onPositionChanged,
     this.onSwipeLeft,
     this.onSwipeRight,
+    this.onSwipeDown,
+    this.onSwipeUp,
     Key? key,
   }) : super(key: key);
 
@@ -81,12 +85,20 @@ class _SwipableCardState extends State<SwipeableCard> {
   @override
   Widget build(BuildContext context) {
     return Swipable(
+      onSwipeEnd: (_, __) {
+        setState(() {});
+      },
       animationCurve: Curves.easeInCubic,
       onSwipeCancel: widget.onSwipeCancel,
       onPositionChanged: widget.onPositionChanged,
       onSwipeRight: widget.onSwipeRight,
       onSwipeLeft: widget.onSwipeLeft,
-      verticalSwipe: false,
+      onSwipeDown: (finalPos) {
+        _handleVerticalSwipe(finalPos);
+      },
+      onSwipeUp: (finalPos) {
+        _handleVerticalSwipe(finalPos);
+      },
       animationDuration: 150,
       child: Transform.rotate(
         angle: widget.offsetAngle ?? 0,
@@ -132,12 +144,6 @@ class _SwipableCardState extends State<SwipeableCard> {
                       onTap: () {
                         // Navigator.of(context)
                         //     .pushNamed(RouteDetailsPage.routeName);
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                RouteDetailsPage(route: widget.route),
-                          ),
-                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(19.0),
@@ -235,13 +241,13 @@ class _SwipableCardState extends State<SwipeableCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        Text(
+        const Text(
           'Description:',
-          style: GoogleFonts.nunito(
-            color: Colors.white,
-            fontSize: 24,
-            height: .5,
-          ),
+          // style: GoogleFonts.nunito(
+          //   color: Colors.white,
+          //   fontSize: 24,
+          //   height: .5,
+          // ),
         ),
         const SizedBox(height: 5),
         Text(
@@ -257,5 +263,19 @@ class _SwipableCardState extends State<SwipeableCard> {
         const SizedBox(height: 8)
       ],
     );
+  }
+
+  /// I used a basic plugin to get the swupe functionallity
+  /// it works great, however for some reason the swiping up and down
+  /// both call the up method. This method chooses which method to call
+  /// up or down, based on if the final position is negative or positive
+  /// in this instance, if its supposed to be up it ends up being a negative like -1300
+  /// and if its supposed to be down its like positive 2000 so this should work for now
+  void _handleVerticalSwipe(Offset finalPos) {
+    if (finalPos.dy < 0) {
+      widget.onSwipeUp?.call(finalPos);
+    } else {
+      widget.onSwipeDown?.call(finalPos);
+    }
   }
 }

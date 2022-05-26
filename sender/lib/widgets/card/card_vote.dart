@@ -2,14 +2,22 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
-import 'package:sender/data/models/climbing_route.dart';
 import 'package:sender/widgets/card/swipeable_card.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
+
+import '../../data/models/climbing_route/climbing_route.dart';
 
 class CardVote extends StatefulWidget {
+  final RouteQueueCubit queueCubit;
   final List<ClimbingRoute> routes;
+  final void Function(List<ClimbingRoute> newRoutes)? onRoutesChanged;
 
-  const CardVote({required this.routes, Key? key}) : super(key: key);
+  const CardVote({
+    required this.routes,
+    required this.queueCubit,
+    this.onRoutesChanged,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CardVote> createState() => _CardVoteState();
@@ -19,7 +27,7 @@ class _CardVoteState extends State<CardVote> {
   Offset? startPos;
   Offset? posFromStart;
 
-  late final _queueCubit = context.read<RouteQueueCubit>();
+  // late final _queueCubit = context.read<RouteQueueCubit>();
 
   double get _cardRotationAngle {
     if (posFromStart == null) {
@@ -46,40 +54,72 @@ class _CardVoteState extends State<CardVote> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          for (int i = widget.routes.length - 1; i >= 0; i--)
-            Positioned(
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.all(8),
-                child: SwipeableCard(
-                  offsetAngle: i == 0 ? _cardRotationAngle : 0,
-                  onSwipeLeft: (_) {
-                    _queueCubit.declineRoute();
-                    _resetSwipePosition();
-                  },
-                  onSwipeRight: (_) {
-                    _queueCubit.declineRoute();
-                    _resetSwipePosition();
-                  },
-                  onPositionChanged: (details) {
-                    startPos ??= details.localPosition;
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        for (int i = widget.routes.length - 1; i >= 0; i--)
+          Positioned(
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              child: SwipeableCard(
+                offsetAngle: i == 0 ? _cardRotationAngle : 0,
+                onSwipeDown: (_) {
+                  _resetSwipePosition();
+                  Navigator.of(context)
+                      .push(
+                    _createDetailsRoute(i),
+                  )
+                      .then((value) {
                     setState(() {
-                      posFromStart = details.localPosition - startPos!;
+                      debugPrint('detail closed');
                     });
-                  },
-                  onSwipeCancel: (offset, details) {
-                    _resetSwipePosition();
-                  },
-                  route: widget.routes[i],
-                ),
+                  });
+                  widget.onRoutesChanged?.call(widget.routes);
+                },
+                onSwipeLeft: (_) {
+                  widget.queueCubit.declineRoute();
+                  _resetSwipePosition();
+                  widget.onRoutesChanged?.call(widget.routes);
+                },
+                onSwipeRight: (_) {
+                  widget.queueCubit.declineRoute();
+                  _resetSwipePosition();
+                  widget.onRoutesChanged?.call(widget.routes);
+                },
+                onPositionChanged: (details) {
+                  startPos ??= details.localPosition;
+                  setState(() {
+                    posFromStart = details.localPosition - startPos!;
+                  });
+                },
+                onSwipeCancel: (offset, details) {
+                  _resetSwipePosition();
+                },
+                route: widget.routes[i],
               ),
             ),
-        ],
-      ),
+          ),
+      ],
+    );
+  }
+
+  Route _createDetailsRoute(int idx) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          RouteDetailsPage(route: widget.routes[idx]),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0, -1);
+        const end = Offset.zero;
+        const curve = Curves.easeIn;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
     );
   }
 }

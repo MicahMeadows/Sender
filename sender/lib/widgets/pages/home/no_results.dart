@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 
 class NoQueueResults extends StatelessWidget {
-  const NoQueueResults({Key? key}) : super(key: key);
+  final RouteQueueCubit queueCubit;
+  const NoQueueResults({required this.queueCubit, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +23,21 @@ class NoQueueResults extends StatelessWidget {
           Text(
             'No results to be shown!',
             textAlign: TextAlign.center,
-            style: _appTextTheme.bodyText1?.copyWith(fontSize: 18),
+            style: _appTextTheme.bodySmall?.copyWith(fontSize: 18),
           ),
           const SizedBox(height: 15),
           Text(
             'Change your filters in order to see more results.',
-            style: _appTextTheme.bodyText1,
+            style: _appTextTheme.bodySmall,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 35),
           ThickButton(
             text: 'Edit Filters',
             onPressed: () {
-              print('edit filter pressed...');
-              context.read<RouteQueueCubit>().loadRoutes();
+              debugPrint('edit filter pressed...');
+              // context.read<RouteQueueCubit>().loadRoutes();
+              // queueCubit.loadRoutes();
             },
           )
         ],

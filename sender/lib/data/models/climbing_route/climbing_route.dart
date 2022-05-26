@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sender/data/models/area.dart';
+
+import '../area/area.dart';
 
 part 'climbing_route.g.dart';
 
