@@ -5,6 +5,7 @@ import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
 import 'package:sender/widgets/pages/settings/temp_settings_page.dart';
+import 'package:sender/widgets/profile/profile_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
@@ -105,7 +106,7 @@ class _MainNavigationState extends State<MainNavigation> {
                   children: const [
                     HomeContent(),
                     Center(child: Text("hello TODO")),
-                    Center(child: Text("hello Profile")),
+                    ProfilePage(),
                     TempSettingsPage(
                         // routeSettingsCubit: context.read<RouteSettingsCubit>(),
                         ),

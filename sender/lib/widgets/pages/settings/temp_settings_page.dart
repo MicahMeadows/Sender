@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/models/route_settings/route_settings.dart'
     as settings;
 
@@ -45,6 +47,12 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
       color: Colors.green,
       child: ListView(
         children: [
+          ElevatedButton(
+            onPressed: () {
+              context.read<FirebaseAuthCubit>().signOut();
+            },
+            child: const Text("Sign out"),
+          ),
           const Text('Area Id'),
           TextField(controller: areaIdController),
           const Text('Min Grade'),
