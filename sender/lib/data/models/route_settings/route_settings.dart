@@ -12,10 +12,8 @@ class RouteSettings with _$RouteSettings {
     required bool showTrad,
     required bool showSport,
     required bool showTopRope,
-    required double ratingGroup,
-    required int pitchesGroup,
-    required String sort1,
-    required String sort2,
+    required int minRating,
+    required bool showMultipitch,
   }) = _RouteSettings;
 
   factory RouteSettings.fromJson(Map<String, dynamic> json) =>

@@ -17,10 +17,8 @@ class RouteSettingsCubit extends Cubit<RouteSettingsState> {
     showTrad: true,
     showSport: true,
     showTopRope: true,
-    ratingGroup: 2.8,
-    pitchesGroup: 0,
-    sort1: "area",
-    sort2: "rating",
+    minRating: 2,
+    showMultipitch: true,
   );
 
   void saveSettings(RouteSettings newSettings) {
@@ -37,10 +35,8 @@ class RouteSettingsCubit extends Cubit<RouteSettingsState> {
       showTrad: false,
       showSport: false,
       showTopRope: false,
-      ratingGroup: 0,
-      pitchesGroup: 0,
-      sort1: '',
-      sort2: '',
+      minRating: 2,
+      showMultipitch: false,
     );
   }
 }

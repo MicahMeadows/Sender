@@ -20,10 +20,9 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
   bool showTopRope = false;
   bool showTrad = false;
   bool showSport = true;
+  bool showMultipitch = false;
   final ratingGroupController = TextEditingController();
   final pitchesGroupController = TextEditingController();
-  final sort1Controller = TextEditingController();
-  final sort2Controller = TextEditingController();
 
   settings.RouteSettings get pageSettings {
     return settings.RouteSettings(
@@ -33,10 +32,8 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
       showTrad: showTrad,
       showSport: showSport,
       showTopRope: showTopRope,
-      ratingGroup: double.parse(ratingGroupController.text),
-      pitchesGroup: int.parse(pitchesGroupController.text),
-      sort1: sort1Controller.text,
-      sort2: sort2Controller.text,
+      minRating: int.parse(ratingGroupController.text),
+      showMultipitch: showMultipitch,
     );
   }
 
@@ -49,25 +46,11 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
       child: ListView(
         children: [
           const Text('Area Id'),
-          TextField(
-            onChanged: (val) {
-              setState(() {
-                areaIdController.text = val;
-              });
-            },
-          ),
+          TextField(controller: areaIdController),
           const Text('Min Grade'),
-          TextField(onChanged: (val) {
-            setState(() {
-              minGradeController.text = val;
-            });
-          }),
+          TextField(controller: minGradeController),
           const Text('Max Grade'),
-          TextField(onChanged: (val) {
-            setState(() {
-              maxGradeController.text = val;
-            });
-          }),
+          TextField(controller: maxGradeController),
           const Text('Enable Trad'),
           Switch(
             value: showTrad,
@@ -94,35 +77,16 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
                   showTopRope = val;
                 });
               }),
-          const Text('Rating Group'),
+          const Text('Min Stars'),
           TextField(
-            onChanged: (val) {
-              setState(() {
-                ratingGroupController.text = val;
-              });
-            },
+            controller: ratingGroupController,
           ),
-          const Text('Pitches Group'),
-          TextField(
+          const Text('Show multipitch'),
+          Switch(
+            value: showMultipitch,
             onChanged: (val) {
               setState(() {
-                pitchesGroupController.text = val;
-              });
-            },
-          ),
-          const Text('Sort 1'),
-          TextField(
-            onChanged: (val) {
-              setState(() {
-                sort1Controller.text = val;
-              });
-            },
-          ),
-          const Text('Sort 2'),
-          TextField(
-            onChanged: (val) {
-              setState(() {
-                sort2Controller.text = val;
+                showMultipitch = val;
               });
             },
           ),

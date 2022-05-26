@@ -14,10 +14,8 @@ _$_RouteSettings _$$_RouteSettingsFromJson(Map<String, dynamic> json) =>
       showTrad: json['showTrad'] as bool,
       showSport: json['showSport'] as bool,
       showTopRope: json['showTopRope'] as bool,
-      ratingGroup: (json['ratingGroup'] as num).toDouble(),
-      pitchesGroup: json['pitchesGroup'] as int,
-      sort1: json['sort1'] as String,
-      sort2: json['sort2'] as String,
+      minRating: json['minRating'] as int,
+      showMultipitch: json['showMultipitch'] as bool,
     );
 
 Map<String, dynamic> _$$_RouteSettingsToJson(_$_RouteSettings instance) =>
@@ -28,8 +26,6 @@ Map<String, dynamic> _$$_RouteSettingsToJson(_$_RouteSettings instance) =>
       'showTrad': instance.showTrad,
       'showSport': instance.showSport,
       'showTopRope': instance.showTopRope,
-      'ratingGroup': instance.ratingGroup,
-      'pitchesGroup': instance.pitchesGroup,
-      'sort1': instance.sort1,
-      'sort2': instance.sort2,
+      'minRating': instance.minRating,
+      'showMultipitch': instance.showMultipitch,
     };

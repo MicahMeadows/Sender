@@ -26,10 +26,8 @@ mixin _$RouteSettings {
   bool get showTrad => throw _privateConstructorUsedError;
   bool get showSport => throw _privateConstructorUsedError;
   bool get showTopRope => throw _privateConstructorUsedError;
-  double get ratingGroup => throw _privateConstructorUsedError;
-  int get pitchesGroup => throw _privateConstructorUsedError;
-  String get sort1 => throw _privateConstructorUsedError;
-  String get sort2 => throw _privateConstructorUsedError;
+  int get minRating => throw _privateConstructorUsedError;
+  bool get showMultipitch => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,10 +47,8 @@ abstract class $RouteSettingsCopyWith<$Res> {
       bool showTrad,
       bool showSport,
       bool showTopRope,
-      double ratingGroup,
-      int pitchesGroup,
-      String sort1,
-      String sort2});
+      int minRating,
+      bool showMultipitch});
 }
 
 /// @nodoc
@@ -72,10 +68,8 @@ class _$RouteSettingsCopyWithImpl<$Res>
     Object? showTrad = freezed,
     Object? showSport = freezed,
     Object? showTopRope = freezed,
-    Object? ratingGroup = freezed,
-    Object? pitchesGroup = freezed,
-    Object? sort1 = freezed,
-    Object? sort2 = freezed,
+    Object? minRating = freezed,
+    Object? showMultipitch = freezed,
   }) {
     return _then(_value.copyWith(
       areaId: areaId == freezed
@@ -102,22 +96,14 @@ class _$RouteSettingsCopyWithImpl<$Res>
           ? _value.showTopRope
           : showTopRope // ignore: cast_nullable_to_non_nullable
               as bool,
-      ratingGroup: ratingGroup == freezed
-          ? _value.ratingGroup
-          : ratingGroup // ignore: cast_nullable_to_non_nullable
-              as double,
-      pitchesGroup: pitchesGroup == freezed
-          ? _value.pitchesGroup
-          : pitchesGroup // ignore: cast_nullable_to_non_nullable
+      minRating: minRating == freezed
+          ? _value.minRating
+          : minRating // ignore: cast_nullable_to_non_nullable
               as int,
-      sort1: sort1 == freezed
-          ? _value.sort1
-          : sort1 // ignore: cast_nullable_to_non_nullable
-              as String,
-      sort2: sort2 == freezed
-          ? _value.sort2
-          : sort2 // ignore: cast_nullable_to_non_nullable
-              as String,
+      showMultipitch: showMultipitch == freezed
+          ? _value.showMultipitch
+          : showMultipitch // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -136,10 +122,8 @@ abstract class _$$_RouteSettingsCopyWith<$Res>
       bool showTrad,
       bool showSport,
       bool showTopRope,
-      double ratingGroup,
-      int pitchesGroup,
-      String sort1,
-      String sort2});
+      int minRating,
+      bool showMultipitch});
 }
 
 /// @nodoc
@@ -161,10 +145,8 @@ class __$$_RouteSettingsCopyWithImpl<$Res>
     Object? showTrad = freezed,
     Object? showSport = freezed,
     Object? showTopRope = freezed,
-    Object? ratingGroup = freezed,
-    Object? pitchesGroup = freezed,
-    Object? sort1 = freezed,
-    Object? sort2 = freezed,
+    Object? minRating = freezed,
+    Object? showMultipitch = freezed,
   }) {
     return _then(_$_RouteSettings(
       areaId: areaId == freezed
@@ -191,22 +173,14 @@ class __$$_RouteSettingsCopyWithImpl<$Res>
           ? _value.showTopRope
           : showTopRope // ignore: cast_nullable_to_non_nullable
               as bool,
-      ratingGroup: ratingGroup == freezed
-          ? _value.ratingGroup
-          : ratingGroup // ignore: cast_nullable_to_non_nullable
-              as double,
-      pitchesGroup: pitchesGroup == freezed
-          ? _value.pitchesGroup
-          : pitchesGroup // ignore: cast_nullable_to_non_nullable
+      minRating: minRating == freezed
+          ? _value.minRating
+          : minRating // ignore: cast_nullable_to_non_nullable
               as int,
-      sort1: sort1 == freezed
-          ? _value.sort1
-          : sort1 // ignore: cast_nullable_to_non_nullable
-              as String,
-      sort2: sort2 == freezed
-          ? _value.sort2
-          : sort2 // ignore: cast_nullable_to_non_nullable
-              as String,
+      showMultipitch: showMultipitch == freezed
+          ? _value.showMultipitch
+          : showMultipitch // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -221,10 +195,8 @@ class _$_RouteSettings implements _RouteSettings {
       required this.showTrad,
       required this.showSport,
       required this.showTopRope,
-      required this.ratingGroup,
-      required this.pitchesGroup,
-      required this.sort1,
-      required this.sort2});
+      required this.minRating,
+      required this.showMultipitch});
 
   factory _$_RouteSettings.fromJson(Map<String, dynamic> json) =>
       _$$_RouteSettingsFromJson(json);
@@ -242,17 +214,13 @@ class _$_RouteSettings implements _RouteSettings {
   @override
   final bool showTopRope;
   @override
-  final double ratingGroup;
+  final int minRating;
   @override
-  final int pitchesGroup;
-  @override
-  final String sort1;
-  @override
-  final String sort2;
+  final bool showMultipitch;
 
   @override
   String toString() {
-    return 'RouteSettings(areaId: $areaId, minYds: $minYds, maxYds: $maxYds, showTrad: $showTrad, showSport: $showSport, showTopRope: $showTopRope, ratingGroup: $ratingGroup, pitchesGroup: $pitchesGroup, sort1: $sort1, sort2: $sort2)';
+    return 'RouteSettings(areaId: $areaId, minYds: $minYds, maxYds: $maxYds, showTrad: $showTrad, showSport: $showSport, showTopRope: $showTopRope, minRating: $minRating, showMultipitch: $showMultipitch)';
   }
 
   @override
@@ -267,12 +235,9 @@ class _$_RouteSettings implements _RouteSettings {
             const DeepCollectionEquality().equals(other.showSport, showSport) &&
             const DeepCollectionEquality()
                 .equals(other.showTopRope, showTopRope) &&
+            const DeepCollectionEquality().equals(other.minRating, minRating) &&
             const DeepCollectionEquality()
-                .equals(other.ratingGroup, ratingGroup) &&
-            const DeepCollectionEquality()
-                .equals(other.pitchesGroup, pitchesGroup) &&
-            const DeepCollectionEquality().equals(other.sort1, sort1) &&
-            const DeepCollectionEquality().equals(other.sort2, sort2));
+                .equals(other.showMultipitch, showMultipitch));
   }
 
   @JsonKey(ignore: true)
@@ -285,10 +250,8 @@ class _$_RouteSettings implements _RouteSettings {
       const DeepCollectionEquality().hash(showTrad),
       const DeepCollectionEquality().hash(showSport),
       const DeepCollectionEquality().hash(showTopRope),
-      const DeepCollectionEquality().hash(ratingGroup),
-      const DeepCollectionEquality().hash(pitchesGroup),
-      const DeepCollectionEquality().hash(sort1),
-      const DeepCollectionEquality().hash(sort2));
+      const DeepCollectionEquality().hash(minRating),
+      const DeepCollectionEquality().hash(showMultipitch));
 
   @JsonKey(ignore: true)
   @override
@@ -309,10 +272,8 @@ abstract class _RouteSettings implements RouteSettings {
       required final bool showTrad,
       required final bool showSport,
       required final bool showTopRope,
-      required final double ratingGroup,
-      required final int pitchesGroup,
-      required final String sort1,
-      required final String sort2}) = _$_RouteSettings;
+      required final int minRating,
+      required final bool showMultipitch}) = _$_RouteSettings;
 
   factory _RouteSettings.fromJson(Map<String, dynamic> json) =
       _$_RouteSettings.fromJson;
@@ -330,13 +291,9 @@ abstract class _RouteSettings implements RouteSettings {
   @override
   bool get showTopRope => throw _privateConstructorUsedError;
   @override
-  double get ratingGroup => throw _privateConstructorUsedError;
+  int get minRating => throw _privateConstructorUsedError;
   @override
-  int get pitchesGroup => throw _privateConstructorUsedError;
-  @override
-  String get sort1 => throw _privateConstructorUsedError;
-  @override
-  String get sort2 => throw _privateConstructorUsedError;
+  bool get showMultipitch => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_RouteSettingsCopyWith<_$_RouteSettings> get copyWith =>
