@@ -9,18 +9,16 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FirebaseAuthCubit, FirebaseAuthState>(
       builder: (context, state) {
-        return Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                state.when(
-                  authenticated: (user) => user.displayName ?? user.uid,
-                  unauthenticated: () => 'No user loaded.',
-                ),
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              state.when(
+                authenticated: (user) => user.displayName ?? user.uid,
+                unauthenticated: () => 'No user loaded.',
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

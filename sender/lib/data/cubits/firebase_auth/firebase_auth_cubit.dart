@@ -7,6 +7,7 @@ part 'firebase_auth_cubit.freezed.dart';
 
 class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   final FirebaseAuth firebaseAuth;
+
   FirebaseAuthCubit(this.firebaseAuth)
       : super(const FirebaseAuthState.unauthenticated()) {
     initialize();
@@ -28,7 +29,9 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   Future<void> signUp(String email, String password) async {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
     } catch (e) {
       throw Exception('Failed to sign up: $e');
     }

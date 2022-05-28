@@ -7,6 +7,8 @@ import 'package:sender/widgets/pages/home/home_content.dart';
 import 'package:sender/widgets/pages/settings/temp_settings_page.dart';
 import 'package:sender/widgets/profile/profile_page.dart';
 
+import '../../data/cubits/route_preferences/route_settings_cubit.dart';
+
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
 
@@ -103,13 +105,13 @@ class _MainNavigationState extends State<MainNavigation> {
                   controller: _pageController,
                   // physics: dynamicScrollPhysics,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    HomeContent(),
-                    Center(child: Text("hello TODO")),
-                    ProfilePage(),
+                  children: [
+                    const HomeContent(),
+                    const Center(child: Text("hello TODO")),
+                    const ProfilePage(),
                     TempSettingsPage(
-                        // routeSettingsCubit: context.read<RouteSettingsCubit>(),
-                        ),
+                      routeSettingsCubit: context.read<RouteSettingsCubit>(),
+                    ),
                   ],
                 ),
               ),

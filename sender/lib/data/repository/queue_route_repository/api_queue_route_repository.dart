@@ -7,7 +7,9 @@ import 'package:sender/data/repository/queue_route_repository/i_queue_route_repo
 import '../../models/climbing_route/climbing_route.dart';
 
 class ApiQueueRouteRepository extends IQueueRouteRepository {
-  final _api = ApiBaseHelper();
+  final IRestApi _api;
+
+  ApiQueueRouteRepository(this._api);
 
   @override
   Future<List<ClimbingRoute>> getClimbingRoutes(List<String> routeIds) async {
@@ -16,9 +18,10 @@ class ApiQueueRouteRepository extends IQueueRouteRepository {
         return {'id': id};
       }).toList();
 
-      var _body = json.encode(requestBody);
-
-      var response = await _api.post('routes/details', body: _body);
+      var response = await _api.post(
+        'routes/details',
+        body: json.encode(requestBody),
+      );
 
       var routes = (response as List<dynamic>)
           .map((routeJson) => ClimbingRoute.fromJson(routeJson))

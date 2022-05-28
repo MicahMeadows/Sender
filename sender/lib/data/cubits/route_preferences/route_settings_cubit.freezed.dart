@@ -19,22 +19,22 @@ mixin _$RouteSettingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() settingsLoading,
-    required TResult Function(RouteSettings settings) settingsLoaded,
-    required TResult Function() error,
+    required TResult Function(RoutePreferences settings) settingsLoaded,
+    required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? settingsLoading,
-    TResult Function(RouteSettings settings)? settingsLoaded,
-    TResult Function()? error,
+    TResult Function(RoutePreferences settings)? settingsLoaded,
+    TResult Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? settingsLoading,
-    TResult Function(RouteSettings settings)? settingsLoaded,
-    TResult Function()? error,
+    TResult Function(RoutePreferences settings)? settingsLoaded,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -121,8 +121,8 @@ class _$_settingsLoading implements _settingsLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() settingsLoading,
-    required TResult Function(RouteSettings settings) settingsLoaded,
-    required TResult Function() error,
+    required TResult Function(RoutePreferences settings) settingsLoaded,
+    required TResult Function(String message) error,
   }) {
     return settingsLoading();
   }
@@ -131,8 +131,8 @@ class _$_settingsLoading implements _settingsLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? settingsLoading,
-    TResult Function(RouteSettings settings)? settingsLoaded,
-    TResult Function()? error,
+    TResult Function(RoutePreferences settings)? settingsLoaded,
+    TResult Function(String message)? error,
   }) {
     return settingsLoading?.call();
   }
@@ -141,8 +141,8 @@ class _$_settingsLoading implements _settingsLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? settingsLoading,
-    TResult Function(RouteSettings settings)? settingsLoaded,
-    TResult Function()? error,
+    TResult Function(RoutePreferences settings)? settingsLoaded,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (settingsLoading != null) {
@@ -195,9 +195,9 @@ abstract class _$$_settingsLoadedCopyWith<$Res> {
   factory _$$_settingsLoadedCopyWith(
           _$_settingsLoaded value, $Res Function(_$_settingsLoaded) then) =
       __$$_settingsLoadedCopyWithImpl<$Res>;
-  $Res call({RouteSettings settings});
+  $Res call({RoutePreferences settings});
 
-  $RouteSettingsCopyWith<$Res> get settings;
+  $RoutePreferencesCopyWith<$Res> get settings;
 }
 
 /// @nodoc
@@ -219,13 +219,13 @@ class __$$_settingsLoadedCopyWithImpl<$Res>
       settings: settings == freezed
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
-              as RouteSettings,
+              as RoutePreferences,
     ));
   }
 
   @override
-  $RouteSettingsCopyWith<$Res> get settings {
-    return $RouteSettingsCopyWith<$Res>(_value.settings, (value) {
+  $RoutePreferencesCopyWith<$Res> get settings {
+    return $RoutePreferencesCopyWith<$Res>(_value.settings, (value) {
       return _then(_value.copyWith(settings: value));
     });
   }
@@ -237,7 +237,7 @@ class _$_settingsLoaded implements _settingsLoaded {
   const _$_settingsLoaded({required this.settings});
 
   @override
-  final RouteSettings settings;
+  final RoutePreferences settings;
 
   @override
   String toString() {
@@ -265,8 +265,8 @@ class _$_settingsLoaded implements _settingsLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() settingsLoading,
-    required TResult Function(RouteSettings settings) settingsLoaded,
-    required TResult Function() error,
+    required TResult Function(RoutePreferences settings) settingsLoaded,
+    required TResult Function(String message) error,
   }) {
     return settingsLoaded(settings);
   }
@@ -275,8 +275,8 @@ class _$_settingsLoaded implements _settingsLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? settingsLoading,
-    TResult Function(RouteSettings settings)? settingsLoaded,
-    TResult Function()? error,
+    TResult Function(RoutePreferences settings)? settingsLoaded,
+    TResult Function(String message)? error,
   }) {
     return settingsLoaded?.call(settings);
   }
@@ -285,8 +285,8 @@ class _$_settingsLoaded implements _settingsLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? settingsLoading,
-    TResult Function(RouteSettings settings)? settingsLoaded,
-    TResult Function()? error,
+    TResult Function(RoutePreferences settings)? settingsLoaded,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (settingsLoaded != null) {
@@ -331,10 +331,10 @@ class _$_settingsLoaded implements _settingsLoaded {
 }
 
 abstract class _settingsLoaded implements RouteSettingsState {
-  const factory _settingsLoaded({required final RouteSettings settings}) =
+  const factory _settingsLoaded({required final RoutePreferences settings}) =
       _$_settingsLoaded;
 
-  RouteSettings get settings => throw _privateConstructorUsedError;
+  RoutePreferences get settings => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$_settingsLoadedCopyWith<_$_settingsLoaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -344,6 +344,7 @@ abstract class _settingsLoaded implements RouteSettingsState {
 abstract class _$$_errorCopyWith<$Res> {
   factory _$$_errorCopyWith(_$_error value, $Res Function(_$_error) then) =
       __$$_errorCopyWithImpl<$Res>;
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -355,57 +356,80 @@ class __$$_errorCopyWithImpl<$Res>
 
   @override
   _$_error get _value => super._value as _$_error;
+
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(_$_error(
+      message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_error implements _error {
-  const _$_error();
+  const _$_error(this.message);
+
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'RouteSettingsState.error()';
+    return 'RouteSettingsState.error(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_error);
+        (other.runtimeType == runtimeType &&
+            other is _$_error &&
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_errorCopyWith<_$_error> get copyWith =>
+      __$$_errorCopyWithImpl<_$_error>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() settingsLoading,
-    required TResult Function(RouteSettings settings) settingsLoaded,
-    required TResult Function() error,
+    required TResult Function(RoutePreferences settings) settingsLoaded,
+    required TResult Function(String message) error,
   }) {
-    return error();
+    return error(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? settingsLoading,
-    TResult Function(RouteSettings settings)? settingsLoaded,
-    TResult Function()? error,
+    TResult Function(RoutePreferences settings)? settingsLoaded,
+    TResult Function(String message)? error,
   }) {
-    return error?.call();
+    return error?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? settingsLoading,
-    TResult Function(RouteSettings settings)? settingsLoaded,
-    TResult Function()? error,
+    TResult Function(RoutePreferences settings)? settingsLoaded,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error();
+      return error(message);
     }
     return orElse();
   }
@@ -446,5 +470,10 @@ class _$_error implements _error {
 }
 
 abstract class _error implements RouteSettingsState {
-  const factory _error() = _$_error;
+  const factory _error(final String message) = _$_error;
+
+  String get message => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$_errorCopyWith<_$_error> get copyWith =>
+      throw _privateConstructorUsedError;
 }
