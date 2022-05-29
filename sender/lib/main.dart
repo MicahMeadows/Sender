@@ -14,23 +14,15 @@ import 'package:sender/data/repository/user_repository/api_user_repository.dart'
 import 'package:sender/data/repository/user_repository/i_user_repository.dart';
 import 'package:sender/firebase_options.dart';
 import 'package:sender/widgets/auth_gate.dart';
-import 'package:sender/widgets/pages/settings/settings_page.dart';
-
 import 'common/networking/header_authenticated_api.dart';
 import 'common/networking/i_rest_api.dart';
 
 FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 IRestApi _senderApi = HeaderAuthenticatedApi(
-    baseUrl: 'http://10.0.2.2:8080/',
-    getAuthToken: () => _firebaseAuth.currentUser?.getIdToken()
-    // getAuthToken: () async {
-    //   var currentUser = _firebaseAuth.currentUser;
-    //   if (currentUser == null) throw Exception('current user is null.');
-    //   var idToken = await currentUser.getIdToken();
-    //   return idToken;
-    // },
-    );
+  baseUrl: 'http://10.0.2.2:8080/',
+  getAuthToken: () => _firebaseAuth.currentUser?.getIdToken(),
+);
 
 IQueueRouteRepository _queueRouteRepository =
     ApiQueueRouteRepository(_senderApi);
@@ -83,10 +75,7 @@ class MyApp extends StatelessWidget {
               ),
               initialRoute: '/',
               home: const AuthGate(),
-              routes: {
-                SettingsPageContent.routeName: (context) =>
-                    SettingsPageContent(),
-              },
+              routes: const {},
             );
           },
         ),
