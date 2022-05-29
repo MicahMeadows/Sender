@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart';
-import 'package:sender/common/networking/api_base_helper.dart';
 import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
@@ -17,8 +16,21 @@ import 'package:sender/firebase_options.dart';
 import 'package:sender/widgets/auth_gate.dart';
 import 'package:sender/widgets/pages/settings/settings_page.dart';
 
+import 'common/networking/header_authenticated_api.dart';
+import 'common/networking/i_rest_api.dart';
+
 FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-IRestApi _senderApi = HeaderAuthenticatedApi(baseUrl: 'http://10.0.2.2:8080/');
+
+IRestApi _senderApi = HeaderAuthenticatedApi(
+    baseUrl: 'http://10.0.2.2:8080/',
+    getAuthToken: () => _firebaseAuth.currentUser?.getIdToken()
+    // getAuthToken: () async {
+    //   var currentUser = _firebaseAuth.currentUser;
+    //   if (currentUser == null) throw Exception('current user is null.');
+    //   var idToken = await currentUser.getIdToken();
+    //   return idToken;
+    // },
+    );
 
 IQueueRouteRepository _queueRouteRepository =
     ApiQueueRouteRepository(_senderApi);

@@ -14,6 +14,10 @@ class RouteSettingsCubit extends Cubit<RouteSettingsState> {
     loadSavedPreferences();
   }
 
+  void setPreferences(RoutePreferences newPreferences) {
+    emit(RouteSettingsState.settingsLoaded(settings: newPreferences));
+  }
+
   void loadSavedPreferences() async {
     debugPrint('loaded');
     emit(const RouteSettingsState.settingsLoading());

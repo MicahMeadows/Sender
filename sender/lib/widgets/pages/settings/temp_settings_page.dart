@@ -73,7 +73,9 @@ class _TempSettingsPageState extends State<TempSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RouteSettingsCubit, RouteSettingsState>(
+      buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
+        debugPrint('Rebuild');
         state.whenOrNull(
           settingsLoaded: ((settings) => setPageRoutePreferences(settings)),
         );
