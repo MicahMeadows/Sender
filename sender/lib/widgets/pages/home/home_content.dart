@@ -19,32 +19,34 @@ class _HomeContentState extends State<HomeContent> {
   Widget build(BuildContext context) {
     return BlocBuilder<RouteQueueCubit, RouteQueueState>(
       builder: (context, state) {
-        return Column(
-          children: [
-            Container(
-              // color: Colors.white,
-              height: MediaQuery.of(context).viewPadding.top,
-              width: double.infinity,
-            ),
-            Container(
-              padding: const EdgeInsets.all(5),
-              // color: Colors.white,
-              width: double.infinity,
-              child: Image.asset(
-                'assets/images/sender_header_logo.png',
-                height: 40,
+        return SafeArea(
+          child: Column(
+            children: [
+              // Container(
+              //   // color: Colors.white,
+              //   height: MediaQuery.of(context).viewPadding.top,
+              //   width: double.infinity,
+              // ),
+              const SizedBox(height: 10),
+              SizedBox(
+                // color: Colors.white,
+                width: double.infinity,
+                child: Image.asset(
+                  'assets/images/sender_header_logo.png',
+                  height: 50,
+                ),
               ),
-            ),
-            Expanded(
-              child: Stack(
-                children: [
-                  Center(
-                    child: _buildMainContent(state),
-                  ),
-                ],
+              Expanded(
+                child: Stack(
+                  children: [
+                    Center(
+                      child: _buildMainContent(state),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
