@@ -93,11 +93,11 @@ class _TodoPageState extends State<TodoPage> {
           color: col.secondary,
           child: Padding(
             padding: EdgeInsets.only(left: _sidePadding),
-            child: const Align(
+            child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                '2 Results',
-                style: TextStyle(
+                '${ticks.length} Results',
+                style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 14,
                 ),

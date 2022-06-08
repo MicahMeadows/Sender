@@ -16,11 +16,25 @@ class NoQueueResults extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            child: Image.asset('assets/images/anchor_image.png'),
-            width: 85,
+          Spacer(flex: 1),
+          Container(
+            height: 170,
+            width: 170,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              boxShadow: [
+                BoxShadow(color: Colors.white.withOpacity(.25), blurRadius: 60),
+              ],
+            ),
+            child: Center(
+              child: SizedBox(
+                // child: Image.asset('assets/images/anchor_image.png'),
+                child: Image.asset('assets/images/anchor.png'),
+                width: 80,
+              ),
+            ),
           ),
-          const SizedBox(height: 25),
+          Spacer(flex: 1),
           Text(
             'No routes to be shown!',
             textAlign: TextAlign.center,
@@ -37,10 +51,9 @@ class NoQueueResults extends StatelessWidget {
             text: 'Edit Filters',
             onPressed: () {
               debugPrint('edit filter pressed...');
-              // context.read<RouteQueueCubit>().loadRoutes();
-              // queueCubit.loadRoutes();
             },
-          )
+          ),
+          Spacer(flex: 1),
         ],
       ),
     );
