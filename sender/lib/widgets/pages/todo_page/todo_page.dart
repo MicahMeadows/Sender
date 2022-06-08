@@ -5,6 +5,8 @@ import 'package:sender/widgets/common/drop_button.dart';
 import 'package:sender/widgets/common/round_button.dart';
 import 'package:sender/widgets/common/tab_switcher.dart';
 import 'package:sender/common/constants/colors.dart' as col;
+import 'package:sender/widgets/pages/todo_page/no_sends.dart';
+import 'package:sender/widgets/pages/todo_page/no_todos.dart';
 import 'package:sender/widgets/pages/todo_page/tick_card.dart';
 
 import '../../../data/models/route_tick/route_tick.dart';
@@ -27,23 +29,32 @@ class _TodoPageState extends State<TodoPage> {
         return SafeArea(
           child: Column(
             children: [
-              TabSwitcher(
-                padding: 30,
-                tabs: const [
-                  'Todo List',
-                  'Send Stack',
-                ],
-                onChange: (val) {
-                  setState(() {
-                    isTodo = val == 0;
-                  });
-                },
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+                child: TabSwitcher(
+                  padding: 30,
+                  tabs: const [
+                    'Todo List',
+                    'Send Stack',
+                  ],
+                  onChange: (val) {
+                    setState(() {
+                      isTodo = val == 0;
+                    });
+                  },
+                ),
               ),
               Expanded(
                 child: state.when(
                   loaded: (sends, todos, skips) {
                     if (isTodo) {
+                      if (todos.isEmpty) {
+                        return const NoTodos();
+                      }
                       return _makeTickList(todos);
+                    }
+                    if (sends.isEmpty) {
+                      return const NoSends();
                     }
                     return _makeTickList(sends);
                   },

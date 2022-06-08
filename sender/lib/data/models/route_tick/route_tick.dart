@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sender/data/models/area/area.dart';
 import 'package:sender/data/models/climbing_route/climbing_route.dart';
 
 part 'route_tick.freezed.dart';
@@ -18,13 +19,24 @@ class RouteTick with _$RouteTick {
   factory RouteTick.fromJson(Map<String, dynamic> json) =>
       _$RouteTickFromJson(json);
 
+  static String areaStringFromAreas(List<Area> areas) {
+    String areaString = '';
+    for (var area in areas) {
+      areaString += area.name;
+      if (area != areas[areas.length - 1]) {
+        areaString += ' > ';
+      }
+    }
+    return areaString;
+  }
+
   static RouteTick makeTick(String tickType, ClimbingRoute route) {
     return RouteTick(
       id: route.id,
       name: route.name,
       rating: route.rating,
       grade: route.grade,
-      area: 'replace me',
+      area: areaStringFromAreas(route.areas),
       type: tickType,
     );
   }

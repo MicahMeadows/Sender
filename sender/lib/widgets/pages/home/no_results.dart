@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
+import 'package:sender/widgets/common/shadow_image.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 
@@ -17,21 +18,10 @@ class NoQueueResults extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Spacer(flex: 1),
-          Container(
-            height: 170,
-            width: 170,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              boxShadow: [
-                BoxShadow(color: Colors.white.withOpacity(.25), blurRadius: 60),
-              ],
-            ),
-            child: Center(
-              child: SizedBox(
-                // child: Image.asset('assets/images/anchor_image.png'),
-                child: Image.asset('assets/images/anchor.png'),
-                width: 80,
-              ),
+          ShadowImage(
+            child: SizedBox(
+              width: 80,
+              child: Image.asset('assets/images/anchor.png'),
             ),
           ),
           Spacer(flex: 1),
