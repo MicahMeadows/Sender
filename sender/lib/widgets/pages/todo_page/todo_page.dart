@@ -75,6 +75,9 @@ class _TodoPageState extends State<TodoPage> {
               DropButton(title: 'Order'),
               const Spacer(),
               RoundButton.circular(
+                onTap: () {
+                  debugPrint('search pressed');
+                },
                 child: const Icon(
                   Icons.search,
                   color: col.text1,

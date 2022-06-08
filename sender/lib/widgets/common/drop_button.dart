@@ -20,6 +20,11 @@ class _DropButtonState extends State<DropButton> {
   @override
   Widget build(BuildContext context) {
     return RoundButton(
+      onTap: () {
+        setState(() {
+          isOpen = !isOpen;
+        });
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Row(
@@ -34,8 +39,10 @@ class _DropButtonState extends State<DropButton> {
                 ),
               ),
             ),
-            const Icon(
-              Icons.keyboard_arrow_down_rounded,
+            Icon(
+              isOpen
+                  ? Icons.keyboard_arrow_up_rounded
+                  : Icons.keyboard_arrow_down_rounded,
               color: col.text2,
               size: 25,
             ),
