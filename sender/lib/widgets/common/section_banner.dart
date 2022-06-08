@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sender/common/constants/colors.dart' as col;
 
 class SectionBanner extends StatelessWidget {
   final String text;
@@ -14,7 +15,7 @@ class SectionBanner extends StatelessWidget {
     final _appTextTheme = Theme.of(context).textTheme;
     return Container(
       width: double.infinity,
-      color: const Color(0xfff4f4f4),
+      color: col.secondary,
       alignment: Alignment.centerLeft,
       margin: const EdgeInsets.only(bottom: 5),
       child: Row(
@@ -24,7 +25,7 @@ class SectionBanner extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             child: Text(
               text,
-              style: _appTextTheme.bodySmall,
+              style: _appTextTheme.bodySmall?.copyWith(color: col.text1),
             ),
           ),
           if (trailing != null) trailing!,

@@ -28,13 +28,17 @@ class TodoListCubit extends Cubit<TodoListState> {
     try {
       await userRepository.setRouteTick(tick);
       loadTicks();
-    } catch (ex) {}
+    } catch (ex) {
+      throw Exception('Failed to set tick: ${ex.toString()}');
+    }
   }
 
   void removeTick(RouteTick tick) async {
     try {
       await userRepository.deleteRouteTick(tick.id);
       loadTicks();
-    } catch (ex) {}
+    } catch (ex) {
+      throw Exception('Failed to remove tick: ${ex.toString()}');
+    }
   }
 }

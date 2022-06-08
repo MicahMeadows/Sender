@@ -92,7 +92,7 @@ class _MainNavigationState extends State<MainNavigation> {
                 borderRadius: const BorderRadius.vertical(
                   bottom: Radius.circular(35),
                 ),
-                color: col.primaryColor,
+                color: col.primary,
               ),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(
