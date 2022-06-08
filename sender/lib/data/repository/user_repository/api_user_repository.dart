@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/data/models/route_tick/route_tick.dart';
 import 'package:sender/data/models/profile/profile.dart';
@@ -12,7 +15,19 @@ class ApiUserRepository implements IUserRepository {
 
   @override
   Future<Profile> createProfile(String displayName) async {
-    throw UnimplementedError();
+    try {
+      var jsonRequest = json.encode({'name': displayName});
+
+      var response = await _api.post('user', body: jsonRequest);
+
+      if (response == null) throw Exception('Created profile null.');
+
+      Profile createdProfile = Profile.fromJson(response);
+
+      return createdProfile;
+    } catch (ex) {
+      throw Exception('Failed to create profile: $ex');
+    }
   }
 
   @override
@@ -30,9 +45,13 @@ class ApiUserRepository implements IUserRepository {
     try {
       var response = await _api.get('user/preferences');
 
-      if (response == null) throw Exception('Preferences are null');
+      if (response == null) {
+        return RoutePreferences.newPreferences();
+      }
 
       var preferences = RoutePreferences.fromJson(response);
+
+      debugPrint('pref: ${preferences.toJson()}');
 
       return preferences;
     } catch (ex) {

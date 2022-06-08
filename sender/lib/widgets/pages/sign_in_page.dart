@@ -34,7 +34,11 @@ class SignInPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   try {
-                    await authCubit.signUp(_emailText, _passwordText);
+                    await authCubit.signUp(
+                      email: _emailText,
+                      password: _passwordText,
+                      name: 'replace name',
+                    );
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Failed to register")),

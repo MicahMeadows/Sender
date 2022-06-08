@@ -16,6 +16,19 @@ class RoutePreferences with _$RoutePreferences {
     required bool showMultipitch,
   }) = _RoutePreferences;
 
+  factory RoutePreferences.newPreferences() {
+    return const RoutePreferences(
+      areaId: "0",
+      minGrade: "5.0",
+      maxGrade: "5.15d",
+      showTrad: true,
+      showSport: true,
+      showTopRope: true,
+      minRating: 0,
+      showMultipitch: true,
+    );
+  }
+
   factory RoutePreferences.fromJson(Map<String, dynamic> json) =>
       _$RoutePreferencesFromJson(json);
 }

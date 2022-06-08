@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:http/http.dart' as http;
 import 'package:sender/common/networking/api_exception.dart';
 
@@ -19,6 +18,7 @@ class HttpRestApi implements IRestApi {
         Uri.parse(baseUrl + path),
         headers: headers,
       );
+      if (responseJson == null) return null;
       responseJson = _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection', '');
@@ -33,13 +33,17 @@ class HttpRestApi implements IRestApi {
     Map<String, String>? headers,
   }) async {
     dynamic responseJson;
+
+    // var finalHeaders = {
+    //   'Content-Type': 'application/json',
+    //   ...?headers,
+    // };
+
     try {
       final response = await http.post(
         Uri.parse(baseUrl + path),
-        headers: {
-          ...?headers,
-          'Content-Type': 'application/json',
-        },
+        // headers: finalHeaders,
+        headers: headers,
         body: jsonEncode(body),
       );
       responseJson = _returnResponse(response);

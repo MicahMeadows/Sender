@@ -32,7 +32,10 @@ RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository);
 NavigationCubit navigationCubit = NavigationCubit();
 RouteSettingsCubit routeSettingsCubit =
     RouteSettingsCubit(userRepository: _userRepository);
-FirebaseAuthCubit firebaseAuthCubit = FirebaseAuthCubit(_firebaseAuth);
+FirebaseAuthCubit firebaseAuthCubit = FirebaseAuthCubit(
+  firebaseAuth: _firebaseAuth,
+  userRepository: _userRepository,
+);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

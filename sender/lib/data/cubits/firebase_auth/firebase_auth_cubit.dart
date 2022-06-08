@@ -1,15 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sender/data/repository/user_repository/i_user_repository.dart';
 
 part 'firebase_auth_state.dart';
 part 'firebase_auth_cubit.freezed.dart';
 
 class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
   final FirebaseAuth firebaseAuth;
+  final IUserRepository userRepository;
 
-  FirebaseAuthCubit(this.firebaseAuth)
-      : super(const FirebaseAuthState.unauthenticated()) {
+  FirebaseAuthCubit({
+    required this.firebaseAuth,
+    required this.userRepository,
+  }) : super(const FirebaseAuthState.unauthenticated()) {
     initialize();
   }
 
@@ -26,12 +30,18 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
     }
   }
 
-  Future<void> signUp(String email, String password) async {
+  Future<void> signUp({
+    required String email,
+    required String password,
+    required String name,
+  }) async {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      await userRepository.createProfile(name);
     } catch (e) {
       throw Exception('Failed to sign up: $e');
     }
