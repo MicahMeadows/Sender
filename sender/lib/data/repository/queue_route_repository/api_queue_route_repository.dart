@@ -32,4 +32,10 @@ class ApiQueueRouteRepository extends IQueueRouteRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<ClimbingRoute> getClimbingRoute(String routeId) {
+    // TODO: implement getClimbingRoute
+    throw UnimplementedError();
+  }
 }

@@ -6,8 +6,8 @@ part of 'climbing_route.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ClimbingRoute _$ClimbingRouteFromJson(Map<String, dynamic> json) =>
-    ClimbingRoute(
+_$_ClimbingRoute _$$_ClimbingRouteFromJson(Map<String, dynamic> json) =>
+    _$_ClimbingRoute(
       name: json['name'] as String,
       grade: json['grade'] as String,
       type: json['type'] as String,
@@ -25,7 +25,7 @@ ClimbingRoute _$ClimbingRouteFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
     );
 
-Map<String, dynamic> _$ClimbingRouteToJson(ClimbingRoute instance) =>
+Map<String, dynamic> _$$_ClimbingRouteToJson(_$_ClimbingRoute instance) =>
     <String, dynamic>{
       'name': instance.name,
       'grade': instance.grade,

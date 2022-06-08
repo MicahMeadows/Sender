@@ -20,7 +20,6 @@ mixin _$NavigationState {
   TResult when<TResult extends Object?>({
     required TResult Function() home,
     required TResult Function() profile,
-    required TResult Function() settings,
     required TResult Function() todo,
     required TResult Function(String errorMessage) error,
   }) =>
@@ -29,7 +28,6 @@ mixin _$NavigationState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
   }) =>
@@ -38,7 +36,6 @@ mixin _$NavigationState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
@@ -48,7 +45,6 @@ mixin _$NavigationState {
   TResult map<TResult extends Object?>({
     required TResult Function(_home value) home,
     required TResult Function(_profile value) profile,
-    required TResult Function(_settings value) settings,
     required TResult Function(_todo value) todo,
     required TResult Function(_error value) error,
   }) =>
@@ -57,7 +53,6 @@ mixin _$NavigationState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
   }) =>
@@ -66,7 +61,6 @@ mixin _$NavigationState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
     required TResult orElse(),
@@ -131,7 +125,6 @@ class _$_home implements _home {
   TResult when<TResult extends Object?>({
     required TResult Function() home,
     required TResult Function() profile,
-    required TResult Function() settings,
     required TResult Function() todo,
     required TResult Function(String errorMessage) error,
   }) {
@@ -143,7 +136,6 @@ class _$_home implements _home {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
   }) {
@@ -155,7 +147,6 @@ class _$_home implements _home {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
@@ -171,7 +162,6 @@ class _$_home implements _home {
   TResult map<TResult extends Object?>({
     required TResult Function(_home value) home,
     required TResult Function(_profile value) profile,
-    required TResult Function(_settings value) settings,
     required TResult Function(_todo value) todo,
     required TResult Function(_error value) error,
   }) {
@@ -183,7 +173,6 @@ class _$_home implements _home {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
   }) {
@@ -195,7 +184,6 @@ class _$_home implements _home {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
     required TResult orElse(),
@@ -252,7 +240,6 @@ class _$_profile implements _profile {
   TResult when<TResult extends Object?>({
     required TResult Function() home,
     required TResult Function() profile,
-    required TResult Function() settings,
     required TResult Function() todo,
     required TResult Function(String errorMessage) error,
   }) {
@@ -264,7 +251,6 @@ class _$_profile implements _profile {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
   }) {
@@ -276,7 +262,6 @@ class _$_profile implements _profile {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
@@ -292,7 +277,6 @@ class _$_profile implements _profile {
   TResult map<TResult extends Object?>({
     required TResult Function(_home value) home,
     required TResult Function(_profile value) profile,
-    required TResult Function(_settings value) settings,
     required TResult Function(_todo value) todo,
     required TResult Function(_error value) error,
   }) {
@@ -304,7 +288,6 @@ class _$_profile implements _profile {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
   }) {
@@ -316,7 +299,6 @@ class _$_profile implements _profile {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
     required TResult orElse(),
@@ -330,129 +312,6 @@ class _$_profile implements _profile {
 
 abstract class _profile implements NavigationState {
   const factory _profile() = _$_profile;
-}
-
-/// @nodoc
-abstract class _$$_settingsCopyWith<$Res> {
-  factory _$$_settingsCopyWith(
-          _$_settings value, $Res Function(_$_settings) then) =
-      __$$_settingsCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_settingsCopyWithImpl<$Res>
-    extends _$NavigationStateCopyWithImpl<$Res>
-    implements _$$_settingsCopyWith<$Res> {
-  __$$_settingsCopyWithImpl(
-      _$_settings _value, $Res Function(_$_settings) _then)
-      : super(_value, (v) => _then(v as _$_settings));
-
-  @override
-  _$_settings get _value => super._value as _$_settings;
-}
-
-/// @nodoc
-
-class _$_settings implements _settings {
-  const _$_settings();
-
-  @override
-  String toString() {
-    return 'NavigationState.settings()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_settings);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() home,
-    required TResult Function() profile,
-    required TResult Function() settings,
-    required TResult Function() todo,
-    required TResult Function(String errorMessage) error,
-  }) {
-    return settings();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? profile,
-    TResult Function()? settings,
-    TResult Function()? todo,
-    TResult Function(String errorMessage)? error,
-  }) {
-    return settings?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? profile,
-    TResult Function()? settings,
-    TResult Function()? todo,
-    TResult Function(String errorMessage)? error,
-    required TResult orElse(),
-  }) {
-    if (settings != null) {
-      return settings();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_home value) home,
-    required TResult Function(_profile value) profile,
-    required TResult Function(_settings value) settings,
-    required TResult Function(_todo value) todo,
-    required TResult Function(_error value) error,
-  }) {
-    return settings(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_home value)? home,
-    TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
-    TResult Function(_todo value)? todo,
-    TResult Function(_error value)? error,
-  }) {
-    return settings?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_home value)? home,
-    TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
-    TResult Function(_todo value)? todo,
-    TResult Function(_error value)? error,
-    required TResult orElse(),
-  }) {
-    if (settings != null) {
-      return settings(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _settings implements NavigationState {
-  const factory _settings() = _$_settings;
 }
 
 /// @nodoc
@@ -495,7 +354,6 @@ class _$_todo implements _todo {
   TResult when<TResult extends Object?>({
     required TResult Function() home,
     required TResult Function() profile,
-    required TResult Function() settings,
     required TResult Function() todo,
     required TResult Function(String errorMessage) error,
   }) {
@@ -507,7 +365,6 @@ class _$_todo implements _todo {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
   }) {
@@ -519,7 +376,6 @@ class _$_todo implements _todo {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
@@ -535,7 +391,6 @@ class _$_todo implements _todo {
   TResult map<TResult extends Object?>({
     required TResult Function(_home value) home,
     required TResult Function(_profile value) profile,
-    required TResult Function(_settings value) settings,
     required TResult Function(_todo value) todo,
     required TResult Function(_error value) error,
   }) {
@@ -547,7 +402,6 @@ class _$_todo implements _todo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
   }) {
@@ -559,7 +413,6 @@ class _$_todo implements _todo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
     required TResult orElse(),
@@ -640,7 +493,6 @@ class _$_error implements _error {
   TResult when<TResult extends Object?>({
     required TResult Function() home,
     required TResult Function() profile,
-    required TResult Function() settings,
     required TResult Function() todo,
     required TResult Function(String errorMessage) error,
   }) {
@@ -652,7 +504,6 @@ class _$_error implements _error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
   }) {
@@ -664,7 +515,6 @@ class _$_error implements _error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? home,
     TResult Function()? profile,
-    TResult Function()? settings,
     TResult Function()? todo,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
@@ -680,7 +530,6 @@ class _$_error implements _error {
   TResult map<TResult extends Object?>({
     required TResult Function(_home value) home,
     required TResult Function(_profile value) profile,
-    required TResult Function(_settings value) settings,
     required TResult Function(_todo value) todo,
     required TResult Function(_error value) error,
   }) {
@@ -692,7 +541,6 @@ class _$_error implements _error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
   }) {
@@ -704,7 +552,6 @@ class _$_error implements _error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_home value)? home,
     TResult Function(_profile value)? profile,
-    TResult Function(_settings value)? settings,
     TResult Function(_todo value)? todo,
     TResult Function(_error value)? error,
     required TResult orElse(),

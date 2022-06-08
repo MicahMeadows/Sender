@@ -36,17 +36,14 @@ class _MainNavigationState extends State<MainNavigation> {
 
   int? pageNumberFromNavState(NavigationState state) {
     return state.when(
-      home: () => 0,
+      home: () => 1,
       profile: () => 2,
-      settings: () => 3,
-      todo: () => 1,
+      todo: () => 0,
       error: (msg) => 0,
     );
   }
 
   void goHome() => changePage((navCubit) => navCubit.showHome());
-
-  void goSettings() => changePage((navCubit) => navCubit.showSettings());
 
   void goProfile() => changePage((navCubit) => navCubit.showProfile());
 
@@ -106,9 +103,8 @@ class _MainNavigationState extends State<MainNavigation> {
                   // physics: dynamicScrollPhysics,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    const HomeContent(),
                     const Center(child: Text("hello TODO")),
-                    const ProfilePage(),
+                    const HomeContent(),
                     SettingsPage(
                       routeSettingsCubit: context.read<RouteSettingsCubit>(),
                     ),
@@ -124,8 +120,7 @@ class _MainNavigationState extends State<MainNavigation> {
             child: CustomTabBar(
               tapHome: () => goHome(),
               tapTodo: () => goTodo(),
-              tapProfile: () => goProfile(),
-              tapSettings: () => goSettings(),
+              tapSettings: () => goProfile(),
             ),
           ),
         ],

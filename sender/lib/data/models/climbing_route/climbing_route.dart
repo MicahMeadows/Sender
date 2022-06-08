@@ -1,40 +1,27 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../area/area.dart';
 
+part 'climbing_route.freezed.dart';
 part 'climbing_route.g.dart';
 
-@JsonSerializable()
-class ClimbingRoute {
-  final String name;
-  final String grade;
-  final String type;
-  final double rating;
-  final int height;
-  final String firstAscent;
-  final String description;
-  final String protection;
-  final String location;
-  final List<Area> areas;
-  final List<String> imageUrls;
-  final String id;
-
-  const ClimbingRoute({
-    required this.name,
-    required this.grade,
-    required this.type,
-    required this.rating,
-    required this.height,
-    required this.firstAscent,
-    required this.description,
-    required this.protection,
-    required this.location,
-    required this.areas,
-    required this.imageUrls,
-    required this.id,
-  });
+@freezed
+class ClimbingRoute with _$ClimbingRoute {
+  factory ClimbingRoute({
+    required String name,
+    required String grade,
+    required String type,
+    required double rating,
+    required int height,
+    required String firstAscent,
+    required String description,
+    required String protection,
+    required String location,
+    required List<Area> areas,
+    required List<String> imageUrls,
+    required String id,
+  }) = _ClimbingRoute;
 
   factory ClimbingRoute.fromJson(Map<String, dynamic> json) =>
       _$ClimbingRouteFromJson(json);
-  Map<String, dynamic> toJson() => _$ClimbingRouteToJson(this);
 }
