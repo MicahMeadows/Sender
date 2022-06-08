@@ -10,14 +10,30 @@ import 'package:sender/widgets/common/breadcrumbs.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
+import 'package:sender/widgets/common/thick_button.dart';
 
 import '../../../data/models/climbing_route/climbing_route.dart';
 
+class BottomOption {
+  final String buttonText;
+  final void Function() onPress;
+
+  const BottomOption({
+    required this.buttonText,
+    required this.onPress,
+  });
+}
+
 class RouteDetailsPage extends StatefulWidget {
   static const String routeName = '/route-details';
+  final List<BottomOption> bottomOptions;
 
   final ClimbingRoute route;
-  const RouteDetailsPage({required this.route, Key? key}) : super(key: key);
+  const RouteDetailsPage({
+    required this.route,
+    this.bottomOptions = const [],
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<RouteDetailsPage> createState() => _RouteDetailsPageState();
@@ -29,6 +45,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   late final _appTextTheme = Theme.of(context).textTheme;
 
   int _selectedImageIdx = 0;
+
+  static const double _sidePadding = 12.0;
 
   late final _initialImageSectionHeight =
       MediaQuery.of(context).size.height * .5;
@@ -81,7 +99,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       builder: (context, AsyncSnapshot<ui.Image> snapshot) {
         if (!snapshot.hasData) {
           return Container(
-            color: Colors.white,
+            // color: Colors.white,
+            color: col.background,
             child: const Center(
               child: KnotProgressIndicator(),
             ),
@@ -113,7 +132,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           });
           // print('img height: $imgHeight');
           return Scaffold(
-            backgroundColor: Colors.white,
+            // backgroundColor: Colors.white,
+            backgroundColor: col.background,
             // extendBodyBehindAppBar: false,
             body: Stack(
               // clipBehavior: Clip.none,
@@ -246,8 +266,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                         ),
                       ),
                       SliverAppBar(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
+                        backgroundColor: col.background,
                         toolbarHeight: 0,
                         elevation: 2,
                         pinned: true,
@@ -273,7 +292,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                                     widget.route.name,
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.nunito(
-                                      color: Colors.black,
+                                      // color: Colors.black,
+                                      color: col.text1,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 24,
                                     ),
@@ -288,6 +308,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                                   },
                                   icon: const Icon(
                                     Icons.close_rounded,
+                                    color: col.text1,
                                     size: 30,
                                   ),
                                 ),
@@ -318,7 +339,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
 
   Widget _buildRouteDetailsWidget(BuildContext context) {
     return Container(
-      color: Colors.white,
+      // color: Colors.white,
+      color: col.background,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -329,93 +351,125 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
               // style: GoogleFonts.nunito(
               //   fontSize: 16,
               // ),
-              style: _appTextTheme.bodySmall,
+              style: _appTextTheme.bodySmall?.copyWith(color: col.text1),
             ),
           ),
-          RatingWidget(
-            rating: widget.route.rating,
-            height: 25,
-            color: col.tertiary,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RatingWidget(
+              rating: widget.route.rating,
+              height: 25,
+              color: col.tertiary,
+            ),
           ),
           const SizedBox(height: 5),
           const SectionBanner(text: 'Details'),
           _buildLabledCard('Type:', widget.route.type),
-          _buildLabledCard('Height:', widget.route.height.toString()),
+          _buildLabledCard('Height:', '${widget.route.height.toString()}ft'),
           _buildLabledCard('Protection:', widget.route.protection),
           _buildLabledCard('Grade:', widget.route.grade),
           _buildLabledCard('First Ascent:', widget.route.firstAscent),
           const SizedBox(height: 23),
           const SectionBanner(text: 'Area'),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Wrap(
-              children: [
-                for (var area in widget.route.areas) _buildTextCard(area.name),
-              ],
+          const SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  for (var area in widget.route.areas)
+                    _buildTextCard(area.name),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 23),
           const SectionBanner(text: 'Location'),
-          _buildTextCard(widget.route.location),
+          const SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
+            child:
+                _buildTextCard(widget.route.location, width: double.infinity),
+          ),
           const SizedBox(height: 30),
-          _buildBlueButton('Add to Send Stack', () {
-            setState(() {
-              // _selectedImageIdx--;
-            });
-          }),
-          const SizedBox(height: 3),
-          _buildBlueButton('Add to Todo List', () {
-            setState(() {
-              // _selectedImageIdx++;
-            });
-          }),
+          // _buildBlueButton('Add to Send Stack', () {
+          //   setState(() {
+          //     // _selectedImageIdx--;
+          //   });
+          // }),
+          // ThickButton(
+          //   text: 'Add to Send Stack',
+          //   onPressed: () {},
+          //   width: 200,
+          // ),
+          // const SizedBox(height: 20),
+          // ThickButton(
+          //   text: 'Remove from Todo List',
+          //   onPressed: () {},
+          //   width: 200,
+          // ),
+          for (var option in widget.bottomOptions)
+            ThickButton(text: option.buttonText, onPressed: option.onPress),
+          const SizedBox(height: 50),
+          // _buildBlueButton('Add to Todo List', () {
+          //   setState(() {
+          //     // _selectedImageIdx++;
+          //   });
+          // }),
         ],
       ),
     );
   }
 
   Widget _buildLabledCard(String title, String content) {
-    return BaseCard(
-        child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: _appTextTheme.bodySmall,
-        ),
-        const SizedBox(width: 15),
-        Expanded(
-          child: Text(
-            content,
-            style: _appTextTheme.bodySmall,
-            textAlign: ui.TextAlign.end,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: _sidePadding, vertical: 5),
+      child: BaseCard(
+          child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: _appTextTheme.bodySmall?.apply(color: col.text1),
           ),
-        ),
-      ],
-    ));
+          const SizedBox(width: 15),
+          Expanded(
+            child: Text(
+              content,
+              style: _appTextTheme.bodySmall?.apply(color: col.text1),
+              textAlign: ui.TextAlign.end,
+            ),
+          ),
+        ],
+      )),
+    );
   }
 
-  Widget _buildTextCard(String text) {
+  Widget _buildTextCard(String text, {double? width}) {
     return BaseCard(
+      width: width,
       child: Text(
         text,
-        style: _appTextTheme.bodySmall,
+        style: _appTextTheme.bodySmall?.apply(color: col.text1),
       ),
     );
   }
 
-  Widget _buildBlueButton(String text, void Function() onPress) {
-    return TextButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color?>(col.tertiary),
-        foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
-      ),
-      onPressed: onPress,
-      child: Text(
-        text,
-        style: GoogleFonts.nunito(fontSize: 18),
-      ),
-    );
-  }
+  // Widget _buildBlueButton(String text, void Function() onPress) {
+  //   return TextButton(
+  //     style: ButtonStyle(
+  //       backgroundColor: MaterialStateProperty.all<Color?>(col.tertiary),
+  //       foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
+  //     ),
+  //     onPressed: onPress,
+  //     child: Text(
+  //       text,
+  //       style: GoogleFonts.nunito(fontSize: 18),
+  //     ),
+  //   );
+  // }
 }

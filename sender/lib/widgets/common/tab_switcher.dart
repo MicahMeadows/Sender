@@ -59,6 +59,7 @@ class _TabSwitcherState extends State<TabSwitcher> {
               widget.onChange?.call(i);
             },
           ),
+          const SizedBox(height: 3),
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.linear,

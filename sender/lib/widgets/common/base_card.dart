@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sender/common/constants/colors.dart' as col;
 
 class BaseCard extends StatelessWidget {
   final Widget child;
@@ -21,7 +22,7 @@ class BaseCard extends StatelessWidget {
       width: width,
       height: height,
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: col.primary,
         borderRadius: BorderRadius.all(Radius.circular(5)),
         boxShadow: [
           BoxShadow(
@@ -31,7 +32,7 @@ class BaseCard extends StatelessWidget {
           ),
         ],
       ),
-      margin: margin,
+      // margin: margin,
       padding: padding,
       child: child,
     );

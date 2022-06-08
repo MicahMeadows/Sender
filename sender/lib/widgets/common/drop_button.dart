@@ -3,9 +3,9 @@ import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/widgets/common/round_button.dart';
 
 class DropButton extends StatefulWidget {
-  String title;
-  bool value;
-  DropButton({
+  final String title;
+  final bool value;
+  const DropButton({
     required this.title,
     this.value = false,
     Key? key,

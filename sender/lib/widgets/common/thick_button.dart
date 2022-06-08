@@ -4,9 +4,13 @@ import 'package:sender/common/constants/colors.dart' as col;
 class ThickButton extends StatelessWidget {
   late final Color color;
   final String text;
+  final double width;
+  final double height;
   final void Function()? onPressed;
   ThickButton({
     Color? color,
+    this.width = 170,
+    this.height = 48,
     required this.text,
     required this.onPressed,
     Key? key,
@@ -20,8 +24,8 @@ class ThickButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: 48,
-        width: 170,
+        height: height,
+        width: width,
         child: Center(
           child: Text(
             text,

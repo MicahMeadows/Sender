@@ -27,8 +27,9 @@ class TickCard extends StatelessWidget {
             ),
           );
         } catch (ex) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('No route loaded.')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('No route loaded.')),
+          );
         }
       },
       child: Container(
