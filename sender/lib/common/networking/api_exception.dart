@@ -1,26 +1,37 @@
-import 'package:sender/common/app_exception.dart';
+class ApiException implements Exception {
+  final String message;
+  final String code;
+  final String details;
 
-class FetchDataException extends AppException {
-  FetchDataException(String message)
-      : super(message: message, prefix: 'Error During Communication: ');
+  ApiException(this.message, this.code, this.details);
+
+  @override
+  String toString() {
+    return '''ApiException {message: $message, code: $code, details: $details}''';
+  }
 }
 
-class BadRequestException extends AppException {
-  BadRequestException(String message)
-      : super(message: message, prefix: 'Invalid request: ');
+class FetchDataException extends ApiException {
+  FetchDataException(String message, String code)
+      : super(message, code, "Error while retrieving data");
 }
 
-class NotFoundException extends AppException {
-  NotFoundException(String message)
-      : super(message: message, prefix: '404 Not found: ');
+class BadRequestException extends ApiException {
+  BadRequestException(String message, String code)
+      : super(message, code, "Invalid request");
 }
 
-class UnauthorizedException extends AppException {
-  UnauthorizedException(String message)
-      : super(message: message, prefix: 'Unauthorized: ');
+class NotFoundException extends ApiException {
+  NotFoundException(String message, String code)
+      : super(message, code, "Not Found");
 }
 
-class InvalidInputException extends AppException {
-  InvalidInputException(String message)
-      : super(message: message, prefix: 'Invalid input: ');
+class UnauthorizedException extends ApiException {
+  UnauthorizedException(String message, String code)
+      : super(message, code, "Unauthorized");
+}
+
+class InvalidInputException extends ApiException {
+  InvalidInputException(String message, String code)
+      : super(message, code, "Invalid input");
 }

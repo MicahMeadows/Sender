@@ -4,7 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
-import 'package:sender/widgets/pages/settings/temp_settings_page.dart';
+import 'package:sender/widgets/pages/settings/settings_page.dart';
+import 'package:sender/widgets/pages/todo_page/todo_page.dart';
+
+import '../../data/cubits/route_preferences/route_settings_cubit.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
@@ -33,17 +36,14 @@ class _MainNavigationState extends State<MainNavigation> {
 
   int? pageNumberFromNavState(NavigationState state) {
     return state.when(
-      home: () => 0,
+      home: () => 1,
       profile: () => 2,
-      settings: () => 3,
-      todo: () => 1,
+      todo: () => 0,
       error: (msg) => 0,
     );
   }
 
   void goHome() => changePage((navCubit) => navCubit.showHome());
-
-  void goSettings() => changePage((navCubit) => navCubit.showSettings());
 
   void goProfile() => changePage((navCubit) => navCubit.showProfile());
 
@@ -102,13 +102,12 @@ class _MainNavigationState extends State<MainNavigation> {
                   controller: _pageController,
                   // physics: dynamicScrollPhysics,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    HomeContent(),
-                    Center(child: Text("hello TODO")),
-                    Center(child: Text("hello Profile")),
-                    TempSettingsPage(
-                        // routeSettingsCubit: context.read<RouteSettingsCubit>(),
-                        ),
+                  children: [
+                    const TodoPage(),
+                    const HomeContent(),
+                    SettingsPage(
+                      routeSettingsCubit: context.read<RouteSettingsCubit>(),
+                    ),
                   ],
                 ),
               ),
@@ -121,8 +120,7 @@ class _MainNavigationState extends State<MainNavigation> {
             child: CustomTabBar(
               tapHome: () => goHome(),
               tapTodo: () => goTodo(),
-              tapProfile: () => goProfile(),
-              tapSettings: () => goSettings(),
+              tapSettings: () => goProfile(),
             ),
           ),
         ],

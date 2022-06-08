@@ -2,18 +2,22 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
+import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/widgets/card/swipeable_card.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 
 import '../../data/models/climbing_route/climbing_route.dart';
+import '../../data/models/route_tick/route_tick.dart';
 
 class CardVote extends StatefulWidget {
+  final TodoListCubit todoCubit;
   final RouteQueueCubit queueCubit;
   final List<ClimbingRoute> routes;
   final void Function(List<ClimbingRoute> newRoutes)? onRoutesChanged;
 
   const CardVote({
     required this.routes,
+    required this.todoCubit,
     required this.queueCubit,
     this.onRoutesChanged,
     Key? key,
@@ -63,6 +67,14 @@ class _CardVoteState extends State<CardVote> {
               padding: const EdgeInsets.all(8),
               child: SwipeableCard(
                 offsetAngle: i == 0 ? _cardRotationAngle : 0,
+                onSwipeUp: (_) {
+                  widget.todoCubit.setTick(
+                    RouteTick.makeTick('sent', widget.routes[i]),
+                  );
+                  widget.queueCubit.popRoute();
+                  _resetSwipePosition();
+                  widget.onRoutesChanged?.call(widget.routes);
+                },
                 onSwipeDown: (_) {
                   _resetSwipePosition();
                   Navigator.of(context)
@@ -77,12 +89,18 @@ class _CardVoteState extends State<CardVote> {
                   widget.onRoutesChanged?.call(widget.routes);
                 },
                 onSwipeLeft: (_) {
-                  widget.queueCubit.declineRoute();
+                  widget.todoCubit.setTick(
+                    RouteTick.makeTick('skip', widget.routes[i]),
+                  );
+                  widget.queueCubit.popRoute();
                   _resetSwipePosition();
                   widget.onRoutesChanged?.call(widget.routes);
                 },
                 onSwipeRight: (_) {
-                  widget.queueCubit.declineRoute();
+                  widget.todoCubit.setTick(
+                    RouteTick.makeTick('todo', widget.routes[i]),
+                  );
+                  widget.queueCubit.popRoute();
                   _resetSwipePosition();
                   widget.onRoutesChanged?.call(widget.routes);
                 },

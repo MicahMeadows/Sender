@@ -11,8 +11,6 @@ class NavigationCubit extends Cubit<NavigationState> {
 
   void showProfile() => emit(const NavigationState.profile());
 
-  void showSettings() => emit(const NavigationState.settings());
-
   void showTodo() => emit(const NavigationState.todo());
 
   void showError(String errorMessage) {

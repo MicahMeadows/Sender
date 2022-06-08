@@ -1,59 +1,89 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart';
-import 'package:sender/data/cubits/cubit/route_settings_cubit.dart';
+import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
+import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
-import 'package:sender/data/repository/queue_route_repository/api_queue_route_repository.dart';
+import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sender/widgets/pages/main_navigation.dart';
-import 'package:sender/widgets/pages/settings/settings_page.dart';
+import 'package:sender/data/repository/queue_route_repository/testing_queue_route_repository.dart';
+import 'package:sender/data/repository/user_repository/i_user_repository.dart';
+import 'package:sender/data/repository/user_repository/test_user_repository.dart';
+import 'package:sender/firebase_options.dart';
+import 'package:sender/widgets/auth_gate.dart';
+import 'common/networking/header_authenticated_api.dart';
+import 'common/networking/i_rest_api.dart';
 
-IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository();
+FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-void main() {
+IRestApi _senderApi = HeaderAuthenticatedApi(
+  baseUrl: 'http://10.0.2.2:8080/',
+  getAuthToken: () => _firebaseAuth.currentUser?.getIdToken(),
+);
+
+// IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository(_senderApi);
+IQueueRouteRepository _queueRouteRepository = TestingQueueRouteRepository();
+// IUserRepository _userRepository = ApiUserRepository(_senderApi);
+IUserRepository _userRepository = TestUserRepository();
+
+TodoListCubit todoListCubit = TodoListCubit(_userRepository)..loadTicks();
+RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository);
+NavigationCubit navigationCubit = NavigationCubit();
+RouteSettingsCubit routeSettingsCubit =
+    RouteSettingsCubit(userRepository: _userRepository);
+FirebaseAuthCubit firebaseAuthCubit = FirebaseAuthCubit(
+  firebaseAuth: _firebaseAuth,
+  userRepository: _userRepository,
+);
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(
-          create: (context) => _queueRouteRepository,
-        ),
+        RepositoryProvider(create: (_) => _queueRouteRepository),
+        RepositoryProvider(create: (_) => _userRepository),
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => RouteQueueCubit(_queueRouteRepository),
-          ),
-          BlocProvider(create: (context) => NavigationCubit()),
-          BlocProvider(create: (context) => RouteSettingsCubit()),
+          BlocProvider(create: (_) => todoListCubit),
+          BlocProvider(create: (_) => routeQueueCubit),
+          BlocProvider(create: (_) => navigationCubit),
+          BlocProvider(create: (_) => routeSettingsCubit),
+          BlocProvider(create: (_) => firebaseAuthCubit, lazy: false),
         ],
-        child: MaterialApp(
-          title: 'Sender',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            backgroundColor: primaryColor,
-            scaffoldBackgroundColor: primaryColor,
-            canvasColor: primaryColor,
-            fontFamily: 'Nunito',
-            textTheme: TextTheme(
-              bodySmall: GoogleFonts.nunito(fontSize: 16),
-              bodyMedium: GoogleFonts.nunito(fontSize: 18),
-              titleMedium: GoogleFonts.nunito(fontSize: 24),
-            ),
-          ),
-          initialRoute: '/',
-          home: const MainNavigation(),
-          routes: {
-            SettingsPageContent.routeName: (context) => SettingsPageContent(),
+        child: Builder(
+          builder: (context) {
+            return MaterialApp(
+              title: 'Sender',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+                backgroundColor: primaryColor,
+                scaffoldBackgroundColor: primaryColor,
+                canvasColor: primaryColor,
+                fontFamily: 'Nunito',
+                textTheme: TextTheme(
+                  bodySmall: GoogleFonts.nunito(fontSize: 16),
+                  bodyMedium: GoogleFonts.nunito(fontSize: 18),
+                  titleMedium: GoogleFonts.nunito(fontSize: 24),
+                ),
+              ),
+              initialRoute: '/',
+              home: const AuthGate(),
+              routes: const {},
+            );
           },
         ),
       ),

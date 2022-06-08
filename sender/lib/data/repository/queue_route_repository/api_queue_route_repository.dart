@@ -1,13 +1,15 @@
 import 'dart:convert';
 
-import 'package:sender/common/networking/api_base_helper.dart';
 import 'package:sender/data/models/climbing_route/climbing_route.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 
+import '../../../common/networking/i_rest_api.dart';
 import '../../models/climbing_route/climbing_route.dart';
 
 class ApiQueueRouteRepository extends IQueueRouteRepository {
-  final _api = ApiBaseHelper();
+  final IRestApi _api;
+
+  ApiQueueRouteRepository(this._api);
 
   @override
   Future<List<ClimbingRoute>> getClimbingRoutes(List<String> routeIds) async {
@@ -16,9 +18,10 @@ class ApiQueueRouteRepository extends IQueueRouteRepository {
         return {'id': id};
       }).toList();
 
-      var _body = json.encode(requestBody);
-
-      var response = await _api.post('routes/details', body: _body);
+      var response = await _api.post(
+        'routes/details',
+        body: json.encode(requestBody),
+      );
 
       var routes = (response as List<dynamic>)
           .map((routeJson) => ClimbingRoute.fromJson(routeJson))
@@ -28,5 +31,11 @@ class ApiQueueRouteRepository extends IQueueRouteRepository {
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  Future<ClimbingRoute> getClimbingRoute(String routeId) {
+    // TODO: implement getClimbingRoute
+    throw UnimplementedError();
   }
 }

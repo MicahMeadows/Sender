@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 class CustomTabBar extends StatelessWidget {
   final void Function() tapHome;
   final void Function() tapTodo;
-  final void Function() tapProfile;
   final void Function() tapSettings;
 
   const CustomTabBar({
     required this.tapHome,
     required this.tapTodo,
-    required this.tapProfile,
     required this.tapSettings,
     Key? key,
   }) : super(key: key);
@@ -21,12 +19,18 @@ class CustomTabBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildTabButton(tapHome, 'assets/images/icon/icon_nav_home.png'),
-          _buildTabButton(tapTodo, 'assets/images/icon/icon_nav_stack.png'),
           _buildTabButton(
-              tapProfile, 'assets/images/icon/icon_nav_profile.png'),
+            tapTodo,
+            'assets/images/icon/icon_nav_stack.png',
+          ),
           _buildTabButton(
-              tapSettings, 'assets/images/icon/icon_nav_settings.png'),
+            tapHome,
+            'assets/images/icon/icon_nav_home.png',
+          ),
+          _buildTabButton(
+            tapSettings,
+            'assets/images/icon/icon_nav_settings.png',
+          ),
         ],
       ),
     );
