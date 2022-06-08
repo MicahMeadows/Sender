@@ -31,6 +31,7 @@ class RatingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntrinsicWidth(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           for (int i = 0; i < _numFullStars; i++)
             Icon(Icons.star_rounded, color: color, size: height),
