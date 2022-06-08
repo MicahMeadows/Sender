@@ -77,4 +77,10 @@ class ApiUserRepository implements IUserRepository {
       throw Exception('Failed to update preferences: $ex');
     }
   }
+
+  @override
+  Future<Profile> updateProfile(Profile newProfile) {
+    // TODO: implement updateProfile
+    throw UnimplementedError();
+  }
 }

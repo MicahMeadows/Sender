@@ -8,5 +8,6 @@ abstract class IUserRepository {
   Future<void> setRouteTick(RouteTick routeTick);
   Future<void> deleteRouteTick(String routeToDeleteId);
   Future<Profile> createProfile(String displayName);
+  Future<Profile> updateProfile(Profile newProfile);
   Future<Profile> getProfile();
 }

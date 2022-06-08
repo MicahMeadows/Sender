@@ -25,7 +25,7 @@ mixin _$RouteTick {
   double get rating => throw _privateConstructorUsedError;
   String get grade => throw _privateConstructorUsedError;
   String get area => throw _privateConstructorUsedError;
-  String get todo => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +43,7 @@ abstract class $RouteTickCopyWith<$Res> {
       double rating,
       String grade,
       String area,
-      String todo});
+      String type});
 }
 
 /// @nodoc
@@ -61,7 +61,7 @@ class _$RouteTickCopyWithImpl<$Res> implements $RouteTickCopyWith<$Res> {
     Object? rating = freezed,
     Object? grade = freezed,
     Object? area = freezed,
-    Object? todo = freezed,
+    Object? type = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -84,9 +84,9 @@ class _$RouteTickCopyWithImpl<$Res> implements $RouteTickCopyWith<$Res> {
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as String,
-      todo: todo == freezed
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -104,7 +104,7 @@ abstract class _$$_RouteTickCopyWith<$Res> implements $RouteTickCopyWith<$Res> {
       double rating,
       String grade,
       String area,
-      String todo});
+      String type});
 }
 
 /// @nodoc
@@ -124,7 +124,7 @@ class __$$_RouteTickCopyWithImpl<$Res> extends _$RouteTickCopyWithImpl<$Res>
     Object? rating = freezed,
     Object? grade = freezed,
     Object? area = freezed,
-    Object? todo = freezed,
+    Object? type = freezed,
   }) {
     return _then(_$_RouteTick(
       id: id == freezed
@@ -147,9 +147,9 @@ class __$$_RouteTickCopyWithImpl<$Res> extends _$RouteTickCopyWithImpl<$Res>
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as String,
-      todo: todo == freezed
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -164,7 +164,7 @@ class _$_RouteTick implements _RouteTick {
       required this.rating,
       required this.grade,
       required this.area,
-      required this.todo});
+      required this.type});
 
   factory _$_RouteTick.fromJson(Map<String, dynamic> json) =>
       _$$_RouteTickFromJson(json);
@@ -180,11 +180,11 @@ class _$_RouteTick implements _RouteTick {
   @override
   final String area;
   @override
-  final String todo;
+  final String type;
 
   @override
   String toString() {
-    return 'RouteTick(id: $id, name: $name, rating: $rating, grade: $grade, area: $area, todo: $todo)';
+    return 'RouteTick(id: $id, name: $name, rating: $rating, grade: $grade, area: $area, type: $type)';
   }
 
   @override
@@ -197,7 +197,7 @@ class _$_RouteTick implements _RouteTick {
             const DeepCollectionEquality().equals(other.rating, rating) &&
             const DeepCollectionEquality().equals(other.grade, grade) &&
             const DeepCollectionEquality().equals(other.area, area) &&
-            const DeepCollectionEquality().equals(other.todo, todo));
+            const DeepCollectionEquality().equals(other.type, type));
   }
 
   @JsonKey(ignore: true)
@@ -209,7 +209,7 @@ class _$_RouteTick implements _RouteTick {
       const DeepCollectionEquality().hash(rating),
       const DeepCollectionEquality().hash(grade),
       const DeepCollectionEquality().hash(area),
-      const DeepCollectionEquality().hash(todo));
+      const DeepCollectionEquality().hash(type));
 
   @JsonKey(ignore: true)
   @override
@@ -229,7 +229,7 @@ abstract class _RouteTick implements RouteTick {
       required final double rating,
       required final String grade,
       required final String area,
-      required final String todo}) = _$_RouteTick;
+      required final String type}) = _$_RouteTick;
 
   factory _RouteTick.fromJson(Map<String, dynamic> json) =
       _$_RouteTick.fromJson;
@@ -245,7 +245,7 @@ abstract class _RouteTick implements RouteTick {
   @override
   String get area => throw _privateConstructorUsedError;
   @override
-  String get todo => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_RouteTickCopyWith<_$_RouteTick> get copyWith =>

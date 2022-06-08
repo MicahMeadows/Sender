@@ -11,7 +11,7 @@ class RouteTick with _$RouteTick {
     required double rating,
     required String grade,
     required String area,
-    required String todo,
+    required String type,
   }) = _RouteTick;
 
   factory RouteTick.fromJson(Map<String, dynamic> json) =>

@@ -12,7 +12,7 @@ _$_RouteTick _$$_RouteTickFromJson(Map<String, dynamic> json) => _$_RouteTick(
       rating: (json['rating'] as num).toDouble(),
       grade: json['grade'] as String,
       area: json['area'] as String,
-      todo: json['todo'] as String,
+      type: json['type'] as String,
     );
 
 Map<String, dynamic> _$$_RouteTickToJson(_$_RouteTick instance) =>
@@ -22,5 +22,5 @@ Map<String, dynamic> _$$_RouteTickToJson(_$_RouteTick instance) =>
       'rating': instance.rating,
       'grade': instance.grade,
       'area': instance.area,
-      'todo': instance.todo,
+      'type': instance.type,
     };

@@ -7,11 +7,11 @@ import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
-import 'package:sender/data/repository/queue_route_repository/api_queue_route_repository.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sender/data/repository/user_repository/api_user_repository.dart';
+import 'package:sender/data/repository/queue_route_repository/testing_queue_route_repository.dart';
 import 'package:sender/data/repository/user_repository/i_user_repository.dart';
+import 'package:sender/data/repository/user_repository/test_user_repository.dart';
 import 'package:sender/firebase_options.dart';
 import 'package:sender/widgets/auth_gate.dart';
 import 'common/networking/header_authenticated_api.dart';
@@ -24,9 +24,10 @@ IRestApi _senderApi = HeaderAuthenticatedApi(
   getAuthToken: () => _firebaseAuth.currentUser?.getIdToken(),
 );
 
-IQueueRouteRepository _queueRouteRepository =
-    ApiQueueRouteRepository(_senderApi);
-IUserRepository _userRepository = ApiUserRepository(_senderApi);
+// IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository(_senderApi);
+IQueueRouteRepository _queueRouteRepository = TestingQueueRouteRepository();
+// IUserRepository _userRepository = ApiUserRepository(_senderApi);
+IUserRepository _userRepository = TestUserRepository();
 
 RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository);
 NavigationCubit navigationCubit = NavigationCubit();
