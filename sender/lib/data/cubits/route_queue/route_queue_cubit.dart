@@ -32,7 +32,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     }
   }
 
-  Future<void> declineRoute() async {
+  Future<void> popRoute() async {
     try {
       if (state is! RouteQueueLoaded) {
         throw Exception('No routes loaded');

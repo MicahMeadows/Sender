@@ -83,4 +83,10 @@ class ApiUserRepository implements IUserRepository {
     // TODO: implement updateProfile
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<RouteTick>> getTicks() {
+    // TODO: implement getTicks
+    throw UnimplementedError();
+  }
 }

@@ -24,7 +24,7 @@ class TestUserRepository implements IUserRepository {
       rating: 2.3,
       grade: '5.10d',
       area: 'Portal > MFRP > RRG > Kentucky',
-      type: 'done',
+      type: 'sent',
     ),
     RouteTick(
       id: '2',
@@ -32,7 +32,7 @@ class TestUserRepository implements IUserRepository {
       rating: 3.4,
       grade: '5.11b',
       area: 'Left Flank > North Gorge > RRG > Kentucky',
-      type: 'done',
+      type: 'sent',
     ),
     RouteTick(
       id: '3',
@@ -40,7 +40,7 @@ class TestUserRepository implements IUserRepository {
       rating: 3.1,
       grade: '5.11a',
       area: 'Solarium > Muir Valley > RRG > Kentucky',
-      type: 'deny',
+      type: 'skip',
     ),
   ];
 
@@ -101,5 +101,10 @@ class TestUserRepository implements IUserRepository {
   Future<Profile> updateProfile(Profile newProfile) {
     _profile = newProfile;
     return Future.delayed(const Duration(milliseconds: 700));
+  }
+
+  @override
+  Future<List<RouteTick>> getTicks() {
+    return Future.delayed(const Duration(milliseconds: 500), () => _ticks);
   }
 }

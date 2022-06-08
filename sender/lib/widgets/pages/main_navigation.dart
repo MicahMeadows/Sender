@@ -5,7 +5,7 @@ import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
 import 'package:sender/widgets/pages/settings/settings_page.dart';
-import 'package:sender/widgets/profile/profile_page.dart';
+import 'package:sender/widgets/pages/todo_page/todo_page.dart';
 
 import '../../data/cubits/route_preferences/route_settings_cubit.dart';
 
@@ -103,7 +103,7 @@ class _MainNavigationState extends State<MainNavigation> {
                   // physics: dynamicScrollPhysics,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    const Center(child: Text("hello TODO")),
+                    const TodoPage(),
                     const HomeContent(),
                     SettingsPage(
                       routeSettingsCubit: context.read<RouteSettingsCubit>(),

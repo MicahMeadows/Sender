@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sender/data/models/climbing_route/climbing_route.dart';
 
 part 'route_tick.freezed.dart';
 part 'route_tick.g.dart';
@@ -16,4 +17,15 @@ class RouteTick with _$RouteTick {
 
   factory RouteTick.fromJson(Map<String, dynamic> json) =>
       _$RouteTickFromJson(json);
+
+  static RouteTick makeTick(String tickType, ClimbingRoute route) {
+    return RouteTick(
+      id: route.id,
+      name: route.name,
+      rating: route.rating,
+      grade: route.grade,
+      area: 'replace me',
+      type: tickType,
+    );
+  }
 }
