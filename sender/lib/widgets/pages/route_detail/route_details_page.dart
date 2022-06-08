@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sender/common/constants/colors.dart';
+import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/widgets/common/base_card.dart';
 import 'package:sender/widgets/common/breadcrumbs.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
@@ -335,7 +335,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           RatingWidget(
             rating: widget.route.rating,
             height: 25,
-            color: primaryColor,
+            color: col.tertiary,
           ),
           const SizedBox(height: 5),
           const SectionBanner(text: 'Details'),
@@ -408,7 +408,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   Widget _buildBlueButton(String text, void Function() onPress) {
     return TextButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color?>(primaryColor),
+        backgroundColor: MaterialStateProperty.all<Color?>(col.tertiary),
         foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
       ),
       onPressed: onPress,

@@ -13,6 +13,16 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     loadRoutes();
   }
 
+  Future<ClimbingRoute> getRouteDetails(String routeId) async {
+    try {
+      var routeResponse = await _queueRouteRepository.getClimbingRoute(routeId);
+
+      return routeResponse;
+    } catch (ex) {
+      throw Exception('Failed to get route details: ${ex.toString()}');
+    }
+  }
+
   Future<void> loadRoutes() async {
     emit(RouteQueueLoading());
     try {

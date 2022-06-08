@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sender/common/constants/colors.dart';
+import 'package:sender/common/constants/colors.dart' as col;
 
 class ThickButton extends StatelessWidget {
   late final Color color;
@@ -11,7 +11,7 @@ class ThickButton extends StatelessWidget {
     required this.onPressed,
     Key? key,
   }) : super(key: key) {
-    this.color = color ?? primaryColor;
+    this.color = color ?? col.tertiary;
   }
 
   @override
@@ -25,21 +25,21 @@ class ThickButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: _appTextTheme.bodySmall,
+            style: _appTextTheme.bodySmall?.copyWith(color: Colors.white),
           ),
         ),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: col.tertiary,
           border: Border.all(
             width: 1,
-            color: primaryColor,
+            color: col.tertiary,
           ),
-          borderRadius: BorderRadius.circular(17),
+          borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: color,
+              color: color.withOpacity(.5),
               blurRadius: 0,
-              offset: const Offset(4, 4),
+              offset: const Offset(0, 5),
             ),
           ],
         ),

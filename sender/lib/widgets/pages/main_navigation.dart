@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sender/common/constants/colors.dart';
+import 'package:sender/common/constants/colors.dart' as col;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
@@ -72,7 +72,7 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: col.background,
       body: Stack(
         children: [
           Positioned(
@@ -89,10 +89,10 @@ class _MainNavigationState extends State<MainNavigation> {
                     color: Colors.black.withOpacity(.25),
                   ),
                 ],
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(35),
+                borderRadius: const BorderRadius.vertical(
+                  bottom: Radius.circular(35),
                 ),
-                color: Colors.white,
+                color: col.primaryColor,
               ),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(

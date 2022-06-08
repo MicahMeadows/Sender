@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
+import 'package:sender/widgets/common/drop_button.dart';
+import 'package:sender/widgets/common/round_button.dart';
+import 'package:sender/widgets/common/tab_switcher.dart';
+import 'package:sender/common/constants/colors.dart' as col;
+import 'package:sender/widgets/pages/todo_page/tick_card.dart';
 
 import '../../../data/models/route_tick/route_tick.dart';
 
@@ -13,6 +18,7 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   bool isTodo = true;
+  final double _sidePadding = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +27,25 @@ class _TodoPageState extends State<TodoPage> {
         return SafeArea(
           child: Column(
             children: [
-              Switch(
-                value: isTodo,
-                onChanged: (val) => setState(() {
-                  isTodo = val;
-                }),
+              TabSwitcher(
+                padding: 30,
+                tabs: const [
+                  'Todo List',
+                  'Send Stack',
+                ],
+                onChange: (val) {
+                  setState(() {
+                    isTodo = val == 0;
+                  });
+                },
               ),
               Expanded(
                 child: state.when(
                   loaded: (sends, todos, skips) {
                     if (isTodo) {
-                      return _makeTickList('Todo', todos);
+                      return _makeTickList(todos);
                     }
-                    return _makeTickList('Send Stack', sends);
+                    return _makeTickList(sends);
                   },
                   loading: () => const Center(
                     child: Text('loading...'),
@@ -50,34 +62,64 @@ class _TodoPageState extends State<TodoPage> {
     );
   }
 
-  Widget _makeTickList(String title, List<RouteTick> ticks) {
+  Widget _makeTickList(List<RouteTick> ticks) {
     return Column(
       children: [
-        Text(title),
-        const Divider(
-          thickness: 1.0,
-          color: Colors.black,
-          indent: 20,
-          endIndent: 20,
+        const SizedBox(height: 35),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+          child: Row(
+            children: [
+              DropButton(title: 'Filter'),
+              const SizedBox(width: 14),
+              DropButton(title: 'Order'),
+              const Spacer(),
+              RoundButton.circular(
+                onTap: () {
+                  debugPrint('search pressed');
+                },
+                child: const Icon(
+                  Icons.search,
+                  color: col.text1,
+                ),
+              ),
+            ],
+          ),
         ),
+        const SizedBox(height: 12),
+        Container(
+          height: 32,
+          width: double.infinity,
+          color: col.secondary,
+          child: Padding(
+            padding: EdgeInsets.only(left: _sidePadding),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${ticks.length} Results',
+                style: const TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
         Expanded(
-          child: ListView.builder(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+            child: ListView.builder(
               itemCount: ticks.length,
               itemBuilder: (ctx, idx) {
                 var tickItem = ticks[idx];
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(tickItem.name),
-                    IconButton(
-                      onPressed: () {
-                        context.read<TodoListCubit>().removeTick(tickItem);
-                      },
-                      icon: const Icon(Icons.delete),
-                    ),
-                  ],
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: TickCard(tick: tickItem),
                 );
-              }),
+              },
+            ),
+          ),
         ),
       ],
     );

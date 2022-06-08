@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sender/common/constants/colors.dart';
+import 'package:sender/common/constants/colors.dart' as col;
 
 class RatingWidget extends StatelessWidget {
   final double height;
@@ -11,7 +11,7 @@ class RatingWidget extends StatelessWidget {
     this.height = 18,
     Key? key,
   }) : super(key: key) {
-    this.color = color ?? ratingStarColor;
+    this.color = color ?? col.tertiary;
   }
 
   int get _numFullStars {
@@ -31,6 +31,7 @@ class RatingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntrinsicWidth(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           for (int i = 0; i < _numFullStars; i++)
             Icon(Icons.star_rounded, color: color, size: height),

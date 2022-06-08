@@ -22,24 +22,13 @@ class _HomeContentState extends State<HomeContent> {
         return Column(
           children: [
             Container(
-              color: Colors.white,
+              // color: Colors.white,
               height: MediaQuery.of(context).viewPadding.top,
               width: double.infinity,
             ),
             Container(
-              padding: EdgeInsets.zero,
-              margin: EdgeInsets.zero,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  width: 0,
-                  color: Colors.white,
-                ),
-              ),
-              height: 5,
-            ),
-            Container(
-              color: Colors.white,
+              padding: const EdgeInsets.all(5),
+              // color: Colors.white,
               width: double.infinity,
               child: Image.asset(
                 'assets/images/sender_header_logo.png',
