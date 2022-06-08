@@ -40,6 +40,15 @@ FirebaseAuthCubit firebaseAuthCubit = FirebaseAuthCubit(
   userRepository: _userRepository,
 );
 
+final _themeData = ThemeData(
+  fontFamily: 'Nunito',
+  textTheme: TextTheme(
+    bodySmall: GoogleFonts.nunito(fontSize: 16),
+    bodyMedium: GoogleFonts.nunito(fontSize: 18),
+    titleMedium: GoogleFonts.nunito(fontSize: 24),
+  ).apply(bodyColor: Colors.white),
+);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -68,18 +77,7 @@ class MyApp extends StatelessWidget {
           builder: (context) {
             return MaterialApp(
               title: 'Sender',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-                backgroundColor: primaryColor,
-                scaffoldBackgroundColor: primaryColor,
-                canvasColor: primaryColor,
-                fontFamily: 'Nunito',
-                textTheme: TextTheme(
-                  bodySmall: GoogleFonts.nunito(fontSize: 16),
-                  bodyMedium: GoogleFonts.nunito(fontSize: 18),
-                  titleMedium: GoogleFonts.nunito(fontSize: 24),
-                ),
-              ),
+              theme: _themeData,
               initialRoute: '/',
               home: const AuthGate(),
               routes: const {},
