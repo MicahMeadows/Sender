@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
+import 'package:sender/widgets/common/drop_button.dart';
+import 'package:sender/widgets/common/round_button.dart';
 import 'package:sender/widgets/common/tab_switcher.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/widgets/pages/todo_page/tick_card.dart';
@@ -16,6 +18,7 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   bool isTodo = true;
+  final double _sidePadding = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +66,31 @@ class _TodoPageState extends State<TodoPage> {
     return Column(
       children: [
         const SizedBox(height: 35),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+          child: Row(
+            children: [
+              DropButton(title: 'Filter'),
+              const SizedBox(width: 14),
+              DropButton(title: 'Order'),
+              const Spacer(),
+              RoundButton.circular(
+                child: const Icon(
+                  Icons.search,
+                  color: col.text1,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
         Container(
           height: 32,
           width: double.infinity,
           color: col.secondary,
-          child: const Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: Align(
+          child: Padding(
+            padding: EdgeInsets.only(left: _sidePadding),
+            child: const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 '2 Results',
@@ -84,24 +105,15 @@ class _TodoPageState extends State<TodoPage> {
         const SizedBox(height: 10),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: EdgeInsets.symmetric(horizontal: _sidePadding),
             child: ListView.builder(
               itemCount: ticks.length,
               itemBuilder: (ctx, idx) {
                 var tickItem = ticks[idx];
-                return TickCard(tick: tickItem);
-                // return Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(tickItem.name),
-                //     IconButton(
-                //       onPressed: () {
-                //         context.read<TodoListCubit>().removeTick(tickItem);
-                //       },
-                //       icon: const Icon(Icons.delete),
-                //     ),
-                //   ],
-                // );
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: TickCard(tick: tickItem),
+                );
               },
             ),
           ),
