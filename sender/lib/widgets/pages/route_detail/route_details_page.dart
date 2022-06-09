@@ -79,6 +79,13 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+    _imageController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Completer<ui.Image> completer = Completer<ui.Image>();
     images[_selectedImageIdx]
@@ -123,8 +130,9 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             if (!_initialized) {
               // _scrollController
               //     .jumpTo(MediaQuery.of(context).size.height * .55);
-              setState(() {});
-              _scrollController.jumpTo(_initialImageSectionHeight);
+              setState(() {
+                _scrollController.jumpTo(_initialImageSectionHeight);
+              });
             }
             setState(() {});
 

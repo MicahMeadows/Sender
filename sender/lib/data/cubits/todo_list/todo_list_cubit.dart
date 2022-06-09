@@ -34,10 +34,48 @@ class TodoListCubit extends Cubit<TodoListState> {
   }
 
   void removeTick(RouteTick tick) async {
+    List<RouteTick> oTodos = [];
+    List<RouteTick> oSends = [];
+    List<RouteTick> oSkips = [];
     try {
+      state.maybeWhen(
+        loaded: (sends, todos, skips) {
+          oTodos = [...todos];
+          oSends = [...sends];
+          oSkips = [...skips];
+
+          switch (tick.type) {
+            case 'todo':
+              emit(TodoListState.loaded(
+                sends: sends,
+                todos: [...todos]..remove(tick),
+                skips: skips,
+              ));
+              break;
+            case 'sent':
+              emit(TodoListState.loaded(
+                sends: [...sends]..remove(tick),
+                todos: todos,
+                skips: skips,
+              ));
+              break;
+            case 'skip':
+              emit(TodoListState.loaded(
+                sends: sends,
+                todos: todos,
+                skips: [...skips]..remove(tick),
+              ));
+              break;
+          }
+        },
+        orElse: () => throw Exception(
+          'Cannot remove tick when no ticks loaded',
+        ),
+      );
+
       await userRepository.deleteRouteTick(tick.id);
-      loadTicks();
     } catch (ex) {
+      emit(TodoListState.loaded(sends: oSends, todos: oTodos, skips: oSkips));
       throw Exception('Failed to remove tick: ${ex.toString()}');
     }
   }

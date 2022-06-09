@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
+import 'package:sender/main.dart';
 import 'package:sender/widgets/common/drop_button.dart';
 import 'package:sender/widgets/common/round_button.dart';
 import 'package:sender/widgets/common/tab_switcher.dart';
@@ -126,7 +127,12 @@ class _TodoPageState extends State<TodoPage> {
                 var tickItem = ticks[idx];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: TickCard(tick: tickItem),
+                  child: TickCard(
+                    tick: tickItem,
+                    onDismiss: () {
+                      todoListCubit.removeTick(ticks[idx]);
+                    },
+                  ),
                 );
               },
             ),
