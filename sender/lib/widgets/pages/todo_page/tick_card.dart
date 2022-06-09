@@ -55,6 +55,7 @@ class TickCard extends StatelessWidget {
         ),
         Dismissible(
           key: Key(tick.id),
+          direction: DismissDirection.endToStart,
           onDismissed: (dir) => onDismiss(),
           child: InkWell(
             onTap: () async {

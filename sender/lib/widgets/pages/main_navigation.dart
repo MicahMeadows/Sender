@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
+import 'package:sender/main.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
 import 'package:sender/widgets/pages/settings/settings_page.dart';
@@ -39,7 +40,7 @@ class _MainNavigationState extends State<MainNavigation> {
       home: () => 1,
       profile: () => 2,
       todo: () => 0,
-      error: (msg) => 0,
+      error: (msg) => null,
     );
   }
 
@@ -114,13 +115,14 @@ class _MainNavigationState extends State<MainNavigation> {
             ),
           ),
           Positioned(
-            bottom: 0,
+            bottom: 4,
             right: 0,
             left: 0,
             child: CustomTabBar(
+              selectedTab: pageNumberFromNavState(navigationCubit.state),
               tapHome: () => goHome(),
               tapTodo: () => goTodo(),
-              tapSettings: () => goProfile(),
+              tapProfile: () => goProfile(),
             ),
           ),
         ],

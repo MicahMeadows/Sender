@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class CustomTabBar extends StatelessWidget {
   final void Function() tapHome;
   final void Function() tapTodo;
-  final void Function() tapSettings;
+  final void Function() tapProfile;
+  final int? selectedTab;
 
   const CustomTabBar({
     required this.tapHome,
     required this.tapTodo,
-    required this.tapSettings,
+    required this.tapProfile,
+    required this.selectedTab,
     Key? key,
   }) : super(key: key);
 
@@ -17,37 +19,44 @@ class CustomTabBar extends StatelessWidget {
     return SizedBox(
       height: 55,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _buildTabButton(
             tapTodo,
-            'assets/images/icon/icon_nav_stack.png',
+            path: selectedTab == 0
+                ? 'assets/images/icon/nav/StackToggle.png'
+                : 'assets/images/icon/nav/StackUntoggle.png',
           ),
           _buildTabButton(
             tapHome,
-            'assets/images/icon/icon_nav_home.png',
+            path: selectedTab == 1
+                ? 'assets/images/icon/nav/HomeToggle.png'
+                : 'assets/images/icon/nav/HomeUntoggle.png',
           ),
           _buildTabButton(
-            tapSettings,
-            'assets/images/icon/icon_nav_settings.png',
+            tapProfile,
+            path: selectedTab == 2
+                ? 'assets/images/icon/nav/ProfileToggle.png'
+                : 'assets/images/icon/nav/ProfileUntoggle.png',
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTabButton(void Function() onTap, String assetPath) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          height: double.infinity,
-          child: Image.asset(
-            assetPath,
-            width: 22,
-            height: 22,
-          ),
+  Widget _buildTabButton(
+    void Function() onTap, {
+    required String path,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+        height: double.infinity,
+        child: Image.asset(
+          path,
+          width: 22,
+          height: 22,
         ),
       ),
     );
