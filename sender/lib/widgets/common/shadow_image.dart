@@ -15,7 +15,7 @@ class ShadowImage extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
         boxShadow: [
-          BoxShadow(color: Colors.white.withOpacity(.25), blurRadius: 60),
+          BoxShadow(color: Colors.white.withOpacity(.20), blurRadius: 40),
         ],
       ),
       child: Center(

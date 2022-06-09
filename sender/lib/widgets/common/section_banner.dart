@@ -17,7 +17,6 @@ class SectionBanner extends StatelessWidget {
       width: double.infinity,
       color: col.secondary,
       alignment: Alignment.centerLeft,
-      margin: const EdgeInsets.only(bottom: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

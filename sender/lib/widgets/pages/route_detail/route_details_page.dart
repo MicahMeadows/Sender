@@ -8,6 +8,7 @@ import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/widgets/common/base_card.dart';
 import 'package:sender/widgets/common/breadcrumbs.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
+import 'package:sender/widgets/common/labled_card.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
@@ -372,6 +373,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           ),
           const SizedBox(height: 5),
           const SectionBanner(text: 'Details'),
+          const SizedBox(height: 3),
+
           _buildLabledCard('Type:', widget.route.type),
           _buildLabledCard('Height:', '${widget.route.height.toString()}ft'),
           _buildLabledCard('Protection:', widget.route.protection),
@@ -379,7 +382,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           _buildLabledCard('First Ascent:', widget.route.firstAscent),
           const SizedBox(height: 23),
           const SectionBanner(text: 'Area'),
-          const SizedBox(height: 5),
+          const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
             child: Align(
@@ -396,7 +399,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           ),
           const SizedBox(height: 23),
           const SectionBanner(text: 'Location'),
-          const SizedBox(height: 5),
+          const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
             child:
@@ -433,28 +436,33 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   }
 
   Widget _buildLabledCard(String title, String content) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: _sidePadding, vertical: 5),
-      child: BaseCard(
-          child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: _appTextTheme.bodySmall?.apply(color: col.text1),
-          ),
-          const SizedBox(width: 15),
-          Expanded(
-            child: Text(
-              content,
-              style: _appTextTheme.bodySmall?.apply(color: col.text1),
-              textAlign: ui.TextAlign.end,
-            ),
-          ),
-        ],
-      )),
+    return LabledCard.text(
+      title: title,
+      content: content,
+      style: _appTextTheme.bodySmall?.apply(color: col.text1),
     );
+    // return Padding(
+    //   padding: EdgeInsets.symmetric(horizontal: _sidePadding, vertical: 5),
+    //   child: BaseCard(
+    //       child: Row(
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //     children: [
+    //       Text(
+    //         title,
+    //         style: _appTextTheme.bodySmall?.apply(color: col.text1),
+    //       ),
+    //       const SizedBox(width: 15),
+    //       Expanded(
+    //         child: Text(
+    //           content,
+    //           style: _appTextTheme.bodySmall?.apply(color: col.text1),
+    //           textAlign: ui.TextAlign.end,
+    //         ),
+    //       ),
+    //     ],
+    //   )),
+    // );
   }
 
   Widget _buildTextCard(String text, {double? width}) {
