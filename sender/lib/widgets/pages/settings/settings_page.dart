@@ -4,12 +4,13 @@ import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
-import 'package:sender/widgets/common/base_card.dart';
 import 'package:sender/widgets/common/button_labled_card.dart';
 import 'package:sender/widgets/common/labled_card.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
+
+import '../../common/titled_card.dart';
 
 class SettingsPage extends StatefulWidget {
   final RouteSettingsCubit routeSettingsCubit;
@@ -24,6 +25,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  static const double _sidePadding = 12;
   final areaIdController = TextEditingController();
   final minGradeController = TextEditingController();
   final maxGradeController = TextEditingController();
@@ -31,7 +33,20 @@ class _SettingsPageState extends State<SettingsPage> {
   bool showTrad = false;
   bool showSport = false;
   bool showMultipitch = false;
-  final ratingGroupController = TextEditingController();
+  // final ratingGroupController = TextEditingController();
+
+  double _minRating = 0.0;
+  double get minimumRating => _minRating;
+  set minimumRating(double rating) {
+    double newRating = rating;
+    if (newRating <= 0) {
+      newRating = 0;
+    }
+    if (newRating >= 4) {
+      newRating = 4;
+    }
+    _minRating = newRating;
+  }
 
   void setPagePreferences(RoutePreferences prefs) {
     areaIdController.text = prefs.areaId;
@@ -41,7 +56,8 @@ class _SettingsPageState extends State<SettingsPage> {
     showMultipitch = prefs.showMultipitch;
     showTrad = prefs.showTrad;
     showSport = prefs.showSport;
-    ratingGroupController.text = prefs.minRating.toString();
+    // ratingGroupController.text = prefs.minRating.toString();
+    minimumRating = prefs.minRating;
   }
 
   @override
@@ -64,7 +80,8 @@ class _SettingsPageState extends State<SettingsPage> {
         areaId: areaIdController.text.trim(),
         maxGrade: maxGradeController.text.trim(),
         minGrade: minGradeController.text.trim(),
-        minRating: double.parse(ratingGroupController.text.trim()),
+        // minRating: double.parse(ratingGroupController.text.trim()),
+        minRating: minimumRating,
         showMultipitch: showMultipitch,
         showSport: showSport,
         showTopRope: showTopRope,
@@ -79,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return BlocBuilder<FirebaseAuthCubit, FirebaseAuthState>(
       builder: (context, authState) {
         return authState.when(
-          unauthenticated: () => Center(
+          unauthenticated: () => const Center(
             child: Text('No user loaded'),
           ),
           authenticated: (user) => Stack(
@@ -114,7 +131,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                       child: const Center(
                         child: Padding(
-                          padding: EdgeInsets.all(12.0),
+                          padding: EdgeInsets.symmetric(vertical: _sidePadding),
                           child: Text(
                             'Settings',
                             style: TextStyle(
@@ -136,8 +153,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 onTap: () {
                                   context.read<FirebaseAuthCubit>().signOut();
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 20.0),
+                                child: const Padding(
+                                  padding: EdgeInsets.only(right: 20.0),
                                   child: Text(
                                     'Sign out',
                                     style: TextStyle(
@@ -147,27 +164,33 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ),
                                 )),
                           ),
-                          const SizedBox(height: 12),
-                          LabledCard(
-                            title: 'Email:',
-                            content: Text(
-                              user.email ?? 'N/A',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Nunito',
-                                color: col.text2,
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: _sidePadding),
+                            child: Column(
+                              children: [
+                                LabledCard(
+                                  title: 'Email:',
+                                  content: Text(
+                                    user.email ?? 'N/A',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Nunito',
+                                      color: col.text2,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                ButtonLabledCard(
+                                  title: 'Password',
+                                  buttonText: 'change',
+                                  onTap: () {
+                                    debugPrint('tap pass change');
+                                  },
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 5),
-                          ButtonLabledCard(
-                            title: 'Password',
-                            buttonText: 'change',
-                            onTap: () {
-                              debugPrint('tap pass change');
-                            },
-                          ),
-                          const SizedBox(height: 12),
                           Container(
                             color: col.primary,
                             child: BlocConsumer<RouteSettingsCubit,
@@ -197,15 +220,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                       child: Column(
                                         children: [
                                           const SectionBanner(text: 'Location'),
-                                          const SizedBox(height: 5),
-                                          ButtonLabledCard(
-                                            title: settings.areaId,
-                                            buttonText: 'set',
-                                            onTap: () {
-                                              debugPrint('set area pressed');
-                                            },
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: _sidePadding,
+                                            ),
+                                            child: ButtonLabledCard(
+                                              title: settings.areaId,
+                                              buttonText: 'set',
+                                              onTap: () {
+                                                debugPrint('set area pressed');
+                                              },
+                                            ),
                                           ),
-                                          const SizedBox(height: 5),
                                           const SectionBanner(
                                               text: 'Route Preferences'),
                                           // const Text('Area Id'),
@@ -261,37 +287,57 @@ class _SettingsPageState extends State<SettingsPage> {
                                           //   onPressed: saveChanges,
                                           //   child: const Text('Save'),
                                           // ),
-                                          LabledCard(
-                                            title: 'Minimum Rating',
-                                            content: Row(
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: _sidePadding,
+                                            ),
+                                            child: Column(
                                               children: [
-                                                const Spacer(),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    debugPrint('dec');
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.remove,
-                                                    color: col.text1,
+                                                LabledCard(
+                                                  title: 'Minimum Rating',
+                                                  content: Row(
+                                                    children: [
+                                                      const Spacer(),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            minimumRating -= .5;
+                                                          });
+                                                        },
+                                                        child: const Icon(
+                                                          Icons.remove,
+                                                          color: col.text1,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      RatingWidget(
+                                                          rating: minimumRating,
+                                                          numStarsShow: 4,
+                                                          height: 30),
+                                                      const SizedBox(width: 5),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            minimumRating += .5;
+                                                          });
+                                                        },
+                                                        child: const Icon(
+                                                          Icons.add,
+                                                          color: col.text1,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                RatingWidget(
-                                                    rating: 2.5,
-                                                    numStarsShow: 5,
-                                                    height: 30),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    debugPrint('add');
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.add,
-                                                    color: col.text1,
-                                                  ),
-                                                ),
+                                                const TitledCard(
+                                                    title: 'Grade Range',
+                                                    child: Placeholder(
+                                                      fallbackHeight: 60,
+                                                    )),
+                                                const SizedBox(height: 20),
                                               ],
                                             ),
                                           ),
-                                          const SizedBox(height: 20),
                                           ThickButton(
                                             text: 'Save',
                                             onPressed: () {

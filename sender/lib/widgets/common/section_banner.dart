@@ -16,6 +16,7 @@ class SectionBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final _appTextTheme = Theme.of(context).textTheme;
     return Container(
+      margin: const EdgeInsets.only(bottom: 12),
       width: double.infinity,
       color: color,
       alignment: Alignment.centerLeft,
