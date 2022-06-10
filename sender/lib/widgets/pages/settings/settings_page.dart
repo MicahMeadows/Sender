@@ -6,6 +6,7 @@ import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/widgets/common/button_labled_card.dart';
 import 'package:sender/widgets/common/labled_card.dart';
+import 'package:sender/widgets/common/labled_toggle_card.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
@@ -307,11 +308,12 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         },
                                                         child: const Icon(
                                                           Icons.remove,
-                                                          color: col.text1,
+                                                          color: col.accent,
                                                         ),
                                                       ),
                                                       const SizedBox(width: 5),
                                                       RatingWidget(
+                                                          color: col.accent,
                                                           rating:
                                                               _minimumRating,
                                                           numStarsShow: 4,
@@ -326,7 +328,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         },
                                                         child: const Icon(
                                                           Icons.add,
-                                                          color: col.text1,
+                                                          color: col.accent,
                                                         ),
                                                       ),
                                                     ],
@@ -375,6 +377,42 @@ class _SettingsPageState extends State<SettingsPage> {
                                                       ],
                                                     ),
                                                   ),
+                                                ),
+                                                LabledToggleCard(
+                                                  title: 'Sport',
+                                                  value: showSport,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      showSport = value;
+                                                    });
+                                                  },
+                                                ),
+                                                LabledToggleCard(
+                                                  title: 'Top Rope',
+                                                  value: showTopRope,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      showTopRope = value;
+                                                    });
+                                                  },
+                                                ),
+                                                LabledToggleCard(
+                                                  title: 'Trad',
+                                                  value: showTrad,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      showTrad = value;
+                                                    });
+                                                  },
+                                                ),
+                                                LabledToggleCard(
+                                                  title: 'Multi-pitch',
+                                                  value: showMultipitch,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      showMultipitch = value;
+                                                    });
+                                                  },
                                                 ),
                                                 const SizedBox(height: 20),
                                               ],
