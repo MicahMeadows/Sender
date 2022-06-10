@@ -4,8 +4,10 @@ import 'package:sender/common/constants/colors.dart' as col;
 class SectionBanner extends StatelessWidget {
   final String text;
   final Widget? trailing;
+  final Color color;
   const SectionBanner({
     required this.text,
+    this.color = col.tertiary,
     this.trailing,
     Key? key,
   }) : super(key: key);
@@ -15,7 +17,7 @@ class SectionBanner extends StatelessWidget {
     final _appTextTheme = Theme.of(context).textTheme;
     return Container(
       width: double.infinity,
-      color: col.secondary,
+      color: color,
       alignment: Alignment.centerLeft,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

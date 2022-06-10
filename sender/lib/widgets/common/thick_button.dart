@@ -15,7 +15,7 @@ class ThickButton extends StatelessWidget {
     required this.onPressed,
     Key? key,
   }) : super(key: key) {
-    this.color = color ?? col.tertiary;
+    this.color = color ?? col.accent;
   }
 
   @override
@@ -33,10 +33,10 @@ class ThickButton extends StatelessWidget {
           ),
         ),
         decoration: BoxDecoration(
-          color: col.tertiary,
+          color: col.accent,
           border: Border.all(
             width: 1,
-            color: col.tertiary,
+            color: col.accent,
           ),
           borderRadius: BorderRadius.circular(30),
           boxShadow: [

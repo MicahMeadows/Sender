@@ -23,7 +23,7 @@ class ButtonLabledCard extends StatelessWidget {
         child: Text(
           buttonText,
           style: const TextStyle(
-              color: col.tertiary, fontSize: 14, fontFamily: 'Nunito'),
+              color: col.accent, fontSize: 14, fontFamily: 'Nunito'),
         ),
       ),
     );

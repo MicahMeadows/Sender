@@ -63,7 +63,7 @@ class _TabSwitcherState extends State<TabSwitcher> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.linear,
-            color: isSelected ? col.tertiary : Colors.transparent,
+            color: isSelected ? col.accent : Colors.transparent,
             height: 3,
             width: isSelected ? 110 : 0,
           ),

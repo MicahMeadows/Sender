@@ -11,7 +11,7 @@ class RatingWidget extends StatelessWidget {
     this.height = 18,
     Key? key,
   }) : super(key: key) {
-    this.color = color ?? col.tertiary;
+    this.color = color ?? col.accent;
   }
 
   int get _numFullStars {

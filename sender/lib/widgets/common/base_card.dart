@@ -7,10 +7,12 @@ class BaseCard extends StatelessWidget {
   final double? height;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
+  final Color color;
   const BaseCard({
     required this.child,
     this.margin = const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    this.color = col.secondary,
     this.height,
     this.width,
     Key? key,
@@ -21,10 +23,10 @@ class BaseCard extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      decoration: const BoxDecoration(
-        color: col.primary,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        boxShadow: [
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
+        boxShadow: const [
           BoxShadow(
             offset: Offset(0, 4),
             blurRadius: 4,

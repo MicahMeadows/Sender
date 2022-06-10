@@ -108,7 +108,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
         if (!snapshot.hasData) {
           return Container(
             // color: Colors.white,
-            color: col.background,
+            color: col.primary,
             child: const Center(
               child: KnotProgressIndicator(),
             ),
@@ -142,7 +142,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           // print('img height: $imgHeight');
           return Scaffold(
             // backgroundColor: Colors.white,
-            backgroundColor: col.background,
+            backgroundColor: col.primary,
             // extendBodyBehindAppBar: false,
             body: Stack(
               // clipBehavior: Clip.none,
@@ -275,7 +275,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                         ),
                       ),
                       SliverAppBar(
-                        backgroundColor: col.background,
+                        backgroundColor: col.primary,
                         toolbarHeight: 0,
                         elevation: 2,
                         pinned: true,
@@ -349,7 +349,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   Widget _buildRouteDetailsWidget(BuildContext context) {
     return Container(
       // color: Colors.white,
-      color: col.background,
+      color: col.primary,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -368,7 +368,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             child: RatingWidget(
               rating: widget.route.rating,
               height: 25,
-              color: col.tertiary,
+              color: col.accent,
             ),
           ),
           const SizedBox(height: 5),

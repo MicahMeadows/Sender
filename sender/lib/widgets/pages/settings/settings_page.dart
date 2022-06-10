@@ -144,6 +144,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ),
                                 )),
                           ),
+                          const SizedBox(height: 12),
                           LabledCard(
                             title: 'Email:',
                             content: Text(
@@ -163,7 +164,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               debugPrint('tap pass change');
                             },
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 12),
                           Container(
                             color: col.primary,
                             child: BlocConsumer<RouteSettingsCubit,
@@ -193,6 +194,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       child: Column(
                                         children: [
                                           const SectionBanner(text: 'Location'),
+                                          const SizedBox(height: 5),
                                           ButtonLabledCard(
                                             title: settings.areaId,
                                             buttonText: 'set',
