@@ -35,9 +35,9 @@ class _SettingsPageState extends State<SettingsPage> {
   bool showMultipitch = false;
   // final ratingGroupController = TextEditingController();
 
-  double _minRating = 0.0;
-  double get minimumRating => _minRating;
-  set minimumRating(double rating) {
+  double _$minimumRating = 0.0;
+  double get _minimumRating => _$minimumRating;
+  set _minimumRating(double rating) {
     double newRating = rating;
     if (newRating <= 0) {
       newRating = 0;
@@ -45,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
     if (newRating >= 4) {
       newRating = 4;
     }
-    _minRating = newRating;
+    _$minimumRating = newRating;
   }
 
   void setPagePreferences(RoutePreferences prefs) {
@@ -57,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
     showTrad = prefs.showTrad;
     showSport = prefs.showSport;
     // ratingGroupController.text = prefs.minRating.toString();
-    minimumRating = prefs.minRating;
+    _minimumRating = prefs.minRating;
   }
 
   @override
@@ -81,7 +81,7 @@ class _SettingsPageState extends State<SettingsPage> {
         maxGrade: maxGradeController.text.trim(),
         minGrade: minGradeController.text.trim(),
         // minRating: double.parse(ratingGroupController.text.trim()),
-        minRating: minimumRating,
+        minRating: _minimumRating,
         showMultipitch: showMultipitch,
         showSport: showSport,
         showTopRope: showTopRope,
@@ -301,7 +301,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                                       InkWell(
                                                         onTap: () {
                                                           setState(() {
-                                                            minimumRating -= .5;
+                                                            _minimumRating -=
+                                                                .5;
                                                           });
                                                         },
                                                         child: const Icon(
@@ -311,14 +312,16 @@ class _SettingsPageState extends State<SettingsPage> {
                                                       ),
                                                       const SizedBox(width: 5),
                                                       RatingWidget(
-                                                          rating: minimumRating,
+                                                          rating:
+                                                              _minimumRating,
                                                           numStarsShow: 4,
                                                           height: 30),
                                                       const SizedBox(width: 5),
                                                       InkWell(
                                                         onTap: () {
                                                           setState(() {
-                                                            minimumRating += .5;
+                                                            _minimumRating +=
+                                                                .5;
                                                           });
                                                         },
                                                         child: const Icon(
@@ -329,11 +332,50 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     ],
                                                   ),
                                                 ),
-                                                const TitledCard(
-                                                    title: 'Grade Range',
-                                                    child: Placeholder(
-                                                      fallbackHeight: 60,
-                                                    )),
+                                                TitledCard(
+                                                  title: 'Grade Range',
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 20.0,
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        const Text(
+                                                          '5.0',
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontFamily:
+                                                                'Nunito',
+                                                            color: col.text2,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: RangeSlider(
+                                                            activeColor:
+                                                                col.accent,
+                                                            onChanged: (vals) {
+                                                              debugPrint(
+                                                                  'changed: $vals');
+                                                            },
+                                                            values:
+                                                                const RangeValues(
+                                                                    .1, .7),
+                                                          ),
+                                                        ),
+                                                        const Text(
+                                                          '5.15d',
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontFamily:
+                                                                'Nunito',
+                                                            color: col.text2,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
                                                 const SizedBox(height: 20),
                                               ],
                                             ),
