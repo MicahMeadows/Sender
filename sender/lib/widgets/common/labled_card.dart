@@ -41,25 +41,28 @@ class LabledCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: padding, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: padding, vertical: 3),
       child: BaseCard(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: style,
-            ),
-            const SizedBox(width: 15),
-            Expanded(
-                child: Align(alignment: Alignment.centerRight, child: content)
-                // child: Text(
-                //   content,
-                //   style: style,
-                //   textAlign: TextAlign.end,
-                // ),
-                ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 3),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: style,
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                  child: Align(alignment: Alignment.centerRight, child: content)
+                  // child: Text(
+                  //   content,
+                  //   style: style,
+                  //   textAlign: TextAlign.end,
+                  // ),
+                  ),
+            ],
+          ),
         ),
       ),
     );

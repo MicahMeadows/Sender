@@ -4,9 +4,11 @@ import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
+import 'package:sender/widgets/common/base_card.dart';
 import 'package:sender/widgets/common/button_labled_card.dart';
 import 'package:sender/widgets/common/labled_card.dart';
 import 'package:sender/widgets/common/section_banner.dart';
+import 'package:sender/widgets/common/thick_button.dart';
 
 class SettingsPage extends StatefulWidget {
   final RouteSettingsCubit routeSettingsCubit;
@@ -205,58 +207,74 @@ class _SettingsPageState extends State<SettingsPage> {
                                           const SizedBox(height: 5),
                                           const SectionBanner(
                                               text: 'Route Preferences'),
-                                          const Text('Area Id'),
-                                          TextField(
-                                              controller: areaIdController),
-                                          const Text('Min Grade'),
-                                          TextField(
-                                              controller: minGradeController),
-                                          const Text('Max Grade'),
-                                          TextField(
-                                              controller: maxGradeController),
-                                          const Text('Enable Trad'),
-                                          Switch(
-                                            value: showTrad,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                showTrad = val;
-                                              });
+                                          // const Text('Area Id'),
+                                          // TextField(
+                                          //     controller: areaIdController),
+                                          // const Text('Min Grade'),
+                                          // TextField(
+                                          //     controller: minGradeController),
+                                          // const Text('Max Grade'),
+                                          // TextField(
+                                          //     controller: maxGradeController),
+                                          // const Text('Enable Trad'),
+                                          // Switch(
+                                          //   value: showTrad,
+                                          //   onChanged: (val) {
+                                          //     setState(() {
+                                          //       showTrad = val;
+                                          //     });
+                                          //   },
+                                          // ),
+                                          // const Text('Enable Sport'),
+                                          // Switch(
+                                          //   value: showSport,
+                                          //   onChanged: (val) {
+                                          //     setState(() {
+                                          //       showSport = val;
+                                          //     });
+                                          //   },
+                                          // ),
+                                          // const Text('Enable TopRope'),
+                                          // Switch(
+                                          //   value: showTopRope,
+                                          //   onChanged: (val) {
+                                          //     setState(() {
+                                          //       showTopRope = val;
+                                          //     });
+                                          //   },
+                                          // ),
+                                          // const Text('Min Stars'),
+                                          // TextField(
+                                          //   controller: ratingGroupController,
+                                          // ),
+                                          // const Text('Show multipitch'),
+                                          // Switch(
+                                          //   value: showMultipitch,
+                                          //   onChanged: (val) {
+                                          //     setState(() {
+                                          //       showMultipitch = val;
+                                          //     });
+                                          //   },
+                                          // ),
+                                          // ElevatedButton(
+                                          //   onPressed: saveChanges,
+                                          //   child: const Text('Save'),
+                                          // ),
+                                          LabledCard(
+                                            title: 'Minimum Rating',
+                                            content: Placeholder(
+                                              fallbackWidth: 20,
+                                              fallbackHeight: 20,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          ThickButton(
+                                            text: 'Save',
+                                            onPressed: () {
+                                              debugPrint(
+                                                'Save new changes...',
+                                              );
                                             },
-                                          ),
-                                          const Text('Enable Sport'),
-                                          Switch(
-                                            value: showSport,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                showSport = val;
-                                              });
-                                            },
-                                          ),
-                                          const Text('Enable TopRope'),
-                                          Switch(
-                                            value: showTopRope,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                showTopRope = val;
-                                              });
-                                            },
-                                          ),
-                                          const Text('Min Stars'),
-                                          TextField(
-                                            controller: ratingGroupController,
-                                          ),
-                                          const Text('Show multipitch'),
-                                          Switch(
-                                            value: showMultipitch,
-                                            onChanged: (val) {
-                                              setState(() {
-                                                showMultipitch = val;
-                                              });
-                                            },
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: saveChanges,
-                                            child: const Text('Save'),
                                           ),
                                         ],
                                       ),
