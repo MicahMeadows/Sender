@@ -7,6 +7,7 @@ import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/widgets/common/base_card.dart';
 import 'package:sender/widgets/common/button_labled_card.dart';
 import 'package:sender/widgets/common/labled_card.dart';
+import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 
@@ -262,9 +263,32 @@ class _SettingsPageState extends State<SettingsPage> {
                                           // ),
                                           LabledCard(
                                             title: 'Minimum Rating',
-                                            content: Placeholder(
-                                              fallbackWidth: 20,
-                                              fallbackHeight: 20,
+                                            content: Row(
+                                              children: [
+                                                const Spacer(),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    debugPrint('dec');
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.remove,
+                                                    color: col.text1,
+                                                  ),
+                                                ),
+                                                RatingWidget(
+                                                    rating: 2.5,
+                                                    numStarsShow: 5,
+                                                    height: 30),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    debugPrint('add');
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.add,
+                                                    color: col.text1,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           const SizedBox(height: 20),
