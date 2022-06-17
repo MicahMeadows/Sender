@@ -8,7 +8,8 @@ class NoTodos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EmptyTickList(
-      image: Image.asset('assets/images/anchor.png'),
+      image: Image.asset('assets/images/carabiner_image.png'),
+      imageWidth: 110,
       title: 'Your todo list is empty...',
       body: 'What are you waiting for? Add some rocks to climb',
     );
