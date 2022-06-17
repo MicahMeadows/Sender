@@ -19,6 +19,7 @@ class LabledToggleCard extends StatelessWidget {
     return LabledCard(
       title: title,
       child: Switch(
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         activeColor: col.accent,
         inactiveThumbColor: col.text2,
         value: value,

@@ -4,6 +4,7 @@ import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
+import 'package:sender/main.dart';
 import 'package:sender/widgets/common/button_labled_card.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/labled_card.dart';
@@ -92,6 +93,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
     widget.routeSettingsCubit.uploadPreferences();
+    navigationCubit.showHome();
   }
 
   @override
@@ -193,9 +195,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                 builder: (context, state) {
                                   return state.when(
                                     settingsLoading: () {
-                                      return const Center(
-                                        // child: Text('Loading...'),
-                                        child: KnotProgressIndicator(),
+                                      return Container(
+                                        margin: EdgeInsets.only(top: 30),
+                                        child: const Center(
+                                          child: KnotProgressIndicator(
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       );
                                     },
                                     error: (message) => Center(

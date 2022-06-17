@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:sender/data/models/route_tick/route_tick.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/data/models/profile/profile.dart';
@@ -94,6 +95,7 @@ class TestUserRepository implements IUserRepository {
   @override
   Future<void> updateRoutePreferences(RoutePreferences routeSettings) {
     _preferences = routeSettings;
+    debugPrint(_preferences.toJson().toString());
     return Future.delayed(const Duration(milliseconds: 700));
   }
 

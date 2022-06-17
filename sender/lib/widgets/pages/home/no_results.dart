@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/widgets/common/shadow_image.dart';
 import 'package:sender/widgets/common/thick_button.dart';
@@ -6,7 +7,12 @@ import 'package:sender/common/constants/colors.dart' as col;
 
 class NoQueueResults extends StatelessWidget {
   final RouteQueueCubit queueCubit;
-  const NoQueueResults({required this.queueCubit, Key? key}) : super(key: key);
+  final NavigationCubit navigationCubit;
+  const NoQueueResults({
+    required this.navigationCubit,
+    required this.queueCubit,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,7 @@ class NoQueueResults extends StatelessWidget {
           ThickButton(
             text: 'Edit Filters',
             onPressed: () {
-              debugPrint('edit filter pressed...');
+              navigationCubit.showProfile();
             },
           ),
           Spacer(flex: 1),
