@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
@@ -69,6 +70,7 @@ class _HomeContentState extends State<HomeContent> {
     }
     if (state is RouteQueueEmpty) {
       return NoQueueResults(
+        navigationCubit: context.read<NavigationCubit>(),
         queueCubit: context.read<RouteQueueCubit>(),
       );
     }

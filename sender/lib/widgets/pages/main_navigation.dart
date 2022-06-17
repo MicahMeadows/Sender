@@ -44,88 +44,99 @@ class _MainNavigationState extends State<MainNavigation> {
     );
   }
 
-  void goHome() => changePage((navCubit) => navCubit.showHome());
+  // void goHome() => changePage((navCubit) => navCubit.showHome());
 
-  void goProfile() => changePage((navCubit) => navCubit.showProfile());
+  // void goProfile() => changePage((navCubit) => navCubit.showProfile());
 
-  void goTodo() => changePage((navCubit) => navCubit.showTodo());
+  // void goTodo() => changePage((navCubit) => navCubit.showTodo());
 
   void changePage(void Function(NavigationCubit navCubit) pageAction) {
     pageAction(_navigationCubit);
-    updateCurrentPage();
+    // updateCurrentPage();
   }
 
-  void updateCurrentPage() async {
-    var currentPage = pageNumberFromNavState(_navigationCubit.state);
+  // void updateCurrentPage() async {
 
-    if (currentPage == null) {
-      debugPrint('do error page stuff......');
-      return;
-    }
-
-    await _pageController.animateToPage(
-      currentPage,
-      duration: const Duration(milliseconds: 150),
-      curve: Curves.ease,
-    );
-  }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: col.background,
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            right: 0,
-            left: 0,
-            bottom: 60,
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    offset: const Offset(0, 4),
-                    blurRadius: 8,
-                    color: Colors.black.withOpacity(.25),
-                  ),
-                ],
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(35),
-                ),
-                color: col.primary,
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(35),
-                ),
-                child: PageView(
-                  controller: _pageController,
-                  // physics: dynamicScrollPhysics,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    const TodoPage(),
-                    const HomeContent(),
-                    SettingsPage(
-                      routeSettingsCubit: context.read<RouteSettingsCubit>(),
+    return BlocListener<NavigationCubit, NavigationState>(
+      listener: (context, state) async {
+        var currentPage = pageNumberFromNavState(_navigationCubit.state);
+
+        if (currentPage == null) {
+          debugPrint('do error page stuff......');
+          return;
+        }
+
+        await _pageController.animateToPage(
+          currentPage,
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.ease,
+        );
+      },
+      child: Scaffold(
+        backgroundColor: col.background,
+        body: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 60,
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 8,
+                      color: Colors.black.withOpacity(.25),
                     ),
                   ],
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(35),
+                  ),
+                  color: col.primary,
+                ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(35),
+                  ),
+                  child: PageView(
+                    controller: _pageController,
+                    // physics: dynamicScrollPhysics,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      const TodoPage(),
+                      const HomeContent(),
+                      SettingsPage(
+                        routeSettingsCubit: context.read<RouteSettingsCubit>(),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 4,
-            right: 0,
-            left: 0,
-            child: CustomTabBar(
-              selectedTab: pageNumberFromNavState(navigationCubit.state),
-              tapHome: () => goHome(),
-              tapTodo: () => goTodo(),
-              tapProfile: () => goProfile(),
+            Positioned(
+              bottom: 4,
+              right: 0,
+              left: 0,
+              child: CustomTabBar(
+                selectedTab: pageNumberFromNavState(navigationCubit.state),
+                tapHome: () => changePage((navCubit) {
+                  navigationCubit.showHome();
+                }),
+                tapTodo: () => changePage((navCubit) {
+                  navCubit.showTodo();
+                }),
+                tapProfile: () => changePage((navCubit) {
+                  navCubit.showProfile();
+                }),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

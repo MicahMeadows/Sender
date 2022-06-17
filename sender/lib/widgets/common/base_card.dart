@@ -10,7 +10,7 @@ class BaseCard extends StatelessWidget {
   final Color color;
   const BaseCard({
     required this.child,
-    this.margin = const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    this.margin = const EdgeInsets.only(bottom: 9),
     this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     this.color = col.secondary,
     this.height,
@@ -21,6 +21,8 @@ class BaseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: margin,
+      padding: padding,
       width: width,
       height: height,
       decoration: BoxDecoration(
@@ -35,7 +37,6 @@ class BaseCard extends StatelessWidget {
         ],
       ),
       // margin: margin,
-      padding: padding,
       child: child,
     );
   }

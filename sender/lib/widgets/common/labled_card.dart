@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart' as col;
+import 'package:sender/common/constants/text.dart' as txt;
 
 import 'base_card.dart';
 
 class LabledCard extends StatelessWidget {
   final String title;
-  final Widget content;
-  final double padding;
+  final Widget child;
   final TextStyle? style;
-
-  static const _defaultTextStyle = TextStyle(
-    fontFamily: 'Nunito',
-    fontSize: 16,
-    color: col.text1,
-  );
 
   const LabledCard({
     required this.title,
-    required this.content,
-    this.style = _defaultTextStyle,
-    this.padding = 12,
+    required this.child,
+    this.style = txt.cardHeader,
     Key? key,
   }) : super(key: key);
 
@@ -27,10 +20,10 @@ class LabledCard extends StatelessWidget {
       {required String title,
       required String content,
       double? padding,
-      TextStyle? style = _defaultTextStyle}) {
+      TextStyle? style = txt.cardHeader}) {
     return LabledCard(
       title: title,
-      content: Text(
+      child: Text(
         content,
         style: style,
         textAlign: TextAlign.end,
@@ -40,9 +33,9 @@ class LabledCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: padding, vertical: 5),
-      child: BaseCard(
+    return BaseCard(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -52,7 +45,7 @@ class LabledCard extends StatelessWidget {
             ),
             const SizedBox(width: 15),
             Expanded(
-                child: Align(alignment: Alignment.centerRight, child: content)
+                child: Align(alignment: Alignment.centerRight, child: child)
                 // child: Text(
                 //   content,
                 //   style: style,
