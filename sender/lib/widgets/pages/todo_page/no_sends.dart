@@ -10,7 +10,7 @@ class NoSends extends StatelessWidget {
       image: Image.asset('assets/images/pink_jug.png'),
       title: 'Your Send Stack is empty...',
       body: 'What are you... a gumby? Go climb something!',
-      imageWidth: 100,
+      imageWidth: 110,
     );
   }
 }
