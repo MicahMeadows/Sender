@@ -34,10 +34,10 @@ dependencies:
   flutter_swipable: ^1.2.1
   google_fonts: ^2.3.1
   equatable: ^2.0.3
-  # rive: ^0.8.4
-  rive:
-    git:
-      url: https://github.com/rive-app/rive-flutter
+  rive: ^0.9.0
+  # rive:
+  #   git:
+  #     url: https://github.com/rive-app/rive-flutter
   http: ^0.13.4
   json_serializable: ^6.1.5
 

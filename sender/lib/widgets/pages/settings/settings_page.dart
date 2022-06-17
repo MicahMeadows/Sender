@@ -5,11 +5,13 @@ import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/widgets/common/button_labled_card.dart';
+import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/labled_card.dart';
 import 'package:sender/widgets/common/labled_toggle_card.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
+import 'settings_helper.dart';
 
 import '../../common/titled_card.dart';
 
@@ -34,7 +36,8 @@ class _SettingsPageState extends State<SettingsPage> {
   bool showTrad = false;
   bool showSport = false;
   bool showMultipitch = false;
-  // final ratingGroupController = TextEditingController();
+  String minGrade = '';
+  String maxGrade = '';
 
   double _$minimumRating = 0.0;
   double get _minimumRating => _$minimumRating;
@@ -57,8 +60,9 @@ class _SettingsPageState extends State<SettingsPage> {
     showMultipitch = prefs.showMultipitch;
     showTrad = prefs.showTrad;
     showSport = prefs.showSport;
-    // ratingGroupController.text = prefs.minRating.toString();
     _minimumRating = prefs.minRating;
+    minGrade = prefs.minGrade;
+    maxGrade = prefs.maxGrade;
   }
 
   @override
@@ -68,7 +72,6 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
   }
 
-  // RoutePreferences get pageRoutePreferences {
   void saveChanges() async {
     var currentSettings = widget.routeSettingsCubit.state.whenOrNull(
       settingsLoaded: (settings) => settings,
@@ -81,7 +84,6 @@ class _SettingsPageState extends State<SettingsPage> {
         areaId: areaIdController.text.trim(),
         maxGrade: maxGradeController.text.trim(),
         minGrade: minGradeController.text.trim(),
-        // minRating: double.parse(ratingGroupController.text.trim()),
         minRating: _minimumRating,
         showMultipitch: showMultipitch,
         showSport: showSport,
@@ -94,356 +96,303 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FirebaseAuthCubit, FirebaseAuthState>(
-      builder: (context, authState) {
-        return authState.when(
-          unauthenticated: () => const Center(
-            child: Text('No user loaded'),
-          ),
-          authenticated: (user) => Stack(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                      'assets/images/profile_background.png',
-                    ),
-                  ),
-                ),
-                width: double.infinity,
-              ),
-              // Container(color: Colors.green),
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     context.read<FirebaseAuthCubit>().signOut();
-                    //   },
-                    //   child: const Text("Sign out"),
-                    // ),
-                    const SizedBox(height: 170),
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: col.primary,
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(35)),
-                      ),
-                      child: const Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: _sidePadding),
-                          child: Text(
-                            'Settings',
-                            style: TextStyle(
-                              fontFamily: 'Nunito',
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
+    return SafeArea(
+      child: BlocBuilder<FirebaseAuthCubit, FirebaseAuthState>(
+        builder: (context, authState) {
+          return authState.when(
+            unauthenticated: () => const Center(
+              child: Text('No user loaded'),
+            ),
+            authenticated: (user) => Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: col.primary,
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(35)),
+                        ),
+                        child: const Center(
+                          child: Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: _sidePadding),
+                            child: Text(
+                              'Settings',
+                              style: TextStyle(
+                                fontFamily: 'Nunito',
+                                fontSize: 24,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      color: col.primary,
-                      child: Column(
-                        children: [
-                          SectionBanner(
-                            text: 'Account Settings',
-                            trailing: InkWell(
-                                onTap: () {
-                                  context.read<FirebaseAuthCubit>().signOut();
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.only(right: 20.0),
-                                  child: Text(
-                                    'Sign out',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: col.text2,
-                                    ),
-                                  ),
-                                )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: _sidePadding),
-                            child: Column(
-                              children: [
-                                LabledCard(
-                                  title: 'Email:',
-                                  content: Text(
-                                    user.email ?? 'N/A',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Nunito',
-                                      color: col.text2,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                ButtonLabledCard(
-                                  title: 'Password',
-                                  buttonText: 'change',
+                      Container(
+                        color: col.primary,
+                        child: Column(
+                          children: [
+                            SectionBanner(
+                              text: 'Account Settings',
+                              trailing: InkWell(
                                   onTap: () {
-                                    debugPrint('tap pass change');
+                                    context.read<FirebaseAuthCubit>().signOut();
                                   },
-                                ),
-                              ],
+                                  child: const Padding(
+                                    padding: EdgeInsets.only(right: 20.0),
+                                    child: Text(
+                                      'Sign out',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: col.text2,
+                                      ),
+                                    ),
+                                  )),
                             ),
-                          ),
-                          Container(
-                            color: col.primary,
-                            child: BlocConsumer<RouteSettingsCubit,
-                                RouteSettingsState>(
-                              buildWhen: (previous, current) =>
-                                  previous != current,
-                              listener: (context, state) {
-                                state.whenOrNull(
-                                  settingsLoaded: (settings) {
-                                    setPagePreferences(settings);
-                                  },
-                                );
-                              },
-                              builder: (context, state) {
-                                return state.when(
-                                  settingsLoading: () {
-                                    return const Center(
-                                      child: Text('Loading...'),
-                                    );
-                                  },
-                                  error: (message) => Center(
-                                    child: Text('Error: $message'),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: _sidePadding),
+                              child: Column(
+                                children: [
+                                  LabledCard(
+                                    title: 'Email:',
+                                    child: Text(
+                                      user.email ?? 'N/A',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: 'Nunito',
+                                        color: col.text2,
+                                      ),
+                                    ),
                                   ),
-                                  settingsLoaded: (settings) {
-                                    return Container(
-                                      color: col.primary,
-                                      child: Column(
-                                        children: [
-                                          const SectionBanner(text: 'Location'),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: _sidePadding,
+                                  const SizedBox(height: 5),
+                                  ButtonLabledCard(
+                                    title: 'Password',
+                                    buttonText: 'change',
+                                    onTap: () {
+                                      debugPrint('tap pass change');
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              color: col.primary,
+                              child: BlocConsumer<RouteSettingsCubit,
+                                  RouteSettingsState>(
+                                buildWhen: (previous, current) =>
+                                    previous != current,
+                                listener: (context, state) {
+                                  state.whenOrNull(
+                                    settingsLoaded: (settings) {
+                                      setPagePreferences(settings);
+                                    },
+                                  );
+                                },
+                                builder: (context, state) {
+                                  return state.when(
+                                    settingsLoading: () {
+                                      return const Center(
+                                        // child: Text('Loading...'),
+                                        child: KnotProgressIndicator(),
+                                      );
+                                    },
+                                    error: (message) => Center(
+                                      child: Text('Error: $message'),
+                                    ),
+                                    settingsLoaded: (settings) {
+                                      return Container(
+                                        color: col.primary,
+                                        child: Column(
+                                          children: [
+                                            const SectionBanner(
+                                                text: 'Location'),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: _sidePadding,
+                                              ),
+                                              child: ButtonLabledCard(
+                                                title: settings.areaId,
+                                                buttonText: 'set',
+                                                onTap: () {
+                                                  debugPrint(
+                                                      'set area pressed');
+                                                },
+                                              ),
                                             ),
-                                            child: ButtonLabledCard(
-                                              title: settings.areaId,
-                                              buttonText: 'set',
-                                              onTap: () {
-                                                debugPrint('set area pressed');
-                                              },
-                                            ),
-                                          ),
-                                          const SectionBanner(
-                                              text: 'Route Preferences'),
-                                          // const Text('Area Id'),
-                                          // TextField(
-                                          //     controller: areaIdController),
-                                          // const Text('Min Grade'),
-                                          // TextField(
-                                          //     controller: minGradeController),
-                                          // const Text('Max Grade'),
-                                          // TextField(
-                                          //     controller: maxGradeController),
-                                          // const Text('Enable Trad'),
-                                          // Switch(
-                                          //   value: showTrad,
-                                          //   onChanged: (val) {
-                                          //     setState(() {
-                                          //       showTrad = val;
-                                          //     });
-                                          //   },
-                                          // ),
-                                          // const Text('Enable Sport'),
-                                          // Switch(
-                                          //   value: showSport,
-                                          //   onChanged: (val) {
-                                          //     setState(() {
-                                          //       showSport = val;
-                                          //     });
-                                          //   },
-                                          // ),
-                                          // const Text('Enable TopRope'),
-                                          // Switch(
-                                          //   value: showTopRope,
-                                          //   onChanged: (val) {
-                                          //     setState(() {
-                                          //       showTopRope = val;
-                                          //     });
-                                          //   },
-                                          // ),
-                                          // const Text('Min Stars'),
-                                          // TextField(
-                                          //   controller: ratingGroupController,
-                                          // ),
-                                          // const Text('Show multipitch'),
-                                          // Switch(
-                                          //   value: showMultipitch,
-                                          //   onChanged: (val) {
-                                          //     setState(() {
-                                          //       showMultipitch = val;
-                                          //     });
-                                          //   },
-                                          // ),
-                                          // ElevatedButton(
-                                          //   onPressed: saveChanges,
-                                          //   child: const Text('Save'),
-                                          // ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: _sidePadding,
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                LabledCard(
-                                                  title: 'Minimum Rating',
-                                                  content: Row(
-                                                    children: [
-                                                      const Spacer(),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            _minimumRating -=
-                                                                .5;
-                                                          });
-                                                        },
-                                                        child: const Icon(
-                                                          Icons.remove,
-                                                          color: col.accent,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(width: 5),
-                                                      RatingWidget(
-                                                          color: col.accent,
-                                                          rating:
-                                                              _minimumRating,
-                                                          numStarsShow: 4,
-                                                          height: 30),
-                                                      const SizedBox(width: 5),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            _minimumRating +=
-                                                                .5;
-                                                          });
-                                                        },
-                                                        child: const Icon(
-                                                          Icons.add,
-                                                          color: col.accent,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                TitledCard(
-                                                  title: 'Grade Range',
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      horizontal: 20.0,
-                                                    ),
+                                            const SectionBanner(
+                                                text: 'Route Preferences'),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: _sidePadding,
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  LabledCard(
+                                                    title: 'Minimum Rating',
                                                     child: Row(
                                                       children: [
-                                                        const Text(
-                                                          '5.0',
-                                                          style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontFamily:
-                                                                'Nunito',
-                                                            color: col.text2,
+                                                        const Spacer(),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _minimumRating -=
+                                                                  .5;
+                                                            });
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.remove,
+                                                            color: col.accent,
                                                           ),
                                                         ),
-                                                        Expanded(
-                                                          child: RangeSlider(
-                                                            activeColor:
-                                                                col.accent,
-                                                            onChanged: (vals) {
-                                                              debugPrint(
-                                                                  'changed: $vals');
-                                                            },
-                                                            values:
-                                                                const RangeValues(
-                                                                    .1, .7),
+                                                        const SizedBox(
+                                                            width: 5),
+                                                        RatingWidget(
+                                                            color: col.accent,
+                                                            rating:
+                                                                _minimumRating,
+                                                            numStarsShow: 4,
+                                                            height: 30),
+                                                        const SizedBox(
+                                                            width: 5),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _minimumRating +=
+                                                                  .5;
+                                                            });
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.add,
+                                                            color: col.accent,
                                                           ),
                                                         ),
-                                                        const Text(
-                                                          '5.15d',
-                                                          style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontFamily:
-                                                                'Nunito',
-                                                            color: col.text2,
-                                                          ),
-                                                        )
                                                       ],
                                                     ),
                                                   ),
-                                                ),
-                                                LabledToggleCard(
-                                                  title: 'Sport',
-                                                  value: showSport,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      showSport = value;
-                                                    });
-                                                  },
-                                                ),
-                                                LabledToggleCard(
-                                                  title: 'Top Rope',
-                                                  value: showTopRope,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      showTopRope = value;
-                                                    });
-                                                  },
-                                                ),
-                                                LabledToggleCard(
-                                                  title: 'Trad',
-                                                  value: showTrad,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      showTrad = value;
-                                                    });
-                                                  },
-                                                ),
-                                                LabledToggleCard(
-                                                  title: 'Multi-pitch',
-                                                  value: showMultipitch,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      showMultipitch = value;
-                                                    });
-                                                  },
-                                                ),
-                                                const SizedBox(height: 20),
-                                              ],
+                                                  LabledCard(
+                                                    title: 'Grade Range',
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Spacer(),
+                                                        DropdownButton<String>(
+                                                            value: maxGrade,
+                                                            focusColor:
+                                                                col.text1,
+                                                            dropdownColor:
+                                                                col.primary,
+                                                            items: gradeOptions
+                                                                .map((e) => DropdownMenuItem<
+                                                                        String>(
+                                                                    value: e,
+                                                                    child: Text(
+                                                                        e)))
+                                                                .toList(),
+                                                            onChanged: (val) {
+                                                              setState(() {
+                                                                maxGrade =
+                                                                    val ?? '';
+                                                              });
+                                                            }),
+                                                        const Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      15),
+                                                          child: Text('to'),
+                                                        ),
+                                                        DropdownButton<String>(
+                                                            value: minGrade,
+                                                            focusColor:
+                                                                col.text1,
+                                                            dropdownColor:
+                                                                col.primary,
+                                                            items: gradeOptions
+                                                                .map((e) => DropdownMenuItem<
+                                                                        String>(
+                                                                    value: e,
+                                                                    child: Text(
+                                                                        e)))
+                                                                .toList(),
+                                                            onChanged: (val) {
+                                                              setState(() {
+                                                                minGrade =
+                                                                    val ?? '';
+                                                              });
+                                                            }),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  LabledToggleCard(
+                                                    title: 'Sport',
+                                                    value: showSport,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        showSport = value;
+                                                      });
+                                                    },
+                                                  ),
+                                                  LabledToggleCard(
+                                                    title: 'Top Rope',
+                                                    value: showTopRope,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        showTopRope = value;
+                                                      });
+                                                    },
+                                                  ),
+                                                  LabledToggleCard(
+                                                    title: 'Trad',
+                                                    value: showTrad,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        showTrad = value;
+                                                      });
+                                                    },
+                                                  ),
+                                                  LabledToggleCard(
+                                                    title: 'Multi-pitch',
+                                                    value: showMultipitch,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        showMultipitch = value;
+                                                      });
+                                                    },
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          ThickButton(
-                                            text: 'Save',
-                                            onPressed: () {
-                                              debugPrint(
-                                                'Save new changes...',
-                                              );
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
+                                            ThickButton(
+                                              text: 'Save',
+                                              onPressed: saveChanges,
+                                            ),
+                                            const SizedBox(height: 20),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

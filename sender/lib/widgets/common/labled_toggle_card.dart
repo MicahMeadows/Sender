@@ -18,7 +18,7 @@ class LabledToggleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LabledCard(
       title: title,
-      content: Switch(
+      child: Switch(
         activeColor: col.accent,
         inactiveThumbColor: col.text2,
         value: value,

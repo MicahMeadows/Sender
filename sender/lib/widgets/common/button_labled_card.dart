@@ -18,7 +18,7 @@ class ButtonLabledCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LabledCard(
       title: title,
-      content: InkWell(
+      child: InkWell(
         onTap: onTap,
         child: Text(
           buttonText,
