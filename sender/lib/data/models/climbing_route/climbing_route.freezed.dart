@@ -20,18 +20,24 @@ ClimbingRoute _$ClimbingRouteFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ClimbingRoute {
-  String get name => throw _privateConstructorUsedError;
-  String get grade => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
-  double get rating => throw _privateConstructorUsedError;
-  int get height => throw _privateConstructorUsedError;
-  String get firstAscent => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get protection => throw _privateConstructorUsedError;
-  String get location => throw _privateConstructorUsedError;
-  List<Area> get areas => throw _privateConstructorUsedError;
-  List<String> get imageUrls => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
+  String get grade => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get area => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  int get pitches => throw _privateConstructorUsedError;
+  int get length => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
+  double get latitude => throw _privateConstructorUsedError;
+  String get mountainProjectUrl => throw _privateConstructorUsedError;
+  String get firstAscent =>
+      throw _privateConstructorUsedError; // required String description,
+// required String protection,
+// required String location,
+  List<String> get imageUrls => throw _privateConstructorUsedError;
+  List<Area> get areas => throw _privateConstructorUsedError;
+  List<ClimbingRouteDetail> get details => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,18 +51,21 @@ abstract class $ClimbingRouteCopyWith<$Res> {
           ClimbingRoute value, $Res Function(ClimbingRoute) then) =
       _$ClimbingRouteCopyWithImpl<$Res>;
   $Res call(
-      {String name,
+      {String id,
       String grade,
-      String type,
+      String name,
+      String area,
       double rating,
-      int height,
+      String type,
+      int pitches,
+      int length,
+      double longitude,
+      double latitude,
+      String mountainProjectUrl,
       String firstAscent,
-      String description,
-      String protection,
-      String location,
-      List<Area> areas,
       List<String> imageUrls,
-      String id});
+      List<Area> areas,
+      List<ClimbingRouteDetail> details});
 }
 
 /// @nodoc
@@ -70,68 +79,83 @@ class _$ClimbingRouteCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? name = freezed,
-    Object? grade = freezed,
-    Object? type = freezed,
-    Object? rating = freezed,
-    Object? height = freezed,
-    Object? firstAscent = freezed,
-    Object? description = freezed,
-    Object? protection = freezed,
-    Object? location = freezed,
-    Object? areas = freezed,
-    Object? imageUrls = freezed,
     Object? id = freezed,
+    Object? grade = freezed,
+    Object? name = freezed,
+    Object? area = freezed,
+    Object? rating = freezed,
+    Object? type = freezed,
+    Object? pitches = freezed,
+    Object? length = freezed,
+    Object? longitude = freezed,
+    Object? latitude = freezed,
+    Object? mountainProjectUrl = freezed,
+    Object? firstAscent = freezed,
+    Object? imageUrls = freezed,
+    Object? areas = freezed,
+    Object? details = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       grade: grade == freezed
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      area: area == freezed
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
               as String,
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      height: height == freezed
-          ? _value.height
-          : height // ignore: cast_nullable_to_non_nullable
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      pitches: pitches == freezed
+          ? _value.pitches
+          : pitches // ignore: cast_nullable_to_non_nullable
               as int,
+      length: length == freezed
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as int,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      mountainProjectUrl: mountainProjectUrl == freezed
+          ? _value.mountainProjectUrl
+          : mountainProjectUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       firstAscent: firstAscent == freezed
           ? _value.firstAscent
           : firstAscent // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      protection: protection == freezed
-          ? _value.protection
-          : protection // ignore: cast_nullable_to_non_nullable
-              as String,
-      location: location == freezed
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      areas: areas == freezed
-          ? _value.areas
-          : areas // ignore: cast_nullable_to_non_nullable
-              as List<Area>,
       imageUrls: imageUrls == freezed
           ? _value.imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
+      areas: areas == freezed
+          ? _value.areas
+          : areas // ignore: cast_nullable_to_non_nullable
+              as List<Area>,
+      details: details == freezed
+          ? _value.details
+          : details // ignore: cast_nullable_to_non_nullable
+              as List<ClimbingRouteDetail>,
     ));
   }
 }
@@ -144,18 +168,21 @@ abstract class _$$_ClimbingRouteCopyWith<$Res>
       __$$_ClimbingRouteCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
+      {String id,
       String grade,
-      String type,
+      String name,
+      String area,
       double rating,
-      int height,
+      String type,
+      int pitches,
+      int length,
+      double longitude,
+      double latitude,
+      String mountainProjectUrl,
       String firstAscent,
-      String description,
-      String protection,
-      String location,
-      List<Area> areas,
       List<String> imageUrls,
-      String id});
+      List<Area> areas,
+      List<ClimbingRouteDetail> details});
 }
 
 /// @nodoc
@@ -171,68 +198,83 @@ class __$$_ClimbingRouteCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? name = freezed,
-    Object? grade = freezed,
-    Object? type = freezed,
-    Object? rating = freezed,
-    Object? height = freezed,
-    Object? firstAscent = freezed,
-    Object? description = freezed,
-    Object? protection = freezed,
-    Object? location = freezed,
-    Object? areas = freezed,
-    Object? imageUrls = freezed,
     Object? id = freezed,
+    Object? grade = freezed,
+    Object? name = freezed,
+    Object? area = freezed,
+    Object? rating = freezed,
+    Object? type = freezed,
+    Object? pitches = freezed,
+    Object? length = freezed,
+    Object? longitude = freezed,
+    Object? latitude = freezed,
+    Object? mountainProjectUrl = freezed,
+    Object? firstAscent = freezed,
+    Object? imageUrls = freezed,
+    Object? areas = freezed,
+    Object? details = freezed,
   }) {
     return _then(_$_ClimbingRoute(
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       grade: grade == freezed
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      area: area == freezed
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
               as String,
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      height: height == freezed
-          ? _value.height
-          : height // ignore: cast_nullable_to_non_nullable
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      pitches: pitches == freezed
+          ? _value.pitches
+          : pitches // ignore: cast_nullable_to_non_nullable
               as int,
+      length: length == freezed
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as int,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      mountainProjectUrl: mountainProjectUrl == freezed
+          ? _value.mountainProjectUrl
+          : mountainProjectUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       firstAscent: firstAscent == freezed
           ? _value.firstAscent
           : firstAscent // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      protection: protection == freezed
-          ? _value.protection
-          : protection // ignore: cast_nullable_to_non_nullable
-              as String,
-      location: location == freezed
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      areas: areas == freezed
-          ? _value._areas
-          : areas // ignore: cast_nullable_to_non_nullable
-              as List<Area>,
       imageUrls: imageUrls == freezed
           ? _value._imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
+      areas: areas == freezed
+          ? _value._areas
+          : areas // ignore: cast_nullable_to_non_nullable
+              as List<Area>,
+      details: details == freezed
+          ? _value._details
+          : details // ignore: cast_nullable_to_non_nullable
+              as List<ClimbingRouteDetail>,
     ));
   }
 }
@@ -241,42 +283,65 @@ class __$$_ClimbingRouteCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ClimbingRoute implements _ClimbingRoute {
   _$_ClimbingRoute(
-      {required this.name,
+      {required this.id,
       required this.grade,
-      required this.type,
+      required this.name,
+      required this.area,
       required this.rating,
-      required this.height,
+      required this.type,
+      required this.pitches,
+      required this.length,
+      required this.longitude,
+      required this.latitude,
+      required this.mountainProjectUrl,
       required this.firstAscent,
-      required this.description,
-      required this.protection,
-      required this.location,
-      required final List<Area> areas,
       required final List<String> imageUrls,
-      required this.id})
-      : _areas = areas,
-        _imageUrls = imageUrls;
+      required final List<Area> areas,
+      required final List<ClimbingRouteDetail> details})
+      : _imageUrls = imageUrls,
+        _areas = areas,
+        _details = details;
 
   factory _$_ClimbingRoute.fromJson(Map<String, dynamic> json) =>
       _$$_ClimbingRouteFromJson(json);
 
   @override
-  final String name;
+  final String id;
   @override
   final String grade;
   @override
-  final String type;
+  final String name;
+  @override
+  final String area;
   @override
   final double rating;
   @override
-  final int height;
+  final String type;
+  @override
+  final int pitches;
+  @override
+  final int length;
+  @override
+  final double longitude;
+  @override
+  final double latitude;
+  @override
+  final String mountainProjectUrl;
   @override
   final String firstAscent;
+// required String description,
+// required String protection,
+// required String location,
+  final List<String> _imageUrls;
+// required String description,
+// required String protection,
+// required String location,
   @override
-  final String description;
-  @override
-  final String protection;
-  @override
-  final String location;
+  List<String> get imageUrls {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imageUrls);
+  }
+
   final List<Area> _areas;
   @override
   List<Area> get areas {
@@ -284,19 +349,16 @@ class _$_ClimbingRoute implements _ClimbingRoute {
     return EqualUnmodifiableListView(_areas);
   }
 
-  final List<String> _imageUrls;
+  final List<ClimbingRouteDetail> _details;
   @override
-  List<String> get imageUrls {
+  List<ClimbingRouteDetail> get details {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_imageUrls);
+    return EqualUnmodifiableListView(_details);
   }
 
   @override
-  final String id;
-
-  @override
   String toString() {
-    return 'ClimbingRoute(name: $name, grade: $grade, type: $type, rating: $rating, height: $height, firstAscent: $firstAscent, description: $description, protection: $protection, location: $location, areas: $areas, imageUrls: $imageUrls, id: $id)';
+    return 'ClimbingRoute(id: $id, grade: $grade, name: $name, area: $area, rating: $rating, type: $type, pitches: $pitches, length: $length, longitude: $longitude, latitude: $latitude, mountainProjectUrl: $mountainProjectUrl, firstAscent: $firstAscent, imageUrls: $imageUrls, areas: $areas, details: $details)';
   }
 
   @override
@@ -304,40 +366,45 @@ class _$_ClimbingRoute implements _ClimbingRoute {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ClimbingRoute &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.grade, grade) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.area, area) &&
             const DeepCollectionEquality().equals(other.rating, rating) &&
-            const DeepCollectionEquality().equals(other.height, height) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other.pitches, pitches) &&
+            const DeepCollectionEquality().equals(other.length, length) &&
+            const DeepCollectionEquality().equals(other.longitude, longitude) &&
+            const DeepCollectionEquality().equals(other.latitude, latitude) &&
+            const DeepCollectionEquality()
+                .equals(other.mountainProjectUrl, mountainProjectUrl) &&
             const DeepCollectionEquality()
                 .equals(other.firstAscent, firstAscent) &&
             const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.protection, protection) &&
-            const DeepCollectionEquality().equals(other.location, location) &&
-            const DeepCollectionEquality().equals(other._areas, _areas) &&
-            const DeepCollectionEquality()
                 .equals(other._imageUrls, _imageUrls) &&
-            const DeepCollectionEquality().equals(other.id, id));
+            const DeepCollectionEquality().equals(other._areas, _areas) &&
+            const DeepCollectionEquality().equals(other._details, _details));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(grade),
-      const DeepCollectionEquality().hash(type),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(area),
       const DeepCollectionEquality().hash(rating),
-      const DeepCollectionEquality().hash(height),
+      const DeepCollectionEquality().hash(type),
+      const DeepCollectionEquality().hash(pitches),
+      const DeepCollectionEquality().hash(length),
+      const DeepCollectionEquality().hash(longitude),
+      const DeepCollectionEquality().hash(latitude),
+      const DeepCollectionEquality().hash(mountainProjectUrl),
       const DeepCollectionEquality().hash(firstAscent),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(protection),
-      const DeepCollectionEquality().hash(location),
-      const DeepCollectionEquality().hash(_areas),
       const DeepCollectionEquality().hash(_imageUrls),
-      const DeepCollectionEquality().hash(id));
+      const DeepCollectionEquality().hash(_areas),
+      const DeepCollectionEquality().hash(_details));
 
   @JsonKey(ignore: true)
   @override
@@ -352,46 +419,57 @@ class _$_ClimbingRoute implements _ClimbingRoute {
 
 abstract class _ClimbingRoute implements ClimbingRoute {
   factory _ClimbingRoute(
-      {required final String name,
+      {required final String id,
       required final String grade,
-      required final String type,
+      required final String name,
+      required final String area,
       required final double rating,
-      required final int height,
+      required final String type,
+      required final int pitches,
+      required final int length,
+      required final double longitude,
+      required final double latitude,
+      required final String mountainProjectUrl,
       required final String firstAscent,
-      required final String description,
-      required final String protection,
-      required final String location,
-      required final List<Area> areas,
       required final List<String> imageUrls,
-      required final String id}) = _$_ClimbingRoute;
+      required final List<Area> areas,
+      required final List<ClimbingRouteDetail> details}) = _$_ClimbingRoute;
 
   factory _ClimbingRoute.fromJson(Map<String, dynamic> json) =
       _$_ClimbingRoute.fromJson;
 
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @override
   String get grade => throw _privateConstructorUsedError;
   @override
-  String get type => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  @override
+  String get area => throw _privateConstructorUsedError;
   @override
   double get rating => throw _privateConstructorUsedError;
   @override
-  int get height => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  @override
+  int get pitches => throw _privateConstructorUsedError;
+  @override
+  int get length => throw _privateConstructorUsedError;
+  @override
+  double get longitude => throw _privateConstructorUsedError;
+  @override
+  double get latitude => throw _privateConstructorUsedError;
+  @override
+  String get mountainProjectUrl => throw _privateConstructorUsedError;
   @override
   String get firstAscent => throw _privateConstructorUsedError;
-  @override
-  String get description => throw _privateConstructorUsedError;
-  @override
-  String get protection => throw _privateConstructorUsedError;
-  @override
-  String get location => throw _privateConstructorUsedError;
+  @override // required String description,
+// required String protection,
+// required String location,
+  List<String> get imageUrls => throw _privateConstructorUsedError;
   @override
   List<Area> get areas => throw _privateConstructorUsedError;
   @override
-  List<String> get imageUrls => throw _privateConstructorUsedError;
-  @override
-  String get id => throw _privateConstructorUsedError;
+  List<ClimbingRouteDetail> get details => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ClimbingRouteCopyWith<_$_ClimbingRoute> get copyWith =>

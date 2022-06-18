@@ -20,6 +20,8 @@ import 'common/networking/header_authenticated_api.dart';
 import 'common/networking/i_rest_api.dart';
 import 'package:dio/dio.dart';
 
+import 'data/repository/queue_route_repository/retrofit_queue_route_repository.dart';
+
 FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 final _dioClient = Dio()
@@ -42,7 +44,9 @@ final _retrofitSenderApi = RetrofitSenderApi(_dioClient);
 // );
 
 // ApiQueueRepository(_senderApi);
-IQueueRouteRepository _queueRouteRepository = TestingQueueRouteRepository();
+// IQueueRouteRepository _queueRouteRepository = TestingQueueRouteRepository();
+IQueueRouteRepository _queueRouteRepository =
+    RetrofitQueueRouteRepository(_retrofitSenderApi);
 
 // ApiUserRepository(_senderApi);
 // TestUserRepository();

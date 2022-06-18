@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
+import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/main.dart';
 import 'package:sender/widgets/common/button_labled_card.dart';
@@ -18,9 +19,11 @@ import '../../common/titled_card.dart';
 
 class SettingsPage extends StatefulWidget {
   final RouteSettingsCubit routeSettingsCubit;
+  final RouteQueueCubit queueCubit;
 
   const SettingsPage({
     required this.routeSettingsCubit,
+    required this.queueCubit,
     Key? key,
   }) : super(key: key);
 
@@ -96,6 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
     widget.routeSettingsCubit.uploadPreferences();
     navigationCubit.showHome();
+    widget.queueCubit.loadRoutes();
   }
 
   @override
@@ -290,32 +294,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                                       children: [
                                                         Spacer(),
                                                         DropdownButton<String>(
-                                                            value: maxGrade,
-                                                            focusColor:
-                                                                col.text1,
-                                                            dropdownColor:
-                                                                col.primary,
-                                                            items: gradeOptions
-                                                                .map((e) => DropdownMenuItem<
-                                                                        String>(
-                                                                    value: e,
-                                                                    child: Text(
-                                                                        e)))
-                                                                .toList(),
-                                                            onChanged: (val) {
-                                                              setState(() {
-                                                                maxGrade =
-                                                                    val ?? '';
-                                                              });
-                                                            }),
-                                                        const Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      15),
-                                                          child: Text('to'),
-                                                        ),
-                                                        DropdownButton<String>(
                                                             value: minGrade,
                                                             focusColor:
                                                                 col.text1,
@@ -331,6 +309,32 @@ class _SettingsPageState extends State<SettingsPage> {
                                                             onChanged: (val) {
                                                               setState(() {
                                                                 minGrade =
+                                                                    val ?? '';
+                                                              });
+                                                            }),
+                                                        const Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      15),
+                                                          child: Text('to'),
+                                                        ),
+                                                        DropdownButton<String>(
+                                                            value: maxGrade,
+                                                            focusColor:
+                                                                col.text1,
+                                                            dropdownColor:
+                                                                col.primary,
+                                                            items: gradeOptions
+                                                                .map((e) => DropdownMenuItem<
+                                                                        String>(
+                                                                    value: e,
+                                                                    child: Text(
+                                                                        e)))
+                                                                .toList(),
+                                                            onChanged: (val) {
+                                                              setState(() {
+                                                                maxGrade =
                                                                     val ?? '';
                                                               });
                                                             }),

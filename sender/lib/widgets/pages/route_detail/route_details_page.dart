@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/common/constants/colors.dart' as col;
+import 'package:sender/data/models/climbing_route_detail/climbing_route_detail.dart';
 import 'package:sender/widgets/common/base_card.dart';
 import 'package:sender/widgets/common/breadcrumbs.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
@@ -353,16 +354,16 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Text(
-              widget.route.description,
-              // style: GoogleFonts.nunito(
-              //   fontSize: 16,
-              // ),
-              style: _appTextTheme.bodySmall?.copyWith(color: col.text1),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 32),
+          //   child: Text(
+          //     widget.route.description,
+          //     // style: GoogleFonts.nunito(
+          //     //   fontSize: 16,
+          //     // ),
+          //     style: _appTextTheme.bodySmall?.copyWith(color: col.text1),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: RatingWidget(
@@ -376,8 +377,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           const SizedBox(height: 3),
 
           _buildLabledCard('Type:', widget.route.type),
-          _buildLabledCard('Height:', '${widget.route.height.toString()}ft'),
-          _buildLabledCard('Protection:', widget.route.protection),
+          _buildLabledCard('Height:', '${widget.route.length.toString()}ft'),
+          // _buildLabledCard('Protection:', widget.route.protection),
           _buildLabledCard('Grade:', widget.route.grade),
           _buildLabledCard('First Ascent:', widget.route.firstAscent),
           const SizedBox(height: 23),
@@ -398,13 +399,14 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             ),
           ),
           const SizedBox(height: 23),
-          const SectionBanner(text: 'Location'),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
-            child:
-                _buildTextCard(widget.route.location, width: double.infinity),
-          ),
+          // const SectionBanner(text: 'Location'),
+          // const SizedBox(height: 8),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
+          //   child:
+          //       _buildTextCard(widget.route.location, width: double.infinity),
+          // ),
+          for (var detail in widget.route.details) _makeDetailSection(detail),
           const SizedBox(height: 30),
           // _buildBlueButton('Add to Send Stack', () {
           //   setState(() {
@@ -472,6 +474,19 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
         text,
         style: _appTextTheme.bodySmall?.apply(color: col.text1),
       ),
+    );
+  }
+
+  _makeDetailSection(ClimbingRouteDetail detail) {
+    return Column(
+      children: [
+        SectionBanner(text: detail.title),
+        const SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
+          child: _buildTextCard(detail.content, width: double.infinity),
+        ),
+      ],
     );
   }
 
