@@ -31,8 +31,8 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   static const double _sidePadding = 12;
   final areaIdController = TextEditingController();
-  final minGradeController = TextEditingController();
-  final maxGradeController = TextEditingController();
+  // final minGradeController = TextEditingController();
+  // final maxGradeController = TextEditingController();
   bool showTopRope = false;
   bool showTrad = false;
   bool showSport = false;
@@ -55,8 +55,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void setPagePreferences(RoutePreferences prefs) {
     areaIdController.text = prefs.areaId;
-    minGradeController.text = prefs.minGrade;
-    maxGradeController.text = prefs.maxGrade;
+    // minGradeController.text = prefs.minGrade;
+    // maxGradeController.text = prefs.maxGrade;
     showTopRope = prefs.showTopRope;
     showMultipitch = prefs.showMultipitch;
     showTrad = prefs.showTrad;
@@ -83,8 +83,10 @@ class _SettingsPageState extends State<SettingsPage> {
     widget.routeSettingsCubit.setPreferences(
       currentSettings.copyWith(
         areaId: areaIdController.text.trim(),
-        maxGrade: maxGradeController.text.trim(),
-        minGrade: minGradeController.text.trim(),
+        // maxGrade: maxGradeController.text.trim(),
+        // minGrade: minGradeController.text.trim(),
+        maxGrade: maxGrade,
+        minGrade: minGrade,
         minRating: _minimumRating,
         showMultipitch: showMultipitch,
         showSport: showSport,
@@ -196,7 +198,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   return state.when(
                                     settingsLoading: () {
                                       return Container(
-                                        margin: EdgeInsets.only(top: 30),
+                                        margin: const EdgeInsets.only(top: 30),
                                         child: const Center(
                                           child: KnotProgressIndicator(
                                             color: Colors.white,

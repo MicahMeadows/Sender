@@ -11,23 +11,42 @@ import 'package:sender/data/repository/queue_route_repository/i_queue_route_repo
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/data/repository/queue_route_repository/testing_queue_route_repository.dart';
 import 'package:sender/data/repository/user_repository/i_user_repository.dart';
+import 'package:sender/data/repository/user_repository/retrofit_user_repository.dart';
 import 'package:sender/data/repository/user_repository/test_user_repository.dart';
+import 'package:sender/data/sender_api/retrofit_sender_api.dart';
 import 'package:sender/firebase_options.dart';
 import 'package:sender/widgets/auth_gate.dart';
 import 'common/networking/header_authenticated_api.dart';
 import 'common/networking/i_rest_api.dart';
+import 'package:dio/dio.dart';
 
 FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-IRestApi _senderApi = HeaderAuthenticatedApi(
-  baseUrl: 'http://10.0.2.2:8080/',
-  getAuthToken: () => _firebaseAuth.currentUser?.getIdToken(),
-);
+final _dioClient = Dio()
+  ..interceptors.add(
+    InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        options.headers['authtoken'] =
+            await _firebaseAuth.currentUser?.getIdToken();
+        return handler.next(options);
+      },
+    ),
+  );
+// ..options.headers['authtoken'] = _firebaseAuth.currentUser?.getIdToken();
 
-// IQueueRouteRepository _queueRouteRepository = ApiQueueRouteRepository(_senderApi);
+final _retrofitSenderApi = RetrofitSenderApi(_dioClient);
+
+// IRestApi _senderApi = HeaderAuthenticatedApi(
+//   baseUrl: 'http://10.0.2.2:8080/',
+//   getAuthToken: () => _firebaseAuth.currentUser?.getIdToken(),
+// );
+
+// ApiQueueRepository(_senderApi);
 IQueueRouteRepository _queueRouteRepository = TestingQueueRouteRepository();
-// IUserRepository _userRepository = ApiUserRepository(_senderApi);
-IUserRepository _userRepository = TestUserRepository();
+
+// ApiUserRepository(_senderApi);
+// TestUserRepository();
+IUserRepository _userRepository = RetrofitUserRepostiroy(_retrofitSenderApi);
 
 TodoListCubit todoListCubit = TodoListCubit(_userRepository)..loadTicks();
 RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository);
