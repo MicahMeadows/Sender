@@ -27,6 +27,9 @@ abstract class RetrofitSenderApi {
   @POST('/user/route')
   Future<RouteTick> setRouteTick(@Body() RouteTick tick);
 
+  @DELETE('/user/route/{id}')
+  Future<void> removeRouteTick(@Path() String id);
+
   @GET('/user/route')
   Future<List<RouteTick>> getRouteTicks();
 }

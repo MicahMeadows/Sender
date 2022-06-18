@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/main.dart';
 import 'package:sender/widgets/common/drop_button.dart';
+import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/round_button.dart';
 import 'package:sender/widgets/common/tab_switcher.dart';
 import 'package:sender/common/constants/colors.dart' as col;
@@ -60,7 +61,9 @@ class _TodoPageState extends State<TodoPage> {
                     return _makeTickList(sends);
                   },
                   loading: () => const Center(
-                    child: Text('loading...'),
+                    child: KnotProgressIndicator(
+                      color: Colors.white,
+                    ),
                   ),
                   error: (msg) => const Center(
                     child: Text('error'),
@@ -108,7 +111,7 @@ class _TodoPageState extends State<TodoPage> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                '${ticks.length} Results',
+                '${ticks.length} Result${ticks.length > 1 ? 's' : ''}',
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 14,

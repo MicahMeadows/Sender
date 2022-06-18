@@ -16,9 +16,8 @@ class RetrofitUserRepostiroy implements IUserRepository {
   }
 
   @override
-  Future<void> deleteRouteTick(String routeToDeleteId) {
-    // TODO: implement deleteRouteTick
-    throw UnimplementedError();
+  Future<void> deleteRouteTick(String routeToDeleteId) async {
+    await _api.removeRouteTick(routeToDeleteId);
   }
 
   @override

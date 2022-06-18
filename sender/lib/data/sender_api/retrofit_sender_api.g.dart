@@ -68,6 +68,20 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
   }
 
   @override
+  Future<void> removeRouteTick(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    await _dio.fetch<void>(_setStreamType<void>(
+        Options(method: 'DELETE', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/user/route/${id}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    return null;
+  }
+
+  @override
   Future<List<RouteTick>> getRouteTicks() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

@@ -47,8 +47,8 @@ class _SettingsPageState extends State<SettingsPage> {
     if (newRating <= 0) {
       newRating = 0;
     }
-    if (newRating >= 4) {
-      newRating = 4;
+    if (newRating >= 3) {
+      newRating = 3;
     }
     _$minimumRating = newRating;
   }
@@ -262,7 +262,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                             color: col.accent,
                                                             rating:
                                                                 _minimumRating,
-                                                            numStarsShow: 4,
+                                                            numStarsShow: 3,
                                                             height: 30),
                                                         const SizedBox(
                                                             width: 5),
