@@ -10,7 +10,7 @@ part of 'retrofit_sender_api.dart';
 
 class _RetrofitSenderApi implements RetrofitSenderApi {
   _RetrofitSenderApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://10.0.2.2:8080/';
+    baseUrl ??= 'https://d9b0-199-168-73-30.ngrok.io';
   }
 
   final Dio _dio;
@@ -100,10 +100,12 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
   }
 
   @override
-  Future<List<ClimbingRoute>> getQueueRoutes({includePageData = 'true'}) async {
+  Future<List<ClimbingRoute>> getQueueRoutes(
+      {includePageData = 'true', required numResults}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'includePageData': includePageData
+      r'includePageData': includePageData,
+      r'numResults': numResults
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

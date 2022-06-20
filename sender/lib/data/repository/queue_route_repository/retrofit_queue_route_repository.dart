@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:sender/common/helpers/mountain_project_scrape.dart';
 import 'package:sender/data/models/climbing_route/climbing_route.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 import 'package:sender/data/sender_api/retrofit_sender_api.dart';
@@ -15,10 +17,15 @@ class RetrofitQueueRouteRepository implements IQueueRouteRepository {
 
   @override
   Future<List<ClimbingRoute>> getClimbingRoutes(List<String> routeIds) async {
-    var queueRoutes = await _api.getQueueRoutes();
+    try {
+      var loadedRoutes = await _api.getQueueRoutes();
 
-    queueRoutes.removeWhere((element) => element.imageUrls.isEmpty);
+      loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
 
-    return queueRoutes;
+      return loadedRoutes;
+    } catch (ex) {
+      debugPrint('failed to get routes: $ex');
+      rethrow;
+    }
   }
 }

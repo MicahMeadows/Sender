@@ -31,12 +31,14 @@ class RouteTick with _$RouteTick {
   }
 
   static RouteTick makeTick(String tickType, ClimbingRoute route) {
+    if (route.name == null) throw Exception('No route name cannot tick.');
     return RouteTick(
       id: route.id,
-      name: route.name,
-      rating: route.rating,
-      grade: route.grade,
-      area: areaStringFromAreas(route.areas),
+      name: route.name!,
+      rating: route.rating ?? 0,
+      grade: route.grade ?? 'N/A',
+      // area: areaStringFromAreas(route.areas),
+      area: route.area ?? 'Unavailable',
       type: tickType,
     );
   }
