@@ -101,12 +101,13 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
 
   @override
   Future<List<ClimbingRoute>> getQueueRoutes(
-      {includePageData = 'true', required numResults}) async {
+      {includePageData = 'true', numResults}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'includePageData': includePageData,
       r'numResults': numResults
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(

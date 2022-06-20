@@ -38,6 +38,6 @@ abstract class RetrofitSenderApi {
   @GET('/routes/queue')
   Future<List<ClimbingRoute>> getQueueRoutes({
     @Query('includePageData') String includePageData = 'true',
-    @Query('numResults') int numResults,
+    @Query('numResults') int? numResults,
   });
 }
