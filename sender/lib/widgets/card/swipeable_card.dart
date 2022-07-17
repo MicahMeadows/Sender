@@ -64,15 +64,6 @@ class _SwipableCardState extends State<SwipeableCard>
     }
   }
 
-  void onLoadScreen(Duration timestamp) {
-    final container = cardKey.currentContext?.findRenderObject() as RenderBox?;
-
-    loadedSize = container?.size;
-    loadedOrigin = container?.localToGlobal(Offset.zero);
-
-    debugPrint('loadedSize: $loadedSize');
-  }
-
   @override
   void dispose() {
     overlayEntry?.removeListener(() {});
@@ -118,8 +109,6 @@ class _SwipableCardState extends State<SwipeableCard>
         ),
       );
     }
-
-    WidgetsBinding.instance.addPostFrameCallback(onLoadScreen);
   }
 
   @override
@@ -347,6 +336,11 @@ class _SwipableCardState extends State<SwipeableCard>
   }
 
   void dragStart(DragStartDetails details) {
+    final container = cardKey.currentContext?.findRenderObject() as RenderBox?;
+
+    loadedSize = container?.size;
+    loadedOrigin = container?.localToGlobal(Offset.zero);
+
     dragStartOffset = details.localPosition;
     dragOffset = loadedOrigin ?? Offset.zero;
     if (loadedOrigin != null) {
