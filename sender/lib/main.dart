@@ -9,15 +9,12 @@ import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sender/data/repository/queue_route_repository/testing_queue_route_repository.dart';
+import 'package:sender/data/repository/user_repository/caching_user_repository.dart';
 import 'package:sender/data/repository/user_repository/i_user_repository.dart';
 import 'package:sender/data/repository/user_repository/retrofit_user_repository.dart';
-import 'package:sender/data/repository/user_repository/test_user_repository.dart';
 import 'package:sender/data/sender_api/retrofit_sender_api.dart';
 import 'package:sender/firebase_options.dart';
 import 'package:sender/widgets/auth_gate.dart';
-import 'common/networking/header_authenticated_api.dart';
-import 'common/networking/i_rest_api.dart';
 import 'package:dio/dio.dart';
 
 import 'data/repository/queue_route_repository/retrofit_queue_route_repository.dart';
@@ -34,23 +31,14 @@ final _dioClient = Dio()
       },
     ),
   );
-// ..options.headers['authtoken'] = _firebaseAuth.currentUser?.getIdToken();
 
 final _retrofitSenderApi = RetrofitSenderApi(_dioClient);
 
-// IRestApi _senderApi = HeaderAuthenticatedApi(
-//   baseUrl: 'http://10.0.2.2:8080/',
-//   getAuthToken: () => _firebaseAuth.currentUser?.getIdToken(),
-// );
-
-// ApiQueueRepository(_senderApi);
-// IQueueRouteRepository _queueRouteRepository = TestingQueueRouteRepository();
 IQueueRouteRepository _queueRouteRepository =
     RetrofitQueueRouteRepository(_retrofitSenderApi);
 
-// ApiUserRepository(_senderApi);
-// TestUserRepository();
-IUserRepository _userRepository = RetrofitUserRepostiroy(_retrofitSenderApi);
+IUserRepository _userRepository =
+    CachingUserRepository(RetrofitUserRepostiroy(_retrofitSenderApi));
 
 TodoListCubit todoListCubit = TodoListCubit(_userRepository)..loadTicks();
 RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository);
