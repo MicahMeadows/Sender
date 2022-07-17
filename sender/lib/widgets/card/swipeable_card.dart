@@ -37,7 +37,12 @@ class SwipeableCard extends StatefulWidget {
   State<SwipeableCard> createState() => _SwipableCardState();
 }
 
-class _SwipableCardState extends State<SwipeableCard> {
+class _SwipableCardState extends State<SwipeableCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController cardAnimationController;
+  late Animation recenterAnimation;
+  late Animation reangleAnimation;
+
   late OverlayState? overlayState = Overlay.of(context);
   OverlayEntry? overlayEntry;
 
@@ -80,6 +85,25 @@ class _SwipableCardState extends State<SwipeableCard> {
   void initState() {
     super.initState();
 
+    cardAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 150),
+    );
+
+    cardAnimationController.addListener(() {
+      overlayEntry?.markNeedsBuild();
+    });
+
+    cardAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        removeOverlay();
+        cardAnimationController.reset();
+        setState(() {
+          dragOffset = loadedOrigin ?? Offset.zero;
+        });
+      }
+    });
+
     for (var imageUrl in widget.route.imageUrls ?? []) {
       _routeImages.add(
         Image.network(
@@ -108,14 +132,8 @@ class _SwipableCardState extends State<SwipeableCard> {
   }
 
   void removeOverlay() {
-    if (overlayState != null) {
-      if (overlayEntry != null) {
-        if (overlayEntry!.mounted) {
-          overlayEntry!.remove();
-          overlayEntry = null;
-        }
-      }
-    }
+    overlayEntry?.remove();
+    overlayEntry = null;
   }
 
   Size get _screenSize {
@@ -135,19 +153,30 @@ class _SwipableCardState extends State<SwipeableCard> {
       return 0;
     }
 
+    bool dragAtBottom = dragStartOffset.dy > _screenSize.height / 2;
+
     var cardMiddlePos = _cardMiddle;
 
     num dX = cardMiddlePos.dx - _screenSize.width / 2;
-    num dY = cardMiddlePos.dy + 250;
+    num dY = cardMiddlePos.dy;
 
-    return atan2(dX, dY);
+    return atan2(dX, dY) * (dragAtBottom ? -1 : 1);
   }
 
   void endDrag() {
-    removeOverlay();
-    setState(() {
-      dragOffset = loadedOrigin ?? Offset.zero;
-    });
+    reangleAnimation = Tween<double>(
+      begin: _cardRotationAngle,
+      end: 0,
+    ).animate(
+      cardAnimationController,
+    );
+
+    recenterAnimation =
+        Tween<Offset>(begin: dragOffset, end: loadedOrigin ?? Offset.zero)
+            .animate(
+      cardAnimationController,
+    );
+    cardAnimationController.forward();
   }
 
   void dragEnd(DragEndDetails details) {
@@ -241,13 +270,25 @@ class _SwipableCardState extends State<SwipeableCard> {
   void createOverlayEntry() {
     debugPrint(loadedOrigin?.dx.toString());
     overlayEntry = OverlayEntry(builder: (ctx) {
+      double dX = dragOffset.dx;
+      double dY = dragOffset.dy;
+      double a = _cardRotationAngle;
+
+      if (cardAnimationController.isAnimating) {
+        Offset currentRecenterPos = recenterAnimation.value as Offset;
+        dX = currentRecenterPos.dx;
+        dY = currentRecenterPos.dy;
+
+        double currentReangleAngle = reangleAnimation.value as double;
+        a = currentReangleAngle;
+      }
       return Positioned(
         width: loadedSize != null ? loadedSize!.width : null,
         height: loadedSize != null ? loadedSize!.height : null,
-        left: dragOffset.dx,
-        top: dragOffset.dy,
+        left: dX,
+        top: dY,
         child: Transform.rotate(
-          angle: _cardRotationAngle,
+          angle: a,
           child: AnimatedContainer(
             duration: Duration(milliseconds: 320),
             child: buildCardWidget(context),
