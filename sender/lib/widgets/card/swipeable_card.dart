@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,6 +37,16 @@ class SwipeableCard extends StatefulWidget {
 }
 
 class _SwipableCardState extends State<SwipeableCard> {
+  late OverlayState? overlayState = Overlay.of(context);
+  OverlayEntry? overlayEntry;
+
+  Offset dragOffset = Offset.zero;
+  Offset dragStartOffset = Offset.zero;
+
+  GlobalKey cardKey = GlobalKey();
+  Size? loadedSize;
+  Offset? loadedOrigin;
+
   int _pageIndex = 0;
   final List<Image> _routeImages = [];
 
@@ -51,6 +64,15 @@ class _SwipableCardState extends State<SwipeableCard> {
         _pageIndex--;
       });
     }
+  }
+
+  void onLoadScreen(Duration timestamp) {
+    final container = cardKey.currentContext?.findRenderObject() as RenderBox?;
+
+    loadedSize = container?.size;
+    loadedOrigin = container?.localToGlobal(Offset.zero);
+
+    debugPrint('loadedSize: $loadedSize');
   }
 
   @override
@@ -71,6 +93,8 @@ class _SwipableCardState extends State<SwipeableCard> {
         ),
       );
     }
+
+    WidgetsBinding.instance.addPostFrameCallback(onLoadScreen);
   }
 
   @override
@@ -82,26 +106,150 @@ class _SwipableCardState extends State<SwipeableCard> {
     }
   }
 
+  void removeOverlay() {
+    if (overlayState != null) {
+      if (overlayEntry != null) {
+        if (overlayEntry!.mounted) {
+          overlayEntry!.remove();
+          overlayEntry = null;
+        }
+      }
+    }
+  }
+
+  double get _cardRotationAngle {
+    if (dragOffset == Offset.zero) {
+      return 0;
+    }
+    Size screenSize = MediaQuery.of(context).size;
+
+    Offset screenMiddle = Offset(screenSize.width / 2, screenSize.height / 2);
+
+    Offset cardMiddlePos = screenMiddle + dragOffset;
+
+    num dX = cardMiddlePos.dx - screenSize.width / 2;
+    num dY = cardMiddlePos.dy + 250;
+
+    return atan2(dX, dY);
+  }
+
+  void endDrag() {
+    removeOverlay();
+    setState(() {
+      dragOffset = loadedOrigin ?? Offset.zero;
+    });
+  }
+
+  void dragEnd(DragEndDetails details) {
+    endDrag();
+  }
+
+  void dragUpdate(DragUpdateDetails details) {
+    dragOffset =
+        (loadedOrigin ?? Offset.zero) + details.localPosition - dragStartOffset;
+    overlayEntry?.markNeedsBuild();
+  }
+
+  void createOverlayEntry() {
+    debugPrint(loadedOrigin?.dx.toString());
+    overlayEntry = OverlayEntry(builder: (ctx) {
+      return Positioned(
+        width: loadedSize != null ? loadedSize!.width : null,
+        height: loadedSize != null ? loadedSize!.height : null,
+        left: dragOffset.dx,
+        top: dragOffset.dy,
+        child: Transform.rotate(
+          angle: _cardRotationAngle,
+          child: buildCardWidget(context),
+        ),
+      );
+    });
+
+    overlayState?.insert(overlayEntry!);
+    setState(() {});
+  }
+
+  void dragStart(DragStartDetails details) {
+    dragStartOffset = details.localPosition;
+    dragOffset = loadedOrigin ?? Offset.zero;
+    if (loadedOrigin != null) {
+      createOverlayEntry();
+    }
+  }
+
+  Widget buildCardWidget(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(30)),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: _routeImages[_pageIndex],
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    stops: [.7, 1],
+                    colors: [
+                      Colors.black45,
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    // Navigator.of(context)
+                    //     .pushNamed(RouteDetailsPage.routeName);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(19.0),
+                    child: currentPageInfo,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Breadcrumbs(
+                  itemCount: widget.route.imageUrls?.length ?? 0,
+                  index: _pageIndex,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Swipable(
-      onSwipeEnd: (_, __) {
-        setState(() {});
-      },
-      animationCurve: Curves.easeInCubic,
-      onSwipeCancel: widget.onSwipeCancel,
-      onPositionChanged: widget.onPositionChanged,
-      onSwipeRight: widget.onSwipeRight,
-      onSwipeLeft: widget.onSwipeLeft,
-      onSwipeDown: (finalPos) {
-        _handleVerticalSwipe(finalPos);
-      },
-      onSwipeUp: (finalPos) {
-        _handleVerticalSwipe(finalPos);
-      },
-      animationDuration: 150,
-      child: Transform.rotate(
-        angle: widget.offsetAngle ?? 0,
+    return SizedBox(
+      key: cardKey,
+      child: GestureDetector(
+        onVerticalDragStart: dragStart,
+        onHorizontalDragStart: dragStart,
+        onVerticalDragEnd: dragEnd,
+        onHorizontalDragEnd: dragEnd,
+        onHorizontalDragUpdate: dragUpdate,
+        onVerticalDragUpdate: dragUpdate,
         child: GestureDetector(
           onTapUp: (details) {
             if (details.globalPosition.dx >
@@ -111,65 +259,113 @@ class _SwipableCardState extends State<SwipeableCard> {
               _previousPage();
             }
           },
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: _routeImages[_pageIndex],
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        stops: [.7, 1],
-                        colors: [
-                          Colors.black45,
-                          Colors.transparent,
-                        ],
-                      ),
-                    ),
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        // Navigator.of(context)
-                        //     .pushNamed(RouteDetailsPage.routeName);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(19.0),
-                        child: currentPageInfo,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Breadcrumbs(
-                      itemCount: widget.route.imageUrls?.length ?? 0,
-                      index: _pageIndex,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          child: Offstage(
+            offstage: overlayEntry?.mounted ?? false,
+            child: buildCardWidget(context),
           ),
         ),
+        // child: Transform.rotate(
+        //   angle: widget.offsetAngle ?? 0,
+        //   child: GestureDetector(
+        //     onTapUp: (details) {
+        //       if (details.globalPosition.dx >
+        //           MediaQuery.of(context).size.width / 2) {
+        //         _nextPage();
+        //       } else {
+        //         _previousPage();
+        //       }
+        //     },
+        //     child: buildCardWidget(context),
+        //   ),
+        // ),
       ),
     );
+    // return Swipable(
+    //   onSwipeEnd: (_, __) {
+    //     setState(() {});
+    //   },
+    //   animationCurve: Curves.easeInCubic,
+    //   onSwipeCancel: widget.onSwipeCancel,
+    //   onPositionChanged: widget.onPositionChanged,
+    //   onSwipeRight: widget.onSwipeRight,
+    //   onSwipeLeft: widget.onSwipeLeft,
+    //   onSwipeDown: (finalPos) {
+    //     _handleVerticalSwipe(finalPos);
+    //   },
+    //   onSwipeUp: (finalPos) {
+    //     _handleVerticalSwipe(finalPos);
+    //   },
+    //   animationDuration: 150,
+    //   child: Transform.rotate(
+    //     angle: widget.offsetAngle ?? 0,
+    //     child: GestureDetector(
+    //       onTapUp: (details) {
+    //         if (details.globalPosition.dx >
+    //             MediaQuery.of(context).size.width / 2) {
+    //           _nextPage();
+    //         } else {
+    //           _previousPage();
+    //         }
+    //       },
+    //       child: ClipRRect(
+    //         borderRadius: const BorderRadius.all(Radius.circular(30)),
+    //         child: Stack(
+    //           children: [
+    //             Positioned.fill(
+    //               child: Container(
+    //                 decoration: const BoxDecoration(
+    //                   color: Colors.white,
+    //                 ),
+    //                 child: _routeImages[_pageIndex],
+    //               ),
+    //             ),
+    //             Positioned(
+    //               bottom: 0,
+    //               right: 0,
+    //               left: 0,
+    //               child: Container(
+    //                 decoration: const BoxDecoration(
+    //                   gradient: LinearGradient(
+    //                     begin: Alignment.bottomCenter,
+    //                     end: Alignment.topCenter,
+    //                     stops: [.7, 1],
+    //                     colors: [
+    //                       Colors.black45,
+    //                       Colors.transparent,
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 child: GestureDetector(
+    //                   behavior: HitTestBehavior.opaque,
+    //                   onTap: () {
+    //                     // Navigator.of(context)
+    //                     //     .pushNamed(RouteDetailsPage.routeName);
+    //                   },
+    //                   child: Padding(
+    //                     padding: const EdgeInsets.all(19.0),
+    //                     child: currentPageInfo,
+    //                   ),
+    //                 ),
+    //               ),
+    //             ),
+    //             Positioned(
+    //               bottom: 0,
+    //               left: 0,
+    //               right: 0,
+    //               child: Padding(
+    //                 padding: const EdgeInsets.all(8.0),
+    //                 child: Breadcrumbs(
+    //                   itemCount: widget.route.imageUrls?.length ?? 0,
+    //                   index: _pageIndex,
+    //                 ),
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   Widget get currentPageInfo {
