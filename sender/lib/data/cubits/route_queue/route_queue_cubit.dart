@@ -26,12 +26,13 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
   Future<void> loadRoutes() async {
     emit(RouteQueueLoading());
     try {
-      var routes = await _queueRouteRepository.getClimbingRoutes([
-        "110969192",
-        "106702950",
-        "118297380",
-        "112311069",
-      ]);
+      // var routes = await _queueRouteRepository.getClimbingRoutes([
+      //   "110969192",
+      //   "106702950",
+      //   "118297380",
+      //   "112311069",
+      // ]);
+      var routes = await _queueRouteRepository.getClimbingRoutes([]);
       if (routes.isEmpty) {
         emit(RouteQueueEmpty());
       } else {

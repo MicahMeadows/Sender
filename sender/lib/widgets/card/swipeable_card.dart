@@ -38,7 +38,7 @@ class _SwipableCardState extends State<SwipeableCard> {
   final List<Image> _routeImages = [];
 
   void _nextPage() {
-    if (_pageIndex < widget.route.imageUrls.length - 1) {
+    if (_pageIndex < (widget.route.imageUrls?.length ?? 0) - 1) {
       setState(() {
         _pageIndex++;
       });
@@ -57,7 +57,7 @@ class _SwipableCardState extends State<SwipeableCard> {
   void initState() {
     super.initState();
 
-    for (var imageUrl in widget.route.imageUrls) {
+    for (var imageUrl in widget.route.imageUrls ?? []) {
       _routeImages.add(
         Image.network(
           imageUrl,
@@ -159,7 +159,7 @@ class _SwipableCardState extends State<SwipeableCard> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Breadcrumbs(
-                      itemCount: widget.route.imageUrls.length,
+                      itemCount: widget.route.imageUrls?.length ?? 0,
                       index: _pageIndex,
                     ),
                   ),
@@ -185,23 +185,25 @@ class _SwipableCardState extends State<SwipeableCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        Text(
-          widget.route.name,
-          style: GoogleFonts.nunito(
-            color: Colors.white,
-            fontSize: 36,
-            height: .5,
+        FittedBox(
+          child: Text(
+            widget.route.name,
+            style: GoogleFonts.nunito(
+              color: Colors.white,
+              fontSize: 36,
+              height: .5,
+            ),
           ),
         ),
         Text(
-          widget.route.grade,
+          widget.route.grade ?? 'Unavailable',
           style: GoogleFonts.roboto(
             fontSize: 28,
             fontWeight: FontWeight.w300,
             color: Colors.white,
           ),
         ),
-        RatingWidget(rating: widget.route.rating),
+        RatingWidget(rating: widget.route.rating ?? 0),
         const SizedBox(height: 8)
       ],
     );
@@ -214,7 +216,7 @@ class _SwipableCardState extends State<SwipeableCard> {
       children: [
         const SizedBox(height: 10),
         Text(
-          '${widget.route.height.toString()}ft',
+          '${widget.route.length.toString()}ft',
           style: GoogleFonts.nunito(
             color: Colors.white,
             fontSize: 36,
@@ -250,16 +252,16 @@ class _SwipableCardState extends State<SwipeableCard> {
           // ),
         ),
         const SizedBox(height: 5),
-        Text(
-          widget.route.description,
-          maxLines: 4,
-          overflow: TextOverflow.ellipsis,
-          style: GoogleFonts.roboto(
-            fontSize: 18,
-            fontWeight: FontWeight.w300,
-            color: Colors.white,
-          ),
-        ),
+        // Text(
+        //   widget.route.description,
+        //   maxLines: 4,
+        //   overflow: TextOverflow.ellipsis,
+        //   style: GoogleFonts.roboto(
+        //     fontSize: 18,
+        //     fontWeight: FontWeight.w300,
+        //     color: Colors.white,
+        //   ),
+        // ),
         const SizedBox(height: 8)
       ],
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
+import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/main.dart';
 import 'package:sender/widgets/pages/home/custom_tab_bar.dart';
 import 'package:sender/widgets/pages/home/home_content.dart';
@@ -111,6 +112,7 @@ class _MainNavigationState extends State<MainNavigation> {
                       const TodoPage(),
                       const HomeContent(),
                       SettingsPage(
+                        queueCubit: context.read<RouteQueueCubit>(),
                         routeSettingsCubit: context.read<RouteSettingsCubit>(),
                       ),
                     ],

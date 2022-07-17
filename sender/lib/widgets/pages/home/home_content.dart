@@ -38,13 +38,7 @@ class _HomeContentState extends State<HomeContent> {
                 ),
               ),
               Expanded(
-                child: Stack(
-                  children: [
-                    Center(
-                      child: _buildMainContent(state),
-                    ),
-                  ],
-                ),
+                child: _buildMainContent(state),
               ),
             ],
           ),
@@ -55,7 +49,9 @@ class _HomeContentState extends State<HomeContent> {
 
   Widget _buildMainContent(RouteQueueState state) {
     if (state is RouteQueueLoading) {
-      return const KnotProgressIndicator();
+      return const KnotProgressIndicator(
+        color: Colors.white,
+      );
     }
     if (state is RouteQueueLoaded) {
       return CardVote(

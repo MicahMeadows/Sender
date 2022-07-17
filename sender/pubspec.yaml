@@ -48,6 +48,12 @@ dependencies:
   firebase_auth: ^3.3.18
   freezed: ^2.0.3+1
   flutter_neumorphic: ^3.2.0
+  chopper_generator: ^4.0.5
+  chopper: ^4.0.5
+  retrofit: ^3.0.1+1
+  retrofit_generator: ^4.0.1
+  html: ^0.15.0
+  
 
 dev_dependencies:
   flutter_test:
