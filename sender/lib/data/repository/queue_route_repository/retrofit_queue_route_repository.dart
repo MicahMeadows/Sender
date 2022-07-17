@@ -18,7 +18,7 @@ class RetrofitQueueRouteRepository implements IQueueRouteRepository {
   @override
   Future<List<ClimbingRoute>> getClimbingRoutes(List<String> routeIds) async {
     try {
-      var loadedRoutes = await _api.getQueueRoutes(numResults: 7);
+      var loadedRoutes = await _api.getQueueRoutes(numResults: 15);
 
       // loadedRoutes.forEach((element) async {
       //   element = await getRouteDetails(element.id);

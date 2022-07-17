@@ -11,25 +11,17 @@ import 'package:sender/widgets/common/rating_widget.dart';
 
 import '../../data/models/climbing_route/climbing_route.dart';
 
+enum SwipeDirection { none, left, right, up, down }
+
 class SwipeableCard extends StatefulWidget {
   final ClimbingRoute route;
-  final void Function(DragUpdateDetails details)? onPositionChanged;
-  final void Function(Offset, DragEndDetails)? onSwipeCancel;
-  final void Function(Offset)? onSwipeLeft;
-  final void Function(Offset)? onSwipeRight;
-  final void Function(Offset)? onSwipeUp;
-  final void Function(Offset)? onSwipeDown;
+  final void Function(SwipeDirection)? onSwipe;
   final double? offsetAngle;
 
   const SwipeableCard({
     required this.route,
     this.offsetAngle,
-    this.onSwipeCancel,
-    this.onPositionChanged,
-    this.onSwipeLeft,
-    this.onSwipeRight,
-    this.onSwipeDown,
-    this.onSwipeUp,
+    this.onSwipe,
     Key? key,
   }) : super(key: key);
 
@@ -79,6 +71,14 @@ class _SwipableCardState extends State<SwipeableCard>
     loadedOrigin = container?.localToGlobal(Offset.zero);
 
     debugPrint('loadedSize: $loadedSize');
+  }
+
+  @override
+  void dispose() {
+    overlayEntry?.removeListener(() {});
+    overlayEntry?.remove();
+    overlayEntry = null;
+    super.dispose();
   }
 
   @override
@@ -163,7 +163,7 @@ class _SwipableCardState extends State<SwipeableCard>
     return atan2(dX, dY) * (dragAtBottom ? -1 : 1);
   }
 
-  void endDrag() {
+  void animateRecenter() {
     reangleAnimation = Tween<double>(
       begin: _cardRotationAngle,
       end: 0,
@@ -179,13 +179,43 @@ class _SwipableCardState extends State<SwipeableCard>
     cardAnimationController.forward();
   }
 
-  void dragEnd(DragEndDetails details) {
-    endDrag();
+  void onDragEnd(DragEndDetails details) {
+    final endSwipeDirection = _currentSwipeDirection;
+
+    if (endSwipeDirection == SwipeDirection.none) {
+      animateRecenter();
+    }
+
+    widget.onSwipe?.call(endSwipeDirection);
+  }
+
+  SwipeDirection get _currentSwipeDirection {
+    final cardMiddle = _cardMiddle;
+    final screenSize = _screenSize;
+
+    debugPrint('card mid y: ${cardMiddle.dy}');
+
+    if (cardMiddle.dy < screenSize.height / 4) {
+      return SwipeDirection.up;
+    }
+    if (cardMiddle.dx < 0) {
+      return SwipeDirection.left;
+    }
+    if (cardMiddle.dx > screenSize.width) {
+      return SwipeDirection.right;
+    }
+    if (cardMiddle.dy > screenSize.height - screenSize.height / 4) {
+      return SwipeDirection.down;
+    }
+    return SwipeDirection.none;
   }
 
   void dragUpdate(DragUpdateDetails details) {
     dragOffset =
         (loadedOrigin ?? Offset.zero) + details.localPosition - dragStartOffset;
+
+    debugPrint(_currentSwipeDirection.name + Random().nextDouble().toString());
+
     overlayEntry?.markNeedsBuild();
   }
 
@@ -291,7 +321,7 @@ class _SwipableCardState extends State<SwipeableCard>
           angle: a,
           child: AnimatedContainer(
             duration: Duration(milliseconds: 320),
-            child: buildCardWidget(context),
+            child: buildCardWidget(ctx),
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(35)),
@@ -324,7 +354,7 @@ class _SwipableCardState extends State<SwipeableCard>
     }
   }
 
-  Widget buildCardWidget(BuildContext context) {
+  Widget buildCardWidget(BuildContext bContext) {
     return Material(
       color: Colors.transparent,
       child: ClipRRect(
@@ -393,8 +423,8 @@ class _SwipableCardState extends State<SwipeableCard>
       child: GestureDetector(
         onVerticalDragStart: dragStart,
         onHorizontalDragStart: dragStart,
-        onVerticalDragEnd: dragEnd,
-        onHorizontalDragEnd: dragEnd,
+        onVerticalDragEnd: onDragEnd,
+        onHorizontalDragEnd: onDragEnd,
         onHorizontalDragUpdate: dragUpdate,
         onVerticalDragUpdate: dragUpdate,
         child: GestureDetector(
@@ -411,108 +441,8 @@ class _SwipableCardState extends State<SwipeableCard>
             child: buildCardWidget(context),
           ),
         ),
-        // child: Transform.rotate(
-        //   angle: widget.offsetAngle ?? 0,
-        //   child: GestureDetector(
-        //     onTapUp: (details) {
-        //       if (details.globalPosition.dx >
-        //           MediaQuery.of(context).size.width / 2) {
-        //         _nextPage();
-        //       } else {
-        //         _previousPage();
-        //       }
-        //     },
-        //     child: buildCardWidget(context),
-        //   ),
-        // ),
       ),
     );
-    // return Swipable(
-    //   onSwipeEnd: (_, __) {
-    //     setState(() {});
-    //   },
-    //   animationCurve: Curves.easeInCubic,
-    //   onSwipeCancel: widget.onSwipeCancel,
-    //   onPositionChanged: widget.onPositionChanged,
-    //   onSwipeRight: widget.onSwipeRight,
-    //   onSwipeLeft: widget.onSwipeLeft,
-    //   onSwipeDown: (finalPos) {
-    //     _handleVerticalSwipe(finalPos);
-    //   },
-    //   onSwipeUp: (finalPos) {
-    //     _handleVerticalSwipe(finalPos);
-    //   },
-    //   animationDuration: 150,
-    //   child: Transform.rotate(
-    //     angle: widget.offsetAngle ?? 0,
-    //     child: GestureDetector(
-    //       onTapUp: (details) {
-    //         if (details.globalPosition.dx >
-    //             MediaQuery.of(context).size.width / 2) {
-    //           _nextPage();
-    //         } else {
-    //           _previousPage();
-    //         }
-    //       },
-    //       child: ClipRRect(
-    //         borderRadius: const BorderRadius.all(Radius.circular(30)),
-    //         child: Stack(
-    //           children: [
-    //             Positioned.fill(
-    //               child: Container(
-    //                 decoration: const BoxDecoration(
-    //                   color: Colors.white,
-    //                 ),
-    //                 child: _routeImages[_pageIndex],
-    //               ),
-    //             ),
-    //             Positioned(
-    //               bottom: 0,
-    //               right: 0,
-    //               left: 0,
-    //               child: Container(
-    //                 decoration: const BoxDecoration(
-    //                   gradient: LinearGradient(
-    //                     begin: Alignment.bottomCenter,
-    //                     end: Alignment.topCenter,
-    //                     stops: [.7, 1],
-    //                     colors: [
-    //                       Colors.black45,
-    //                       Colors.transparent,
-    //                     ],
-    //                   ),
-    //                 ),
-    //                 child: GestureDetector(
-    //                   behavior: HitTestBehavior.opaque,
-    //                   onTap: () {
-    //                     // Navigator.of(context)
-    //                     //     .pushNamed(RouteDetailsPage.routeName);
-    //                   },
-    //                   child: Padding(
-    //                     padding: const EdgeInsets.all(19.0),
-    //                     child: currentPageInfo,
-    //                   ),
-    //                 ),
-    //               ),
-    //             ),
-    //             Positioned(
-    //               bottom: 0,
-    //               left: 0,
-    //               right: 0,
-    //               child: Padding(
-    //                 padding: const EdgeInsets.all(8.0),
-    //                 child: Breadcrumbs(
-    //                   itemCount: widget.route.imageUrls?.length ?? 0,
-    //                   index: _pageIndex,
-    //                 ),
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 
   Widget get currentPageInfo {
@@ -608,19 +538,5 @@ class _SwipableCardState extends State<SwipeableCard>
         const SizedBox(height: 8)
       ],
     );
-  }
-
-  /// I used a basic plugin to get the swupe functionallity
-  /// it works great, however for some reason the swiping up and down
-  /// both call the up method. This method chooses which method to call
-  /// up or down, based on if the final position is negative or positive
-  /// in this instance, if its supposed to be up it ends up being a negative like -1300
-  /// and if its supposed to be down its like positive 2000 so this should work for now
-  void _handleVerticalSwipe(Offset finalPos) {
-    if (finalPos.dy < 0) {
-      widget.onSwipeUp?.call(finalPos);
-    } else {
-      widget.onSwipeDown?.call(finalPos);
-    }
   }
 }
