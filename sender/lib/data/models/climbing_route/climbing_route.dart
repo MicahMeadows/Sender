@@ -11,7 +11,7 @@ class ClimbingRoute with _$ClimbingRoute {
   factory ClimbingRoute({
     required String id,
     required String? grade,
-    required String? name,
+    required String name,
     required String? area,
     required double? rating,
     required String? type,
@@ -19,10 +19,10 @@ class ClimbingRoute with _$ClimbingRoute {
     required int? length,
     required double? longitude,
     required double? latitude,
-    required String? mountainProjectUrl,
     required String? firstAscent,
     required List<String>? imageUrls,
     required List<Area>? areas,
+    // required List<String>? areas,
     required List<ClimbingRouteDetail>? details,
   }) = _ClimbingRoute;
 

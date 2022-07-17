@@ -186,7 +186,7 @@ class _SwipableCardState extends State<SwipeableCard> {
       children: [
         const SizedBox(height: 10),
         Text(
-          widget.route.name ?? 'Unavailable',
+          widget.route.name,
           style: GoogleFonts.nunito(
             color: Colors.white,
             fontSize: 36,

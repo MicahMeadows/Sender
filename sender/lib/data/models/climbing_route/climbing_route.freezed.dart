@@ -22,7 +22,7 @@ ClimbingRoute _$ClimbingRouteFromJson(Map<String, dynamic> json) {
 mixin _$ClimbingRoute {
   String get id => throw _privateConstructorUsedError;
   String? get grade => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   String? get area => throw _privateConstructorUsedError;
   double? get rating => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
@@ -30,10 +30,10 @@ mixin _$ClimbingRoute {
   int? get length => throw _privateConstructorUsedError;
   double? get longitude => throw _privateConstructorUsedError;
   double? get latitude => throw _privateConstructorUsedError;
-  String? get mountainProjectUrl => throw _privateConstructorUsedError;
   String? get firstAscent => throw _privateConstructorUsedError;
   List<String>? get imageUrls => throw _privateConstructorUsedError;
-  List<Area>? get areas => throw _privateConstructorUsedError;
+  List<Area>? get areas =>
+      throw _privateConstructorUsedError; // required List<String>? areas,
   List<ClimbingRouteDetail>? get details => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $ClimbingRouteCopyWith<$Res> {
   $Res call(
       {String id,
       String? grade,
-      String? name,
+      String name,
       String? area,
       double? rating,
       String? type,
@@ -58,7 +58,6 @@ abstract class $ClimbingRouteCopyWith<$Res> {
       int? length,
       double? longitude,
       double? latitude,
-      String? mountainProjectUrl,
       String? firstAscent,
       List<String>? imageUrls,
       List<Area>? areas,
@@ -86,7 +85,6 @@ class _$ClimbingRouteCopyWithImpl<$Res>
     Object? length = freezed,
     Object? longitude = freezed,
     Object? latitude = freezed,
-    Object? mountainProjectUrl = freezed,
     Object? firstAscent = freezed,
     Object? imageUrls = freezed,
     Object? areas = freezed,
@@ -104,7 +102,7 @@ class _$ClimbingRouteCopyWithImpl<$Res>
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       area: area == freezed
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
@@ -133,10 +131,6 @@ class _$ClimbingRouteCopyWithImpl<$Res>
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      mountainProjectUrl: mountainProjectUrl == freezed
-          ? _value.mountainProjectUrl
-          : mountainProjectUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       firstAscent: firstAscent == freezed
           ? _value.firstAscent
           : firstAscent // ignore: cast_nullable_to_non_nullable
@@ -167,7 +161,7 @@ abstract class _$$_ClimbingRouteCopyWith<$Res>
   $Res call(
       {String id,
       String? grade,
-      String? name,
+      String name,
       String? area,
       double? rating,
       String? type,
@@ -175,7 +169,6 @@ abstract class _$$_ClimbingRouteCopyWith<$Res>
       int? length,
       double? longitude,
       double? latitude,
-      String? mountainProjectUrl,
       String? firstAscent,
       List<String>? imageUrls,
       List<Area>? areas,
@@ -205,7 +198,6 @@ class __$$_ClimbingRouteCopyWithImpl<$Res>
     Object? length = freezed,
     Object? longitude = freezed,
     Object? latitude = freezed,
-    Object? mountainProjectUrl = freezed,
     Object? firstAscent = freezed,
     Object? imageUrls = freezed,
     Object? areas = freezed,
@@ -223,7 +215,7 @@ class __$$_ClimbingRouteCopyWithImpl<$Res>
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       area: area == freezed
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
@@ -252,10 +244,6 @@ class __$$_ClimbingRouteCopyWithImpl<$Res>
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      mountainProjectUrl: mountainProjectUrl == freezed
-          ? _value.mountainProjectUrl
-          : mountainProjectUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       firstAscent: firstAscent == freezed
           ? _value.firstAscent
           : firstAscent // ignore: cast_nullable_to_non_nullable
@@ -290,7 +278,6 @@ class _$_ClimbingRoute implements _ClimbingRoute {
       required this.length,
       required this.longitude,
       required this.latitude,
-      required this.mountainProjectUrl,
       required this.firstAscent,
       required final List<String>? imageUrls,
       required final List<Area>? areas,
@@ -307,7 +294,7 @@ class _$_ClimbingRoute implements _ClimbingRoute {
   @override
   final String? grade;
   @override
-  final String? name;
+  final String name;
   @override
   final String? area;
   @override
@@ -322,8 +309,6 @@ class _$_ClimbingRoute implements _ClimbingRoute {
   final double? longitude;
   @override
   final double? latitude;
-  @override
-  final String? mountainProjectUrl;
   @override
   final String? firstAscent;
   final List<String>? _imageUrls;
@@ -344,7 +329,9 @@ class _$_ClimbingRoute implements _ClimbingRoute {
     return EqualUnmodifiableListView(value);
   }
 
+// required List<String>? areas,
   final List<ClimbingRouteDetail>? _details;
+// required List<String>? areas,
   @override
   List<ClimbingRouteDetail>? get details {
     final value = _details;
@@ -355,7 +342,7 @@ class _$_ClimbingRoute implements _ClimbingRoute {
 
   @override
   String toString() {
-    return 'ClimbingRoute(id: $id, grade: $grade, name: $name, area: $area, rating: $rating, type: $type, pitches: $pitches, length: $length, longitude: $longitude, latitude: $latitude, mountainProjectUrl: $mountainProjectUrl, firstAscent: $firstAscent, imageUrls: $imageUrls, areas: $areas, details: $details)';
+    return 'ClimbingRoute(id: $id, grade: $grade, name: $name, area: $area, rating: $rating, type: $type, pitches: $pitches, length: $length, longitude: $longitude, latitude: $latitude, firstAscent: $firstAscent, imageUrls: $imageUrls, areas: $areas, details: $details)';
   }
 
   @override
@@ -373,8 +360,6 @@ class _$_ClimbingRoute implements _ClimbingRoute {
             const DeepCollectionEquality().equals(other.length, length) &&
             const DeepCollectionEquality().equals(other.longitude, longitude) &&
             const DeepCollectionEquality().equals(other.latitude, latitude) &&
-            const DeepCollectionEquality()
-                .equals(other.mountainProjectUrl, mountainProjectUrl) &&
             const DeepCollectionEquality()
                 .equals(other.firstAscent, firstAscent) &&
             const DeepCollectionEquality()
@@ -397,7 +382,6 @@ class _$_ClimbingRoute implements _ClimbingRoute {
       const DeepCollectionEquality().hash(length),
       const DeepCollectionEquality().hash(longitude),
       const DeepCollectionEquality().hash(latitude),
-      const DeepCollectionEquality().hash(mountainProjectUrl),
       const DeepCollectionEquality().hash(firstAscent),
       const DeepCollectionEquality().hash(_imageUrls),
       const DeepCollectionEquality().hash(_areas),
@@ -418,7 +402,7 @@ abstract class _ClimbingRoute implements ClimbingRoute {
   factory _ClimbingRoute(
       {required final String id,
       required final String? grade,
-      required final String? name,
+      required final String name,
       required final String? area,
       required final double? rating,
       required final String? type,
@@ -426,7 +410,6 @@ abstract class _ClimbingRoute implements ClimbingRoute {
       required final int? length,
       required final double? longitude,
       required final double? latitude,
-      required final String? mountainProjectUrl,
       required final String? firstAscent,
       required final List<String>? imageUrls,
       required final List<Area>? areas,
@@ -440,7 +423,7 @@ abstract class _ClimbingRoute implements ClimbingRoute {
   @override
   String? get grade => throw _privateConstructorUsedError;
   @override
-  String? get name => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   @override
   String? get area => throw _privateConstructorUsedError;
   @override
@@ -456,14 +439,12 @@ abstract class _ClimbingRoute implements ClimbingRoute {
   @override
   double? get latitude => throw _privateConstructorUsedError;
   @override
-  String? get mountainProjectUrl => throw _privateConstructorUsedError;
-  @override
   String? get firstAscent => throw _privateConstructorUsedError;
   @override
   List<String>? get imageUrls => throw _privateConstructorUsedError;
   @override
   List<Area>? get areas => throw _privateConstructorUsedError;
-  @override
+  @override // required List<String>? areas,
   List<ClimbingRouteDetail>? get details => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

@@ -7,8 +7,8 @@ import 'package:sender/data/models/route_tick/route_tick.dart';
 
 part 'retrofit_sender_api.g.dart';
 
-// @RestApi(baseUrl: 'https://752a-2600-387-f-5b17-00-c.ngrok.io')
-@RestApi(baseUrl: 'https://d9b0-199-168-73-30.ngrok.io')
+@RestApi(
+    baseUrl: 'https://bcfb-2603-9001-7301-7731-7dfe-aa9d-7a0f-8057.ngrok.io')
 abstract class RetrofitSenderApi {
   factory RetrofitSenderApi(
     Dio dio, {
@@ -26,13 +26,13 @@ abstract class RetrofitSenderApi {
   // @POST('/user')
   // Future<Profile> createUser();
 
-  @POST('/user/route')
+  @POST('/user/tick')
   Future<RouteTick> setRouteTick(@Body() RouteTick tick);
 
-  @DELETE('/user/route/{id}')
+  @DELETE('/user/tick/{id}')
   Future<void> removeRouteTick(@Path() String id);
 
-  @GET('/user/route')
+  @GET('/user/tick')
   Future<List<RouteTick>> getRouteTicks();
 
   @GET('/routes/queue')

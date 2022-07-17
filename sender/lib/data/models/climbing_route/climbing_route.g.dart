@@ -10,7 +10,7 @@ _$_ClimbingRoute _$$_ClimbingRouteFromJson(Map<String, dynamic> json) =>
     _$_ClimbingRoute(
       id: json['id'] as String,
       grade: json['grade'] as String?,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       area: json['area'] as String?,
       rating: (json['rating'] as num?)?.toDouble(),
       type: json['type'] as String?,
@@ -18,7 +18,6 @@ _$_ClimbingRoute _$$_ClimbingRouteFromJson(Map<String, dynamic> json) =>
       length: json['length'] as int?,
       longitude: (json['longitude'] as num?)?.toDouble(),
       latitude: (json['latitude'] as num?)?.toDouble(),
-      mountainProjectUrl: json['mountainProjectUrl'] as String?,
       firstAscent: json['firstAscent'] as String?,
       imageUrls: (json['imageUrls'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -43,7 +42,6 @@ Map<String, dynamic> _$$_ClimbingRouteToJson(_$_ClimbingRoute instance) =>
       'length': instance.length,
       'longitude': instance.longitude,
       'latitude': instance.latitude,
-      'mountainProjectUrl': instance.mountainProjectUrl,
       'firstAscent': instance.firstAscent,
       'imageUrls': instance.imageUrls,
       'areas': instance.areas,
