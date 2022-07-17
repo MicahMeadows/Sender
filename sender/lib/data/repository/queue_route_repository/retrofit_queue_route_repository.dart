@@ -20,6 +20,10 @@ class RetrofitQueueRouteRepository implements IQueueRouteRepository {
     try {
       var loadedRoutes = await _api.getQueueRoutes(numResults: 7);
 
+      // loadedRoutes.forEach((element) async {
+      //   element = await getRouteDetails(element.id);
+      // });
+
       loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
 
       return loadedRoutes;

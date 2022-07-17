@@ -299,7 +299,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Text(
-                                    widget.route.name ?? 'Unavailable',
+                                    widget.route.name,
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.nunito(
                                       // color: Colors.black,

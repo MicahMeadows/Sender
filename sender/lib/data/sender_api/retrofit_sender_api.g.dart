@@ -10,7 +10,7 @@ part of 'retrofit_sender_api.dart';
 
 class _RetrofitSenderApi implements RetrofitSenderApi {
   _RetrofitSenderApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://d9b0-199-168-73-30.ngrok.io';
+    baseUrl ??= 'https://bcfb-2603-9001-7301-7731-7dfe-aa9d-7a0f-8057.ngrok.io';
   }
 
   final Dio _dio;
@@ -60,7 +60,7 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RouteTick>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user/route',
+                .compose(_dio.options, '/user/tick',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RouteTick.fromJson(_result.data!);
@@ -75,7 +75,7 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
     final _data = <String, dynamic>{};
     await _dio.fetch<void>(_setStreamType<void>(
         Options(method: 'DELETE', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/user/route/${id}',
+            .compose(_dio.options, '/user/tick/${id}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
@@ -90,7 +90,7 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<RouteTick>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user/route',
+                .compose(_dio.options, '/user/tick',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
