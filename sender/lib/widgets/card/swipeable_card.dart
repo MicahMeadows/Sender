@@ -185,12 +185,14 @@ class _SwipableCardState extends State<SwipeableCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        Text(
-          widget.route.name,
-          style: GoogleFonts.nunito(
-            color: Colors.white,
-            fontSize: 36,
-            height: .5,
+        FittedBox(
+          child: Text(
+            widget.route.name,
+            style: GoogleFonts.nunito(
+              color: Colors.white,
+              fontSize: 36,
+              height: .5,
+            ),
           ),
         ),
         Text(

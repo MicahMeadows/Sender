@@ -38,13 +38,7 @@ class _HomeContentState extends State<HomeContent> {
                 ),
               ),
               Expanded(
-                child: Stack(
-                  children: [
-                    Center(
-                      child: _buildMainContent(state),
-                    ),
-                  ],
-                ),
+                child: _buildMainContent(state),
               ),
             ],
           ),
