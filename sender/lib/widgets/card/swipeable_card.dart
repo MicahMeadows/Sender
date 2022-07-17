@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
@@ -117,17 +118,26 @@ class _SwipableCardState extends State<SwipeableCard> {
     }
   }
 
+  Size get _screenSize {
+    return MediaQuery.of(context).size;
+  }
+
+  Offset get _screenMiddle {
+    return Offset(_screenSize.width / 2, _screenSize.height / 2);
+  }
+
+  Offset get _cardMiddle {
+    return _screenMiddle + dragOffset;
+  }
+
   double get _cardRotationAngle {
     if (dragOffset == Offset.zero) {
       return 0;
     }
-    Size screenSize = MediaQuery.of(context).size;
 
-    Offset screenMiddle = Offset(screenSize.width / 2, screenSize.height / 2);
+    var cardMiddlePos = _cardMiddle;
 
-    Offset cardMiddlePos = screenMiddle + dragOffset;
-
-    num dX = cardMiddlePos.dx - screenSize.width / 2;
+    num dX = cardMiddlePos.dx - _screenSize.width / 2;
     num dY = cardMiddlePos.dy + 250;
 
     return atan2(dX, dY);
@@ -150,6 +160,84 @@ class _SwipableCardState extends State<SwipeableCard> {
     overlayEntry?.markNeedsBuild();
   }
 
+  Offset get _calcSwipeDirections {
+    final cardMiddle = _cardMiddle;
+    final screenSize = _screenSize;
+    const safeDistance = 150;
+    int xPos = 0;
+    int yPos = 0;
+
+    if ((screenSize.width - cardMiddle.dx).abs() < safeDistance) {
+      xPos = 0;
+    } else if (cardMiddle.dx < screenSize.width / 2) {
+      xPos = -1;
+    } else if (cardMiddle.dx > screenSize.width / 2) {
+      xPos = 1;
+    }
+
+    if ((screenSize.height - cardMiddle.dy).abs() < safeDistance) {
+      yPos = 0;
+    } else if (cardMiddle.dy < screenSize.height / 2) {
+      yPos = -1;
+    } else if (cardMiddle.dy > screenSize.height / 2) {
+      yPos = 1;
+    }
+
+    return Offset(xPos.toDouble(), yPos.toDouble());
+  }
+
+  Map<String, Object> get _gradientSettings {
+    var dirs = _calcSwipeDirections;
+    return {
+      "start": () {
+        if (dirs.dx == -1) {
+          if (dirs.dy == 1) return Alignment.topLeft;
+          return Alignment.bottomLeft;
+        }
+        if (dirs.dx == 1) {
+          if (dirs.dy == 1) return Alignment.topRight;
+          return Alignment.bottomRight;
+        }
+        return Alignment.topCenter;
+      }(),
+      "end": () {
+        if (dirs.dx == -1) {
+          if (dirs.dy == 1) return Alignment.bottomRight;
+          return Alignment.topRight;
+        }
+        if (dirs.dx == 1) {
+          if (dirs.dy == 1) return Alignment.bottomLeft;
+          return Alignment.topLeft;
+        }
+        return Alignment.bottomCenter;
+      }(),
+      "colors": () {
+        if (dirs.dx == -1) {
+          return [
+            Colors.red,
+            Colors.red,
+          ];
+        }
+        if (dirs.dx == 1) {
+          return [
+            Colors.blue,
+            Colors.blue,
+          ];
+        }
+        if (dirs.dx == 0 && dirs.dy == 1) {
+          return [
+            Colors.green,
+            Colors.green,
+          ];
+        }
+        return [
+          Colors.white.withOpacity(.45),
+          Colors.white.withOpacity(.45),
+        ];
+      }()
+    };
+  }
+
   void createOverlayEntry() {
     debugPrint(loadedOrigin?.dx.toString());
     overlayEntry = OverlayEntry(builder: (ctx) {
@@ -160,7 +248,25 @@ class _SwipableCardState extends State<SwipeableCard> {
         top: dragOffset.dy,
         child: Transform.rotate(
           angle: _cardRotationAngle,
-          child: buildCardWidget(context),
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 320),
+            child: buildCardWidget(context),
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(35)),
+              gradient: LinearGradient(
+                colors: _gradientSettings["colors"] as List<Color>,
+                begin: _gradientSettings["start"] as Alignment,
+                end: _gradientSettings["end"] as Alignment,
+                // colors: [
+                //   Colors.white.withOpacity(.45),
+                //   Colors.white.withOpacity(.45)
+                // ],
+                // begin: Alignment.centerLeft,
+                // end: Alignment.topRight,
+              ),
+            ),
+          ),
         ),
       );
     });
