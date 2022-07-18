@@ -23,15 +23,26 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     }
   }
 
+  Future<void> injectRoutes() async {
+    final _state = state;
+    if (_state is RouteQueueLoaded) {
+      if (_state.routes.length <= 3) {
+        final currentRouteIds = _state.routes.map((e) => e.id).toList();
+        var newRoutes = await _queueRouteRepository
+            .getClimbingRoutesExcluding(currentRouteIds);
+        final newRouteList = [...newRoutes, ..._state.routes];
+        if (newRouteList.isNotEmpty) {
+          emit(RouteQueueLoaded(routes: newRouteList));
+        } else {
+          emit(RouteQueueEmpty());
+        }
+      }
+    }
+  }
+
   Future<void> loadRoutes() async {
     emit(RouteQueueLoading());
     try {
-      // var routes = await _queueRouteRepository.getClimbingRoutes([
-      //   "110969192",
-      //   "106702950",
-      //   "118297380",
-      //   "112311069",
-      // ]);
       var routes = await _queueRouteRepository.getClimbingRoutes([]);
       if (routes.isEmpty) {
         emit(RouteQueueEmpty());
@@ -56,6 +67,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
       } else {
         emit(RouteQueueLoaded(routes: routes));
       }
+      injectRoutes();
     } catch (e) {
       return Future.error(e.toString());
     }

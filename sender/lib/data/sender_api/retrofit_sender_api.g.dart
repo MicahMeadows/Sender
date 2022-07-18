@@ -101,7 +101,9 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
 
   @override
   Future<List<ClimbingRoute>> getQueueRoutes(
-      {includePageData = 'true', numResults}) async {
+      {settings = const {"ignore": []},
+      includePageData = 'true',
+      numResults}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'includePageData': includePageData,
@@ -110,9 +112,10 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(settings);
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<ClimbingRoute>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
+            Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/routes/queue',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));

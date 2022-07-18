@@ -35,8 +35,11 @@ abstract class RetrofitSenderApi {
   @GET('/user/tick')
   Future<List<RouteTick>> getRouteTicks();
 
-  @GET('/routes/queue')
+  @POST('/routes/queue')
   Future<List<ClimbingRoute>> getQueueRoutes({
+    @Body() Map<String, dynamic> settings = const {
+      "ignore": [],
+    },
     @Query('includePageData') String includePageData = 'true',
     @Query('numResults') int? numResults,
   });

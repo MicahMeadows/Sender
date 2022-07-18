@@ -182,8 +182,6 @@ class _SwipableCardState extends State<SwipeableCard>
     final cardMiddle = _cardMiddle;
     final screenSize = _screenSize;
 
-    debugPrint('card mid y: ${cardMiddle.dy}');
-
     if (cardMiddle.dy < screenSize.height / 4) {
       return SwipeDirection.up;
     }
@@ -202,8 +200,6 @@ class _SwipableCardState extends State<SwipeableCard>
   void dragUpdate(DragUpdateDetails details) {
     dragOffset =
         (loadedOrigin ?? Offset.zero) + details.localPosition - dragStartOffset;
-
-    debugPrint(_currentSwipeDirection.name + Random().nextDouble().toString());
 
     overlayEntry?.markNeedsBuild();
   }
@@ -287,7 +283,6 @@ class _SwipableCardState extends State<SwipeableCard>
   }
 
   void createOverlayEntry() {
-    debugPrint(loadedOrigin?.dx.toString());
     overlayEntry = OverlayEntry(builder: (ctx) {
       double dX = dragOffset.dx;
       double dY = dragOffset.dy;
