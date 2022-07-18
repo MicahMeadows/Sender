@@ -26,6 +26,9 @@ abstract class RetrofitSenderApi {
   // @POST('/user')
   // Future<Profile> createUser();
 
+  @GET('/routes/{id}/details')
+  Future<ClimbingRoute> getRouteDetails(@Path("id") String id);
+
   @POST('/user/tick')
   Future<RouteTick> setRouteTick(@Body() RouteTick tick);
 

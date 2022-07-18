@@ -23,31 +23,29 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     }
   }
 
-  Future<void> injectRoutes() async {
-    final _state = state;
-    if (_state is RouteQueueLoaded) {
-      if (_state.routes.length <= 3) {
-        final currentRouteIds = _state.routes.map((e) => e.id).toList();
-        var newRoutes = await _queueRouteRepository
-            .getClimbingRoutesExcluding(currentRouteIds);
-        final newRouteList = [...newRoutes, ..._state.routes];
-        if (newRouteList.isNotEmpty) {
-          emit(RouteQueueLoaded(routes: newRouteList));
-        } else {
-          emit(RouteQueueEmpty());
-        }
+  Future<void> loadRoutes() async {
+    List<ClimbingRoute> routes = [];
+    if (state is! RouteQueueLoaded) {
+      emit(RouteQueueLoading());
+    }
+    if (state is RouteQueueLoaded) {
+      routes = (state as RouteQueueLoaded).routes;
+      if (routes.length > 3) {
+        return;
       }
     }
-  }
-
-  Future<void> loadRoutes() async {
-    emit(RouteQueueLoading());
     try {
-      var routes = await _queueRouteRepository.getClimbingRoutes([]);
-      if (routes.isEmpty) {
+      List<String> excludeIds = routes.map((e) => e.id).toList();
+
+      var newRoutes =
+          await _queueRouteRepository.getClimbingRoutesExcluding(excludeIds);
+
+      final allRoutes = [...newRoutes, ...routes];
+
+      if (allRoutes.isEmpty) {
         emit(RouteQueueEmpty());
       } else {
-        emit(RouteQueueLoaded(routes: routes));
+        emit(RouteQueueLoaded(routes: allRoutes));
       }
     } catch (e) {
       emit(RouteQueueError(errorMessage: e.toString()));
@@ -67,7 +65,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
       } else {
         emit(RouteQueueLoaded(routes: routes));
       }
-      injectRoutes();
+      loadRoutes();
     } catch (e) {
       return Future.error(e.toString());
     }

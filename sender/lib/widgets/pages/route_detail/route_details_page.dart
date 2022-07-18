@@ -111,7 +111,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             // color: Colors.white,
             color: col.primary,
             child: const Center(
-              child: KnotProgressIndicator(),
+              child: KnotProgressIndicator(color: Colors.white),
             ),
           );
         } else {

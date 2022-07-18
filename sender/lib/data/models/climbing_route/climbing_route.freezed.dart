@@ -32,8 +32,7 @@ mixin _$ClimbingRoute {
   double? get latitude => throw _privateConstructorUsedError;
   String? get firstAscent => throw _privateConstructorUsedError;
   List<String>? get imageUrls => throw _privateConstructorUsedError;
-  List<Area>? get areas =>
-      throw _privateConstructorUsedError; // required List<String>? areas,
+  List<Area>? get areas => throw _privateConstructorUsedError;
   List<ClimbingRouteDetail>? get details => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -329,9 +328,7 @@ class _$_ClimbingRoute implements _ClimbingRoute {
     return EqualUnmodifiableListView(value);
   }
 
-// required List<String>? areas,
   final List<ClimbingRouteDetail>? _details;
-// required List<String>? areas,
   @override
   List<ClimbingRouteDetail>? get details {
     final value = _details;
@@ -444,7 +441,7 @@ abstract class _ClimbingRoute implements ClimbingRoute {
   List<String>? get imageUrls => throw _privateConstructorUsedError;
   @override
   List<Area>? get areas => throw _privateConstructorUsedError;
-  @override // required List<String>? areas,
+  @override
   List<ClimbingRouteDetail>? get details => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
