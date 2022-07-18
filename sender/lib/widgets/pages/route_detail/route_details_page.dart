@@ -375,7 +375,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                 _buildLabledCard(
                     'Height:',
                     widget.route.length == null
-                        ? 'Unknown'
+                        ? 'Unknown height'
                         : '${widget.route.length.toString()}ft'),
                 if (widget.route.grade != null)
                   _buildLabledCard('Grade:', widget.route.grade!),
