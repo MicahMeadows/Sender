@@ -10,6 +10,7 @@ import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 
 import '../../data/models/climbing_route/climbing_route.dart';
+import '../pages/route_detail/route_details_page.dart';
 
 enum SwipeDirection { none, left, right, up, down }
 
@@ -30,8 +31,10 @@ class SwipeableCard extends StatefulWidget {
 }
 
 class _SwipableCardState extends State<SwipeableCard>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController cardAnimationController;
+  late AnimationController fadeAnimationController;
+  late Animation fadeAnimation;
   late Animation recenterAnimation;
   late Animation reangleAnimation;
 
@@ -69,6 +72,8 @@ class _SwipableCardState extends State<SwipeableCard>
     overlayEntry?.removeListener(() {});
     overlayEntry?.remove();
     overlayEntry = null;
+    cardAnimationController.removeListener(() {});
+    cardAnimationController.dispose();
     super.dispose();
   }
 
@@ -76,10 +81,23 @@ class _SwipableCardState extends State<SwipeableCard>
   void initState() {
     super.initState();
 
+    fadeAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+    );
+
+    fadeAnimation = Tween<double>(begin: 1, end: 0).animate(
+      fadeAnimationController,
+    );
+
     cardAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
+
+    fadeAnimationController.addListener(() {
+      overlayEntry?.markNeedsBuild();
+    });
 
     cardAnimationController.addListener(() {
       overlayEntry?.markNeedsBuild();
@@ -171,27 +189,33 @@ class _SwipableCardState extends State<SwipeableCard>
   void onDragEnd(DragEndDetails details) {
     final endSwipeDirection = _currentSwipeDirection;
 
+    fadeAnimation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        widget.onSwipe?.call(endSwipeDirection);
+      }
+    });
+
     if (endSwipeDirection == SwipeDirection.none) {
       animateRecenter();
     }
 
-    widget.onSwipe?.call(endSwipeDirection);
+    fadeAnimationController.forward();
   }
 
   SwipeDirection get _currentSwipeDirection {
     final cardMiddle = _cardMiddle;
     final screenSize = _screenSize;
 
-    if (cardMiddle.dy < screenSize.height / 4) {
+    if (cardMiddle.dy < screenSize.height / 3) {
       return SwipeDirection.up;
     }
-    if (cardMiddle.dx < 0) {
+    if (cardMiddle.dx < screenSize.width / 4) {
       return SwipeDirection.left;
     }
-    if (cardMiddle.dx > screenSize.width) {
+    if (cardMiddle.dx > screenSize.width - (screenSize.width / 4)) {
       return SwipeDirection.right;
     }
-    if (cardMiddle.dy > screenSize.height - screenSize.height / 4) {
+    if (cardMiddle.dy > screenSize.height - screenSize.height / 3) {
       return SwipeDirection.down;
     }
     return SwipeDirection.none;
@@ -256,28 +280,27 @@ class _SwipableCardState extends State<SwipeableCard>
         return Alignment.bottomCenter;
       }(),
       "colors": () {
-        if (dirs.dx == -1) {
+        if (_currentSwipeDirection == SwipeDirection.up) {
           return [
-            Colors.red,
-            Colors.red,
+            Colors.blue.withOpacity(.8),
+            Colors.blue.withOpacity(.6),
+          ];
+        } else if (_currentSwipeDirection == SwipeDirection.left) {
+          return [
+            Colors.red.withOpacity(.8),
+            Colors.red.withOpacity(.6),
+          ];
+        } else if (_currentSwipeDirection == SwipeDirection.right) {
+          return [
+            Colors.green.withOpacity(.8),
+            Colors.green.withOpacity(.6),
+          ];
+        } else {
+          return [
+            Colors.white.withOpacity(.8),
+            Colors.white.withOpacity(.6),
           ];
         }
-        if (dirs.dx == 1) {
-          return [
-            Colors.blue,
-            Colors.blue,
-          ];
-        }
-        if (dirs.dx == 0 && dirs.dy == 1) {
-          return [
-            Colors.green,
-            Colors.green,
-          ];
-        }
-        return [
-          Colors.white.withOpacity(.45),
-          Colors.white.withOpacity(.45),
-        ];
       }()
     };
   }
@@ -301,24 +324,27 @@ class _SwipableCardState extends State<SwipeableCard>
         height: loadedSize != null ? loadedSize!.height : null,
         left: dX,
         top: dY,
-        child: Transform.rotate(
-          angle: a,
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 320),
-            child: buildCardWidget(ctx),
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(35)),
-              gradient: LinearGradient(
-                colors: _gradientSettings["colors"] as List<Color>,
-                begin: _gradientSettings["start"] as Alignment,
-                end: _gradientSettings["end"] as Alignment,
-                // colors: [
-                //   Colors.white.withOpacity(.45),
-                //   Colors.white.withOpacity(.45)
-                // ],
-                // begin: Alignment.centerLeft,
-                // end: Alignment.topRight,
+        child: Opacity(
+          opacity: fadeAnimation.value as double,
+          child: Transform.rotate(
+            angle: a,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 320),
+              child: buildCardWidget(ctx),
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(35)),
+                gradient: LinearGradient(
+                  colors: _gradientSettings["colors"] as List<Color>,
+                  begin: _gradientSettings["start"] as Alignment,
+                  end: _gradientSettings["end"] as Alignment,
+                  // colors: [
+                  //   Colors.white.withOpacity(.45),
+                  //   Colors.white.withOpacity(.45)
+                  // ],
+                  // begin: Alignment.centerLeft,
+                  // end: Alignment.topRight,
+                ),
               ),
             ),
           ),
@@ -345,6 +371,7 @@ class _SwipableCardState extends State<SwipeableCard>
 
   Widget buildCardWidget(BuildContext bContext) {
     return Material(
+      key: ValueKey<String>(widget.route.id),
       color: Colors.transparent,
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(30)),
@@ -382,7 +409,16 @@ class _SwipableCardState extends State<SwipeableCard>
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(19.0),
-                    child: currentPageInfo,
+                    child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  RouteDetailsPage(route: widget.route),
+                            ),
+                          );
+                        },
+                        child: currentPageInfo),
                   ),
                 ),
               ),
@@ -507,8 +543,10 @@ class _SwipableCardState extends State<SwipeableCard>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        const Text(
-          'Description:',
+        Text(
+          widget.route.details != null
+              ? widget.route.details![0].title
+              : 'No title',
           // style: GoogleFonts.nunito(
           //   color: Colors.white,
           //   fontSize: 24,
@@ -516,16 +554,18 @@ class _SwipableCardState extends State<SwipeableCard>
           // ),
         ),
         const SizedBox(height: 5),
-        // Text(
-        //   widget.route.description,
-        //   maxLines: 4,
-        //   overflow: TextOverflow.ellipsis,
-        //   style: GoogleFonts.roboto(
-        //     fontSize: 18,
-        //     fontWeight: FontWeight.w300,
-        //     color: Colors.white,
-        //   ),
-        // ),
+        Text(
+          widget.route.details != null
+              ? widget.route.details![0].content
+              : 'No content',
+          maxLines: 4,
+          overflow: TextOverflow.ellipsis,
+          style: GoogleFonts.roboto(
+            fontSize: 18,
+            fontWeight: FontWeight.w300,
+            color: Colors.white,
+          ),
+        ),
         const SizedBox(height: 8)
       ],
     );
