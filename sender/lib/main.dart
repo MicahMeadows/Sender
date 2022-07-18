@@ -16,7 +16,6 @@ import 'package:sender/data/sender_api/retrofit_sender_api.dart';
 import 'package:sender/firebase_options.dart';
 import 'package:sender/widgets/auth_gate.dart';
 import 'package:dio/dio.dart';
-
 import 'data/repository/queue_route_repository/retrofit_queue_route_repository.dart';
 
 FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -41,7 +40,10 @@ IUserRepository _userRepository =
     CachingUserRepository(RetrofitUserRepostiroy(_retrofitSenderApi));
 
 TodoListCubit todoListCubit = TodoListCubit(_userRepository)..loadTicks();
-RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository);
+RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository)
+  ..loadRoutes(
+    count: 1,
+  );
 NavigationCubit navigationCubit = NavigationCubit();
 RouteSettingsCubit routeSettingsCubit =
     RouteSettingsCubit(userRepository: _userRepository);

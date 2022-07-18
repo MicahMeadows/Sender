@@ -478,7 +478,9 @@ class _SwipableCardState extends State<SwipeableCard>
       children: [
         const SizedBox(height: 10),
         Text(
-          '${widget.route.length.toString()}ft',
+          widget.route.length == null
+              ? 'Unknown'
+              : '${widget.route.length.toString()}ft',
           style: GoogleFonts.nunito(
             color: Colors.white,
             fontSize: 36,

@@ -23,31 +23,37 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     }
   }
 
-  Future<void> injectRoutes() async {
-    final _state = state;
-    if (_state is RouteQueueLoaded) {
-      if (_state.routes.length <= 3) {
-        final currentRouteIds = _state.routes.map((e) => e.id).toList();
-        var newRoutes = await _queueRouteRepository
-            .getClimbingRoutesExcluding(currentRouteIds);
-        final newRouteList = [...newRoutes, ..._state.routes];
-        if (newRouteList.isNotEmpty) {
-          emit(RouteQueueLoaded(routes: newRouteList));
-        } else {
-          emit(RouteQueueEmpty());
-        }
-      }
-    }
+  void reloadRoutes() {
+    emit(RouteQueueEmpty());
+    loadRoutes(count: 2);
   }
 
-  Future<void> loadRoutes() async {
-    emit(RouteQueueLoading());
+  Future<void> loadRoutes({int count = 7}) async {
+    List<ClimbingRoute> routes = [];
+    if (state is! RouteQueueLoaded) {
+      emit(RouteQueueLoading());
+    }
+    if (state is RouteQueueLoaded) {
+      routes = (state as RouteQueueLoaded).routes;
+      if (routes.length > 3) {
+        return;
+      }
+    }
     try {
-      var routes = await _queueRouteRepository.getClimbingRoutes([]);
-      if (routes.isEmpty) {
+      var currentRouteIds = routes.map((e) => e.id).toList();
+
+      var newRoutes = await _queueRouteRepository.getClimbingRoutesExcluding(
+        currentRouteIds,
+        count,
+      );
+
+      final allRoutes = [...routes, ...newRoutes];
+
+      if (allRoutes.isEmpty) {
         emit(RouteQueueEmpty());
       } else {
-        emit(RouteQueueLoaded(routes: routes));
+        emit(RouteQueueLoaded(routes: allRoutes));
+        loadRoutes(); // load routes again. this will return if already having routes above threshold
       }
     } catch (e) {
       emit(RouteQueueError(errorMessage: e.toString()));
@@ -67,7 +73,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
       } else {
         emit(RouteQueueLoaded(routes: routes));
       }
-      injectRoutes();
+      loadRoutes();
     } catch (e) {
       return Future.error(e.toString());
     }

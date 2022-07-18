@@ -111,7 +111,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             // color: Colors.white,
             color: col.primary,
             child: const Center(
-              child: KnotProgressIndicator(),
+              child: KnotProgressIndicator(color: Colors.white),
             ),
           );
         } else {
@@ -366,13 +366,24 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           const SizedBox(height: 5),
           const SectionBanner(text: 'Details'),
           const SizedBox(height: 3),
-          if (widget.route.type != null)
-            _buildLabledCard('Type:', widget.route.type!),
-          _buildLabledCard('Height:', '${widget.route.length.toString()}ft'),
-          if (widget.route.grade != null)
-            _buildLabledCard('Grade:', widget.route.grade!),
-          if (widget.route.firstAscent != null)
-            _buildLabledCard('First Ascent:', widget.route.firstAscent!),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
+            child: Column(
+              children: [
+                if (widget.route.type != null)
+                  _buildLabledCard('Type:', widget.route.type!),
+                _buildLabledCard(
+                    'Height:',
+                    widget.route.length == null
+                        ? 'Unknown'
+                        : '${widget.route.length.toString()}ft'),
+                if (widget.route.grade != null)
+                  _buildLabledCard('Grade:', widget.route.grade!),
+                if (widget.route.firstAscent != null)
+                  _buildLabledCard('First Ascent:', widget.route.firstAscent!),
+              ],
+            ),
+          ),
           const SizedBox(height: 23),
           const SectionBanner(text: 'Area'),
           const SizedBox(height: 8),

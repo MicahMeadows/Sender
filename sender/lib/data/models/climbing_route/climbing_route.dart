@@ -22,7 +22,6 @@ class ClimbingRoute with _$ClimbingRoute {
     required String? firstAscent,
     required List<String>? imageUrls,
     required List<Area>? areas,
-    // required List<String>? areas,
     required List<ClimbingRouteDetail>? details,
   }) = _ClimbingRoute;
 

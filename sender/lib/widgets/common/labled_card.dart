@@ -38,6 +38,7 @@ class LabledCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 3),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
@@ -45,13 +46,11 @@ class LabledCard extends StatelessWidget {
             ),
             const SizedBox(width: 15),
             Expanded(
-                child: Align(alignment: Alignment.centerRight, child: child)
-                // child: Text(
-                //   content,
-                //   style: style,
-                //   textAlign: TextAlign.end,
-                // ),
-                ),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: child,
+              ),
+            ),
           ],
         ),
       ),
