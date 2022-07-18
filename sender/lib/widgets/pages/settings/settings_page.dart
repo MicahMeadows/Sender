@@ -99,7 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
     widget.routeSettingsCubit.uploadPreferences();
     navigationCubit.showHome();
-    widget.queueCubit.loadRoutes();
+    widget.queueCubit.reloadRoutes();
   }
 
   @override

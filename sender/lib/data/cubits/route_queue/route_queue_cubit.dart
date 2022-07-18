@@ -23,7 +23,12 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     }
   }
 
-  Future<void> loadRoutes() async {
+  void reloadRoutes() {
+    emit(RouteQueueEmpty());
+    loadRoutes(count: 2);
+  }
+
+  Future<void> loadRoutes({int count = 7}) async {
     List<ClimbingRoute> routes = [];
     if (state is! RouteQueueLoaded) {
       emit(RouteQueueLoading());
@@ -35,17 +40,20 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
       }
     }
     try {
-      List<String> excludeIds = routes.map((e) => e.id).toList();
+      var currentRouteIds = routes.map((e) => e.id).toList();
 
-      var newRoutes =
-          await _queueRouteRepository.getClimbingRoutesExcluding(excludeIds);
+      var newRoutes = await _queueRouteRepository.getClimbingRoutesExcluding(
+        currentRouteIds,
+        count,
+      );
 
-      final allRoutes = [...newRoutes, ...routes];
+      final allRoutes = [...routes, ...newRoutes];
 
       if (allRoutes.isEmpty) {
         emit(RouteQueueEmpty());
       } else {
         emit(RouteQueueLoaded(routes: allRoutes));
+        loadRoutes(); // load routes again. this will return if already having routes above threshold
       }
     } catch (e) {
       emit(RouteQueueError(errorMessage: e.toString()));

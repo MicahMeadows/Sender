@@ -8,7 +8,7 @@ import 'package:sender/data/models/route_tick/route_tick.dart';
 part 'retrofit_sender_api.g.dart';
 
 @RestApi(
-    baseUrl: 'https://12d0-2603-9001-7301-7731-9848-1a2a-bcef-7e3.ngrok.io')
+    baseUrl: 'https://1695-2603-9001-7301-7731-813f-e0d1-82c4-3d11.ngrok.io')
 abstract class RetrofitSenderApi {
   factory RetrofitSenderApi(
     Dio dio, {
@@ -44,6 +44,7 @@ abstract class RetrofitSenderApi {
       "ignore": [],
     },
     @Query('includePageData') String includePageData = 'true',
+    @Query('needImages') String needImages = 'true',
     @Query('numResults') int? numResults,
   });
 }

@@ -4,7 +4,6 @@ import 'package:sender/data/repository/queue_route_repository/i_queue_route_repo
 import 'package:sender/data/sender_api/retrofit_sender_api.dart';
 
 class RetrofitQueueRouteRepository implements IQueueRouteRepository {
-  static const int routeFetchCount = 15;
   final RetrofitSenderApi _api;
 
   const RetrofitQueueRouteRepository(this._api);
@@ -19,11 +18,12 @@ class RetrofitQueueRouteRepository implements IQueueRouteRepository {
   }
 
   @override
-  Future<List<ClimbingRoute>> getClimbingRoutes(List<String> routeIds) async {
+  Future<List<ClimbingRoute>> getClimbingRoutes(
+      List<String> routeIds, int count) async {
     try {
-      var loadedRoutes = await _api.getQueueRoutes(numResults: routeFetchCount);
+      var loadedRoutes = await _api.getQueueRoutes(numResults: count);
 
-      loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
+      // loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
 
       return loadedRoutes;
     } catch (ex) {
@@ -34,14 +34,16 @@ class RetrofitQueueRouteRepository implements IQueueRouteRepository {
 
   @override
   Future<List<ClimbingRoute>> getClimbingRoutesExcluding(
-      List<String> routesIdsToExclude) async {
+    List<String> routesIdsToExclude,
+    int count,
+  ) async {
     try {
       var loadedRoutes =
-          await _api.getQueueRoutes(numResults: routeFetchCount, settings: {
+          await _api.getQueueRoutes(numResults: count, settings: {
         "ignore": routesIdsToExclude,
       });
 
-      loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
+      // loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
 
       return loadedRoutes;
     } catch (ex) {

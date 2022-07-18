@@ -10,7 +10,7 @@ part of 'retrofit_sender_api.dart';
 
 class _RetrofitSenderApi implements RetrofitSenderApi {
   _RetrofitSenderApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://12d0-2603-9001-7301-7731-9848-1a2a-bcef-7e3.ngrok.io';
+    baseUrl ??= 'https://1695-2603-9001-7301-7731-813f-e0d1-82c4-3d11.ngrok.io';
   }
 
   final Dio _dio;
@@ -119,10 +119,12 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
   Future<List<ClimbingRoute>> getQueueRoutes(
       {settings = const {"ignore": []},
       includePageData = 'true',
+      needImages = 'true',
       numResults}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'includePageData': includePageData,
+      r'needImages': needImages,
       r'numResults': numResults
     };
     queryParameters.removeWhere((k, v) => v == null);
