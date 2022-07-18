@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:core';
 
+import 'package:sender/common/constants/colors.dart' as col;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -132,19 +134,67 @@ class _SwipableCardState extends State<SwipeableCard>
       }
     });
 
-    for (var imageUrl in widget.route.imageUrls ?? []) {
-      _routeImages.add(
-        Image.network(
-          imageUrl,
-          loadingBuilder: (ctx, widget, progress) {
-            if (progress == null) {
-              return widget;
-            }
-            return const Center(child: KnotProgressIndicator());
-          },
-          fit: BoxFit.cover,
+    Widget _loadingBuilder(
+      BuildContext ctx,
+      Widget widget,
+      ImageChunkEvent? progress,
+    ) {
+      if (progress == null) {
+        return widget;
+      }
+      return Container(
+        child: const Center(
+          child: KnotProgressIndicator(),
         ),
       );
+    }
+
+    Image _tryMakeImage(String url) {
+      return Image.network(
+        url,
+        fit: BoxFit.fitHeight,
+        loadingBuilder: _loadingBuilder,
+        errorBuilder: (ctx, obj, trace) {
+          debugPrint('failed');
+          return Container(
+            decoration: BoxDecoration(
+              color: col.tertiary,
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.error_outline,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  Text('Failed to load image'),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
+
+    for (String imageUrl in widget.route.imageUrls ?? []) {
+      var workingImage = () {
+        try {
+          return _tryMakeImage(imageUrl);
+        } catch (ex) {
+          try {
+            return _tryMakeImage(imageUrl.replaceFirst('large', 'medium'));
+          } catch (ex2) {
+            return _tryMakeImage(
+              imageUrl
+                  .replaceFirst('large', 'smallMed')
+                  .replaceFirst('medium', 'smallMed'),
+            );
+          }
+        }
+      }();
+      _routeImages.add(workingImage);
     }
   }
 

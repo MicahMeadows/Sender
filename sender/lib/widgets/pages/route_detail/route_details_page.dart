@@ -67,10 +67,26 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   @override
   void initState() {
     images = (widget.route.imageUrls ?? []).map((imageUrl) {
-      return Image.network(
-        imageUrl,
-        fit: BoxFit.fitWidth,
-      );
+      try {
+        return Image.network(
+          imageUrl,
+          fit: BoxFit.fitWidth,
+        );
+      } catch (ex) {
+        try {
+          return Image.network(
+            imageUrl.replaceAll('large', 'medium'),
+            fit: BoxFit.fitWidth,
+          );
+        } catch (ex2) {
+          return Image.network(
+            imageUrl
+                .replaceAll('large', 'smallMed')
+                .replaceAll('medium', 'smallMed'),
+            fit: BoxFit.fitWidth,
+          );
+        }
+      }
     }).toList();
 
     _scrollController.addListener(() {
@@ -291,11 +307,10 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                         bottom: PreferredSize(
                           preferredSize: const Size.fromHeight(50),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Spacer(flex: 1),
-                              Expanded(
-                                flex: 4,
+                              FittedBox(
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Text(
