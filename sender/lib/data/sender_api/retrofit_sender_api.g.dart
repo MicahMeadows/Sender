@@ -10,7 +10,7 @@ part of 'retrofit_sender_api.dart';
 
 class _RetrofitSenderApi implements RetrofitSenderApi {
   _RetrofitSenderApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://1695-2603-9001-7301-7731-813f-e0d1-82c4-3d11.ngrok.io';
+    baseUrl ??= 'https://cf67-2603-9001-7301-7731-c22a-ebb1-b79b-642c.ngrok.io';
   }
 
   final Dio _dio;
