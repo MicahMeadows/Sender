@@ -197,9 +197,9 @@ class _SwipableCardState extends State<SwipeableCard>
 
     if (endSwipeDirection == SwipeDirection.none) {
       animateRecenter();
+    } else {
+      fadeAnimationController.forward();
     }
-
-    fadeAnimationController.forward();
   }
 
   SwipeDirection get _currentSwipeDirection {
