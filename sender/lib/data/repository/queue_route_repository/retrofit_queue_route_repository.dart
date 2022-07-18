@@ -18,11 +18,24 @@ class RetrofitQueueRouteRepository implements IQueueRouteRepository {
   @override
   Future<List<ClimbingRoute>> getClimbingRoutes(List<String> routeIds) async {
     try {
-      var loadedRoutes = await _api.getQueueRoutes(numResults: 7);
+      var loadedRoutes = await _api.getQueueRoutes(numResults: 15);
 
-      // loadedRoutes.forEach((element) async {
-      //   element = await getRouteDetails(element.id);
-      // });
+      loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
+
+      return loadedRoutes;
+    } catch (ex) {
+      debugPrint('failed to get routes: $ex');
+      rethrow;
+    }
+  }
+
+  // TODO: finish exclusion
+  @override
+  Future<List<ClimbingRoute>> getClimbingRoutesExcluding(
+      List<String> routesIdsToExclude) async {
+    try {
+      var loadedRoutes = await _api.getQueueRoutes(
+          numResults: 15, settings: {"ignore": routesIdsToExclude});
 
       loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
 

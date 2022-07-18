@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sender/widgets/common/shadow_image.dart';
 import 'package:sender/widgets/pages/todo_page/empty_tick_list.dart';
 
 class NoTodos extends StatelessWidget {

@@ -7,7 +7,7 @@ import 'package:sender/data/sender_api/retrofit_sender_api.dart';
 class RetrofitUserRepostiroy implements IUserRepository {
   final RetrofitSenderApi _api;
 
-  const RetrofitUserRepostiroy(this._api);
+  RetrofitUserRepostiroy(this._api);
 
   @override
   Future<Profile> createProfile(String displayName) {
@@ -22,7 +22,6 @@ class RetrofitUserRepostiroy implements IUserRepository {
 
   @override
   Future<Profile> getProfile() {
-    // TODO: implement getProfile
     throw UnimplementedError();
   }
 

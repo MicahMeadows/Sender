@@ -8,7 +8,7 @@ import 'package:sender/data/models/route_tick/route_tick.dart';
 part 'retrofit_sender_api.g.dart';
 
 @RestApi(
-    baseUrl: 'https://bcfb-2603-9001-7301-7731-7dfe-aa9d-7a0f-8057.ngrok.io')
+    baseUrl: 'https://12d0-2603-9001-7301-7731-9848-1a2a-bcef-7e3.ngrok.io')
 abstract class RetrofitSenderApi {
   factory RetrofitSenderApi(
     Dio dio, {
@@ -35,8 +35,11 @@ abstract class RetrofitSenderApi {
   @GET('/user/tick')
   Future<List<RouteTick>> getRouteTicks();
 
-  @GET('/routes/queue')
+  @POST('/routes/queue')
   Future<List<ClimbingRoute>> getQueueRoutes({
+    @Body() Map<String, dynamic> settings = const {
+      "ignore": [],
+    },
     @Query('includePageData') String includePageData = 'true',
     @Query('numResults') int? numResults,
   });

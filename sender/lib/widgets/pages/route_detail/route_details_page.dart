@@ -354,16 +354,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 32),
-          //   child: Text(
-          //     widget.route.description,
-          //     // style: GoogleFonts.nunito(
-          //     //   fontSize: 16,
-          //     // ),
-          //     style: _appTextTheme.bodySmall?.copyWith(color: col.text1),
-          //   ),
-          // ),
           if (widget.route.rating != null)
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -376,7 +366,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           const SizedBox(height: 5),
           const SectionBanner(text: 'Details'),
           const SizedBox(height: 3),
-
           if (widget.route.type != null)
             _buildLabledCard('Type:', widget.route.type!),
           _buildLabledCard('Height:', '${widget.route.length.toString()}ft'),
@@ -402,40 +391,12 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             ),
           ),
           const SizedBox(height: 23),
-          // const SectionBanner(text: 'Location'),
-          // const SizedBox(height: 8),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
-          //   child:
-          //       _buildTextCard(widget.route.location, width: double.infinity),
-          // ),
           for (var detail in widget.route.details ?? [])
             _makeDetailSection(detail),
           const SizedBox(height: 30),
-          // _buildBlueButton('Add to Send Stack', () {
-          //   setState(() {
-          //     // _selectedImageIdx--;
-          //   });
-          // }),
-          // ThickButton(
-          //   text: 'Add to Send Stack',
-          //   onPressed: () {},
-          //   width: 200,
-          // ),
-          // const SizedBox(height: 20),
-          // ThickButton(
-          //   text: 'Remove from Todo List',
-          //   onPressed: () {},
-          //   width: 200,
-          // ),
           for (var option in widget.bottomOptions)
             ThickButton(text: option.buttonText, onPressed: option.onPress),
           const SizedBox(height: 50),
-          // _buildBlueButton('Add to Todo List', () {
-          //   setState(() {
-          //     // _selectedImageIdx++;
-          //   });
-          // }),
         ],
       ),
     );
@@ -447,28 +408,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       content: content,
       style: _appTextTheme.bodySmall?.apply(color: col.text1),
     );
-    // return Padding(
-    //   padding: EdgeInsets.symmetric(horizontal: _sidePadding, vertical: 5),
-    //   child: BaseCard(
-    //       child: Row(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //     children: [
-    //       Text(
-    //         title,
-    //         style: _appTextTheme.bodySmall?.apply(color: col.text1),
-    //       ),
-    //       const SizedBox(width: 15),
-    //       Expanded(
-    //         child: Text(
-    //           content,
-    //           style: _appTextTheme.bodySmall?.apply(color: col.text1),
-    //           textAlign: ui.TextAlign.end,
-    //         ),
-    //       ),
-    //     ],
-    //   )),
-    // );
   }
 
   Widget _buildTextCard(String text, {double? width}) {
@@ -493,18 +432,4 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       ],
     );
   }
-
-  // Widget _buildBlueButton(String text, void Function() onPress) {
-  //   return TextButton(
-  //     style: ButtonStyle(
-  //       backgroundColor: MaterialStateProperty.all<Color?>(col.tertiary),
-  //       foregroundColor: MaterialStateProperty.all<Color?>(Colors.white),
-  //     ),
-  //     onPressed: onPress,
-  //     child: Text(
-  //       text,
-  //       style: GoogleFonts.nunito(fontSize: 18),
-  //     ),
-  //   );
-  // }
 }

@@ -31,29 +31,41 @@ class _CardVoteState extends State<CardVote> {
   Offset? startPos;
   Offset? posFromStart;
 
-  // late final _queueCubit = context.read<RouteQueueCubit>();
-
-  double get _cardRotationAngle {
-    if (posFromStart == null) {
-      return 0;
-    }
-    Size screenSize = MediaQuery.of(context).size;
-
-    Offset screenMiddle = Offset(screenSize.width / 2, screenSize.height / 2);
-
-    Offset cardMiddlePos = screenMiddle + posFromStart!;
-
-    num dX = cardMiddlePos.dx - screenSize.width / 2;
-    num dY = cardMiddlePos.dy + 250;
-
-    return atan2(dX, dY);
+  void handleLeftSwipe(ClimbingRoute route) {
+    widget.todoCubit.setTick(
+      RouteTick.makeTick('skip', route),
+    );
+    widget.queueCubit.popRoute();
+    widget.onRoutesChanged?.call(widget.routes);
   }
 
-  void _resetSwipePosition() {
-    setState(() {
-      posFromStart = null;
-      startPos = null;
+  void handleRightSwipe(ClimbingRoute route) {
+    widget.todoCubit.setTick(
+      RouteTick.makeTick('todo', route),
+    );
+    widget.queueCubit.popRoute();
+    widget.onRoutesChanged?.call(widget.routes);
+  }
+
+  void handleUpSwipe(ClimbingRoute route) {
+    widget.todoCubit.setTick(
+      RouteTick.makeTick('sent', route),
+    );
+    widget.queueCubit.popRoute();
+    widget.onRoutesChanged?.call(widget.routes);
+  }
+
+  void handleDownSwipe(int routeIndex) {
+    Navigator.of(context)
+        .push(
+      _createDetailsRoute(routeIndex),
+    )
+        .then((value) {
+      setState(() {
+        debugPrint('detail closed');
+      });
     });
+    widget.onRoutesChanged?.call(widget.routes);
   }
 
   @override
@@ -66,52 +78,20 @@ class _CardVoteState extends State<CardVote> {
             child: Container(
               padding: const EdgeInsets.all(8),
               child: SwipeableCard(
-                offsetAngle: i == 0 ? _cardRotationAngle : 0,
-                onSwipeUp: (_) {
-                  widget.todoCubit.setTick(
-                    RouteTick.makeTick('sent', widget.routes[i]),
-                  );
-                  widget.queueCubit.popRoute();
-                  _resetSwipePosition();
-                  widget.onRoutesChanged?.call(widget.routes);
-                },
-                onSwipeDown: (_) {
-                  _resetSwipePosition();
-                  Navigator.of(context)
-                      .push(
-                    _createDetailsRoute(i),
-                  )
-                      .then((value) {
-                    setState(() {
-                      debugPrint('detail closed');
-                    });
-                  });
-                  widget.onRoutesChanged?.call(widget.routes);
-                },
-                onSwipeLeft: (_) {
-                  widget.todoCubit.setTick(
-                    RouteTick.makeTick('skip', widget.routes[i]),
-                  );
-                  widget.queueCubit.popRoute();
-                  _resetSwipePosition();
-                  widget.onRoutesChanged?.call(widget.routes);
-                },
-                onSwipeRight: (_) {
-                  widget.todoCubit.setTick(
-                    RouteTick.makeTick('todo', widget.routes[i]),
-                  );
-                  widget.queueCubit.popRoute();
-                  _resetSwipePosition();
-                  widget.onRoutesChanged?.call(widget.routes);
-                },
-                onPositionChanged: (details) {
-                  startPos ??= details.localPosition;
-                  setState(() {
-                    posFromStart = details.localPosition - startPos!;
-                  });
-                },
-                onSwipeCancel: (offset, details) {
-                  _resetSwipePosition();
+                onSwipe: (direction) {
+                  ClimbingRoute currentRoute = widget.routes[i];
+                  if (direction == SwipeDirection.left) {
+                    handleLeftSwipe(currentRoute);
+                  }
+                  if (direction == SwipeDirection.right) {
+                    handleRightSwipe(currentRoute);
+                  }
+                  if (direction == SwipeDirection.up) {
+                    handleUpSwipe(currentRoute);
+                  }
+                  if (direction == SwipeDirection.down) {
+                    handleDownSwipe(i);
+                  }
                 },
                 route: widget.routes[i],
               ),
