@@ -12,7 +12,6 @@ import 'package:sender/widgets/pages/todo_page/no_todos.dart';
 import 'package:sender/widgets/pages/todo_page/tick_card.dart';
 
 import '../../../data/models/route_tick/route_tick.dart';
-import '../../common/shadow_image.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({Key? key}) : super(key: key);

@@ -307,7 +307,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                         bottom: PreferredSize(
                           preferredSize: const Size.fromHeight(50),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Spacer(flex: 1),
                               FittedBox(

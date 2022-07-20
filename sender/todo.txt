@@ -1,0 +1,9 @@
+Todo Features:
+- add feedback to swiping
+- add filtering features to tick lists
+- change right swipe to liked routes, then up swipe to either sent or todo
+
+Bugs:
+- queue loading routes on top of each other
+- clear queue if change settings
+- fix close button on details page

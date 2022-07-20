@@ -9,9 +9,7 @@ part 'route_queue_state.dart';
 class RouteQueueCubit extends Cubit<RouteQueueState> {
   final IQueueRouteRepository _queueRouteRepository;
 
-  RouteQueueCubit(this._queueRouteRepository) : super(RouteQueueEmpty()) {
-    loadRoutes();
-  }
+  RouteQueueCubit(this._queueRouteRepository) : super(RouteQueueEmpty());
 
   Future<ClimbingRoute> getRouteDetails(String routeId) async {
     try {
@@ -34,7 +32,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
       emit(RouteQueueLoading());
     }
     if (state is RouteQueueLoaded) {
-      routes = (state as RouteQueueLoaded).routes;
+      routes = [...(state as RouteQueueLoaded).routes];
       if (routes.length > 3) {
         return;
       }
@@ -47,7 +45,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
         count,
       );
 
-      final allRoutes = [...routes, ...newRoutes];
+      final allRoutes = [...newRoutes, ...routes];
 
       if (allRoutes.isEmpty) {
         emit(RouteQueueEmpty());
