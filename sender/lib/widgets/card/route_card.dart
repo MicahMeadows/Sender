@@ -147,16 +147,21 @@ class _SwipableCardState extends State<RouteCard>
       return Container(
         color: col.primary,
         child: const Center(
-          child: KnotProgressIndicator(),
+          child: KnotProgressIndicator(
+            color: Colors.white,
+          ),
         ),
       );
     }
 
-    Image _tryMakeImage(String url,
-        {String replaceString = "", List<String> backupOptions = const []}) {
+    Image _tryMakeImage(
+      String url, {
+      String replaceString = "",
+      List<String> backupOptions = const [],
+    }) {
       return Image.network(
         url,
-        fit: BoxFit.fitHeight,
+        fit: BoxFit.cover,
         loadingBuilder: _loadingBuilder,
         errorBuilder: (ctx, obj, trace) {
           if (backupOptions.isNotEmpty) {
