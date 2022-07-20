@@ -45,7 +45,7 @@ class _TabSwitcherState extends State<TabSwitcher> {
             child: Text(
               widget.tabs[i],
               style: TextStyle(
-                fontSize: 20,
+                fontSize: isSelected ? 20 : 18,
                 fontFamily: 'Nunito',
                 fontWeight: isSelected ? FontWeight.normal : FontWeight.w300,
               ),

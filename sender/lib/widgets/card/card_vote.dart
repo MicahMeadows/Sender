@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
-import 'package:sender/widgets/card/swipeable_card.dart';
+import 'package:sender/widgets/card/route_card.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 
 import '../../data/models/climbing_route/climbing_route.dart';
@@ -75,7 +75,7 @@ class _CardVoteState extends State<CardVote> {
           Positioned(
             child: Container(
               padding: const EdgeInsets.all(8),
-              child: SwipeableCard(
+              child: RouteCard(
                 ignoredDirections: const [
                   SwipeDirection.down,
                 ],

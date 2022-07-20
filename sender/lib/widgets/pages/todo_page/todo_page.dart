@@ -34,10 +34,11 @@ class _TodoPageState extends State<TodoPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: _sidePadding),
                 child: TabSwitcher(
-                  padding: 30,
+                  padding: 5,
                   tabs: const [
-                    'Todo List',
+                    'Liked',
                     'Send Stack',
+                    'Todos',
                   ],
                   onChange: (val) {
                     setState(() {
@@ -69,12 +70,6 @@ class _TodoPageState extends State<TodoPage> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
-                          // ShadowImage(
-                          //   child: SizedBox(
-                          //     width: 115,
-                          //     child: Image.asset('assets/images/atc_image.png'),
-                          //   ),
-                          // ),
                           Icon(
                             Icons.error_outline_rounded,
                             size: 30,

@@ -15,13 +15,13 @@ import '../pages/route_detail/route_details_page.dart';
 
 enum SwipeDirection { none, left, right, up, down }
 
-class SwipeableCard extends StatefulWidget {
+class RouteCard extends StatefulWidget {
   final ClimbingRoute route;
   final void Function(SwipeDirection)? onSwipe;
   final List<SwipeDirection> ignoredDirections;
   final double? offsetAngle;
 
-  const SwipeableCard({
+  const RouteCard({
     required this.route,
     this.ignoredDirections = const [],
     this.offsetAngle,
@@ -30,10 +30,10 @@ class SwipeableCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SwipeableCard> createState() => _SwipableCardState();
+  State<RouteCard> createState() => _SwipableCardState();
 }
 
-class _SwipableCardState extends State<SwipeableCard>
+class _SwipableCardState extends State<RouteCard>
     with TickerProviderStateMixin {
   late AnimationController cardAnimationController;
   late AnimationController fadeAnimationController;
@@ -555,7 +555,7 @@ class _SwipableCardState extends State<SwipeableCard>
           ),
         ),
         Text(
-          widget.route.grade ?? 'Unavailable',
+          '${widget.route.type ?? 'Type unavailable'}, ${widget.route.grade ?? 'Grade unavailable'}',
           style: GoogleFonts.roboto(
             fontSize: 28,
             fontWeight: FontWeight.w300,
@@ -599,19 +599,37 @@ class _SwipableCardState extends State<SwipeableCard>
   }
 
   Widget get areaInfoBottom {
+    final List<String> splitAreas = (widget.route.area ?? '').split(' > ');
+
+    final int areaCount = splitAreas.length;
+    final String crag = splitAreas[0];
+    final String? subArea = areaCount > 2 ? splitAreas[areaCount - 2] : null;
+    final String? greaterArea =
+        areaCount > 1 ? splitAreas[areaCount - 1] : null;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
         Text(
-          widget.route.area?.replaceAll(' >', ',') ?? 'Area unknown',
+          // widget.route.area?.replaceAll(' >', ',') ?? 'Area unknown',
+          '$crag',
           style: GoogleFonts.nunito(
             color: Colors.white,
-            fontSize: 24,
+            fontSize: 28,
             height: .95,
           ),
         ),
+        if (subArea != null || greaterArea != null)
+          Text(
+            '${subArea ?? ''}${subArea != null && greaterArea != null ? ', ' : ''}${greaterArea ?? ''}',
+            style: GoogleFonts.nunito(
+              color: Colors.white,
+              fontSize: 24,
+              height: .95,
+            ),
+          ),
         const SizedBox(height: 5),
         Text(
           'Latitude: ${widget.route.latitude ?? 'Unknown'}',
