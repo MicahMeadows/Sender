@@ -144,18 +144,26 @@ class _SwipableCardState extends State<SwipeableCard>
       if (progress == null) {
         return widget;
       }
-      return const Center(
-        child: KnotProgressIndicator(),
+      return Container(
+        color: col.primary,
+        child: const Center(
+          child: KnotProgressIndicator(),
+        ),
       );
     }
 
-    Image _tryMakeImage(String url) {
+    Image _tryMakeImage(String url,
+        {String replaceString = "", List<String> backupOptions = const []}) {
       return Image.network(
         url,
         fit: BoxFit.fitHeight,
         loadingBuilder: _loadingBuilder,
         errorBuilder: (ctx, obj, trace) {
-          debugPrint('failed');
+          if (backupOptions.isNotEmpty) {
+            return _tryMakeImage(
+              url.replaceAll(replaceString, backupOptions[0]),
+            );
+          }
           return Container(
             decoration: const BoxDecoration(
               color: col.tertiary,
@@ -180,19 +188,9 @@ class _SwipableCardState extends State<SwipeableCard>
 
     for (String imageUrl in widget.route.imageUrls ?? []) {
       var workingImage = () {
-        try {
-          return _tryMakeImage(imageUrl);
-        } catch (ex) {
-          try {
-            return _tryMakeImage(imageUrl.replaceFirst('large', 'medium'));
-          } catch (ex2) {
-            return _tryMakeImage(
-              imageUrl
-                  .replaceFirst('large', 'smallMed')
-                  .replaceFirst('medium', 'smallMed'),
-            );
-          }
-        }
+        return _tryMakeImage(imageUrl,
+            replaceString: "large",
+            backupOptions: ["medium", "smallMed", "small"]);
       }();
       _routeImages.add(workingImage);
     }
@@ -201,13 +199,6 @@ class _SwipableCardState extends State<SwipeableCard>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    for (int i = 0; i < _routeImages.length && i < maxPagesToShow; i++) {
-      precacheImage(_routeImages[i].image, context);
-    }
-    // for (var image in _routeImages) {
-    //   precacheImage(image.image, context);
-    // }
   }
 
   void removeOverlay() {
