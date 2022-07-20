@@ -210,9 +210,22 @@ class _SettingsPageState extends State<SettingsPage> {
                                         ),
                                       );
                                     },
-                                    error: (message) => Center(
-                                      child: Text('Error: $message'),
-                                    ),
+                                    error: (message) => Expanded(
+                                        child: Center(
+                                      child: Column(children: const [
+                                        SizedBox(height: 30),
+                                        Icon(
+                                          Icons.error_outline_rounded,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
+                                        Text(
+                                            'Failed to load route preferences'),
+                                      ]),
+                                    )),
+                                    // error: (message) => Center(
+                                    //   child: Text('Error: $message'),
+                                    // ),
                                     settingsLoaded: (settings) {
                                       return Container(
                                         color: col.primary,

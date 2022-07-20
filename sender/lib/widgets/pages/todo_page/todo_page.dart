@@ -12,6 +12,7 @@ import 'package:sender/widgets/pages/todo_page/no_todos.dart';
 import 'package:sender/widgets/pages/todo_page/tick_card.dart';
 
 import '../../../data/models/route_tick/route_tick.dart';
+import '../../common/shadow_image.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({Key? key}) : super(key: key);
@@ -65,8 +66,24 @@ class _TodoPageState extends State<TodoPage> {
                       color: Colors.white,
                     ),
                   ),
-                  error: (msg) => const Center(
-                    child: Text('error'),
+                  error: (msg) => Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          // ShadowImage(
+                          //   child: SizedBox(
+                          //     width: 115,
+                          //     child: Image.asset('assets/images/atc_image.png'),
+                          //   ),
+                          // ),
+                          Icon(
+                            Icons.error_outline_rounded,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          SizedBox(height: 5),
+                          Text('Failed to load ticks'),
+                        ]),
                   ),
                 ),
               ),
