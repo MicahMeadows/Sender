@@ -45,7 +45,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
         count,
       );
 
-      final allRoutes = [...newRoutes, ...routes];
+      final allRoutes = [...routes, ...newRoutes];
 
       if (allRoutes.isEmpty) {
         emit(RouteQueueEmpty());

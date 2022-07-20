@@ -310,17 +310,20 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Spacer(flex: 1),
-                              FittedBox(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    widget.route.name,
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.nunito(
-                                      // color: Colors.black,
-                                      color: col.text1,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 24,
+                              Expanded(
+                                flex: 4,
+                                child: FittedBox(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Text(
+                                      widget.route.name,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.nunito(
+                                        // color: Colors.black,
+                                        color: col.text1,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
+                                      ),
                                     ),
                                   ),
                                 ),

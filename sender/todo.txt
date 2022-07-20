@@ -7,3 +7,4 @@ Bugs:
 - queue loading routes on top of each other
 - clear queue if change settings
 - fix close button on details page
+- loading more info so duplicate

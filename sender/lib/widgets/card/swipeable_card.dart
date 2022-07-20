@@ -20,10 +20,12 @@ enum SwipeDirection { none, left, right, up, down }
 class SwipeableCard extends StatefulWidget {
   final ClimbingRoute route;
   final void Function(SwipeDirection)? onSwipe;
+  final List<SwipeDirection> ignoredDirections;
   final double? offsetAngle;
 
   const SwipeableCard({
     required this.route,
+    this.ignoredDirections = const [],
     this.offsetAngle,
     this.onSwipe,
     Key? key,
@@ -66,7 +68,7 @@ class _SwipableCardState extends State<SwipeableCard>
   }
 
   void _nextPage() {
-    if (_pageIndex < (widget.route.imageUrls?.length ?? 0) - 1) {
+    if (_pageIndex < (maxPagesToShow) - 1) {
       setState(() {
         _pageIndex++;
       });
@@ -202,9 +204,12 @@ class _SwipableCardState extends State<SwipeableCard>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    for (var image in _routeImages) {
-      precacheImage(image.image, context);
+    for (int i = 0; i < _routeImages.length && i < maxPagesToShow; i++) {
+      precacheImage(_routeImages[i].image, context);
     }
+    // for (var image in _routeImages) {
+    //   precacheImage(image.image, context);
+    // }
   }
 
   void removeOverlay() {
@@ -264,7 +269,15 @@ class _SwipableCardState extends State<SwipeableCard>
       }
     });
 
-    if (endSwipeDirection == SwipeDirection.none) {
+    bool shouldIgnore = () {
+      if (endSwipeDirection == SwipeDirection.none) return true;
+      for (var direction in widget.ignoredDirections) {
+        if (endSwipeDirection == direction) return true;
+      }
+      return false;
+    }();
+
+    if (shouldIgnore) {
       animateRecenter();
     } else {
       fadeAnimationController.forward();
@@ -284,7 +297,7 @@ class _SwipableCardState extends State<SwipeableCard>
     if (cardMiddle.dx > screenSize.width - (screenSize.width / 4)) {
       return SwipeDirection.right;
     }
-    if (cardMiddle.dy > screenSize.height - screenSize.height / 3) {
+    if (cardMiddle.dy > screenSize.height - screenSize.height / 4) {
       return SwipeDirection.down;
     }
     return SwipeDirection.none;
@@ -351,18 +364,18 @@ class _SwipableCardState extends State<SwipeableCard>
       "colors": () {
         if (_currentSwipeDirection == SwipeDirection.up) {
           return [
-            Colors.blue.withOpacity(.8),
-            Colors.blue.withOpacity(.6),
+            Colors.green.withOpacity(.8),
+            Colors.white.withOpacity(.6),
           ];
         } else if (_currentSwipeDirection == SwipeDirection.left) {
           return [
             Colors.red.withOpacity(.8),
-            Colors.red.withOpacity(.6),
+            Colors.white.withOpacity(.6),
           ];
         } else if (_currentSwipeDirection == SwipeDirection.right) {
           return [
-            Colors.green.withOpacity(.8),
-            Colors.green.withOpacity(.6),
+            Colors.blue.withOpacity(.8),
+            Colors.white.withOpacity(.6),
           ];
         } else {
           return [
@@ -493,7 +506,8 @@ class _SwipableCardState extends State<SwipeableCard>
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Breadcrumbs(
-                  itemCount: widget.route.imageUrls?.length ?? 0,
+                  // itemCount: widget.route.imageUrls?.length ?? 0,
+                  itemCount: maxPagesToShow,
                   index: _pageIndex,
                 ),
               ),

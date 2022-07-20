@@ -56,16 +56,16 @@ class _CardVoteState extends State<CardVote> {
   }
 
   void handleDownSwipe(int routeIndex) {
-    Navigator.of(context)
-        .push(
-      _createDetailsRoute(routeIndex),
-    )
-        .then((value) {
-      setState(() {
-        debugPrint('detail closed');
-      });
-    });
-    widget.onRoutesChanged?.call(widget.routes);
+    // Navigator.of(context)
+    //     .push(
+    //   _createDetailsRoute(routeIndex),
+    // )
+    //     .then((value) {
+    //   setState(() {
+    //     debugPrint('detail closed');
+    //   });
+    // });
+    // widget.onRoutesChanged?.call(widget.routes);
   }
 
   @override
@@ -78,6 +78,9 @@ class _CardVoteState extends State<CardVote> {
             child: Container(
               padding: const EdgeInsets.all(8),
               child: SwipeableCard(
+                ignoredDirections: const [
+                  SwipeDirection.down,
+                ],
                 onSwipe: (direction) {
                   ClimbingRoute currentRoute = widget.routes[i];
                   if (direction == SwipeDirection.left) {
