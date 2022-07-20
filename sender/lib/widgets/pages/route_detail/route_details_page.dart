@@ -313,6 +313,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                               Expanded(
                                 flex: 4,
                                 child: FittedBox(
+                                  fit: BoxFit.scaleDown,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Text(
