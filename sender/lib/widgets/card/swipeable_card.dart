@@ -63,8 +63,10 @@ class _SwipableCardState extends State<SwipeableCard>
 
   int get maxPagesToShow {
     // 3 pages always shown if enough images, area, first ascent, initial
-    const int numPagesAlwaysShown = 3;
-    return numPagesAlwaysShown + (widget.route.details?.length ?? 0);
+    final int numPagesAlwaysShown = 3;
+    final numDetailedPages =
+        numPagesAlwaysShown + (widget.route.details?.length ?? 0);
+    return min(widget.route.imageUrls?.length ?? 0, 3);
   }
 
   void _nextPage() {
