@@ -38,7 +38,7 @@ class _TodoPageState extends State<TodoPage> {
                   tabs: const [
                     'Liked',
                     'Send Stack',
-                    'Todos',
+                    'To Do',
                   ],
                   onChange: (val) {
                     setState(() {
