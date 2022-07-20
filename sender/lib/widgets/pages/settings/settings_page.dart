@@ -15,8 +15,6 @@ import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 import 'settings_helper.dart';
 
-import '../../common/titled_card.dart';
-
 class SettingsPage extends StatefulWidget {
   final RouteSettingsCubit routeSettingsCubit;
   final RouteQueueCubit queueCubit;
@@ -305,7 +303,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        Spacer(),
+                                                        const Spacer(),
                                                         DropdownButton<String>(
                                                             value: minGrade,
                                                             focusColor:

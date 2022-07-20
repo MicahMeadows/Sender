@@ -1,7 +1,6 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:sender/data/models/climbing_route/climbing_route.dart';
-import 'package:sender/data/models/profile/profile.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/data/models/route_tick/route_tick.dart';
 

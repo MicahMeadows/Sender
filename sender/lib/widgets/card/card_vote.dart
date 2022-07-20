@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
@@ -56,16 +54,16 @@ class _CardVoteState extends State<CardVote> {
   }
 
   void handleDownSwipe(int routeIndex) {
-    // Navigator.of(context)
-    //     .push(
-    //   _createDetailsRoute(routeIndex),
-    // )
-    //     .then((value) {
-    //   setState(() {
-    //     debugPrint('detail closed');
-    //   });
-    // });
-    // widget.onRoutesChanged?.call(widget.routes);
+    Navigator.of(context)
+        .push(
+      _createDetailsRoute(routeIndex),
+    )
+        .then((value) {
+      setState(() {
+        debugPrint('detail closed');
+      });
+    });
+    widget.onRoutesChanged?.call(widget.routes);
   }
 
   @override
@@ -93,7 +91,7 @@ class _CardVoteState extends State<CardVote> {
                     handleUpSwipe(currentRoute);
                   }
                   if (direction == SwipeDirection.down) {
-                    handleDownSwipe(i);
+                    // handleDownSwipe(i);
                   }
                 },
                 route: widget.routes[i],

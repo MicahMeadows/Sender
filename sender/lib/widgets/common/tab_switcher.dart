@@ -37,38 +37,36 @@ class _TabSwitcherState extends State<TabSwitcher> {
 
   Widget _createTabWidget(int i) {
     bool isSelected = selectedTab == i;
-    return Container(
-      child: Column(
-        children: [
-          InkWell(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: widget.padding),
-              child: Text(
-                widget.tabs[i],
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'Nunito',
-                  fontWeight: isSelected ? FontWeight.normal : FontWeight.w300,
-                ),
+    return Column(
+      children: [
+        InkWell(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: widget.padding),
+            child: Text(
+              widget.tabs[i],
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'Nunito',
+                fontWeight: isSelected ? FontWeight.normal : FontWeight.w300,
               ),
             ),
-            onTap: () {
-              setState(() {
-                selectedTab = i;
-              });
-              widget.onChange?.call(i);
-            },
           ),
-          const SizedBox(height: 3),
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.linear,
-            color: isSelected ? col.accent : Colors.transparent,
-            height: 3,
-            width: isSelected ? 110 : 0,
-          ),
-        ],
-      ),
+          onTap: () {
+            setState(() {
+              selectedTab = i;
+            });
+            widget.onChange?.call(i);
+          },
+        ),
+        const SizedBox(height: 3),
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.linear,
+          color: isSelected ? col.accent : Colors.transparent,
+          height: 3,
+          width: isSelected ? 110 : 0,
+        ),
+      ],
     );
   }
 }

@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'dart:math';
 import 'dart:core';
 
 import 'package:sender/common/constants/colors.dart' as col;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/data/models/climbing_route_detail/climbing_route_detail.dart';
 import 'package:sender/widgets/common/breadcrumbs.dart';
@@ -63,10 +61,10 @@ class _SwipableCardState extends State<SwipeableCard>
 
   int get maxPagesToShow {
     // 3 pages always shown if enough images, area, first ascent, initial
-    final int numPagesAlwaysShown = 3;
+    const int numPagesAlwaysShown = 3;
     final numDetailedPages =
         numPagesAlwaysShown + (widget.route.details?.length ?? 0);
-    return min(widget.route.imageUrls?.length ?? 0, 3);
+    return min(widget.route.imageUrls?.length ?? 0, numDetailedPages);
   }
 
   void _nextPage() {
@@ -146,10 +144,8 @@ class _SwipableCardState extends State<SwipeableCard>
       if (progress == null) {
         return widget;
       }
-      return Container(
-        child: const Center(
-          child: KnotProgressIndicator(),
-        ),
+      return const Center(
+        child: KnotProgressIndicator(),
       );
     }
 
@@ -161,7 +157,7 @@ class _SwipableCardState extends State<SwipeableCard>
         errorBuilder: (ctx, obj, trace) {
           debugPrint('failed');
           return Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: col.tertiary,
             ),
             child: Center(

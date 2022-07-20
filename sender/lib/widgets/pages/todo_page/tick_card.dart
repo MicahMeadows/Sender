@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sender/data/models/climbing_route/climbing_route.dart';
 import 'package:sender/data/models/route_tick/route_tick.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';

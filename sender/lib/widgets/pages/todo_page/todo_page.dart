@@ -101,9 +101,9 @@ class _TodoPageState extends State<TodoPage> {
           padding: EdgeInsets.symmetric(horizontal: _sidePadding),
           child: Row(
             children: [
-              DropButton(title: 'Filter'),
+              const DropButton(title: 'Filter'),
               const SizedBox(width: 14),
-              DropButton(title: 'Order'),
+              const DropButton(title: 'Order'),
               const Spacer(),
               RoundButton.circular(
                 onTap: () {
