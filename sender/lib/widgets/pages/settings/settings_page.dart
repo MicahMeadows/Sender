@@ -14,6 +14,7 @@ import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 import 'settings_helper.dart';
+import 'package:sender/common/helpers/climbing_route_helpers.dart';
 
 class SettingsPage extends StatefulWidget {
   final RouteSettingsCubit routeSettingsCubit;
@@ -80,6 +81,20 @@ class _SettingsPageState extends State<SettingsPage> {
     );
 
     if (currentSettings == null) return;
+
+    String minGrade =
+        minClimbingGrade(currentSettings.minGrade, currentSettings.maxGrade);
+
+    if (minGrade != currentSettings.minGrade) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Minimum grade must be below or equal to maximum grade.',
+          ),
+        ),
+      );
+      return;
+    }
 
     widget.routeSettingsCubit.setPreferences(
       currentSettings.copyWith(
