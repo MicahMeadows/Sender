@@ -1,14 +1,12 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:sender/data/models/climbing_route/climbing_route.dart';
-import 'package:sender/data/models/profile/profile.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/data/models/route_tick/route_tick.dart';
 
 part 'retrofit_sender_api.g.dart';
 
-@RestApi(
-    baseUrl: 'https://1695-2603-9001-7301-7731-813f-e0d1-82c4-3d11.ngrok.io')
+@RestApi(baseUrl: 'http://10.0.2.2:8080')
 abstract class RetrofitSenderApi {
   factory RetrofitSenderApi(
     Dio dio, {

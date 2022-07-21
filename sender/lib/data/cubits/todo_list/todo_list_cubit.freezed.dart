@@ -18,8 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TodoListState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<RouteTick> sends, List<RouteTick> todos, List<RouteTick> skips)
+    required TResult Function(List<RouteTick> sends, List<RouteTick> todos,
+            List<RouteTick> skips, List<RouteTick> likes)
         loaded,
     required TResult Function() loading,
     required TResult Function(String errorMessage) error,
@@ -28,7 +28,7 @@ mixin _$TodoListState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<RouteTick> sends, List<RouteTick> todos,
-            List<RouteTick> skips)?
+            List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
     TResult Function()? loading,
     TResult Function(String errorMessage)? error,
@@ -37,7 +37,7 @@ mixin _$TodoListState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<RouteTick> sends, List<RouteTick> todos,
-            List<RouteTick> skips)?
+            List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
     TResult Function()? loading,
     TResult Function(String errorMessage)? error,
@@ -90,7 +90,10 @@ abstract class _$$_loadedCopyWith<$Res> {
   factory _$$_loadedCopyWith(_$_loaded value, $Res Function(_$_loaded) then) =
       __$$_loadedCopyWithImpl<$Res>;
   $Res call(
-      {List<RouteTick> sends, List<RouteTick> todos, List<RouteTick> skips});
+      {List<RouteTick> sends,
+      List<RouteTick> todos,
+      List<RouteTick> skips,
+      List<RouteTick> likes});
 }
 
 /// @nodoc
@@ -107,6 +110,7 @@ class __$$_loadedCopyWithImpl<$Res> extends _$TodoListStateCopyWithImpl<$Res>
     Object? sends = freezed,
     Object? todos = freezed,
     Object? skips = freezed,
+    Object? likes = freezed,
   }) {
     return _then(_$_loaded(
       sends: sends == freezed
@@ -121,6 +125,10 @@ class __$$_loadedCopyWithImpl<$Res> extends _$TodoListStateCopyWithImpl<$Res>
           ? _value._skips
           : skips // ignore: cast_nullable_to_non_nullable
               as List<RouteTick>,
+      likes: likes == freezed
+          ? _value._likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as List<RouteTick>,
     ));
   }
 }
@@ -131,10 +139,12 @@ class _$_loaded implements _loaded {
   const _$_loaded(
       {required final List<RouteTick> sends,
       required final List<RouteTick> todos,
-      required final List<RouteTick> skips})
+      required final List<RouteTick> skips,
+      required final List<RouteTick> likes})
       : _sends = sends,
         _todos = todos,
-        _skips = skips;
+        _skips = skips,
+        _likes = likes;
 
   final List<RouteTick> _sends;
   @override
@@ -157,9 +167,16 @@ class _$_loaded implements _loaded {
     return EqualUnmodifiableListView(_skips);
   }
 
+  final List<RouteTick> _likes;
+  @override
+  List<RouteTick> get likes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_likes);
+  }
+
   @override
   String toString() {
-    return 'TodoListState.loaded(sends: $sends, todos: $todos, skips: $skips)';
+    return 'TodoListState.loaded(sends: $sends, todos: $todos, skips: $skips, likes: $likes)';
   }
 
   @override
@@ -169,7 +186,8 @@ class _$_loaded implements _loaded {
             other is _$_loaded &&
             const DeepCollectionEquality().equals(other._sends, _sends) &&
             const DeepCollectionEquality().equals(other._todos, _todos) &&
-            const DeepCollectionEquality().equals(other._skips, _skips));
+            const DeepCollectionEquality().equals(other._skips, _skips) &&
+            const DeepCollectionEquality().equals(other._likes, _likes));
   }
 
   @override
@@ -177,7 +195,8 @@ class _$_loaded implements _loaded {
       runtimeType,
       const DeepCollectionEquality().hash(_sends),
       const DeepCollectionEquality().hash(_todos),
-      const DeepCollectionEquality().hash(_skips));
+      const DeepCollectionEquality().hash(_skips),
+      const DeepCollectionEquality().hash(_likes));
 
   @JsonKey(ignore: true)
   @override
@@ -187,39 +206,39 @@ class _$_loaded implements _loaded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<RouteTick> sends, List<RouteTick> todos, List<RouteTick> skips)
+    required TResult Function(List<RouteTick> sends, List<RouteTick> todos,
+            List<RouteTick> skips, List<RouteTick> likes)
         loaded,
     required TResult Function() loading,
     required TResult Function(String errorMessage) error,
   }) {
-    return loaded(sends, todos, skips);
+    return loaded(sends, todos, skips, likes);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<RouteTick> sends, List<RouteTick> todos,
-            List<RouteTick> skips)?
+            List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
     TResult Function()? loading,
     TResult Function(String errorMessage)? error,
   }) {
-    return loaded?.call(sends, todos, skips);
+    return loaded?.call(sends, todos, skips, likes);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<RouteTick> sends, List<RouteTick> todos,
-            List<RouteTick> skips)?
+            List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
     TResult Function()? loading,
     TResult Function(String errorMessage)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(sends, todos, skips);
+      return loaded(sends, todos, skips, likes);
     }
     return orElse();
   }
@@ -263,11 +282,13 @@ abstract class _loaded implements TodoListState {
   const factory _loaded(
       {required final List<RouteTick> sends,
       required final List<RouteTick> todos,
-      required final List<RouteTick> skips}) = _$_loaded;
+      required final List<RouteTick> skips,
+      required final List<RouteTick> likes}) = _$_loaded;
 
   List<RouteTick> get sends => throw _privateConstructorUsedError;
   List<RouteTick> get todos => throw _privateConstructorUsedError;
   List<RouteTick> get skips => throw _privateConstructorUsedError;
+  List<RouteTick> get likes => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$_loadedCopyWith<_$_loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -312,8 +333,8 @@ class _$_loading implements _loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<RouteTick> sends, List<RouteTick> todos, List<RouteTick> skips)
+    required TResult Function(List<RouteTick> sends, List<RouteTick> todos,
+            List<RouteTick> skips, List<RouteTick> likes)
         loaded,
     required TResult Function() loading,
     required TResult Function(String errorMessage) error,
@@ -325,7 +346,7 @@ class _$_loading implements _loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<RouteTick> sends, List<RouteTick> todos,
-            List<RouteTick> skips)?
+            List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
     TResult Function()? loading,
     TResult Function(String errorMessage)? error,
@@ -337,7 +358,7 @@ class _$_loading implements _loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<RouteTick> sends, List<RouteTick> todos,
-            List<RouteTick> skips)?
+            List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
     TResult Function()? loading,
     TResult Function(String errorMessage)? error,
@@ -451,8 +472,8 @@ class _$_error implements _error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<RouteTick> sends, List<RouteTick> todos, List<RouteTick> skips)
+    required TResult Function(List<RouteTick> sends, List<RouteTick> todos,
+            List<RouteTick> skips, List<RouteTick> likes)
         loaded,
     required TResult Function() loading,
     required TResult Function(String errorMessage) error,
@@ -464,7 +485,7 @@ class _$_error implements _error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<RouteTick> sends, List<RouteTick> todos,
-            List<RouteTick> skips)?
+            List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
     TResult Function()? loading,
     TResult Function(String errorMessage)? error,
@@ -476,7 +497,7 @@ class _$_error implements _error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<RouteTick> sends, List<RouteTick> todos,
-            List<RouteTick> skips)?
+            List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
     TResult Function()? loading,
     TResult Function(String errorMessage)? error,

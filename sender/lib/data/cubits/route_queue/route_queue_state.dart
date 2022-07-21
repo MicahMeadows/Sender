@@ -12,7 +12,9 @@ class RouteQueueError extends RouteQueueState {
   const RouteQueueError({required this.errorMessage});
 }
 
-class RouteQueueLoading extends RouteQueueState {}
+class RouteQueueLoading extends RouteQueueState {
+  const RouteQueueLoading();
+}
 
 class RouteQueueLoaded extends RouteQueueState {
   final List<ClimbingRoute> routes;

@@ -23,14 +23,14 @@ class NoQueueResults extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Spacer(flex: 1),
+          const Spacer(flex: 1),
           ShadowImage(
             child: SizedBox(
               width: 80,
               child: Image.asset('assets/images/anchor.png'),
             ),
           ),
-          Spacer(flex: 1),
+          const Spacer(flex: 1),
           Text(
             'No routes to be shown!',
             textAlign: TextAlign.center,
@@ -49,7 +49,7 @@ class NoQueueResults extends StatelessWidget {
               navigationCubit.showProfile();
             },
           ),
-          Spacer(flex: 1),
+          const Spacer(flex: 1),
         ],
       ),
     );

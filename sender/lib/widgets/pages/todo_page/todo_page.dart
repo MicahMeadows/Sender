@@ -12,6 +12,7 @@ import 'package:sender/widgets/pages/todo_page/no_todos.dart';
 import 'package:sender/widgets/pages/todo_page/tick_card.dart';
 
 import '../../../data/models/route_tick/route_tick.dart';
+import 'no_likes.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  bool isTodo = true;
+  int tabIndex = 0;
   final double _sidePadding = 20;
 
   @override
@@ -34,39 +35,59 @@ class _TodoPageState extends State<TodoPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: _sidePadding),
                 child: TabSwitcher(
-                  padding: 30,
+                  padding: 5,
                   tabs: const [
-                    'Todo List',
+                    'Liked',
                     'Send Stack',
+                    'To Do',
                   ],
                   onChange: (val) {
                     setState(() {
-                      isTodo = val == 0;
+                      tabIndex = val;
                     });
                   },
                 ),
               ),
               Expanded(
                 child: state.when(
-                  loaded: (sends, todos, skips) {
-                    if (isTodo) {
+                  loaded: (sends, todos, skips, likes) {
+                    if (tabIndex == 0) {
+                      if (likes.isEmpty) {
+                        return const NoLikes();
+                      }
+                      return _makeTickList(likes);
+                    }
+                    if (tabIndex == 1) {
+                      if (sends.isEmpty) {
+                        return const NoSends();
+                      }
+                      return _makeTickList(sends);
+                    }
+                    if (tabIndex == 2) {
                       if (todos.isEmpty) {
                         return const NoTodos();
                       }
                       return _makeTickList(todos);
                     }
-                    if (sends.isEmpty) {
-                      return const NoSends();
-                    }
-                    return _makeTickList(sends);
+                    throw Exception('Invalid list selected');
                   },
                   loading: () => const Center(
                     child: KnotProgressIndicator(
                       color: Colors.white,
                     ),
                   ),
-                  error: (msg) => const Center(
-                    child: Text('error'),
+                  error: (msg) => Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.error_outline_rounded,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          SizedBox(height: 5),
+                          Text('Failed to load ticks'),
+                        ]),
                   ),
                 ),
               ),
@@ -85,9 +106,9 @@ class _TodoPageState extends State<TodoPage> {
           padding: EdgeInsets.symmetric(horizontal: _sidePadding),
           child: Row(
             children: [
-              DropButton(title: 'Filter'),
+              const DropButton(title: 'Filter'),
               const SizedBox(width: 14),
-              DropButton(title: 'Order'),
+              const DropButton(title: 'Order'),
               const Spacer(),
               RoundButton.circular(
                 onTap: () {

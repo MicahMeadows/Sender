@@ -18,41 +18,42 @@ import 'package:sender/widgets/auth_gate.dart';
 import 'package:dio/dio.dart';
 import 'data/repository/queue_route_repository/retrofit_queue_route_repository.dart';
 
-FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-final _dioClient = Dio()
-  ..interceptors.add(
-    InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        options.headers['authtoken'] =
-            await _firebaseAuth.currentUser?.getIdToken();
-        return handler.next(options);
-      },
-    ),
-  );
+final InterceptorsWrapper firebaseAuthenticatorWrapper = InterceptorsWrapper(
+  onRequest: (options, handler) async {
+    options.headers['authtoken'] =
+        await _firebaseAuth.currentUser?.getIdToken();
+    return handler.next(options);
+  },
+);
 
-final _retrofitSenderApi = RetrofitSenderApi(_dioClient);
+final Dio _dioClient = Dio()..interceptors.add(firebaseAuthenticatorWrapper);
 
-IQueueRouteRepository _queueRouteRepository =
+final RetrofitSenderApi _retrofitSenderApi = RetrofitSenderApi(_dioClient);
+
+final IQueueRouteRepository _queueRouteRepository =
     RetrofitQueueRouteRepository(_retrofitSenderApi);
 
-IUserRepository _userRepository =
-    CachingUserRepository(RetrofitUserRepostiroy(_retrofitSenderApi));
+final IUserRepository _userRepository = CachingUserRepository(
+  RetrofitUserRepostiroy(_retrofitSenderApi),
+);
 
-TodoListCubit todoListCubit = TodoListCubit(_userRepository)..loadTicks();
-RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository)
+final TodoListCubit todoListCubit = TodoListCubit(_userRepository)..loadTicks();
+final RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository)
   ..loadRoutes(
     count: 1,
   );
-NavigationCubit navigationCubit = NavigationCubit();
-RouteSettingsCubit routeSettingsCubit =
-    RouteSettingsCubit(userRepository: _userRepository);
-FirebaseAuthCubit firebaseAuthCubit = FirebaseAuthCubit(
+final NavigationCubit navigationCubit = NavigationCubit();
+final RouteSettingsCubit routeSettingsCubit = RouteSettingsCubit(
+  userRepository: _userRepository,
+);
+final FirebaseAuthCubit firebaseAuthCubit = FirebaseAuthCubit(
   firebaseAuth: _firebaseAuth,
   userRepository: _userRepository,
 );
 
-final _themeData = ThemeData(
+final ThemeData _themeData = ThemeData(
   fontFamily: 'Nunito',
   textTheme: TextTheme(
     bodySmall: GoogleFonts.nunito(fontSize: 16),

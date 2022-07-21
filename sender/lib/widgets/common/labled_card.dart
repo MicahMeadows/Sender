@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/common/constants/text.dart' as txt;
 
 import 'base_card.dart';
@@ -38,7 +37,7 @@ class LabledCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 3),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               title,

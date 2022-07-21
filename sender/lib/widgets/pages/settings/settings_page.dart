@@ -14,8 +14,7 @@ import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 import 'settings_helper.dart';
-
-import '../../common/titled_card.dart';
+import 'package:sender/common/helpers/climbing_route_helpers.dart';
 
 class SettingsPage extends StatefulWidget {
   final RouteSettingsCubit routeSettingsCubit;
@@ -82,6 +81,20 @@ class _SettingsPageState extends State<SettingsPage> {
     );
 
     if (currentSettings == null) return;
+
+    String minGrade =
+        minClimbingGrade(currentSettings.minGrade, currentSettings.maxGrade);
+
+    if (minGrade != currentSettings.minGrade) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Minimum grade must be below or equal to maximum grade.',
+          ),
+        ),
+      );
+      return;
+    }
 
     widget.routeSettingsCubit.setPreferences(
       currentSettings.copyWith(
@@ -210,9 +223,22 @@ class _SettingsPageState extends State<SettingsPage> {
                                         ),
                                       );
                                     },
-                                    error: (message) => Center(
-                                      child: Text('Error: $message'),
-                                    ),
+                                    error: (message) => Expanded(
+                                        child: Center(
+                                      child: Column(children: const [
+                                        SizedBox(height: 30),
+                                        Icon(
+                                          Icons.error_outline_rounded,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
+                                        Text(
+                                            'Failed to load route preferences'),
+                                      ]),
+                                    )),
+                                    // error: (message) => Center(
+                                    //   child: Text('Error: $message'),
+                                    // ),
                                     settingsLoaded: (settings) {
                                       return Container(
                                         color: col.primary,
@@ -292,7 +318,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        Spacer(),
+                                                        const Spacer(),
                                                         DropdownButton<String>(
                                                             value: minGrade,
                                                             focusColor:

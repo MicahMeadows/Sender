@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sender/data/models/climbing_route/climbing_route.dart';
 import 'package:sender/data/repository/user_repository/i_user_repository.dart';
 
 import '../../models/route_tick/route_tick.dart';
@@ -18,10 +19,28 @@ class TodoListCubit extends Cubit<TodoListState> {
       var sends = ticks.where((tick) => tick.type == 'sent').toList();
       var todos = ticks.where((tick) => tick.type == 'todo').toList();
       var skips = ticks.where((tick) => tick.type == 'skip').toList();
-      emit(TodoListState.loaded(sends: sends, todos: todos, skips: skips));
+      var likes = ticks.where((tick) => tick.type == 'like').toList();
+      emit(TodoListState.loaded(
+          sends: sends, todos: todos, skips: skips, likes: likes));
     } catch (ex) {
       emit(TodoListState.error(errorMessage: ex.toString()));
     }
+  }
+
+  void setLiked(ClimbingRoute route) {
+    setTick(RouteTick.makeTick('like', route));
+  }
+
+  void setTodo(ClimbingRoute route) {
+    setTick(RouteTick.makeTick('todo', route));
+  }
+
+  void setSkip(ClimbingRoute route) {
+    setTick(RouteTick.makeTick('skip', route));
+  }
+
+  void setSent(ClimbingRoute route) {
+    setTick(RouteTick.makeTick('sent', route));
   }
 
   void setTick(RouteTick tick) async {
@@ -37,19 +56,29 @@ class TodoListCubit extends Cubit<TodoListState> {
     List<RouteTick> oTodos = [];
     List<RouteTick> oSends = [];
     List<RouteTick> oSkips = [];
+    List<RouteTick> oLikes = [];
     try {
       state.maybeWhen(
-        loaded: (sends, todos, skips) {
+        loaded: (sends, todos, skips, likes) {
           oTodos = [...todos];
           oSends = [...sends];
           oSkips = [...skips];
-
+          oLikes = [...likes];
           switch (tick.type) {
+            case 'like':
+              emit(TodoListState.loaded(
+                sends: sends,
+                todos: todos,
+                skips: skips,
+                likes: [...likes]..remove(tick),
+              ));
+              break;
             case 'todo':
               emit(TodoListState.loaded(
                 sends: sends,
                 todos: [...todos]..remove(tick),
                 skips: skips,
+                likes: likes,
               ));
               break;
             case 'sent':
@@ -57,10 +86,12 @@ class TodoListCubit extends Cubit<TodoListState> {
                 sends: [...sends]..remove(tick),
                 todos: todos,
                 skips: skips,
+                likes: likes,
               ));
               break;
             case 'skip':
               emit(TodoListState.loaded(
+                likes: likes,
                 sends: sends,
                 todos: todos,
                 skips: [...skips]..remove(tick),
@@ -75,7 +106,12 @@ class TodoListCubit extends Cubit<TodoListState> {
 
       await userRepository.deleteRouteTick(tick.id);
     } catch (ex) {
-      emit(TodoListState.loaded(sends: oSends, todos: oTodos, skips: oSkips));
+      emit(TodoListState.loaded(
+        sends: oSends,
+        todos: oTodos,
+        skips: oSkips,
+        likes: oLikes,
+      ));
       throw Exception('Failed to remove tick: ${ex.toString()}');
     }
   }

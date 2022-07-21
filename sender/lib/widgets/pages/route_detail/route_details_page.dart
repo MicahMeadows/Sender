@@ -67,10 +67,26 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   @override
   void initState() {
     images = (widget.route.imageUrls ?? []).map((imageUrl) {
-      return Image.network(
-        imageUrl,
-        fit: BoxFit.fitWidth,
-      );
+      try {
+        return Image.network(
+          imageUrl,
+          fit: BoxFit.fitWidth,
+        );
+      } catch (ex) {
+        try {
+          return Image.network(
+            imageUrl.replaceAll('large', 'medium'),
+            fit: BoxFit.fitWidth,
+          );
+        } catch (ex2) {
+          return Image.network(
+            imageUrl
+                .replaceAll('large', 'smallMed')
+                .replaceAll('medium', 'smallMed'),
+            fit: BoxFit.fitWidth,
+          );
+        }
+      }
     }).toList();
 
     _scrollController.addListener(() {
@@ -296,16 +312,19 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                               const Spacer(flex: 1),
                               Expanded(
                                 flex: 4,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    widget.route.name,
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.nunito(
-                                      // color: Colors.black,
-                                      color: col.text1,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 24,
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Text(
+                                      widget.route.name,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.nunito(
+                                        // color: Colors.black,
+                                        color: col.text1,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -375,7 +394,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                 _buildLabledCard(
                     'Height:',
                     widget.route.length == null
-                        ? 'Unknown'
+                        ? 'Unknown height'
                         : '${widget.route.length.toString()}ft'),
                 if (widget.route.grade != null)
                   _buildLabledCard('Grade:', widget.route.grade!),

@@ -1,10 +1,11 @@
-import 'dart:io';
 import 'dart:math';
 import 'dart:core';
 
+import 'package:sender/common/constants/colors.dart' as col;
+
 import 'package:flutter/material.dart';
-import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sender/data/models/climbing_route_detail/climbing_route_detail.dart';
 import 'package:sender/widgets/common/breadcrumbs.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
@@ -14,29 +15,36 @@ import '../pages/route_detail/route_details_page.dart';
 
 enum SwipeDirection { none, left, right, up, down }
 
-class SwipeableCard extends StatefulWidget {
+class RouteCard extends StatefulWidget {
   final ClimbingRoute route;
   final void Function(SwipeDirection)? onSwipe;
+  final List<SwipeDirection> nonDestructiveDirections;
   final double? offsetAngle;
 
-  const SwipeableCard({
+  const RouteCard({
     required this.route,
+    this.nonDestructiveDirections = const [],
     this.offsetAngle,
     this.onSwipe,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SwipeableCard> createState() => _SwipableCardState();
+  State<RouteCard> createState() => _SwipableCardState();
 }
 
-class _SwipableCardState extends State<SwipeableCard>
+class _SwipableCardState extends State<RouteCard>
     with TickerProviderStateMixin {
   late AnimationController cardAnimationController;
   late AnimationController fadeAnimationController;
   late Animation fadeAnimation;
   late Animation recenterAnimation;
   late Animation reangleAnimation;
+  late List<Widget> bottomWidgets = [
+    initialRouteInfoBottom,
+    areaInfoBottom,
+    heightAndAscentInfoBottom,
+  ];
 
   late OverlayState? overlayState = Overlay.of(context);
   OverlayEntry? overlayEntry;
@@ -51,8 +59,16 @@ class _SwipableCardState extends State<SwipeableCard>
   int _pageIndex = 0;
   final List<Image> _routeImages = [];
 
+  int get maxPagesToShow {
+    // 3 pages always shown if enough images, area, first ascent, initial
+    const int numPagesAlwaysShown = 3;
+    final numDetailedPages =
+        numPagesAlwaysShown + (widget.route.details?.length ?? 0);
+    return min(widget.route.imageUrls?.length ?? 0, numDetailedPages);
+  }
+
   void _nextPage() {
-    if (_pageIndex < (widget.route.imageUrls?.length ?? 0) - 1) {
+    if (_pageIndex < (maxPagesToShow) - 1) {
       setState(() {
         _pageIndex++;
       });
@@ -79,8 +95,13 @@ class _SwipableCardState extends State<SwipeableCard>
 
   @override
   void initState() {
-    super.initState();
-
+    int numImages = widget.route.imageUrls?.length ?? 0;
+    for (int i = bottomWidgets.length; i < numImages; i++) {
+      int numDetails = widget.route.details?.length ?? 0;
+      for (int j = 0; j < numDetails; j++) {
+        bottomWidgets.add(makeDetailBottom(widget.route.details![j]));
+      }
+    }
     fadeAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 100),
@@ -113,29 +134,79 @@ class _SwipableCardState extends State<SwipeableCard>
       }
     });
 
-    for (var imageUrl in widget.route.imageUrls ?? []) {
-      _routeImages.add(
-        Image.network(
-          imageUrl,
-          loadingBuilder: (ctx, widget, progress) {
-            if (progress == null) {
-              return widget;
-            }
-            return const Center(child: KnotProgressIndicator());
-          },
-          fit: BoxFit.cover,
+    Widget _loadingBuilder(
+      BuildContext ctx,
+      Widget widget,
+      ImageChunkEvent? progress,
+    ) {
+      if (progress == null) {
+        return widget;
+      }
+      return Container(
+        color: col.primary,
+        child: const Center(
+          child: KnotProgressIndicator(
+            color: Colors.white,
+          ),
         ),
       );
     }
+
+    Image _tryMakeImage(
+      String url, {
+      String replaceString = "",
+      List<String> backupOptions = const [],
+    }) {
+      return Image.network(
+        url,
+        fit: BoxFit.cover,
+        loadingBuilder: _loadingBuilder,
+        errorBuilder: (ctx, obj, trace) {
+          if (backupOptions.isNotEmpty) {
+            return _tryMakeImage(
+              url.replaceAll(replaceString, backupOptions[0]),
+            );
+          }
+          return Container(
+            decoration: const BoxDecoration(
+              color: col.tertiary,
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.error_outline,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  Text('Failed to load image'),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
+
+    for (String imageUrl in widget.route.imageUrls ?? []) {
+      var workingImage = () {
+        return _tryMakeImage(imageUrl,
+            replaceString: "large",
+            backupOptions: ["medium", "smallMed", "small"]);
+      }();
+      _routeImages.add(workingImage);
+    }
+
+    super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    for (var image in _routeImages) {
+    for (final image in _routeImages) {
       precacheImage(image.image, context);
     }
+    super.didChangeDependencies();
   }
 
   void removeOverlay() {
@@ -195,7 +266,15 @@ class _SwipableCardState extends State<SwipeableCard>
       }
     });
 
-    if (endSwipeDirection == SwipeDirection.none) {
+    bool shouldIgnore = () {
+      if (endSwipeDirection == SwipeDirection.none) return true;
+      for (var direction in widget.nonDestructiveDirections) {
+        if (endSwipeDirection == direction) return true;
+      }
+      return false;
+    }();
+
+    if (shouldIgnore) {
       animateRecenter();
     } else {
       fadeAnimationController.forward();
@@ -206,7 +285,7 @@ class _SwipableCardState extends State<SwipeableCard>
     final cardMiddle = _cardMiddle;
     final screenSize = _screenSize;
 
-    if (cardMiddle.dy < screenSize.height / 3) {
+    if (cardMiddle.dy < (screenSize.height / 5) * 2) {
       return SwipeDirection.up;
     }
     if (cardMiddle.dx < screenSize.width / 4) {
@@ -215,7 +294,7 @@ class _SwipableCardState extends State<SwipeableCard>
     if (cardMiddle.dx > screenSize.width - (screenSize.width / 4)) {
       return SwipeDirection.right;
     }
-    if (cardMiddle.dy > screenSize.height - screenSize.height / 3) {
+    if (cardMiddle.dy > screenSize.height - screenSize.height / 4) {
       return SwipeDirection.down;
     }
     return SwipeDirection.none;
@@ -282,18 +361,18 @@ class _SwipableCardState extends State<SwipeableCard>
       "colors": () {
         if (_currentSwipeDirection == SwipeDirection.up) {
           return [
-            Colors.blue.withOpacity(.8),
-            Colors.blue.withOpacity(.6),
+            Colors.green.withOpacity(.8),
+            Colors.white.withOpacity(.6),
           ];
         } else if (_currentSwipeDirection == SwipeDirection.left) {
           return [
             Colors.red.withOpacity(.8),
-            Colors.red.withOpacity(.6),
+            Colors.white.withOpacity(.6),
           ];
         } else if (_currentSwipeDirection == SwipeDirection.right) {
           return [
-            Colors.green.withOpacity(.8),
-            Colors.green.withOpacity(.6),
+            Colors.blue.withOpacity(.8),
+            Colors.white.withOpacity(.6),
           ];
         } else {
           return [
@@ -338,12 +417,6 @@ class _SwipableCardState extends State<SwipeableCard>
                   colors: _gradientSettings["colors"] as List<Color>,
                   begin: _gradientSettings["start"] as Alignment,
                   end: _gradientSettings["end"] as Alignment,
-                  // colors: [
-                  //   Colors.white.withOpacity(.45),
-                  //   Colors.white.withOpacity(.45)
-                  // ],
-                  // begin: Alignment.centerLeft,
-                  // end: Alignment.topRight,
                 ),
               ),
             ),
@@ -430,7 +503,8 @@ class _SwipableCardState extends State<SwipeableCard>
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Breadcrumbs(
-                  itemCount: widget.route.imageUrls?.length ?? 0,
+                  // itemCount: widget.route.imageUrls?.length ?? 0,
+                  itemCount: maxPagesToShow,
                   index: _pageIndex,
                 ),
               ),
@@ -471,30 +545,25 @@ class _SwipableCardState extends State<SwipeableCard>
   }
 
   Widget get currentPageInfo {
-    if (_pageIndex == 0) return pageOneInfo;
-    if (_pageIndex == 1) return pageTwoInfo;
-    if (_pageIndex == 2) return pageThreeInfo;
-    return const SizedBox.shrink();
+    return bottomWidgets[_pageIndex];
   }
 
-  Widget get pageOneInfo {
+  Widget get initialRouteInfoBottom {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        FittedBox(
-          child: Text(
-            widget.route.name,
-            style: GoogleFonts.nunito(
-              color: Colors.white,
-              fontSize: 36,
-              height: .5,
-            ),
+        Text(
+          widget.route.name,
+          style: GoogleFonts.nunito(
+            color: Colors.white,
+            fontSize: 36,
+            height: .9,
           ),
         ),
         Text(
-          widget.route.grade ?? 'Unavailable',
+          '${widget.route.type ?? 'Type unavailable'}, ${widget.route.grade ?? 'Grade unavailable'}',
           style: GoogleFonts.roboto(
             fontSize: 28,
             fontWeight: FontWeight.w300,
@@ -507,7 +576,7 @@ class _SwipableCardState extends State<SwipeableCard>
     );
   }
 
-  Widget get pageTwoInfo {
+  Widget get heightAndAscentInfoBottom {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -537,27 +606,79 @@ class _SwipableCardState extends State<SwipeableCard>
     );
   }
 
-  Widget get pageThreeInfo {
+  Widget get areaInfoBottom {
+    final List<String> splitAreas = (widget.route.area ?? '').split(' > ');
+
+    final int areaCount = splitAreas.length;
+    final String crag = splitAreas[0];
+    final String? subArea = areaCount > 2 ? splitAreas[areaCount - 2] : null;
+    final String? greaterArea =
+        areaCount > 1 ? splitAreas[areaCount - 1] : null;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
         Text(
-          widget.route.details != null
-              ? widget.route.details![0].title
-              : 'No title',
-          // style: GoogleFonts.nunito(
-          //   color: Colors.white,
-          //   fontSize: 24,
-          //   height: .5,
-          // ),
+          crag,
+          style: GoogleFonts.nunito(
+            color: Colors.white,
+            fontSize: 28,
+            height: .95,
+          ),
+        ),
+        if (subArea != null || greaterArea != null)
+          Text(
+            '${subArea ?? ''}${subArea != null && greaterArea != null ? ', ' : ''}${greaterArea ?? ''}',
+            style: GoogleFonts.nunito(
+              color: Colors.white,
+              fontSize: 24,
+              height: .95,
+            ),
+          ),
+        const SizedBox(height: 5),
+        Text(
+          'Latitude: ${widget.route.latitude ?? 'Unknown'}',
+          overflow: TextOverflow.ellipsis,
+          style: GoogleFonts.roboto(
+            fontSize: 18,
+            fontWeight: FontWeight.w300,
+            color: Colors.white,
+          ),
+        ),
+        Text(
+          'Longitude: ${widget.route.longitude ?? 'Unknown'}',
+          overflow: TextOverflow.ellipsis,
+          style: GoogleFonts.roboto(
+            fontSize: 18,
+            fontWeight: FontWeight.w300,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 8)
+      ],
+    );
+  }
+
+  Widget makeDetailBottom(ClimbingRouteDetail detail) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
+        Text(
+          detail.title,
+          maxLines: 3,
+          style: GoogleFonts.nunito(
+            color: Colors.white,
+            fontSize: 24,
+            height: .9,
+          ),
         ),
         const SizedBox(height: 5),
         Text(
-          widget.route.details != null
-              ? widget.route.details![0].content
-              : 'No content',
+          detail.content,
           maxLines: 4,
           overflow: TextOverflow.ellipsis,
           style: GoogleFonts.roboto(

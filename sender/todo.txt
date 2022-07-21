@@ -1,0 +1,12 @@
+Todo Features:
+- add feedback to swiping
+- add filtering features to tick lists
+- add location selection
+- update login screen
+- create register screen
+- add password change functionality
+- add distance from route to route card
+- change up swipe to choose between todo and sent
+
+Bugs:
+- queue loading routes on top of each other

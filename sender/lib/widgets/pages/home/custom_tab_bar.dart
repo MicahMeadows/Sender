@@ -50,6 +50,7 @@ class CustomTabBar extends StatelessWidget {
   }) {
     return GestureDetector(
       onTap: onTap,
+      behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
         height: double.infinity,

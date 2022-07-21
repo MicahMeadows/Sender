@@ -1,13 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
-import 'package:sender/widgets/card/swipeable_card.dart';
+import 'package:sender/widgets/card/route_card.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 
 import '../../data/models/climbing_route/climbing_route.dart';
-import '../../data/models/route_tick/route_tick.dart';
 
 class CardVote extends StatefulWidget {
   final TodoListCubit todoCubit;
@@ -32,25 +29,19 @@ class _CardVoteState extends State<CardVote> {
   Offset? posFromStart;
 
   void handleLeftSwipe(ClimbingRoute route) {
-    widget.todoCubit.setTick(
-      RouteTick.makeTick('skip', route),
-    );
+    widget.todoCubit.setSkip(route);
     widget.queueCubit.popRoute();
     widget.onRoutesChanged?.call(widget.routes);
   }
 
   void handleRightSwipe(ClimbingRoute route) {
-    widget.todoCubit.setTick(
-      RouteTick.makeTick('todo', route),
-    );
+    widget.todoCubit.setLiked(route);
     widget.queueCubit.popRoute();
     widget.onRoutesChanged?.call(widget.routes);
   }
 
   void handleUpSwipe(ClimbingRoute route) {
-    widget.todoCubit.setTick(
-      RouteTick.makeTick('sent', route),
-    );
+    widget.todoCubit.setTodo(route);
     widget.queueCubit.popRoute();
     widget.onRoutesChanged?.call(widget.routes);
   }
@@ -68,35 +59,47 @@ class _CardVoteState extends State<CardVote> {
     widget.onRoutesChanged?.call(widget.routes);
   }
 
+  Widget _createRouteWidget(ClimbingRoute route) {
+    return Positioned(
+      key: ValueKey<String>(route.id),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        child: RouteCard(
+          nonDestructiveDirections: const [
+            SwipeDirection.down,
+          ],
+          onSwipe: (direction) {
+            // ClimbingRoute currentRoute = widget.routes[i];
+            if (direction == SwipeDirection.left) {
+              handleLeftSwipe(route);
+            }
+            if (direction == SwipeDirection.right) {
+              handleRightSwipe(route);
+            }
+            if (direction == SwipeDirection.up) {
+              handleUpSwipe(route);
+            }
+            if (direction == SwipeDirection.down) {
+              // handleDownSwipe(i);
+            }
+          },
+          route: route,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    int routeCount = widget.routes.length;
+
+    ClimbingRoute? topRoute = routeCount >= 1 ? widget.routes[0] : null;
+    ClimbingRoute? backupRoute = routeCount >= 2 ? widget.routes[1] : null;
     return Stack(
-      clipBehavior: Clip.none,
+      // clipBehavior: Clip.none,
       children: [
-        for (int i = widget.routes.length - 1; i >= 0; i--)
-          Positioned(
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              child: SwipeableCard(
-                onSwipe: (direction) {
-                  ClimbingRoute currentRoute = widget.routes[i];
-                  if (direction == SwipeDirection.left) {
-                    handleLeftSwipe(currentRoute);
-                  }
-                  if (direction == SwipeDirection.right) {
-                    handleRightSwipe(currentRoute);
-                  }
-                  if (direction == SwipeDirection.up) {
-                    handleUpSwipe(currentRoute);
-                  }
-                  if (direction == SwipeDirection.down) {
-                    handleDownSwipe(i);
-                  }
-                },
-                route: widget.routes[i],
-              ),
-            ),
-          ),
+        if (backupRoute != null) _createRouteWidget(backupRoute),
+        if (topRoute != null) _createRouteWidget(topRoute),
       ],
     );
   }

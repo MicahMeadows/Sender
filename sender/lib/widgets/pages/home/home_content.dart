@@ -48,11 +48,6 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   Widget _buildMainContent(RouteQueueState state) {
-    if (state is RouteQueueLoading) {
-      return const KnotProgressIndicator(
-        color: Colors.white,
-      );
-    }
     if (state is RouteQueueLoaded) {
       return CardVote(
         queueCubit: context.read<RouteQueueCubit>(),
@@ -62,6 +57,11 @@ class _HomeContentState extends State<HomeContent> {
         onRoutesChanged: (routes) {
           setState(() {});
         },
+      );
+    }
+    if (state is RouteQueueLoading) {
+      return const KnotProgressIndicator(
+        color: Colors.white,
       );
     }
     if (state is RouteQueueEmpty) {
