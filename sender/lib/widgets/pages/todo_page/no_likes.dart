@@ -8,7 +8,7 @@ class NoLikes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EmptyTickList(
-      image: Image.asset('assets/images/pink_jug.png'),
+      image: Image.asset('assets/images/heart-image.png'),
       title: 'You have no liked routes.',
       body: 'Stop being so stubborn and swipe right on some rocks!',
       imageWidth: 110,
