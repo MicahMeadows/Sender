@@ -23,10 +23,10 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
 
   void reloadRoutes() {
     emit(RouteQueueEmpty());
-    loadRoutes(count: 2);
+    loadRoutes(count: 2, clearOnLoad: true);
   }
 
-  Future<void> loadRoutes({int count = 7}) async {
+  Future<void> loadRoutes({int count = 7, bool clearOnLoad = false}) async {
     List<ClimbingRoute> routes = [];
     if (state is! RouteQueueLoaded) {
       emit(RouteQueueLoading());
@@ -44,6 +44,10 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
         currentRouteIds,
         count,
       );
+
+      if (clearOnLoad) {
+        routes = [];
+      }
 
       final allRoutes = [...routes, ...newRoutes];
 

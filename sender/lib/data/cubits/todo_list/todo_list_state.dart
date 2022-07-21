@@ -6,6 +6,7 @@ abstract class TodoListState with _$TodoListState {
     required List<RouteTick> sends,
     required List<RouteTick> todos,
     required List<RouteTick> skips,
+    required List<RouteTick> likes,
   }) = _loaded;
 
   const factory TodoListState.loading() = _loading;

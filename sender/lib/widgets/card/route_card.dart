@@ -282,7 +282,7 @@ class _SwipableCardState extends State<RouteCard>
     final cardMiddle = _cardMiddle;
     final screenSize = _screenSize;
 
-    if (cardMiddle.dy < screenSize.height / 3) {
+    if (cardMiddle.dy < (screenSize.height / 5) * 2) {
       return SwipeDirection.up;
     }
     if (cardMiddle.dx < screenSize.width / 4) {
@@ -618,8 +618,7 @@ class _SwipableCardState extends State<RouteCard>
       children: [
         const SizedBox(height: 10),
         Text(
-          // widget.route.area?.replaceAll(' >', ',') ?? 'Area unknown',
-          '$crag',
+          crag,
           style: GoogleFonts.nunito(
             color: Colors.white,
             fontSize: 28,

@@ -39,7 +39,7 @@ class _CardVoteState extends State<CardVote> {
 
   void handleRightSwipe(ClimbingRoute route) {
     widget.todoCubit.setTick(
-      RouteTick.makeTick('todo', route),
+      RouteTick.makeTick('like', route),
     );
     widget.queueCubit.popRoute();
     widget.onRoutesChanged?.call(widget.routes);
@@ -47,7 +47,7 @@ class _CardVoteState extends State<CardVote> {
 
   void handleUpSwipe(ClimbingRoute route) {
     widget.todoCubit.setTick(
-      RouteTick.makeTick('sent', route),
+      RouteTick.makeTick('todo', route),
     );
     widget.queueCubit.popRoute();
     widget.onRoutesChanged?.call(widget.routes);
