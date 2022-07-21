@@ -29,14 +29,9 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
   }
 
   Future<void> loadRoutes({int count = 7, bool clearOnLoad = false}) async {
-    if (state is RouteQueueLoading) {
-      print('already loading... skip');
-      return;
-    }
+    if (state is RouteQueueLoading) return;
 
-    if (loadedRoutes.length >= 3) {
-      return;
-    }
+    if (loadedRoutes.length >= 3) return;
 
     emit(RouteQueueLoading(preLoadedRoutes: loadedRoutes));
     try {
@@ -46,12 +41,6 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
         currentRouteIds,
         count,
       );
-      print('-------------------');
-      print('new routes:');
-      newRoutes.forEach((element) {
-        print(element.name);
-      });
-      print('-------------------');
 
       if (clearOnLoad) {
         loadedRoutes = [];
