@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sender/data/models/climbing_route/climbing_route.dart';
 import 'package:sender/data/repository/user_repository/i_user_repository.dart';
-import 'package:sender/widgets/pages/settings/settings_page.dart';
 
 import '../../models/route_tick/route_tick.dart';
 

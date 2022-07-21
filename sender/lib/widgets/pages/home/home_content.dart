@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
-import 'package:sender/data/models/climbing_route/climbing_route.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/card/card_vote.dart';
 import 'package:sender/widgets/pages/home/no_results.dart';
@@ -48,34 +47,19 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  List<ClimbingRoute> getLoadedRoutesFromQueueState(RouteQueueState state) {
-    if (state is RouteQueueLoaded) {
-      return state.routes;
-    }
-    if (state is RouteQueueLoading) {
-      final loadingState = state as RouteQueueLoading;
-      if (loadingState.preLoadedRoutes.isNotEmpty) {
-        return loadingState.preLoadedRoutes;
-      }
-    }
-    return [];
-  }
-
   Widget _buildMainContent(RouteQueueState state) {
-    final routesToShow = getLoadedRoutesFromQueueState(state);
-
-    if (routesToShow.isNotEmpty) {
+    if (state is RouteQueueLoaded) {
       return CardVote(
         queueCubit: context.read<RouteQueueCubit>(),
         todoCubit: context.read<TodoListCubit>(),
         key: UniqueKey(),
-        routes: routesToShow,
+        routes: state.routes,
         onRoutesChanged: (routes) {
           setState(() {});
         },
       );
     }
-    if (state is RouteQueueLoading && state.preLoadedRoutes.isEmpty) {
+    if (state is RouteQueueLoading) {
       return const KnotProgressIndicator(
         color: Colors.white,
       );

@@ -13,8 +13,7 @@ class RouteQueueError extends RouteQueueState {
 }
 
 class RouteQueueLoading extends RouteQueueState {
-  final List<ClimbingRoute> preLoadedRoutes;
-  const RouteQueueLoading({this.preLoadedRoutes = const []});
+  const RouteQueueLoading();
 }
 
 class RouteQueueLoaded extends RouteQueueState {

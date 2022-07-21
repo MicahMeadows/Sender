@@ -12,6 +12,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
   RouteQueueCubit(this._queueRouteRepository) : super(RouteQueueEmpty());
 
   List<ClimbingRoute> loadedRoutes = [];
+  bool loadingNewRoutes = false;
 
   Future<ClimbingRoute> getRouteDetails(String routeId) async {
     try {
@@ -29,33 +30,46 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
   }
 
   Future<void> loadRoutes({int count = 7, bool clearOnLoad = false}) async {
-    if (state is RouteQueueLoading) return;
+    if (loadingNewRoutes) return;
 
-    if (loadedRoutes.length >= 3) return;
+    if (clearOnLoad) {
+      loadedRoutes = [];
+    }
 
-    emit(RouteQueueLoading(preLoadedRoutes: loadedRoutes));
+    if (loadedRoutes.isEmpty) {
+      emit(const RouteQueueLoading());
+    }
+
     try {
-      var currentRouteIds = loadedRoutes.map((e) => e.id).toList();
+      loadingNewRoutes = true;
+      final currentQueueIds = loadedRoutes.map((e) => e.id).toList();
 
       var newRoutes = await _queueRouteRepository.getClimbingRoutesExcluding(
-        currentRouteIds,
+        currentQueueIds,
         count,
       );
 
-      if (clearOnLoad) {
-        loadedRoutes = [];
-      }
+      loadingNewRoutes = false;
 
       loadedRoutes.addAll(newRoutes);
 
-      if (loadedRoutes.isEmpty) {
-        emit(RouteQueueEmpty());
-      } else {
-        emit(RouteQueueLoaded(routes: loadedRoutes));
-        loadRoutes(); // load routes again. this will return if already having routes above threshold
-      }
+      updateDisplayState();
     } catch (e) {
       emit(RouteQueueError(errorMessage: e.toString()));
+    } finally {
+      loadingNewRoutes = false;
+    }
+  }
+
+  void updateDisplayState() {
+    if (loadedRoutes.isEmpty) {
+      emit(RouteQueueEmpty());
+    }
+    if (loadingNewRoutes) {
+      emit(const RouteQueueLoading());
+    }
+    if (loadedRoutes.isNotEmpty) {
+      emit(RouteQueueLoaded(routes: loadedRoutes));
     }
   }
 
@@ -64,15 +78,14 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
       if (loadedRoutes.isEmpty) {
         throw Exception('No route to pop.');
       }
+
       loadedRoutes = [...loadedRoutes.skip(1)];
-      if (state is RouteQueueLoading) {
-        emit(RouteQueueLoading(preLoadedRoutes: loadedRoutes));
-      } else if (state is RouteQueueLoaded) {
-        emit(RouteQueueLoaded(routes: loadedRoutes));
-      } else if (loadedRoutes.isEmpty) {
-        emit(RouteQueueEmpty());
+
+      updateDisplayState();
+
+      if (loadedRoutes.length <= 3) {
+        loadRoutes();
       }
-      loadRoutes();
     } catch (e) {
       return Future.error(e.toString());
     }

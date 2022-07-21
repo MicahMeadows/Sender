@@ -5,7 +5,6 @@ import 'package:sender/widgets/card/route_card.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 
 import '../../data/models/climbing_route/climbing_route.dart';
-import '../../data/models/route_tick/route_tick.dart';
 
 class CardVote extends StatefulWidget {
   final TodoListCubit todoCubit;
