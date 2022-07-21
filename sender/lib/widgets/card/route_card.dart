@@ -18,12 +18,12 @@ enum SwipeDirection { none, left, right, up, down }
 class RouteCard extends StatefulWidget {
   final ClimbingRoute route;
   final void Function(SwipeDirection)? onSwipe;
-  final List<SwipeDirection> ignoredDirections;
+  final List<SwipeDirection> nonDestructiveDirections;
   final double? offsetAngle;
 
   const RouteCard({
     required this.route,
-    this.ignoredDirections = const [],
+    this.nonDestructiveDirections = const [],
     this.offsetAngle,
     this.onSwipe,
     Key? key,
@@ -95,8 +95,6 @@ class _SwipableCardState extends State<RouteCard>
 
   @override
   void initState() {
-    super.initState();
-
     int numImages = widget.route.imageUrls?.length ?? 0;
     for (int i = bottomWidgets.length; i < numImages; i++) {
       int numDetails = widget.route.details?.length ?? 0;
@@ -199,10 +197,15 @@ class _SwipableCardState extends State<RouteCard>
       }();
       _routeImages.add(workingImage);
     }
+
+    super.initState();
   }
 
   @override
   void didChangeDependencies() {
+    for (final image in _routeImages) {
+      precacheImage(image.image, context);
+    }
     super.didChangeDependencies();
   }
 
@@ -265,7 +268,7 @@ class _SwipableCardState extends State<RouteCard>
 
     bool shouldIgnore = () {
       if (endSwipeDirection == SwipeDirection.none) return true;
-      for (var direction in widget.ignoredDirections) {
+      for (var direction in widget.nonDestructiveDirections) {
         if (endSwipeDirection == direction) return true;
       }
       return false;

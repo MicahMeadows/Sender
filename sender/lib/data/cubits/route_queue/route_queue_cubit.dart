@@ -11,6 +11,8 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
 
   RouteQueueCubit(this._queueRouteRepository) : super(RouteQueueEmpty());
 
+  List<ClimbingRoute> loadedRoutes = [];
+
   Future<ClimbingRoute> getRouteDetails(String routeId) async {
     try {
       var routeResponse = await _queueRouteRepository.getClimbingRoute(routeId);
@@ -27,34 +29,40 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
   }
 
   Future<void> loadRoutes({int count = 7, bool clearOnLoad = false}) async {
-    List<ClimbingRoute> routes = [];
-    if (state is! RouteQueueLoaded) {
-      emit(RouteQueueLoading());
+    if (state is RouteQueueLoading) {
+      print('already loading... skip');
+      return;
     }
-    if (state is RouteQueueLoaded) {
-      routes = [...(state as RouteQueueLoaded).routes];
-      if (routes.length > 3) {
-        return;
-      }
+
+    if (loadedRoutes.length >= 3) {
+      return;
     }
+
+    emit(RouteQueueLoading(preLoadedRoutes: loadedRoutes));
     try {
-      var currentRouteIds = routes.map((e) => e.id).toList();
+      var currentRouteIds = loadedRoutes.map((e) => e.id).toList();
 
       var newRoutes = await _queueRouteRepository.getClimbingRoutesExcluding(
         currentRouteIds,
         count,
       );
+      print('-------------------');
+      print('new routes:');
+      newRoutes.forEach((element) {
+        print(element.name);
+      });
+      print('-------------------');
 
       if (clearOnLoad) {
-        routes = [];
+        loadedRoutes = [];
       }
 
-      final allRoutes = [...routes, ...newRoutes];
+      loadedRoutes.addAll(newRoutes);
 
-      if (allRoutes.isEmpty) {
+      if (loadedRoutes.isEmpty) {
         emit(RouteQueueEmpty());
       } else {
-        emit(RouteQueueLoaded(routes: allRoutes));
+        emit(RouteQueueLoaded(routes: loadedRoutes));
         loadRoutes(); // load routes again. this will return if already having routes above threshold
       }
     } catch (e) {
@@ -64,16 +72,16 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
 
   Future<void> popRoute() async {
     try {
-      if (state is! RouteQueueLoaded) {
-        throw Exception('No routes loaded');
+      if (loadedRoutes.isEmpty) {
+        throw Exception('No route to pop.');
       }
-      final routeState = state as RouteQueueLoaded;
-      // final declinedRoute = routeState.routes.first;
-      var routes = [...routeState.routes.skip(1)];
-      if (routes.isEmpty) {
+      loadedRoutes = [...loadedRoutes.skip(1)];
+      if (state is RouteQueueLoading) {
+        emit(RouteQueueLoading(preLoadedRoutes: loadedRoutes));
+      } else if (state is RouteQueueLoaded) {
+        emit(RouteQueueLoaded(routes: loadedRoutes));
+      } else if (loadedRoutes.isEmpty) {
         emit(RouteQueueEmpty());
-      } else {
-        emit(RouteQueueLoaded(routes: routes));
       }
       loadRoutes();
     } catch (e) {

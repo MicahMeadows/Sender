@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sender/data/models/climbing_route/climbing_route.dart';
 import 'package:sender/data/repository/user_repository/i_user_repository.dart';
+import 'package:sender/widgets/pages/settings/settings_page.dart';
 
 import '../../models/route_tick/route_tick.dart';
 
@@ -24,6 +26,22 @@ class TodoListCubit extends Cubit<TodoListState> {
     } catch (ex) {
       emit(TodoListState.error(errorMessage: ex.toString()));
     }
+  }
+
+  void setLiked(ClimbingRoute route) {
+    setTick(RouteTick.makeTick('like', route));
+  }
+
+  void setTodo(ClimbingRoute route) {
+    setTick(RouteTick.makeTick('todo', route));
+  }
+
+  void setSkip(ClimbingRoute route) {
+    setTick(RouteTick.makeTick('skip', route));
+  }
+
+  void setSent(ClimbingRoute route) {
+    setTick(RouteTick.makeTick('sent', route));
   }
 
   void setTick(RouteTick tick) async {

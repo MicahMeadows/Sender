@@ -36,7 +36,6 @@ class RouteTick with _$RouteTick {
       name: route.name,
       rating: route.rating ?? 0,
       grade: route.grade ?? 'N/A',
-      // area: areaStringFromAreas(route.areas),
       area: route.area ?? 'Unavailable',
       type: tickType,
     );

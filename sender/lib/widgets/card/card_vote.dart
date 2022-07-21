@@ -30,25 +30,19 @@ class _CardVoteState extends State<CardVote> {
   Offset? posFromStart;
 
   void handleLeftSwipe(ClimbingRoute route) {
-    widget.todoCubit.setTick(
-      RouteTick.makeTick('skip', route),
-    );
+    widget.todoCubit.setSkip(route);
     widget.queueCubit.popRoute();
     widget.onRoutesChanged?.call(widget.routes);
   }
 
   void handleRightSwipe(ClimbingRoute route) {
-    widget.todoCubit.setTick(
-      RouteTick.makeTick('like', route),
-    );
+    widget.todoCubit.setLiked(route);
     widget.queueCubit.popRoute();
     widget.onRoutesChanged?.call(widget.routes);
   }
 
   void handleUpSwipe(ClimbingRoute route) {
-    widget.todoCubit.setTick(
-      RouteTick.makeTick('todo', route),
-    );
+    widget.todoCubit.setTodo(route);
     widget.queueCubit.popRoute();
     widget.onRoutesChanged?.call(widget.routes);
   }
@@ -66,38 +60,47 @@ class _CardVoteState extends State<CardVote> {
     widget.onRoutesChanged?.call(widget.routes);
   }
 
+  Widget _createRouteWidget(ClimbingRoute route) {
+    return Positioned(
+      key: ValueKey<String>(route.id),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        child: RouteCard(
+          nonDestructiveDirections: const [
+            SwipeDirection.down,
+          ],
+          onSwipe: (direction) {
+            // ClimbingRoute currentRoute = widget.routes[i];
+            if (direction == SwipeDirection.left) {
+              handleLeftSwipe(route);
+            }
+            if (direction == SwipeDirection.right) {
+              handleRightSwipe(route);
+            }
+            if (direction == SwipeDirection.up) {
+              handleUpSwipe(route);
+            }
+            if (direction == SwipeDirection.down) {
+              // handleDownSwipe(i);
+            }
+          },
+          route: route,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    int routeCount = widget.routes.length;
+
+    ClimbingRoute? topRoute = routeCount >= 1 ? widget.routes[0] : null;
+    ClimbingRoute? backupRoute = routeCount >= 2 ? widget.routes[1] : null;
     return Stack(
-      clipBehavior: Clip.none,
+      // clipBehavior: Clip.none,
       children: [
-        for (int i = widget.routes.length - 1; i >= 0; i--)
-          Positioned(
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              child: RouteCard(
-                ignoredDirections: const [
-                  SwipeDirection.down,
-                ],
-                onSwipe: (direction) {
-                  ClimbingRoute currentRoute = widget.routes[i];
-                  if (direction == SwipeDirection.left) {
-                    handleLeftSwipe(currentRoute);
-                  }
-                  if (direction == SwipeDirection.right) {
-                    handleRightSwipe(currentRoute);
-                  }
-                  if (direction == SwipeDirection.up) {
-                    handleUpSwipe(currentRoute);
-                  }
-                  if (direction == SwipeDirection.down) {
-                    // handleDownSwipe(i);
-                  }
-                },
-                route: widget.routes[i],
-              ),
-            ),
-          ),
+        if (backupRoute != null) _createRouteWidget(backupRoute),
+        if (topRoute != null) _createRouteWidget(topRoute),
       ],
     );
   }
