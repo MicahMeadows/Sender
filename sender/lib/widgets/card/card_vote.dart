@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/widgets/card/route_card.dart';
+import 'package:sender/widgets/common/fading_widget.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 import 'package:sender/widgets/swipe_feedback.dart';
 
@@ -13,15 +14,9 @@ import '../pages/home/no_results.dart';
 import '../pages/home/queue_error.dart';
 
 class CardVote extends StatefulWidget {
-  // final TodoListCubit todoCubit;
-  // final RouteQueueCubit queueCubit;
-  // final List<ClimbingRoute> routes;
   final void Function(List<ClimbingRoute> newRoutes)? onRoutesChanged;
 
   const CardVote({
-    // required this.routes,
-    // required this.todoCubit,
-    // required this.queueCubit,
     this.onRoutesChanged,
     Key? key,
   }) : super(key: key);
@@ -41,22 +36,35 @@ class _CardVoteState extends State<CardVote> {
   void handleLeftSwipe(ClimbingRoute route) {
     todoCubit.setSkip(route);
     queueCubit.popRoute();
-    // widget.onRoutesChanged?.call(widget.routes);
+    addFadingCenterWidget(Image.asset('assets/images/skip-response.png'));
   }
 
-  void removeEntry(OverlayEntry? entry) {}
+  void addFadingCenterWidget(Widget widget) {
+    late OverlayEntry entry;
+
+    setState(() {
+      entry = OverlayEntry(builder: (ctx) {
+        return FadingWidget(
+          animationCurve: Curves.easeInExpo,
+          animationDuration: const Duration(milliseconds: 800),
+          child: widget,
+          onComplete: () {
+            entry.remove();
+          },
+          onUpdate: () {
+            entry.markNeedsBuild();
+          },
+        );
+      });
+
+      overlayState?.insert(entry);
+    });
+  }
 
   void handleRightSwipe(ClimbingRoute route) {
-    OverlayEntry entry = OverlayEntry(builder: (ctx) {
-      return Positioned(
-        child: Center(
-          child: SwipeFeedback(overlayState: overlayState),
-        ),
-      );
-    });
     todoCubit.setLiked(route);
     queueCubit.popRoute();
-    // widget.onRoutesChanged?.call(widget.routes);
+    addFadingCenterWidget(Image.asset('assets/images/heart-response.png'));
   }
 
   void handleUpSwipe(ClimbingRoute route) {
