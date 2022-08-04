@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/widgets/card/route_card.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
+import 'package:sender/widgets/swipe_feedback.dart';
 
+import '../../data/cubits/navigation/navigation_cubit.dart';
 import '../../data/models/climbing_route/climbing_route.dart';
+import '../common/knot_progress_indicator.dart';
+import '../pages/home/no_results.dart';
+import '../pages/home/queue_error.dart';
 
 class CardVote extends StatefulWidget {
-  final TodoListCubit todoCubit;
-  final RouteQueueCubit queueCubit;
-  final List<ClimbingRoute> routes;
+  // final TodoListCubit todoCubit;
+  // final RouteQueueCubit queueCubit;
+  // final List<ClimbingRoute> routes;
   final void Function(List<ClimbingRoute> newRoutes)? onRoutesChanged;
 
   const CardVote({
-    required this.routes,
-    required this.todoCubit,
-    required this.queueCubit,
+    // required this.routes,
+    // required this.todoCubit,
+    // required this.queueCubit,
     this.onRoutesChanged,
     Key? key,
   }) : super(key: key);
@@ -25,38 +31,51 @@ class CardVote extends StatefulWidget {
 }
 
 class _CardVoteState extends State<CardVote> {
+  late TodoListCubit todoCubit = context.read<TodoListCubit>();
+  late RouteQueueCubit queueCubit = context.read<RouteQueueCubit>();
+
   Offset? startPos;
   Offset? posFromStart;
+  late OverlayState? overlayState = Overlay.of(context);
 
   void handleLeftSwipe(ClimbingRoute route) {
-    widget.todoCubit.setSkip(route);
-    widget.queueCubit.popRoute();
-    widget.onRoutesChanged?.call(widget.routes);
+    todoCubit.setSkip(route);
+    queueCubit.popRoute();
+    // widget.onRoutesChanged?.call(widget.routes);
   }
 
+  void removeEntry(OverlayEntry? entry) {}
+
   void handleRightSwipe(ClimbingRoute route) {
-    widget.todoCubit.setLiked(route);
-    widget.queueCubit.popRoute();
-    widget.onRoutesChanged?.call(widget.routes);
+    OverlayEntry entry = OverlayEntry(builder: (ctx) {
+      return Positioned(
+        child: Center(
+          child: SwipeFeedback(overlayState: overlayState),
+        ),
+      );
+    });
+    todoCubit.setLiked(route);
+    queueCubit.popRoute();
+    // widget.onRoutesChanged?.call(widget.routes);
   }
 
   void handleUpSwipe(ClimbingRoute route) {
-    widget.todoCubit.setTodo(route);
-    widget.queueCubit.popRoute();
-    widget.onRoutesChanged?.call(widget.routes);
+    todoCubit.setTodo(route);
+    queueCubit.popRoute();
+    // widget.onRoutesChanged?.call(widget.routes);
   }
 
-  void handleDownSwipe(int routeIndex) {
+  void handleDownSwipe(int routeIndex, List<ClimbingRoute> routes) {
     Navigator.of(context)
         .push(
-      _createDetailsRoute(routeIndex),
+      _createDetailsRoute(routeIndex, routes),
     )
         .then((value) {
       setState(() {
         debugPrint('detail closed');
       });
     });
-    widget.onRoutesChanged?.call(widget.routes);
+    // widget.onRoutesChanged?.call(widget.routes);
   }
 
   Widget _createRouteWidget(ClimbingRoute route) {
@@ -91,23 +110,41 @@ class _CardVoteState extends State<CardVote> {
 
   @override
   Widget build(BuildContext context) {
-    int routeCount = widget.routes.length;
+    return BlocBuilder<RouteQueueCubit, RouteQueueState>(
+      builder: (context, state) {
+        if (state is RouteQueueLoaded) {
+          int routeCount = state.routes.length;
+          ClimbingRoute? topRoute = routeCount >= 1 ? state.routes[0] : null;
+          ClimbingRoute? backupRoute = routeCount >= 2 ? state.routes[1] : null;
+          return Stack(
+            // clipBehavior: Clip.none,
+            children: [
+              if (backupRoute != null) _createRouteWidget(backupRoute),
+              if (topRoute != null) _createRouteWidget(topRoute),
+            ],
+          );
+        }
 
-    ClimbingRoute? topRoute = routeCount >= 1 ? widget.routes[0] : null;
-    ClimbingRoute? backupRoute = routeCount >= 2 ? widget.routes[1] : null;
-    return Stack(
-      // clipBehavior: Clip.none,
-      children: [
-        if (backupRoute != null) _createRouteWidget(backupRoute),
-        if (topRoute != null) _createRouteWidget(topRoute),
-      ],
+        if (state is RouteQueueLoading) {
+          return const KnotProgressIndicator(
+            color: Colors.white,
+          );
+        }
+        if (state is RouteQueueEmpty) {
+          return NoQueueResults(
+            navigationCubit: context.read<NavigationCubit>(),
+            queueCubit: context.read<RouteQueueCubit>(),
+          );
+        }
+        return const QueueError();
+      },
     );
   }
 
-  Route _createDetailsRoute(int idx) {
+  Route _createDetailsRoute(int idx, List<ClimbingRoute> routes) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-          RouteDetailsPage(route: widget.routes[idx]),
+          RouteDetailsPage(route: routes[idx]),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0, -1);
         const end = Offset.zero;

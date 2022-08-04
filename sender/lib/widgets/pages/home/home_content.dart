@@ -48,28 +48,29 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   Widget _buildMainContent(RouteQueueState state) {
-    if (state is RouteQueueLoaded) {
-      return CardVote(
-        queueCubit: context.read<RouteQueueCubit>(),
-        todoCubit: context.read<TodoListCubit>(),
-        key: UniqueKey(),
-        routes: state.routes,
-        onRoutesChanged: (routes) {
-          setState(() {});
-        },
-      );
-    }
-    if (state is RouteQueueLoading) {
-      return const KnotProgressIndicator(
-        color: Colors.white,
-      );
-    }
-    if (state is RouteQueueEmpty) {
-      return NoQueueResults(
-        navigationCubit: context.read<NavigationCubit>(),
-        queueCubit: context.read<RouteQueueCubit>(),
-      );
-    }
-    return const QueueError();
+    return CardVote();
+    // if (state is RouteQueueLoaded) {
+    //   return CardVote(
+    //     queueCubit: context.read<RouteQueueCubit>(),
+    //     todoCubit: context.read<TodoListCubit>(),
+    //     key: UniqueKey(),
+    //     routes: state.routes,
+    //     onRoutesChanged: (routes) {
+    //       setState(() {});
+    //     },
+    //   );
+    // }
+    // if (state is RouteQueueLoading) {
+    //   return const KnotProgressIndicator(
+    //     color: Colors.white,
+    //   );
+    // }
+    // if (state is RouteQueueEmpty) {
+    //   return NoQueueResults(
+    //     navigationCubit: context.read<NavigationCubit>(),
+    //     queueCubit: context.read<RouteQueueCubit>(),
+    //   );
+    // }
+    // return const QueueError();
   }
 }

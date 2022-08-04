@@ -408,7 +408,7 @@ class _SwipableCardState extends State<RouteCard>
           child: Transform.rotate(
             angle: a,
             child: AnimatedContainer(
-              duration: const Duration(milliseconds: 320),
+              duration: const Duration(milliseconds: 250),
               child: buildCardWidget(ctx),
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
@@ -463,13 +463,13 @@ class _SwipableCardState extends State<RouteCard>
               right: 0,
               left: 0,
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
-                    stops: [.7, 1],
+                    stops: const [.7, 1],
                     colors: [
-                      Colors.black45,
+                      Colors.black.withOpacity(.55),
                       Colors.transparent,
                     ],
                   ),
@@ -481,17 +481,41 @@ class _SwipableCardState extends State<RouteCard>
                     //     .pushNamed(RouteDetailsPage.routeName);
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(19.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  RouteDetailsPage(route: widget.route),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                RouteDetailsPage(route: widget.route),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: currentPageInfo),
+                          Opacity(
+                            opacity: .85,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: const [
+                                Icon(
+                                  Icons.info_outline_rounded,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                                // Text("More info"),
+                              ],
                             ),
-                          );
-                        },
-                        child: currentPageInfo),
+                          ),
+                          // const SizedBox(height: 5),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
