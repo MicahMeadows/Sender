@@ -36,15 +36,16 @@ class _CardVoteState extends State<CardVote> {
   void handleLeftSwipe(ClimbingRoute route) {
     todoCubit.setSkip(route);
     queueCubit.popRoute();
-    addFadingCenterWidget(Image.asset('assets/images/skip-response.png'));
+    addFadingCenterWidget(Image.asset('assets/images/skip-response.png'), 5);
   }
 
-  void addFadingCenterWidget(Widget widget) {
+  void addFadingCenterWidget(Widget widget, int rotation) {
     late OverlayEntry entry;
 
     setState(() {
       entry = OverlayEntry(builder: (ctx) {
         return FadingWidget(
+          maxRotationAmount: rotation,
           animationCurve: Curves.easeInExpo,
           animationDuration: const Duration(milliseconds: 800),
           child: widget,
@@ -64,7 +65,7 @@ class _CardVoteState extends State<CardVote> {
   void handleRightSwipe(ClimbingRoute route) {
     todoCubit.setLiked(route);
     queueCubit.popRoute();
-    addFadingCenterWidget(Image.asset('assets/images/heart-response.png'));
+    addFadingCenterWidget(Image.asset('assets/images/heart-response.png'), 30);
   }
 
   void handleUpSwipe(ClimbingRoute route) {
