@@ -68,9 +68,14 @@ The goal for this app is for me to complete a full stack project. And build an a
   <img src="./readme_images/new/7.png"/>
 </p>
 
-### Other
+### App Feedback
 <p align="center">
   <img src="./readme_images/new/5.png"/>
+</p>
+
+### Custom Components
+<p align="center">
+  <img src="./readme_images/new/9.png"/>
 </p>
 
 
