@@ -8,7 +8,7 @@
 ---
 
 <p align="center">
-  <img src="./readme_images/home.png" alt="Home screen images"/>
+  <img src="./readme_images/new/1.png" alt="Home screen images"/>
 </p>
 
 ## - Description:
