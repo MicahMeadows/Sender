@@ -81,7 +81,7 @@ class _CardVoteState extends State<CardVote> {
     showGeneralDialog(
       context: context,
       barrierLabel: "Barrier",
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierColor: Colors.black.withOpacity(0.5),
       transitionDuration: Duration(milliseconds: 300),
       pageBuilder: (_, __, ___) {
