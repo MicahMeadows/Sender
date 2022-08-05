@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
@@ -126,11 +128,17 @@ class _CardVoteState extends State<CardVote> {
           tween = Tween(begin: Offset(1, 0), end: Offset.zero);
         }
 
-        return SlideTransition(
-          position: tween.animate(anim),
-          child: FadeTransition(
-            opacity: anim,
-            child: child,
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 4 * anim.value,
+            sigmaY: 4 * anim.value,
+          ),
+          child: SlideTransition(
+            position: tween.animate(anim),
+            child: FadeTransition(
+              opacity: anim,
+              child: child,
+            ),
           ),
         );
       },

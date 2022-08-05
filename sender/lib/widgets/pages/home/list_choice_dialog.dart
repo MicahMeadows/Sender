@@ -65,13 +65,6 @@ class ListChoiceDialog extends StatelessWidget {
           ),
         ),
         Positioned(
-          // child: CircleAvatar(
-          //   backgroundColor: col.accent,
-          //   foregroundImage: Image.asset(
-          //     'assets/images/icon/cara-ico.png',
-          //   ).image,
-          //   radius: 32,
-          // ),
           child: Center(
             child: Container(
               padding: const EdgeInsets.all(8),
