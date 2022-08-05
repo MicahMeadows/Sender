@@ -7,6 +7,3 @@ Todo Features:
 
 Future features:
 - add distance from route to route card
-
-Bugs:
-- queue loading routes on top of each other
