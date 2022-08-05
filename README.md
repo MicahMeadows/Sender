@@ -1,6 +1,6 @@
 # Sender *(Work in Progress)*
 ### Do you ever day dream about finding the perfect match?
-### Do you get sweaty hands thinking about putting your hands in their pockets?
+### Do you get sweaty hands thinking about putting your hands in their rocky pockets?
 ### Well with sender. You dont have to anymore! Just swipe left and right to filter down climbing routes until you've found your next project!
 ---
 ### [API Repository](https://github.com/micahmeadows/sender-api)
@@ -28,7 +28,7 @@ The goal for this app is for me to complete a full stack project. And build an a
 - Design an app in figma
 - Build a flutter frontend to match the figma design
 - Design a Mountain Project scraping tool
-- Build an SQL Database
+- Build a Database
 - Build an API that leverages the scraping tool and databse to provide data to the front end
 - Finally have something on my resume
 
@@ -36,7 +36,7 @@ The goal for this app is for me to complete a full stack project. And build an a
 
 ## - Technologies:
 - Frontend: Flutter
-- Backend: Node.js (API), Puppeteer (Scraping), SQL Server (Database)
+- Backend: Node.js (API), Express (Web framework) Puppeteer (Scraping), Firestore (Database)
 - Design: Figma (Design), Rive (Animation)
 
 ## - More Images:
