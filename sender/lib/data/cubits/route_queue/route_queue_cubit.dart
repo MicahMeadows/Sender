@@ -29,8 +29,12 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     loadRoutes(count: 2, clearOnLoad: true);
   }
 
-  Future<void> loadRoutes({int count = 7, bool clearOnLoad = false}) async {
-    if (loadingNewRoutes) return;
+  Future<void> loadRoutes({
+    int count = 7,
+    bool clearOnLoad = false,
+    bool forceLoad = false,
+  }) async {
+    if (loadingNewRoutes && !forceLoad) return;
 
     if (clearOnLoad) {
       loadedRoutes = [];

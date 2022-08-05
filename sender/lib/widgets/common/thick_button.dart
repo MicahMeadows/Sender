@@ -7,10 +7,12 @@ class ThickButton extends StatelessWidget {
   final double? width;
   final double? height;
   final void Function()? onPressed;
+  final EdgeInsets padding;
   ThickButton({
     Color? color,
     this.width, // = 170,
     this.height, // = 48,
+    this.padding = const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
     required this.text,
     required this.onPressed,
     Key? key,
@@ -25,7 +27,7 @@ class ThickButton extends StatelessWidget {
       onTap: onPressed,
       child: IntrinsicWidth(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
+          padding: this.padding,
           height: height,
           width: width,
           child: Center(

@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/widgets/card/route_card.dart';
 import 'package:sender/widgets/common/fading_widget.dart';
+import 'package:sender/widgets/pages/home/list_choice_dialog.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
 import 'package:sender/widgets/swipe_feedback.dart';
 
@@ -68,10 +71,78 @@ class _CardVoteState extends State<CardVote> {
     addFadingCenterWidget(Image.asset('assets/images/heart-response.png'), 30);
   }
 
-  void handleUpSwipe(ClimbingRoute route) {
+  void handleUpSwipe(ClimbingRoute route, BuildContext context) {
     todoCubit.setTodo(route);
     queueCubit.popRoute();
-    // widget.onRoutesChanged?.call(widget.routes);
+    showCustomDialog(context, route);
+  }
+
+  void showCustomDialog(BuildContext context, ClimbingRoute route) {
+    showGeneralDialog(
+      context: context,
+      barrierLabel: "Barrier",
+      barrierDismissible: false,
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionDuration: Duration(milliseconds: 300),
+      pageBuilder: (_, __, ___) {
+        return Stack(
+          children: [
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: MediaQuery.of(context).size.height * .2,
+              child: Material(
+                color: Colors.transparent,
+                child: ListChoiceDialog(
+                  options: [
+                    ListChoiceDialogOption(
+                        onTap: () {
+                          todoCubit.setTodo(route);
+                          Navigator.of(context).pop();
+                          addFadingCenterWidget(
+                              Image.asset('assets/images/check-response.png'),
+                              30);
+                        },
+                        buttonText: "To-do List"),
+                    ListChoiceDialogOption(
+                        onTap: () {
+                          todoCubit.setSent(route);
+                          Navigator.of(context).pop();
+                          addFadingCenterWidget(
+                              Image.asset('assets/images/check-response.png'),
+                              30);
+                        },
+                        buttonText: "Send Stack"),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+      transitionBuilder: (_, anim, __, child) {
+        Tween<Offset> tween;
+        if (anim.status == AnimationStatus.reverse) {
+          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+        } else {
+          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+        }
+
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 4 * anim.value,
+            sigmaY: 4 * anim.value,
+          ),
+          child: SlideTransition(
+            position: tween.animate(anim),
+            child: FadeTransition(
+              opacity: anim,
+              child: child,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void handleDownSwipe(int routeIndex, List<ClimbingRoute> routes) {
@@ -105,7 +176,7 @@ class _CardVoteState extends State<CardVote> {
               handleRightSwipe(route);
             }
             if (direction == SwipeDirection.up) {
-              handleUpSwipe(route);
+              handleUpSwipe(route, context);
             }
             if (direction == SwipeDirection.down) {
               // handleDownSwipe(i);

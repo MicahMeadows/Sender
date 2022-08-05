@@ -4,7 +4,6 @@ Todo Features:
 - update login screen
 - create register screen
 - add password change functionality
-- change up swipe to choose between todo and sent
 
 Future features:
 - add distance from route to route card
