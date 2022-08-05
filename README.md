@@ -41,20 +41,20 @@ The goal for this app is for me to complete a full stack project. And build an a
 
 ## - More Images:
 <p align="center">
-  <img src="./readme_images/details.png" alt="Details images image"/>
+  <img src="./readme_images/new/2.png"/>
 </p>
 <p align="center">
-  <img src="./readme_images/details2.png" alt="Details details images"/>
+  <img src="./readme_images/new/3.png"/>
 </p>
 <p align="center">
-  <img src="./readme_images/error-screens.png" alt=""/>
+  <img src="./readme_images/new/4.png"/>
 </p>
 <p align="center">
-  <img src="./readme_images/profile.png" alt=""/>
+  <img src="./readme_images/new/5.png"/>
 </p>
 <p align="center">
-  <img src="./readme_images/todo.png" alt=""/>
+  <img src="./readme_images/new/6.png"/>
 </p>
 <p align="center">
-  <img src="./readme_images/settings.png" alt=""/>
+  <img src="./readme_images/new/7.png"/>
 </p>
