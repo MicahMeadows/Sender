@@ -40,21 +40,33 @@ The goal for this app is for me to complete a full stack project. And build an a
 - Design: Figma (Design), Rive (Animation)
 
 ## - More Images:
+### Login
 <p align="center">
-  <img src="./readme_images/new/2.png"/>
+  <img src="./readme_images/new/6.png"/>
 </p>
+
+### View Routes
 <p align="center">
   <img src="./readme_images/new/3.png"/>
 </p>
+
+### Make a choice
+<p align="center">
+  <img src="./readme_images/new/2.png"/>
+</p>
+
+### View your lists
 <p align="center">
   <img src="./readme_images/new/4.png"/>
 </p>
 <p align="center">
+  <img src="./readme_images/new/8.png"/>
+</p>
+
+<p align="center">
   <img src="./readme_images/new/5.png"/>
 </p>
-<p align="center">
-  <img src="./readme_images/new/6.png"/>
-</p>
+
 <p align="center">
   <img src="./readme_images/new/7.png"/>
 </p>
