@@ -18,17 +18,22 @@ class AreaSelectCubit extends Cubit<AreaSelectState> {
     emit(const AreaSelectState.loading());
     try {
       var newAreas = await _areaRepository.getAreas(parentArea.id);
+      newAreas.forEach((element) {
+        print(element.toJson());
+      });
       emit(AreaSelectState.loaded(parentArea, newAreas));
     } catch (ex) {
       emit(AreaSelectState.error(ex.toString()));
     }
   }
 
-  void setSelectedArea(Area newArea) {
+  void setSelectedArea(Area newArea, {bool isLeaf = false}) {
     state.maybeWhen(
-      loaded: ((selectedarea, subareas) {
-        if (subareas.contains(selectedarea)) {
-          _loadSubAreas(selectedarea);
+      loaded: ((selectedarea, subareas, leaf) {
+        if (isLeaf) {
+          emit(AreaSelectState.loaded(selectedarea, subareas, true));
+        } else {
+          _loadSubAreas(newArea);
         }
       }),
       orElse: () {

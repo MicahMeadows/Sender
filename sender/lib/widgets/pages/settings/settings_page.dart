@@ -131,8 +131,16 @@ class _SettingsPageState extends State<SettingsPage> {
       barrierColor: Colors.black.withOpacity(0.5),
       transitionDuration: Duration(milliseconds: 300),
       pageBuilder: (_, __, ___) {
-        return AreaSelector(
-          areaCubit: routeSettingsCubit.createAreaSelectCubit(),
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            Material(
+              color: Colors.transparent,
+              child: AreaSelector(
+                areaCubit: routeSettingsCubit.createAreaSelectCubit(),
+              ),
+            ),
+          ],
         );
       },
       transitionBuilder: (_, anim, __, child) {
