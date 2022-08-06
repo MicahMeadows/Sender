@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart' as col;
@@ -13,6 +15,8 @@ import 'package:sender/widgets/common/labled_toggle_card.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
+import 'package:sender/widgets/pages/settings/area_selector.dart';
+import '../../../data/models/area/area.dart';
 import 'settings_helper.dart';
 import 'package:sender/common/helpers/climbing_route_helpers.dart';
 
@@ -33,6 +37,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   static const double _sidePadding = 12;
   final areaIdController = TextEditingController();
+  Area setArea = Area(name: "All Locations", id: "0");
   bool showTopRope = false;
   bool showTrad = false;
   bool showSport = false;
@@ -54,7 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void setPagePreferences(RoutePreferences prefs) {
-    areaIdController.text = prefs.areaId;
+    areaIdController.text = prefs.area.name;
     showTopRope = prefs.showTopRope;
     showMultipitch = prefs.showMultipitch;
     showTrad = prefs.showTrad;
@@ -66,7 +71,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   RoutePreferences get getPagePreferences {
     return new RoutePreferences(
-      areaId: areaIdController.text,
+      // areaId: areaIdController.text,
+      area: setArea,
       minGrade: minGrade,
       maxGrade: maxGrade,
       showTrad: showTrad,
@@ -115,6 +121,43 @@ class _SettingsPageState extends State<SettingsPage> {
     widget.routeSettingsCubit.uploadPreferences();
     navigationCubit.showHome();
     widget.queueCubit.reloadRoutes();
+  }
+
+  void showCustomDialog(BuildContext context, Area route) {
+    showGeneralDialog(
+      context: context,
+      barrierLabel: "Barrier",
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionDuration: Duration(milliseconds: 300),
+      pageBuilder: (_, __, ___) {
+        return AreaSelector(
+          areaCubit: routeSettingsCubit.createAreaSelectCubit(),
+        );
+      },
+      transitionBuilder: (_, anim, __, child) {
+        Tween<Offset> tween;
+        if (anim.status == AnimationStatus.reverse) {
+          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+        } else {
+          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+        }
+
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 4 * anim.value,
+            sigmaY: 4 * anim.value,
+          ),
+          child: SlideTransition(
+            position: tween.animate(anim),
+            child: FadeTransition(
+              opacity: anim,
+              child: child,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -246,19 +289,25 @@ class _SettingsPageState extends State<SettingsPage> {
                                         color: col.primary,
                                         child: Column(
                                           children: [
-                                            const SectionBanner(
-                                                text: 'Location'),
+                                            SectionBanner(text: 'Location'),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
                                                 horizontal: _sidePadding,
                                               ),
                                               child: ButtonLabledCard(
-                                                title: settings.areaId,
+                                                title: settings.area.name,
                                                 buttonText: 'set',
                                                 onTap: () {
                                                   debugPrint(
                                                       'set area pressed');
+                                                  showCustomDialog(
+                                                    context,
+                                                    const Area(
+                                                      id: "1",
+                                                      name: "All Locations",
+                                                    ),
+                                                  );
                                                 },
                                               ),
                                             ),

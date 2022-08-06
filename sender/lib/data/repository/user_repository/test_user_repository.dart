@@ -4,6 +4,8 @@ import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/data/models/profile/profile.dart';
 import 'package:sender/data/repository/user_repository/i_user_repository.dart';
 
+import '../../models/area/area.dart';
+
 class TestUserRepository implements IUserRepository {
   var _profile = Profile(
     email: 'micahm213@gmail.com',
@@ -46,7 +48,8 @@ class TestUserRepository implements IUserRepository {
   ];
 
   var _preferences = const RoutePreferences(
-    areaId: '0',
+    // areaId: '0',
+    area: Area(id: "0", name: "All Locations"),
     minGrade: '5.9',
     maxGrade: '5.11c',
     showTrad: true,

@@ -7,6 +7,9 @@ import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
+import 'package:sender/data/repository/area_repository/i_area_repository.dart';
+import 'package:sender/data/repository/area_repository/retrofit_area_repository.dart';
+import 'package:sender/data/repository/area_repository/test_area_repository.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/data/repository/user_repository/caching_user_repository.dart';
@@ -32,6 +35,9 @@ final Dio _dioClient = Dio()..interceptors.add(firebaseAuthenticatorWrapper);
 
 final RetrofitSenderApi _retrofitSenderApi = RetrofitSenderApi(_dioClient);
 
+final IAreaRepository _areaRepository = TestAreaRepository();
+// RetrofitAreaRepository(_retrofitSenderApi);
+
 final IQueueRouteRepository _queueRouteRepository =
     RetrofitQueueRouteRepository(_retrofitSenderApi);
 
@@ -50,6 +56,7 @@ final RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository)
 final NavigationCubit navigationCubit = NavigationCubit();
 final RouteSettingsCubit routeSettingsCubit = RouteSettingsCubit(
   userRepository: _userRepository,
+  areaRepository: TestAreaRepository(),
 );
 final FirebaseAuthCubit firebaseAuthCubit = FirebaseAuthCubit(
   firebaseAuth: _firebaseAuth,

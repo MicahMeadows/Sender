@@ -20,7 +20,8 @@ RoutePreferences _$RoutePreferencesFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RoutePreferences {
-  String get areaId => throw _privateConstructorUsedError;
+// required String areaId,
+  Area get area => throw _privateConstructorUsedError;
   String get minGrade => throw _privateConstructorUsedError;
   String get maxGrade => throw _privateConstructorUsedError;
   bool get showTrad => throw _privateConstructorUsedError;
@@ -41,7 +42,7 @@ abstract class $RoutePreferencesCopyWith<$Res> {
           RoutePreferences value, $Res Function(RoutePreferences) then) =
       _$RoutePreferencesCopyWithImpl<$Res>;
   $Res call(
-      {String areaId,
+      {Area area,
       String minGrade,
       String maxGrade,
       bool showTrad,
@@ -62,7 +63,7 @@ class _$RoutePreferencesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? areaId = freezed,
+    Object? area = freezed,
     Object? minGrade = freezed,
     Object? maxGrade = freezed,
     Object? showTrad = freezed,
@@ -72,10 +73,10 @@ class _$RoutePreferencesCopyWithImpl<$Res>
     Object? showMultipitch = freezed,
   }) {
     return _then(_value.copyWith(
-      areaId: areaId == freezed
-          ? _value.areaId
-          : areaId // ignore: cast_nullable_to_non_nullable
-              as String,
+      area: area == freezed
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as Area,
       minGrade: minGrade == freezed
           ? _value.minGrade
           : minGrade // ignore: cast_nullable_to_non_nullable
@@ -116,7 +117,7 @@ abstract class _$$_RoutePreferencesCopyWith<$Res>
       __$$_RoutePreferencesCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String areaId,
+      {Area area,
       String minGrade,
       String maxGrade,
       bool showTrad,
@@ -139,7 +140,7 @@ class __$$_RoutePreferencesCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? areaId = freezed,
+    Object? area = freezed,
     Object? minGrade = freezed,
     Object? maxGrade = freezed,
     Object? showTrad = freezed,
@@ -149,10 +150,10 @@ class __$$_RoutePreferencesCopyWithImpl<$Res>
     Object? showMultipitch = freezed,
   }) {
     return _then(_$_RoutePreferences(
-      areaId: areaId == freezed
-          ? _value.areaId
-          : areaId // ignore: cast_nullable_to_non_nullable
-              as String,
+      area: area == freezed
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as Area,
       minGrade: minGrade == freezed
           ? _value.minGrade
           : minGrade // ignore: cast_nullable_to_non_nullable
@@ -189,7 +190,7 @@ class __$$_RoutePreferencesCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_RoutePreferences implements _RoutePreferences {
   const _$_RoutePreferences(
-      {required this.areaId,
+      {required this.area,
       required this.minGrade,
       required this.maxGrade,
       required this.showTrad,
@@ -201,8 +202,9 @@ class _$_RoutePreferences implements _RoutePreferences {
   factory _$_RoutePreferences.fromJson(Map<String, dynamic> json) =>
       _$$_RoutePreferencesFromJson(json);
 
+// required String areaId,
   @override
-  final String areaId;
+  final Area area;
   @override
   final String minGrade;
   @override
@@ -220,7 +222,7 @@ class _$_RoutePreferences implements _RoutePreferences {
 
   @override
   String toString() {
-    return 'RoutePreferences(areaId: $areaId, minGrade: $minGrade, maxGrade: $maxGrade, showTrad: $showTrad, showSport: $showSport, showTopRope: $showTopRope, minRating: $minRating, showMultipitch: $showMultipitch)';
+    return 'RoutePreferences(area: $area, minGrade: $minGrade, maxGrade: $maxGrade, showTrad: $showTrad, showSport: $showSport, showTopRope: $showTopRope, minRating: $minRating, showMultipitch: $showMultipitch)';
   }
 
   @override
@@ -228,7 +230,7 @@ class _$_RoutePreferences implements _RoutePreferences {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RoutePreferences &&
-            const DeepCollectionEquality().equals(other.areaId, areaId) &&
+            const DeepCollectionEquality().equals(other.area, area) &&
             const DeepCollectionEquality().equals(other.minGrade, minGrade) &&
             const DeepCollectionEquality().equals(other.maxGrade, maxGrade) &&
             const DeepCollectionEquality().equals(other.showTrad, showTrad) &&
@@ -244,7 +246,7 @@ class _$_RoutePreferences implements _RoutePreferences {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(areaId),
+      const DeepCollectionEquality().hash(area),
       const DeepCollectionEquality().hash(minGrade),
       const DeepCollectionEquality().hash(maxGrade),
       const DeepCollectionEquality().hash(showTrad),
@@ -266,7 +268,7 @@ class _$_RoutePreferences implements _RoutePreferences {
 
 abstract class _RoutePreferences implements RoutePreferences {
   const factory _RoutePreferences(
-      {required final String areaId,
+      {required final Area area,
       required final String minGrade,
       required final String maxGrade,
       required final bool showTrad,
@@ -278,8 +280,8 @@ abstract class _RoutePreferences implements RoutePreferences {
   factory _RoutePreferences.fromJson(Map<String, dynamic> json) =
       _$_RoutePreferences.fromJson;
 
-  @override
-  String get areaId => throw _privateConstructorUsedError;
+  @override // required String areaId,
+  Area get area => throw _privateConstructorUsedError;
   @override
   String get minGrade => throw _privateConstructorUsedError;
   @override
