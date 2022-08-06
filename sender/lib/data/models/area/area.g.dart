@@ -9,7 +9,7 @@ part of 'area.dart';
 Area _$AreaFromJson(Map<String, dynamic> json) => Area(
       id: json['id'] as String,
       name: json['name'] as String,
-      shortName: json['shortName'] as String,
+      shortName: json['shortName'] as String?,
     );
 
 Map<String, dynamic> _$AreaToJson(Area instance) => <String, dynamic>{

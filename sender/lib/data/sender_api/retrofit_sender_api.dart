@@ -1,5 +1,6 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
+import 'package:sender/data/models/area/area.dart';
 import 'package:sender/data/models/climbing_route/climbing_route.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/data/models/route_tick/route_tick.dart';
@@ -12,6 +13,9 @@ abstract class RetrofitSenderApi {
     Dio dio, {
     String? baseUrl,
   }) = _RetrofitSenderApi;
+
+  @GET('/areas/{id}')
+  Future<List<Area>> getClimbingAreas(@Path("id") String id);
 
   @GET('/user/preferences')
   Future<RoutePreferences> getUserPreferences();
