@@ -3,24 +3,26 @@ import 'package:sender/common/constants/colors.dart' as col;
 
 class ThickButton extends StatelessWidget {
   final Color mainColor;
-  final Color shadowColor;
+  late Color shadowColor;
   final Color textColor;
   final String text;
   final double? width;
   final double? height;
   final void Function()? onPressed;
   final EdgeInsets padding;
-  const ThickButton({
+  ThickButton({
     this.textColor = Colors.white,
     this.mainColor = col.accent,
-    this.shadowColor = Colors.white54,
+    Color? shadowColor,
     this.width, // = 170,
     this.height, // = 48,
     this.padding = const EdgeInsets.symmetric(horizontal: 35, vertical: 8),
     required this.text,
     required this.onPressed,
     Key? key,
-  }) : super(key: key);
+  }) : super(key: key) {
+    this.shadowColor = shadowColor ?? mainColor.withOpacity(.5);
+  }
 
   @override
   Widget build(BuildContext context) {

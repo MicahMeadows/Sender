@@ -6,6 +6,7 @@ Todo Features:
 - add password change functionality
 - refactor carvote and swipe card into smaller widgets
 - setup CI/CI pipeline to launch a container into a registry for dev and prod
+- fix to allow loading single route then more in background
 
 Future features:
 - add distance from route to route card
