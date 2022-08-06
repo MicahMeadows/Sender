@@ -27,5 +27,5 @@ String minClimbingGrade(String a, String b) {
   int aScore = aNumber * 10 + letterGradeValues(aLetterGrade ?? '');
   int bScore = bNumber * 10 + letterGradeValues(bLetterGrade ?? '');
 
-  return aScore > bScore ? a : b;
+  return aScore > bScore ? b : a;
 }

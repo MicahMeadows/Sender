@@ -4,6 +4,8 @@ Todo Features:
 - update login screen
 - create register screen
 - add password change functionality
+- refactor carvote and swipe card into smaller widgets
+- setup CI/CI pipeline to launch a container into a registry for dev and prod
 
 Future features:
 - add distance from route to route card

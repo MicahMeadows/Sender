@@ -33,8 +33,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   static const double _sidePadding = 12;
   final areaIdController = TextEditingController();
-  // final minGradeController = TextEditingController();
-  // final maxGradeController = TextEditingController();
   bool showTopRope = false;
   bool showTrad = false;
   bool showSport = false;
@@ -57,8 +55,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void setPagePreferences(RoutePreferences prefs) {
     areaIdController.text = prefs.areaId;
-    // minGradeController.text = prefs.minGrade;
-    // maxGradeController.text = prefs.maxGrade;
     showTopRope = prefs.showTopRope;
     showMultipitch = prefs.showMultipitch;
     showTrad = prefs.showTrad;
@@ -66,6 +62,19 @@ class _SettingsPageState extends State<SettingsPage> {
     _minimumRating = prefs.minRating;
     minGrade = prefs.minGrade;
     maxGrade = prefs.maxGrade;
+  }
+
+  RoutePreferences get getPagePreferences {
+    return new RoutePreferences(
+      areaId: areaIdController.text,
+      minGrade: minGrade,
+      maxGrade: maxGrade,
+      showTrad: showTrad,
+      showSport: showSport,
+      showTopRope: showTopRope,
+      minRating: _minimumRating,
+      showMultipitch: showMultipitch,
+    );
   }
 
   @override
@@ -76,16 +85,22 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void saveChanges() async {
-    var currentSettings = widget.routeSettingsCubit.state.whenOrNull(
-      settingsLoaded: (settings) => settings,
+    // var currentSettings = widget.routeSettingsCubit.state.whenOrNull(
+    //   settingsLoaded: (settings) => settings.copyWith(),
+    // );
+
+    // if (currentSettings == null) return;
+
+    String lowerGrade = minClimbingGrade(
+      getPagePreferences.minGrade,
+      getPagePreferences.maxGrade,
     );
 
-    if (currentSettings == null) return;
+    debugPrint('min ${getPagePreferences.minGrade}');
+    debugPrint('max ${getPagePreferences.maxGrade}');
+    debugPrint('lower ${lowerGrade}');
 
-    String minGrade =
-        minClimbingGrade(currentSettings.minGrade, currentSettings.maxGrade);
-
-    if (minGrade != currentSettings.minGrade) {
+    if (lowerGrade != getPagePreferences.minGrade) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -96,20 +111,7 @@ class _SettingsPageState extends State<SettingsPage> {
       return;
     }
 
-    widget.routeSettingsCubit.setPreferences(
-      currentSettings.copyWith(
-        areaId: areaIdController.text.trim(),
-        // maxGrade: maxGradeController.text.trim(),
-        // minGrade: minGradeController.text.trim(),
-        maxGrade: maxGrade,
-        minGrade: minGrade,
-        minRating: _minimumRating,
-        showMultipitch: showMultipitch,
-        showSport: showSport,
-        showTopRope: showTopRope,
-        showTrad: showTrad,
-      ),
-    );
+    widget.routeSettingsCubit.setPreferences(getPagePreferences);
     widget.routeSettingsCubit.uploadPreferences();
     navigationCubit.showHome();
     widget.queueCubit.reloadRoutes();
