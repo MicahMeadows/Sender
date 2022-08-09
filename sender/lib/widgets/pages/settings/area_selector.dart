@@ -7,75 +7,109 @@ import 'package:sender/widgets/common/thick_button.dart';
 
 import '../../../data/cubits/area_select_cubit/area_select_cubit.dart';
 import '../../../data/models/area/area.dart';
+import '../../../data/models/climbing_route/climbing_route.dart';
 
 class AreaSelector extends StatefulWidget {
   final AreaSelectCubit areaCubit;
-  const AreaSelector({required this.areaCubit, Key? key}) : super(key: key);
+  final void Function(Area newArea) onSave;
+  const AreaSelector({
+    required this.onSave,
+    required this.areaCubit,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AreaSelector> createState() => _AreaSelectorState();
 }
 
 class _AreaSelectorState extends State<AreaSelector> {
+  @override
+  void dispose() {
+    widget.areaCubit.close();
+    super.dispose();
+  }
+
   int? selectedIdx;
   final ScrollController controller = ScrollController();
 
-  Widget _makeLoadedWidget(Area selected, List<Area> subAreas, bool isLeaf) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(height: 30),
-        Text(
-          selected.name,
-          style: TextStyle(fontSize: 18),
-        ),
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              color: col.secondary,
-              borderRadius: BorderRadius.circular(10),
+  Widget _buildAreaList(List<Area> areas, bool isLeaf) {
+    return ListView.builder(
+      controller: controller,
+      itemCount: areas.length,
+      itemBuilder: (ctx, idx) {
+        return InkWell(
+          onTap: () {
+            setState(() {
+              selectedIdx = idx;
+            });
+            widget.areaCubit.setSelectedArea(areas[idx]);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
+              vertical: 5,
             ),
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 23),
-            child: CupertinoScrollbar(
-              thumbVisibility: true,
-              controller: controller,
-              thickness: 8,
-              radius: const Radius.circular(100),
-              child: ListView.builder(
-                controller: controller,
-                itemCount: subAreas.length,
-                itemBuilder: (ctx, idx) {
-                  return InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedIdx = idx;
-                      });
-                      widget.areaCubit
-                          .setSelectedArea(subAreas[idx], isLeaf: false);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 25,
-                        vertical: 2,
-                      ),
-                      child: Text(
-                        subAreas[idx].name,
-                        style: TextStyle(
-                          fontWeight: isLeaf && idx == selectedIdx
-                              ? FontWeight.bold
-                              : FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                  );
-                },
+            child: Text(
+              areas[idx].name,
+              style: TextStyle(
+                fontWeight: isLeaf && idx == selectedIdx
+                    ? FontWeight.bold
+                    : FontWeight.w300,
               ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-          child: Row(
+        );
+      },
+    );
+  }
+
+  Widget _makeLoadedWidget(Area selected, List<Area> subAreas, bool isLeaf) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Row(
+            children: [
+              InkWell(
+                onTap: widget.areaCubit.goBackArea,
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.chevron_left,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Text(
+                selected.name,
+                style: TextStyle(fontSize: 18),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: col.secondary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: CupertinoScrollbar(
+                thumbVisibility: true,
+                controller: controller,
+                thickness: 8,
+                radius: const Radius.circular(100),
+                child: subAreas.isEmpty
+                    ? Center(
+                        child: Text("No more sub areas!"),
+                      )
+                    : _buildAreaList(subAreas, isLeaf),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ThickButton(
@@ -84,11 +118,16 @@ class _AreaSelectorState extends State<AreaSelector> {
                   text: 'Cancel',
                   onPressed: () => Navigator.of(context).pop()),
               ThickButton(
-                  text: 'Save', onPressed: () => Navigator.of(context).pop()),
+                text: 'Save',
+                onPressed: () {
+                  widget.onSave(selected);
+                  Navigator.of(context).pop();
+                },
+              ),
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
@@ -106,7 +145,14 @@ class _AreaSelectorState extends State<AreaSelector> {
         builder: (context, state) {
           return state.when(
             loading: () => Center(child: Text("Loading")),
-            loaded: _makeLoadedWidget,
+            loaded: (selected, subAreas, isLeaf) {
+              final areas = subAreas.where((area) {
+                if (selected.level == null) return false;
+                if (area.level == null) return false;
+                return area.level! > selected.level!;
+              }).toList();
+              return _makeLoadedWidget(selected, areas, isLeaf);
+            },
             error: (message) => Center(child: Text("error: $message")),
           );
         },

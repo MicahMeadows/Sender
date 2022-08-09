@@ -35,8 +35,8 @@ final Dio _dioClient = Dio()..interceptors.add(firebaseAuthenticatorWrapper);
 
 final RetrofitSenderApi _retrofitSenderApi = RetrofitSenderApi(_dioClient);
 
-final IAreaRepository _areaRepository = TestAreaRepository();
-// RetrofitAreaRepository(_retrofitSenderApi);
+final IAreaRepository _areaRepository =
+    RetrofitAreaRepository(_retrofitSenderApi);
 
 final IQueueRouteRepository _queueRouteRepository =
     RetrofitQueueRouteRepository(_retrofitSenderApi);
@@ -53,7 +53,7 @@ final RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository)
 final NavigationCubit navigationCubit = NavigationCubit();
 final RouteSettingsCubit routeSettingsCubit = RouteSettingsCubit(
   userRepository: _userRepository,
-  areaRepository: TestAreaRepository(),
+  areaRepository: _areaRepository,
 );
 final FirebaseAuthCubit firebaseAuthCubit = FirebaseAuthCubit(
   firebaseAuth: _firebaseAuth,

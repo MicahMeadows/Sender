@@ -40,7 +40,7 @@ class CachingUserRepository implements IUserRepository {
       loadedRoutePreferences ??= await _userRepository.getRoutePreferences();
       return Future.value(loadedRoutePreferences);
     } catch (ex) {
-      return Future.error('Failed to load route preferences');
+      rethrow;
     }
   }
 

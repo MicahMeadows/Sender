@@ -7,8 +7,8 @@ import 'package:sender/data/models/route_tick/route_tick.dart';
 
 part 'retrofit_sender_api.g.dart';
 
-// @RestApi(baseUrl: 'http://10.0.2.2:8080')
-@RestApi(baseUrl: 'https://3134-199-168-73-61.ngrok.io')
+@RestApi(baseUrl: 'http://10.0.2.2:8080')
+// @RestApi(baseUrl: 'https://3134-199-168-73-61.ngrok.io')
 abstract class RetrofitSenderApi {
   factory RetrofitSenderApi(
     Dio dio, {

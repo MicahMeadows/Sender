@@ -1,4 +1,5 @@
 Todo Features:
+- fix bug where some routes on ticks wont reload (maybe due to image issues)
 - add filtering features to tick lists
 - add location selection
 - update login screen

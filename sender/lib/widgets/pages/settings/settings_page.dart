@@ -37,7 +37,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   static const double _sidePadding = 12;
   final areaIdController = TextEditingController();
-  Area setArea = Area(name: "All Locations", id: "0");
+  Area setArea = const Area(id: "0", level: 0, name: "All Locations");
   bool showTopRope = false;
   bool showTrad = false;
   bool showSport = false;
@@ -70,7 +70,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   RoutePreferences get getPagePreferences {
-    return new RoutePreferences(
+    return RoutePreferences(
       // areaId: areaIdController.text,
       area: setArea,
       minGrade: minGrade,
@@ -123,7 +123,7 @@ class _SettingsPageState extends State<SettingsPage> {
     widget.queueCubit.reloadRoutes();
   }
 
-  void showCustomDialog(BuildContext context, Area route) {
+  void showCustomDialog(BuildContext context) {
     showGeneralDialog(
       context: context,
       barrierLabel: "Barrier",
@@ -138,6 +138,12 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Colors.transparent,
               child: AreaSelector(
                 areaCubit: routeSettingsCubit.createAreaSelectCubit(),
+                onSave: (newArea) {
+                  print('test');
+                  setState(() {
+                    setArea = newArea;
+                  });
+                },
               ),
             ),
           ],
@@ -276,19 +282,23 @@ class _SettingsPageState extends State<SettingsPage> {
                                         ),
                                       );
                                     },
-                                    error: (message) => Expanded(
-                                        child: Center(
-                                      child: Column(children: const [
-                                        SizedBox(height: 30),
-                                        Icon(
-                                          Icons.error_outline_rounded,
-                                          color: Colors.white,
-                                          size: 30,
+                                    error: (message) => Padding(
+                                      padding: const EdgeInsets.all(30.0),
+                                      child: Center(
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(height: 30),
+                                            const Icon(
+                                              Icons.error_outline_rounded,
+                                              color: Colors.white,
+                                              size: 30,
+                                            ),
+                                            Text(
+                                                'Failed to load route preferences: $message'),
+                                          ],
                                         ),
-                                        Text(
-                                            'Failed to load route preferences'),
-                                      ]),
-                                    )),
+                                      ),
+                                    ),
                                     // error: (message) => Center(
                                     //   child: Text('Error: $message'),
                                     // ),
@@ -304,17 +314,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 horizontal: _sidePadding,
                                               ),
                                               child: ButtonLabledCard(
-                                                title: settings.area.name,
+                                                title: setArea.name,
                                                 buttonText: 'set',
                                                 onTap: () {
                                                   debugPrint(
                                                       'set area pressed');
                                                   showCustomDialog(
                                                     context,
-                                                    const Area(
-                                                      id: "1",
-                                                      name: "All Locations",
-                                                    ),
                                                   );
                                                 },
                                               ),
@@ -332,7 +338,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     title: 'Minimum Rating',
                                                     child: Row(
                                                       children: [
-                                                        const Spacer(),
                                                         InkWell(
                                                           onTap: () {
                                                             setState(() {
@@ -377,7 +382,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        const Spacer(),
                                                         DropdownButton<String>(
                                                             value: minGrade,
                                                             focusColor:

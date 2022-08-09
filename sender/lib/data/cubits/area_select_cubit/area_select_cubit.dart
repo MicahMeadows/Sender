@@ -9,29 +9,46 @@ part 'area_select_cubit.freezed.dart';
 class AreaSelectCubit extends Cubit<AreaSelectState> {
   final IAreaRepository _areaRepository;
 
-  AreaSelectCubit(this._areaRepository)
+  AreaSelectCubit(this._areaRepository, {required Area initialArea})
       : super(const AreaSelectState.loading()) {
-    _loadSubAreas(const Area(id: "0", name: "All Locations"));
+    _loadSubAreas(initialArea);
   }
 
   void _loadSubAreas(Area parentArea) async {
     emit(const AreaSelectState.loading());
     try {
       var newAreas = await _areaRepository.getAreas(parentArea.id);
-      newAreas.forEach((element) {
-        print(element.toJson());
-      });
-      emit(AreaSelectState.loaded(parentArea, newAreas));
+
+      if (newAreas.isEmpty) {}
+
+      final subAreas = newAreas
+          // .where(
+          //   (area) => (area.level ?? 0) > (parentArea.level ?? 0),
+          // )
+          .toList();
+
+      emit(AreaSelectState.loaded(parentArea, subAreas));
     } catch (ex) {
       emit(AreaSelectState.error(ex.toString()));
     }
   }
 
-  void setSelectedArea(Area newArea, {bool isLeaf = false}) {
+  void goBackArea() {
+    state.whenOrNull(loaded: (selected, subAreas, isLeaf) {
+      if (selected.level == null) return;
+      if (selected.level! == 0) return;
+      final parentArea = subAreas
+          .firstWhere((element) => element.level == selected.level! - 1);
+
+      setSelectedArea(parentArea);
+    });
+  }
+
+  void setSelectedArea(Area newArea) {
     state.maybeWhen(
-      loaded: ((selectedarea, subareas, leaf) {
-        if (isLeaf) {
-          emit(AreaSelectState.loaded(selectedarea, subareas, true));
+      loaded: ((selectedArea, subAreas, leaf) {
+        if (leaf) {
+          emit(AreaSelectState.loaded(selectedArea, subAreas, true));
         } else {
           _loadSubAreas(newArea);
         }
