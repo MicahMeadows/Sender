@@ -82,9 +82,12 @@ class _AreaSelectorState extends State<AreaSelector> {
                   ),
                 ),
               ),
-              Text(
-                selected.name,
-                style: TextStyle(fontSize: 18),
+              Expanded(
+                child: Text(
+                  selected.name,
+                  maxLines: 3,
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ],
           ),
