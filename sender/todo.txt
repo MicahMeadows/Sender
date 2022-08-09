@@ -1,13 +1,11 @@
 Todo Features:
 - fix bug where some routes on ticks wont reload (maybe due to image issues)
 - add filtering features to tick lists
-- add location selection
 - update login screen
 - create register screen
 - add password change functionality
 - refactor carvote and swipe card into smaller widgets
 - setup CI/CI pipeline to launch a container into a registry for dev and prod
-- fix to allow loading single route then more in background
 
 Future features:
 - add distance from route to route card
