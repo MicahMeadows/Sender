@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math.dart' as vec;
 
 import 'package:flutter/material.dart';
 
@@ -68,11 +68,10 @@ class _FadingWidgetState extends State<FadingWidget>
     double flipped = 1.0 - _fadeAnimation.value;
 
     return Transform.rotate(
-      angle: radians(_startRotation),
+      angle: vec.radians(_startRotation),
       child: Transform.scale(
         scale: flipped / 2,
         child: Opacity(
-          // opacity: 1.0 - _fadeAnimation.value,
           opacity: flipped,
           child: widget.child,
         ),

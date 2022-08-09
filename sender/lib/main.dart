@@ -49,7 +49,8 @@ final TodoListCubit todoListCubit = TodoListCubit(_userRepository)..loadTicks();
 
 // initially load single route to get on page then force load more in background
 final RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository)
-  ..loadRoutes(count: 2);
+  ..loadRoutes(count: 1)
+  ..queueUpRoutes(5);
 final NavigationCubit navigationCubit = NavigationCubit();
 final RouteSettingsCubit routeSettingsCubit = RouteSettingsCubit(
   userRepository: _userRepository,
