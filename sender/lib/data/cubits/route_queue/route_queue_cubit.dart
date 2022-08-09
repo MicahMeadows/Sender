@@ -14,6 +14,8 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
   List<ClimbingRoute> loadedRoutes = [];
   bool loadingNewRoutes = false;
 
+  int queueCount = 0;
+
   Future<ClimbingRoute> getRouteDetails(String routeId) async {
     try {
       var routeResponse = await _queueRouteRepository.getClimbingRoute(routeId);
@@ -27,6 +29,10 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
   void reloadRoutes() {
     emit(RouteQueueEmpty());
     loadRoutes(count: 2, clearOnLoad: true);
+  }
+
+  void queueUpRoutes(int count) {
+    queueCount += count;
   }
 
   Future<void> loadRoutes({
@@ -53,8 +59,6 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
         count,
       );
 
-      loadingNewRoutes = false;
-
       loadedRoutes.addAll(newRoutes);
 
       updateDisplayState();
@@ -62,6 +66,11 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
       emit(RouteQueueError(errorMessage: e.toString()));
     } finally {
       loadingNewRoutes = false;
+    }
+
+    if (queueCount > 0) {
+      loadRoutes(count: queueCount);
+      queueCount = 0;
     }
   }
 

@@ -8,7 +8,6 @@ import 'package:sender/widgets/card/route_card.dart';
 import 'package:sender/widgets/common/fading_widget.dart';
 import 'package:sender/widgets/pages/home/list_choice_dialog.dart';
 import 'package:sender/widgets/pages/route_detail/route_details_page.dart';
-import 'package:sender/widgets/swipe_feedback.dart';
 
 import '../../data/cubits/navigation/navigation_cubit.dart';
 import '../../data/models/climbing_route/climbing_route.dart';

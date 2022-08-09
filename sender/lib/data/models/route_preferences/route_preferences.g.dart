@@ -8,7 +8,7 @@ part of 'route_preferences.dart';
 
 _$_RoutePreferences _$$_RoutePreferencesFromJson(Map<String, dynamic> json) =>
     _$_RoutePreferences(
-      areaId: json['areaId'] as String,
+      area: Area.fromJson(json['area'] as Map<String, dynamic>),
       minGrade: json['minGrade'] as String,
       maxGrade: json['maxGrade'] as String,
       showTrad: json['showTrad'] as bool,
@@ -20,7 +20,7 @@ _$_RoutePreferences _$$_RoutePreferencesFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_RoutePreferencesToJson(_$_RoutePreferences instance) =>
     <String, dynamic>{
-      'areaId': instance.areaId,
+      'area': instance.area,
       'minGrade': instance.minGrade,
       'maxGrade': instance.maxGrade,
       'showTrad': instance.showTrad,

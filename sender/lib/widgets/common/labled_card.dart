@@ -39,16 +39,16 @@ class LabledCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              title,
-              style: style,
+            Expanded(
+              child: Text(
+                title,
+                style: style,
+              ),
             ),
             const SizedBox(width: 15),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: child,
-              ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: child,
             ),
           ],
         ),

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart' as col;
@@ -13,6 +15,8 @@ import 'package:sender/widgets/common/labled_toggle_card.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
+import 'package:sender/widgets/pages/settings/area_selector.dart';
+import '../../../data/models/area/area.dart';
 import 'settings_helper.dart';
 import 'package:sender/common/helpers/climbing_route_helpers.dart';
 
@@ -33,8 +37,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   static const double _sidePadding = 12;
   final areaIdController = TextEditingController();
-  // final minGradeController = TextEditingController();
-  // final maxGradeController = TextEditingController();
+  Area setArea = const Area(id: "0", level: 0, name: "All Locations");
   bool showTopRope = false;
   bool showTrad = false;
   bool showSport = false;
@@ -56,9 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void setPagePreferences(RoutePreferences prefs) {
-    areaIdController.text = prefs.areaId;
-    // minGradeController.text = prefs.minGrade;
-    // maxGradeController.text = prefs.maxGrade;
+    areaIdController.text = prefs.area.name;
     showTopRope = prefs.showTopRope;
     showMultipitch = prefs.showMultipitch;
     showTrad = prefs.showTrad;
@@ -66,6 +67,20 @@ class _SettingsPageState extends State<SettingsPage> {
     _minimumRating = prefs.minRating;
     minGrade = prefs.minGrade;
     maxGrade = prefs.maxGrade;
+  }
+
+  RoutePreferences get getPagePreferences {
+    return RoutePreferences(
+      // areaId: areaIdController.text,
+      area: setArea,
+      minGrade: minGrade,
+      maxGrade: maxGrade,
+      showTrad: showTrad,
+      showSport: showSport,
+      showTopRope: showTopRope,
+      minRating: _minimumRating,
+      showMultipitch: showMultipitch,
+    );
   }
 
   @override
@@ -76,16 +91,22 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void saveChanges() async {
-    var currentSettings = widget.routeSettingsCubit.state.whenOrNull(
-      settingsLoaded: (settings) => settings,
+    // var currentSettings = widget.routeSettingsCubit.state.whenOrNull(
+    //   settingsLoaded: (settings) => settings.copyWith(),
+    // );
+
+    // if (currentSettings == null) return;
+
+    String lowerGrade = minClimbingGrade(
+      getPagePreferences.minGrade,
+      getPagePreferences.maxGrade,
     );
 
-    if (currentSettings == null) return;
+    debugPrint('min ${getPagePreferences.minGrade}');
+    debugPrint('max ${getPagePreferences.maxGrade}');
+    debugPrint('lower ${lowerGrade}');
 
-    String minGrade =
-        minClimbingGrade(currentSettings.minGrade, currentSettings.maxGrade);
-
-    if (minGrade != currentSettings.minGrade) {
+    if (lowerGrade != getPagePreferences.minGrade) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -96,23 +117,61 @@ class _SettingsPageState extends State<SettingsPage> {
       return;
     }
 
-    widget.routeSettingsCubit.setPreferences(
-      currentSettings.copyWith(
-        areaId: areaIdController.text.trim(),
-        // maxGrade: maxGradeController.text.trim(),
-        // minGrade: minGradeController.text.trim(),
-        maxGrade: maxGrade,
-        minGrade: minGrade,
-        minRating: _minimumRating,
-        showMultipitch: showMultipitch,
-        showSport: showSport,
-        showTopRope: showTopRope,
-        showTrad: showTrad,
-      ),
-    );
+    widget.routeSettingsCubit.setPreferences(getPagePreferences);
     widget.routeSettingsCubit.uploadPreferences();
     navigationCubit.showHome();
     widget.queueCubit.reloadRoutes();
+  }
+
+  void showCustomDialog(BuildContext context) {
+    showGeneralDialog(
+      context: context,
+      barrierLabel: "Barrier",
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionDuration: Duration(milliseconds: 300),
+      pageBuilder: (_, __, ___) {
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            Material(
+              color: Colors.transparent,
+              child: AreaSelector(
+                areaCubit: routeSettingsCubit.createAreaSelectCubit(),
+                onSave: (newArea) {
+                  print('test');
+                  setState(() {
+                    setArea = newArea;
+                  });
+                },
+              ),
+            ),
+          ],
+        );
+      },
+      transitionBuilder: (_, anim, __, child) {
+        Tween<Offset> tween;
+        if (anim.status == AnimationStatus.reverse) {
+          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+        } else {
+          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+        }
+
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 4 * anim.value,
+            sigmaY: 4 * anim.value,
+          ),
+          child: SlideTransition(
+            position: tween.animate(anim),
+            child: FadeTransition(
+              opacity: anim,
+              child: child,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -223,19 +282,23 @@ class _SettingsPageState extends State<SettingsPage> {
                                         ),
                                       );
                                     },
-                                    error: (message) => Expanded(
-                                        child: Center(
-                                      child: Column(children: const [
-                                        SizedBox(height: 30),
-                                        Icon(
-                                          Icons.error_outline_rounded,
-                                          color: Colors.white,
-                                          size: 30,
+                                    error: (message) => Padding(
+                                      padding: const EdgeInsets.all(30.0),
+                                      child: Center(
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(height: 30),
+                                            const Icon(
+                                              Icons.error_outline_rounded,
+                                              color: Colors.white,
+                                              size: 30,
+                                            ),
+                                            Text(
+                                                'Failed to load route preferences: $message'),
+                                          ],
                                         ),
-                                        Text(
-                                            'Failed to load route preferences'),
-                                      ]),
-                                    )),
+                                      ),
+                                    ),
                                     // error: (message) => Center(
                                     //   child: Text('Error: $message'),
                                     // ),
@@ -244,19 +307,21 @@ class _SettingsPageState extends State<SettingsPage> {
                                         color: col.primary,
                                         child: Column(
                                           children: [
-                                            const SectionBanner(
-                                                text: 'Location'),
+                                            SectionBanner(text: 'Location'),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
                                                 horizontal: _sidePadding,
                                               ),
                                               child: ButtonLabledCard(
-                                                title: settings.areaId,
+                                                title: setArea.name,
                                                 buttonText: 'set',
                                                 onTap: () {
                                                   debugPrint(
                                                       'set area pressed');
+                                                  showCustomDialog(
+                                                    context,
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -273,7 +338,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     title: 'Minimum Rating',
                                                     child: Row(
                                                       children: [
-                                                        const Spacer(),
                                                         InkWell(
                                                           onTap: () {
                                                             setState(() {
@@ -318,7 +382,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        const Spacer(),
                                                         DropdownButton<String>(
                                                             value: minGrade,
                                                             focusColor:

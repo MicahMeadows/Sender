@@ -18,6 +18,23 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
   String? baseUrl;
 
   @override
+  Future<List<Area>> getClimbingAreas(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<Area>>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/areas/${id}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => Area.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<RoutePreferences> getUserPreferences() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
