@@ -79,13 +79,9 @@ class _MainNavigationState extends State<MainNavigation> {
       },
       child: Scaffold(
         backgroundColor: col.background,
-        body: Stack(
+        body: Column(
           children: [
-            Positioned(
-              top: 0,
-              right: 0,
-              left: 0,
-              bottom: 60,
+            Expanded(
               child: Container(
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -120,22 +116,17 @@ class _MainNavigationState extends State<MainNavigation> {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 4,
-              right: 0,
-              left: 0,
-              child: CustomTabBar(
-                selectedTab: pageNumberFromNavState(navigationCubit.state),
-                tapHome: () => changePage((navCubit) {
-                  navigationCubit.showHome();
-                }),
-                tapTodo: () => changePage((navCubit) {
-                  navCubit.showTodo();
-                }),
-                tapProfile: () => changePage((navCubit) {
-                  navCubit.showProfile();
-                }),
-              ),
+            CustomTabBar(
+              selectedTab: pageNumberFromNavState(navigationCubit.state),
+              tapHome: () => changePage((navCubit) {
+                navigationCubit.showHome();
+              }),
+              tapTodo: () => changePage((navCubit) {
+                navCubit.showTodo();
+              }),
+              tapProfile: () => changePage((navCubit) {
+                navCubit.showProfile();
+              }),
             ),
           ],
         ),

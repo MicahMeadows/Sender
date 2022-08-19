@@ -391,7 +391,9 @@ class _$_ClimbingRoute implements _ClimbingRoute {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ClimbingRouteToJson(this);
+    return _$$_ClimbingRouteToJson(
+      this,
+    );
   }
 }
 
@@ -416,33 +418,33 @@ abstract class _ClimbingRoute implements ClimbingRoute {
       _$_ClimbingRoute.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  String? get grade => throw _privateConstructorUsedError;
+  String? get grade;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String? get area => throw _privateConstructorUsedError;
+  String? get area;
   @override
-  double? get rating => throw _privateConstructorUsedError;
+  double? get rating;
   @override
-  String? get type => throw _privateConstructorUsedError;
+  String? get type;
   @override
-  int? get pitches => throw _privateConstructorUsedError;
+  int? get pitches;
   @override
-  int? get length => throw _privateConstructorUsedError;
+  int? get length;
   @override
-  double? get longitude => throw _privateConstructorUsedError;
+  double? get longitude;
   @override
-  double? get latitude => throw _privateConstructorUsedError;
+  double? get latitude;
   @override
-  String? get firstAscent => throw _privateConstructorUsedError;
+  String? get firstAscent;
   @override
-  List<String>? get imageUrls => throw _privateConstructorUsedError;
+  List<String>? get imageUrls;
   @override
-  List<Area>? get areas => throw _privateConstructorUsedError;
+  List<Area>? get areas;
   @override
-  List<ClimbingRouteDetail>? get details => throw _privateConstructorUsedError;
+  List<ClimbingRouteDetail>? get details;
   @override
   @JsonKey(ignore: true)
   _$$_ClimbingRouteCopyWith<_$_ClimbingRoute> get copyWith =>

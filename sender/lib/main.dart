@@ -20,13 +20,14 @@ import 'package:sender/firebase_options.dart';
 import 'package:sender/widgets/auth_gate.dart';
 import 'package:dio/dio.dart';
 import 'data/repository/queue_route_repository/retrofit_queue_route_repository.dart';
+import 'package:sender/common/constants/colors.dart' as col;
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 final InterceptorsWrapper firebaseAuthenticatorWrapper = InterceptorsWrapper(
   onRequest: (options, handler) async {
-    options.headers['authtoken'] =
-        await _firebaseAuth.currentUser?.getIdToken();
+    var token = await _firebaseAuth.currentUser?.getIdToken();
+    options.headers.addAll({"authtoken": token});
     return handler.next(options);
   },
 );
@@ -100,7 +101,12 @@ class MyApp extends StatelessWidget {
               title: 'Sender',
               theme: _themeData,
               initialRoute: '/',
-              home: const AuthGate(),
+              home: Scaffold(
+                backgroundColor: col.background,
+                body: SafeArea(
+                  child: const AuthGate(),
+                ),
+              ),
               routes: const {},
             );
           },

@@ -262,7 +262,9 @@ class _$_RoutePreferences implements _RoutePreferences {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RoutePreferencesToJson(this);
+    return _$$_RoutePreferencesToJson(
+      this,
+    );
   }
 }
 
@@ -281,21 +283,21 @@ abstract class _RoutePreferences implements RoutePreferences {
       _$_RoutePreferences.fromJson;
 
   @override // required String areaId,
-  Area get area => throw _privateConstructorUsedError;
+  Area get area;
   @override
-  String get minGrade => throw _privateConstructorUsedError;
+  String get minGrade;
   @override
-  String get maxGrade => throw _privateConstructorUsedError;
+  String get maxGrade;
   @override
-  bool get showTrad => throw _privateConstructorUsedError;
+  bool get showTrad;
   @override
-  bool get showSport => throw _privateConstructorUsedError;
+  bool get showSport;
   @override
-  bool get showTopRope => throw _privateConstructorUsedError;
+  bool get showTopRope;
   @override
-  double get minRating => throw _privateConstructorUsedError;
+  double get minRating;
   @override
-  bool get showMultipitch => throw _privateConstructorUsedError;
+  bool get showMultipitch;
   @override
   @JsonKey(ignore: true)
   _$$_RoutePreferencesCopyWith<_$_RoutePreferences> get copyWith =>

@@ -145,7 +145,9 @@ class _$_ClimbingRouteDetail implements _ClimbingRouteDetail {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ClimbingRouteDetailToJson(this);
+    return _$$_ClimbingRouteDetailToJson(
+      this,
+    );
   }
 }
 
@@ -158,9 +160,9 @@ abstract class _ClimbingRouteDetail implements ClimbingRouteDetail {
       _$_ClimbingRouteDetail.fromJson;
 
   @override
-  String get title => throw _privateConstructorUsedError;
+  String get title;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
   @JsonKey(ignore: true)
   _$$_ClimbingRouteDetailCopyWith<_$_ClimbingRouteDetail> get copyWith =>

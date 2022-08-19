@@ -566,7 +566,7 @@ class _$_error implements _error {
 abstract class _error implements NavigationState {
   const factory _error(final String errorMessage) = _$_error;
 
-  String get errorMessage => throw _privateConstructorUsedError;
+  String get errorMessage;
   @JsonKey(ignore: true)
   _$$_errorCopyWith<_$_error> get copyWith =>
       throw _privateConstructorUsedError;

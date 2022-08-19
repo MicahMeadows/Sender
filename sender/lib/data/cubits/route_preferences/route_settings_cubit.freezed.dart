@@ -334,7 +334,7 @@ abstract class _settingsLoaded implements RouteSettingsState {
   const factory _settingsLoaded({required final RoutePreferences settings}) =
       _$_settingsLoaded;
 
-  RoutePreferences get settings => throw _privateConstructorUsedError;
+  RoutePreferences get settings;
   @JsonKey(ignore: true)
   _$$_settingsLoadedCopyWith<_$_settingsLoaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -472,7 +472,7 @@ class _$_error implements _error {
 abstract class _error implements RouteSettingsState {
   const factory _error(final String message) = _$_error;
 
-  String get message => throw _privateConstructorUsedError;
+  String get message;
   @JsonKey(ignore: true)
   _$$_errorCopyWith<_$_error> get copyWith =>
       throw _privateConstructorUsedError;

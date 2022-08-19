@@ -206,7 +206,9 @@ class _$_Profile implements _Profile {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ProfileToJson(this);
+    return _$$_ProfileToJson(
+      this,
+    );
   }
 }
 
@@ -220,13 +222,13 @@ abstract class _Profile implements Profile {
   factory _Profile.fromJson(Map<String, dynamic> json) = _$_Profile.fromJson;
 
   @override
-  String get email => throw _privateConstructorUsedError;
+  String get email;
   @override
-  String get displayName => throw _privateConstructorUsedError;
+  String get displayName;
   @override
-  RoutePreferences? get routePreferences => throw _privateConstructorUsedError;
+  RoutePreferences? get routePreferences;
   @override
-  List<RouteTick>? get routeTicks => throw _privateConstructorUsedError;
+  List<RouteTick>? get routeTicks;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileCopyWith<_$_Profile> get copyWith =>
