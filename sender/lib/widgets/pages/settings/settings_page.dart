@@ -335,6 +335,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                               child: Column(
                                                 children: [
                                                   LabledCard(
+                                                    sidePriority:
+                                                        LabledCardSidePriority
+                                                            .left,
                                                     title: 'Minimum Rating',
                                                     child: Row(
                                                       children: [
@@ -376,6 +379,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                                     ),
                                                   ),
                                                   LabledCard(
+                                                    sidePriority:
+                                                        LabledCardSidePriority
+                                                            .left,
                                                     title: 'Grade Range',
                                                     child: Row(
                                                       mainAxisAlignment:
