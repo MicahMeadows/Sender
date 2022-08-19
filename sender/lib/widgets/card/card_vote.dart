@@ -82,7 +82,7 @@ class _CardVoteState extends State<CardVote> {
       barrierLabel: "Barrier",
       barrierDismissible: false,
       barrierColor: Colors.black.withOpacity(0.5),
-      transitionDuration: Duration(milliseconds: 300),
+      transitionDuration: const Duration(milliseconds: 150),
       pageBuilder: (_, __, ___) {
         return Stack(
           children: [
@@ -117,28 +117,6 @@ class _CardVoteState extends State<CardVote> {
               ),
             ),
           ],
-        );
-      },
-      transitionBuilder: (_, anim, __, child) {
-        Tween<Offset> tween;
-        if (anim.status == AnimationStatus.reverse) {
-          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
-        } else {
-          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
-        }
-
-        return BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 4 * anim.value,
-            sigmaY: 4 * anim.value,
-          ),
-          child: SlideTransition(
-            position: tween.animate(anim),
-            child: FadeTransition(
-              opacity: anim,
-              child: child,
-            ),
-          ),
         );
       },
     );
