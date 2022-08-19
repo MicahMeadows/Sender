@@ -285,10 +285,10 @@ abstract class _loaded implements TodoListState {
       required final List<RouteTick> skips,
       required final List<RouteTick> likes}) = _$_loaded;
 
-  List<RouteTick> get sends => throw _privateConstructorUsedError;
-  List<RouteTick> get todos => throw _privateConstructorUsedError;
-  List<RouteTick> get skips => throw _privateConstructorUsedError;
-  List<RouteTick> get likes => throw _privateConstructorUsedError;
+  List<RouteTick> get sends;
+  List<RouteTick> get todos;
+  List<RouteTick> get skips;
+  List<RouteTick> get likes;
   @JsonKey(ignore: true)
   _$$_loadedCopyWith<_$_loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -547,7 +547,7 @@ class _$_error implements _error {
 abstract class _error implements TodoListState {
   const factory _error({required final String errorMessage}) = _$_error;
 
-  String get errorMessage => throw _privateConstructorUsedError;
+  String get errorMessage;
   @JsonKey(ignore: true)
   _$$_errorCopyWith<_$_error> get copyWith =>
       throw _privateConstructorUsedError;

@@ -218,7 +218,9 @@ class _$_RouteTick implements _RouteTick {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RouteTickToJson(this);
+    return _$$_RouteTickToJson(
+      this,
+    );
   }
 }
 
@@ -235,17 +237,17 @@ abstract class _RouteTick implements RouteTick {
       _$_RouteTick.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  double get rating => throw _privateConstructorUsedError;
+  double get rating;
   @override
-  String get grade => throw _privateConstructorUsedError;
+  String get grade;
   @override
-  String get area => throw _privateConstructorUsedError;
+  String get area;
   @override
-  String get type => throw _privateConstructorUsedError;
+  String get type;
   @override
   @JsonKey(ignore: true)
   _$$_RouteTickCopyWith<_$_RouteTick> get copyWith =>

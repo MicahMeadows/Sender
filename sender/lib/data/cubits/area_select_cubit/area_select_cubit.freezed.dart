@@ -360,9 +360,9 @@ abstract class _loaded implements AreaSelectState {
   const factory _loaded(final Area selectedarea, final List<Area> subareas,
       [final bool isLeaf]) = _$_loaded;
 
-  Area get selectedarea => throw _privateConstructorUsedError;
-  List<Area> get subareas => throw _privateConstructorUsedError;
-  bool get isLeaf => throw _privateConstructorUsedError;
+  Area get selectedarea;
+  List<Area> get subareas;
+  bool get isLeaf;
   @JsonKey(ignore: true)
   _$$_loadedCopyWith<_$_loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -503,7 +503,7 @@ class _$_error implements _error {
 abstract class _error implements AreaSelectState {
   const factory _error(final String message) = _$_error;
 
-  String get message => throw _privateConstructorUsedError;
+  String get message;
   @JsonKey(ignore: true)
   _$$_errorCopyWith<_$_error> get copyWith =>
       throw _privateConstructorUsedError;

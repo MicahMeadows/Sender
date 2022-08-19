@@ -15,6 +15,7 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final authCubit = context.read<FirebaseAuthCubit>();
     return Scaffold(
+      backgroundColor: Colors.green,
       appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(50.0),

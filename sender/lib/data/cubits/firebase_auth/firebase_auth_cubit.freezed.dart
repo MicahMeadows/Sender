@@ -201,7 +201,7 @@ class _$_authenticated implements _authenticated {
 abstract class _authenticated implements FirebaseAuthState {
   const factory _authenticated(final User user) = _$_authenticated;
 
-  User get user => throw _privateConstructorUsedError;
+  User get user;
   @JsonKey(ignore: true)
   _$$_authenticatedCopyWith<_$_authenticated> get copyWith =>
       throw _privateConstructorUsedError;
