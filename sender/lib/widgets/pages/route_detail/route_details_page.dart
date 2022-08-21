@@ -145,6 +145,12 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                 belowAppBarRenderObj.localToGlobal(Offset.zero).dy;
             // print('last below dist: $_lastBelowAppBarDistanceFromTop');
 
+            double height = MediaQuery.of(context).size.height;
+            double distanceFromBottom =
+                height - _lastBelowAppBarDistanceFromTop;
+
+            print(distanceFromBottom);
+
             if (!_initialized) {
               // _scrollController
               //     .jumpTo(MediaQuery.of(context).size.height * .55);
@@ -229,7 +235,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                           height: MediaQuery.of(context).size.height -
                               (_lastBelowAppBarDistanceFromTop -
                                   _lastAboveAppBarDistanceFromTop) -
-                              10,
+                              0,
                           child: GestureDetector(
                             onTapDown: (details) {
                               var tapPosX = details.globalPosition.dx;
@@ -293,7 +299,13 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                         ),
                       ),
                       SliverAppBar(
-                        backgroundColor: col.primary,
+                        backgroundColor: () {
+                          double height = MediaQuery.of(context).size.height;
+                          if (_lastBelowAppBarDistanceFromTop >= height * .97) {
+                            return Colors.transparent;
+                          }
+                          return col.primary;
+                        }(),
                         toolbarHeight: 0,
                         elevation: 2,
                         pinned: true,
@@ -316,7 +328,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
+                                    padding:
+                                        const EdgeInsets.only(bottom: 15.0),
                                     child: Text(
                                       widget.route.name,
                                       textAlign: TextAlign.center,
