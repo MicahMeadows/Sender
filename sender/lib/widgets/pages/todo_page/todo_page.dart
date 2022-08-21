@@ -32,6 +32,10 @@ class _TodoPageState extends State<TodoPage> {
     return BlocBuilder<TickFilterCubit, TickFilterState>(
       builder: (ctx, filterState) => BlocBuilder<TodoListCubit, TodoListState>(
         builder: (context, state) {
+          TickFilters? tickFilters = filterState.when(
+            none: () => null,
+            set: (filters) => filters,
+          );
           return SafeArea(
             child: Column(
               children: [
@@ -58,19 +62,19 @@ class _TodoPageState extends State<TodoPage> {
                         if (likes.isEmpty) {
                           return const NoLikes();
                         }
-                        return _makeTickList(likes);
+                        return _makeTickList(tickFilters, likes);
                       }
                       if (tabIndex == 1) {
                         if (sends.isEmpty) {
                           return const NoSends();
                         }
-                        return _makeTickList(sends);
+                        return _makeTickList(tickFilters, sends);
                       }
                       if (tabIndex == 2) {
                         if (todos.isEmpty) {
                           return const NoTodos();
                         }
-                        return _makeTickList(todos);
+                        return _makeTickList(tickFilters, todos);
                       }
                       throw Exception('Invalid list selected');
                     },
@@ -102,7 +106,24 @@ class _TodoPageState extends State<TodoPage> {
     );
   }
 
-  Widget _makeTickList(List<RouteTick> ticks) {
+  int numFilters(TickFilters? filters) {
+    if (filters == null) return 0;
+    int cnt = 0;
+    if (filters.minGrade != null) cnt++;
+    if (filters.maxGrade != null) cnt++;
+    if (filters.minRating != null) cnt++;
+    if (filters.type != null) cnt++;
+    return cnt;
+  }
+
+  String filterText(TickFilters? filters) {
+    if (filters == null) return 'Filters';
+    int filtersCount = numFilters(filters);
+    if (filtersCount == 1) return '1 Filter';
+    return '$filtersCount Filters';
+  }
+
+  Widget _makeTickList(TickFilters? filters, List<RouteTick> ticks) {
     return Column(
       children: [
         const SizedBox(height: 35),
@@ -118,9 +139,12 @@ class _TodoPageState extends State<TodoPage> {
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       children: [
-                        Text('Filters'),
+                        Text(filterText(filters)),
+                        const SizedBox(width: 3),
                         Icon(
-                          Icons.add,
+                          filters == null
+                              ? Icons.add
+                              : Icons.account_tree_outlined,
                           size: 20,
                           color: col.text2,
                         ),

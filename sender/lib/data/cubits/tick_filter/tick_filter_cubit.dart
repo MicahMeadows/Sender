@@ -6,7 +6,8 @@ part 'tick_filter_cubit.freezed.dart';
 part 'tick_filter_state.dart';
 
 class TickFilterCubit extends Cubit<TickFilterState> {
-  TickFilterCubit() : super(const TickFilterState.none());
+  TickFilterCubit()
+      : super(TickFilterState.set(TickFilters(maxGrade: '5.12d')));
 
   void clearFilters() {
     emit(const TickFilterState.none());
@@ -14,19 +15,5 @@ class TickFilterCubit extends Cubit<TickFilterState> {
 
   void setFilters(TickFilters newFilters) {
     emit(TickFilterState.set(newFilters));
-  }
-
-  int numFilters() {
-    return state.when(
-      none: () => 0,
-      set: (filters) {
-        int cnt = 0;
-        if (filters.minGrade != null) cnt++;
-        if (filters.maxGrade != null) cnt++;
-        if (filters.minRating != null) cnt++;
-        if (filters.type != null) cnt++;
-        return cnt;
-      },
-    );
   }
 }
