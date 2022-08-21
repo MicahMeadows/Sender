@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
+import 'package:sender/data/models/tick_filters/tick_filters.dart';
 import 'package:sender/main.dart';
 import 'package:sender/widgets/common/drop_button.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
@@ -11,6 +12,7 @@ import 'package:sender/widgets/pages/todo_page/no_sends.dart';
 import 'package:sender/widgets/pages/todo_page/no_todos.dart';
 import 'package:sender/widgets/pages/todo_page/tick_card.dart';
 
+import '../../../data/cubits/tick_filter/tick_filter_cubit.dart';
 import '../../../data/models/route_tick/route_tick.dart';
 import 'no_likes.dart';
 
@@ -27,74 +29,76 @@ class _TodoPageState extends State<TodoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TodoListCubit, TodoListState>(
-      builder: (context, state) {
-        return SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: _sidePadding),
-                child: TabSwitcher(
-                  padding: 5,
-                  tabs: const [
-                    'Liked',
-                    'Send Stack',
-                    'To Do',
-                  ],
-                  onChange: (val) {
-                    setState(() {
-                      tabIndex = val;
-                    });
-                  },
+    return BlocBuilder<TickFilterCubit, TickFilterState>(
+      builder: (ctx, filterState) => BlocBuilder<TodoListCubit, TodoListState>(
+        builder: (context, state) {
+          return SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+                  child: TabSwitcher(
+                    padding: 5,
+                    tabs: const [
+                      'Liked',
+                      'Send Stack',
+                      'To Do',
+                    ],
+                    onChange: (val) {
+                      setState(() {
+                        tabIndex = val;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              Expanded(
-                child: state.when(
-                  loaded: (sends, todos, skips, likes) {
-                    if (tabIndex == 0) {
-                      if (likes.isEmpty) {
-                        return const NoLikes();
+                Expanded(
+                  child: state.when(
+                    loaded: (sends, todos, skips, likes) {
+                      if (tabIndex == 0) {
+                        if (likes.isEmpty) {
+                          return const NoLikes();
+                        }
+                        return _makeTickList(likes);
                       }
-                      return _makeTickList(likes);
-                    }
-                    if (tabIndex == 1) {
-                      if (sends.isEmpty) {
-                        return const NoSends();
+                      if (tabIndex == 1) {
+                        if (sends.isEmpty) {
+                          return const NoSends();
+                        }
+                        return _makeTickList(sends);
                       }
-                      return _makeTickList(sends);
-                    }
-                    if (tabIndex == 2) {
-                      if (todos.isEmpty) {
-                        return const NoTodos();
+                      if (tabIndex == 2) {
+                        if (todos.isEmpty) {
+                          return const NoTodos();
+                        }
+                        return _makeTickList(todos);
                       }
-                      return _makeTickList(todos);
-                    }
-                    throw Exception('Invalid list selected');
-                  },
-                  loading: () => const Center(
-                    child: KnotProgressIndicator(
-                      color: Colors.white,
+                      throw Exception('Invalid list selected');
+                    },
+                    loading: () => const Center(
+                      child: KnotProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    ),
+                    error: (msg) => Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.error_outline_rounded,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                            SizedBox(height: 5),
+                            Text('Failed to load ticks'),
+                          ]),
                     ),
                   ),
-                  error: (msg) => Center(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.error_outline_rounded,
-                            size: 30,
-                            color: Colors.white,
-                          ),
-                          SizedBox(height: 5),
-                          Text('Failed to load ticks'),
-                        ]),
-                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -106,9 +110,26 @@ class _TodoPageState extends State<TodoPage> {
           padding: EdgeInsets.symmetric(horizontal: _sidePadding),
           child: Row(
             children: [
-              const DropButton(title: 'Filter'),
-              const SizedBox(width: 14),
               const DropButton(title: 'Order'),
+              const SizedBox(width: 14),
+              RoundButton(
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        Text('Filters'),
+                        Icon(
+                          Icons.add,
+                          size: 20,
+                          color: col.text2,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                onTap: () {},
+              ),
               const Spacer(),
               RoundButton.circular(
                 onTap: () {
