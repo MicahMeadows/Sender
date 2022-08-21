@@ -228,7 +228,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height -
                               (_lastBelowAppBarDistanceFromTop -
-                                  _lastAboveAppBarDistanceFromTop),
+                                  _lastAboveAppBarDistanceFromTop) -
+                              10,
                           child: GestureDetector(
                             onTapDown: (details) {
                               var tapPosX = details.globalPosition.dx;

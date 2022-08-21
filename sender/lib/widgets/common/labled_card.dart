@@ -3,14 +3,21 @@ import 'package:sender/common/constants/text.dart' as txt;
 
 import 'base_card.dart';
 
+enum LabledCardSidePriority {
+  right,
+  left,
+}
+
 class LabledCard extends StatelessWidget {
   final String title;
   final Widget child;
   final TextStyle? style;
+  final LabledCardSidePriority sidePriority;
 
   const LabledCard({
     required this.title,
     required this.child,
+    this.sidePriority = LabledCardSidePriority.right,
     this.style = txt.cardHeader,
     Key? key,
   }) : super(key: key);
@@ -30,6 +37,30 @@ class LabledCard extends StatelessWidget {
     );
   }
 
+  Widget _buildLeftSide() {
+    var child = Text(
+      title,
+      style: style,
+    );
+    if (sidePriority == LabledCardSidePriority.left) {
+      return Expanded(child: child);
+    } else {
+      return child;
+    }
+  }
+
+  Widget _buildRightSide() {
+    var child = Align(
+      alignment: Alignment.centerRight,
+      child: this.child,
+    );
+
+    if (sidePriority == LabledCardSidePriority.right) {
+      return Expanded(child: child);
+    }
+    return child;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseCard(
@@ -39,17 +70,9 @@ class LabledCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              child: Text(
-                title,
-                style: style,
-              ),
-            ),
+            _buildLeftSide(),
             const SizedBox(width: 15),
-            Align(
-              alignment: Alignment.centerRight,
-              child: child,
-            ),
+            _buildRightSide(),
           ],
         ),
       ),
