@@ -93,46 +93,46 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
               ],
             ),
             const SizedBox(height: 15),
-            const Text('Grade Range'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DropdownButton<String>(
-                    value: pageFilters.minGrade,
-                    focusColor: col.text1,
-                    dropdownColor: col.primary,
-                    items: gradeOptions
-                        .map((e) =>
-                            DropdownMenuItem<String>(value: e, child: Text(e)))
-                        .toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        final newMinGrade = val ?? '';
-                        pageFilters =
-                            pageFilters.copyWith(minGrade: newMinGrade);
-                      });
-                    }),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Text('to'),
-                ),
-                DropdownButton<String>(
-                    value: pageFilters.maxGrade,
-                    focusColor: col.text1,
-                    dropdownColor: col.primary,
-                    items: gradeOptions
-                        .map((e) =>
-                            DropdownMenuItem<String>(value: e, child: Text(e)))
-                        .toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        final newMaxGrade = val ?? '';
-                        pageFilters =
-                            pageFilters.copyWith(maxGrade: newMaxGrade);
-                      });
-                    }),
-              ],
-            ),
+            // const Text('Grade Range'),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     DropdownButton<String>(
+            //         value: pageFilters.minGrade,
+            //         focusColor: col.text1,
+            //         dropdownColor: col.primary,
+            //         items: gradeOptions
+            //             .map((e) =>
+            //                 DropdownMenuItem<String>(value: e, child: Text(e)))
+            //             .toList(),
+            //         onChanged: (val) {
+            //           setState(() {
+            //             final newMinGrade = val ?? '';
+            //             pageFilters =
+            //                 pageFilters.copyWith(minGrade: newMinGrade);
+            //           });
+            //         }),
+            //     const Padding(
+            //       padding: EdgeInsets.symmetric(horizontal: 15),
+            //       child: Text('to'),
+            //     ),
+            //     DropdownButton<String>(
+            //         value: pageFilters.maxGrade,
+            //         focusColor: col.text1,
+            //         dropdownColor: col.primary,
+            //         items: gradeOptions
+            //             .map((e) =>
+            //                 DropdownMenuItem<String>(value: e, child: Text(e)))
+            //             .toList(),
+            //         onChanged: (val) {
+            //           setState(() {
+            //             final newMaxGrade = val ?? '';
+            //             pageFilters =
+            //                 pageFilters.copyWith(maxGrade: newMaxGrade);
+            //           });
+            //         }),
+            //   ],
+            // ),
             const SizedBox(height: 15),
             const Text('Minimum Rating'),
             Row(
@@ -225,6 +225,7 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
               children: [
                 ThickButton(
                   mainColor: col.error,
+                  width: 130,
                   shadowColor: const Color(0xFFB05175),
                   text: 'Cancel',
                   onPressed: () {
@@ -233,6 +234,7 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
                 ),
                 const SizedBox(width: 20),
                 ThickButton(
+                  width: 130,
                   text: 'Save',
                   onPressed: () {
                     if (pageFilters.numFilters == 0) {
