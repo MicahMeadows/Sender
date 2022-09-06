@@ -241,7 +241,7 @@ class _TodoPageState extends State<TodoPage> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8.0,
-                          vertical: 2,
+                          vertical: 5,
                         ),
                         child: TextField(
                           controller: _searchFieldController,
