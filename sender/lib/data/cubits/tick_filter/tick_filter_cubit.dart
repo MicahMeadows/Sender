@@ -6,8 +6,7 @@ part 'tick_filter_cubit.freezed.dart';
 part 'tick_filter_state.dart';
 
 class TickFilterCubit extends Cubit<TickFilterState> {
-  TickFilterCubit()
-      : super(TickFilterState.set(TickFilters(maxGrade: '5.12d')));
+  TickFilterCubit() : super(const TickFilterState.none());
 
   void clearFilters() {
     emit(const TickFilterState.none());

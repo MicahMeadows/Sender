@@ -11,6 +11,7 @@ import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/round_button.dart';
 import 'package:sender/widgets/common/tab_switcher.dart';
 import 'package:sender/common/constants/colors.dart' as col;
+import 'package:sender/widgets/pages/todo_page/todo_filter_dialog.dart';
 import 'package:sender/widgets/pages/todo_page/no_sends.dart';
 import 'package:sender/widgets/pages/todo_page/no_todos.dart';
 import 'package:sender/widgets/pages/todo_page/tick_card.dart';
@@ -116,21 +117,66 @@ class _TodoPageState extends State<TodoPage> {
     );
   }
 
-  int numFilters(TickFilters? filters) {
-    if (filters == null) return 0;
-    int cnt = 0;
-    if (filters.minGrade != null) cnt++;
-    if (filters.maxGrade != null) cnt++;
-    if (filters.minRating != null) cnt++;
-    if (filters.type != null) cnt++;
-    return cnt;
-  }
-
   String filterText(TickFilters? filters) {
     if (filters == null) return 'Filters';
-    int filtersCount = numFilters(filters);
+    int filtersCount = filters.numFilters;
     if (filtersCount == 1) return '1 Filter';
     return '$filtersCount Filters';
+  }
+
+  void showCustomDialog(BuildContext context) {
+    showGeneralDialog(
+      context: context,
+      barrierLabel: "Barrier",
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionDuration: const Duration(milliseconds: 300),
+      pageBuilder: (_, __, ___) {
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            Material(
+              color: Colors.transparent,
+              child: Container(
+                margin: const EdgeInsets.all(20),
+                child: const TodoFilterDialog(),
+              ),
+              // child: AreaSelector(
+              //   areaCubit: routeSettingsCubit.createAreaSelectCubit(),
+              //   onSave: (newArea) {
+              //     print('test');
+              //     setState(() {
+              //       setArea = newArea;
+              //     });
+              //   },
+              // ),
+            ),
+          ],
+        );
+      },
+      // transitionBuilder: (_, anim, __, child) {
+      //   Tween<Offset> tween;
+      //   if (anim.status == AnimationStatus.reverse) {
+      //     tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+      //   } else {
+      //     tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+      //   }
+
+      //   return BackdropFilter(
+      //     filter: ImageFilter.blur(
+      //       sigmaX: 4 * anim.value,
+      //       sigmaY: 4 * anim.value,
+      //     ),
+      //     child: SlideTransition(
+      //       position: tween.animate(anim),
+      //       child: FadeTransition(
+      //         opacity: anim,
+      //         child: child,
+      //       ),
+      //     ),
+      //   );
+      // },
+    );
   }
 
   Widget _makeTickList(TickFilters? filters, List<RouteTick> ticks) {
@@ -173,7 +219,10 @@ class _TodoPageState extends State<TodoPage> {
                     ),
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  // Navigator.of(context).pushNamed(TodoFilterPage.routeName);
+                  showCustomDialog(context);
+                },
               ),
               const SizedBox(width: 10),
               Expanded(
