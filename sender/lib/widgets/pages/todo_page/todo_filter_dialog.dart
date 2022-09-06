@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart' as col;
@@ -30,9 +28,9 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
       },
       none: () {
         pageFilters = TickFilters(
-          enableSport: true,
-          enableTopRope: true,
-          enableTrad: true,
+          disableSport: false,
+          disableTopRope: false,
+          disableTrad: false,
           maxGrade: '5.15d',
           minGrade: '5.0',
           minRating: 0,
@@ -156,7 +154,7 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
                 RatingWidget(
                   color: col.accent,
                   rating: pageFilters.minRating,
-                  numStarsShow: 3,
+                  numStarsShow: 4,
                   height: 35,
                 ),
                 const SizedBox(width: 5),
@@ -175,7 +173,7 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
               ],
             ),
             const SizedBox(height: 15),
-            Text('Climb Types'),
+            Text('Disabled Types'),
             FittedBox(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -183,21 +181,21 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
                   Text('Trad'),
                   Switch(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      value: pageFilters.enableTrad,
+                      value: pageFilters.disableTrad,
                       onChanged: (newVal) {
                         setState(() {
                           pageFilters =
-                              pageFilters.copyWith(enableTrad: newVal);
+                              pageFilters.copyWith(disableTrad: newVal);
                         });
                       }),
                   Text('Sport'),
                   Switch(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      value: pageFilters.enableSport,
+                      value: pageFilters.disableSport,
                       onChanged: (newVal) {
                         setState(() {
                           pageFilters =
-                              pageFilters.copyWith(enableSport: newVal);
+                              pageFilters.copyWith(disableSport: newVal);
                         });
                       }),
                 ],
@@ -210,11 +208,11 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
                   Text('Top Rope'),
                   Switch(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      value: pageFilters.enableTopRope,
+                      value: pageFilters.disableTopRope,
                       onChanged: (newVal) {
                         setState(() {
                           pageFilters =
-                              pageFilters.copyWith(enableTopRope: newVal);
+                              pageFilters.copyWith(disableTopRope: newVal);
                         });
                       }),
                 ],

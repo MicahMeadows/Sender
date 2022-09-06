@@ -23,9 +23,9 @@ mixin _$TickFilters {
   String get minGrade => throw _privateConstructorUsedError;
   String get maxGrade => throw _privateConstructorUsedError;
   double get minRating => throw _privateConstructorUsedError;
-  bool get enableTopRope => throw _privateConstructorUsedError;
-  bool get enableSport => throw _privateConstructorUsedError;
-  bool get enableTrad => throw _privateConstructorUsedError;
+  bool get disableTopRope => throw _privateConstructorUsedError;
+  bool get disableSport => throw _privateConstructorUsedError;
+  bool get disableTrad => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,9 +42,9 @@ abstract class $TickFiltersCopyWith<$Res> {
       {String minGrade,
       String maxGrade,
       double minRating,
-      bool enableTopRope,
-      bool enableSport,
-      bool enableTrad});
+      bool disableTopRope,
+      bool disableSport,
+      bool disableTrad});
 }
 
 /// @nodoc
@@ -60,9 +60,9 @@ class _$TickFiltersCopyWithImpl<$Res> implements $TickFiltersCopyWith<$Res> {
     Object? minGrade = freezed,
     Object? maxGrade = freezed,
     Object? minRating = freezed,
-    Object? enableTopRope = freezed,
-    Object? enableSport = freezed,
-    Object? enableTrad = freezed,
+    Object? disableTopRope = freezed,
+    Object? disableSport = freezed,
+    Object? disableTrad = freezed,
   }) {
     return _then(_value.copyWith(
       minGrade: minGrade == freezed
@@ -77,17 +77,17 @@ class _$TickFiltersCopyWithImpl<$Res> implements $TickFiltersCopyWith<$Res> {
           ? _value.minRating
           : minRating // ignore: cast_nullable_to_non_nullable
               as double,
-      enableTopRope: enableTopRope == freezed
-          ? _value.enableTopRope
-          : enableTopRope // ignore: cast_nullable_to_non_nullable
+      disableTopRope: disableTopRope == freezed
+          ? _value.disableTopRope
+          : disableTopRope // ignore: cast_nullable_to_non_nullable
               as bool,
-      enableSport: enableSport == freezed
-          ? _value.enableSport
-          : enableSport // ignore: cast_nullable_to_non_nullable
+      disableSport: disableSport == freezed
+          ? _value.disableSport
+          : disableSport // ignore: cast_nullable_to_non_nullable
               as bool,
-      enableTrad: enableTrad == freezed
-          ? _value.enableTrad
-          : enableTrad // ignore: cast_nullable_to_non_nullable
+      disableTrad: disableTrad == freezed
+          ? _value.disableTrad
+          : disableTrad // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -104,9 +104,9 @@ abstract class _$$_TickFiltersCopyWith<$Res>
       {String minGrade,
       String maxGrade,
       double minRating,
-      bool enableTopRope,
-      bool enableSport,
-      bool enableTrad});
+      bool disableTopRope,
+      bool disableSport,
+      bool disableTrad});
 }
 
 /// @nodoc
@@ -124,9 +124,9 @@ class __$$_TickFiltersCopyWithImpl<$Res> extends _$TickFiltersCopyWithImpl<$Res>
     Object? minGrade = freezed,
     Object? maxGrade = freezed,
     Object? minRating = freezed,
-    Object? enableTopRope = freezed,
-    Object? enableSport = freezed,
-    Object? enableTrad = freezed,
+    Object? disableTopRope = freezed,
+    Object? disableSport = freezed,
+    Object? disableTrad = freezed,
   }) {
     return _then(_$_TickFilters(
       minGrade: minGrade == freezed
@@ -141,17 +141,17 @@ class __$$_TickFiltersCopyWithImpl<$Res> extends _$TickFiltersCopyWithImpl<$Res>
           ? _value.minRating
           : minRating // ignore: cast_nullable_to_non_nullable
               as double,
-      enableTopRope: enableTopRope == freezed
-          ? _value.enableTopRope
-          : enableTopRope // ignore: cast_nullable_to_non_nullable
+      disableTopRope: disableTopRope == freezed
+          ? _value.disableTopRope
+          : disableTopRope // ignore: cast_nullable_to_non_nullable
               as bool,
-      enableSport: enableSport == freezed
-          ? _value.enableSport
-          : enableSport // ignore: cast_nullable_to_non_nullable
+      disableSport: disableSport == freezed
+          ? _value.disableSport
+          : disableSport // ignore: cast_nullable_to_non_nullable
               as bool,
-      enableTrad: enableTrad == freezed
-          ? _value.enableTrad
-          : enableTrad // ignore: cast_nullable_to_non_nullable
+      disableTrad: disableTrad == freezed
+          ? _value.disableTrad
+          : disableTrad // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -164,9 +164,9 @@ class _$_TickFilters extends _TickFilters {
       {this.minGrade = '5.0',
       this.maxGrade = '5.15d',
       this.minRating = 0,
-      this.enableTopRope = true,
-      this.enableSport = true,
-      this.enableTrad = true})
+      this.disableTopRope = false,
+      this.disableSport = false,
+      this.disableTrad = false})
       : super._();
 
   factory _$_TickFilters.fromJson(Map<String, dynamic> json) =>
@@ -183,17 +183,17 @@ class _$_TickFilters extends _TickFilters {
   final double minRating;
   @override
   @JsonKey()
-  final bool enableTopRope;
+  final bool disableTopRope;
   @override
   @JsonKey()
-  final bool enableSport;
+  final bool disableSport;
   @override
   @JsonKey()
-  final bool enableTrad;
+  final bool disableTrad;
 
   @override
   String toString() {
-    return 'TickFilters(minGrade: $minGrade, maxGrade: $maxGrade, minRating: $minRating, enableTopRope: $enableTopRope, enableSport: $enableSport, enableTrad: $enableTrad)';
+    return 'TickFilters(minGrade: $minGrade, maxGrade: $maxGrade, minRating: $minRating, disableTopRope: $disableTopRope, disableSport: $disableSport, disableTrad: $disableTrad)';
   }
 
   @override
@@ -205,11 +205,11 @@ class _$_TickFilters extends _TickFilters {
             const DeepCollectionEquality().equals(other.maxGrade, maxGrade) &&
             const DeepCollectionEquality().equals(other.minRating, minRating) &&
             const DeepCollectionEquality()
-                .equals(other.enableTopRope, enableTopRope) &&
+                .equals(other.disableTopRope, disableTopRope) &&
             const DeepCollectionEquality()
-                .equals(other.enableSport, enableSport) &&
+                .equals(other.disableSport, disableSport) &&
             const DeepCollectionEquality()
-                .equals(other.enableTrad, enableTrad));
+                .equals(other.disableTrad, disableTrad));
   }
 
   @JsonKey(ignore: true)
@@ -219,9 +219,9 @@ class _$_TickFilters extends _TickFilters {
       const DeepCollectionEquality().hash(minGrade),
       const DeepCollectionEquality().hash(maxGrade),
       const DeepCollectionEquality().hash(minRating),
-      const DeepCollectionEquality().hash(enableTopRope),
-      const DeepCollectionEquality().hash(enableSport),
-      const DeepCollectionEquality().hash(enableTrad));
+      const DeepCollectionEquality().hash(disableTopRope),
+      const DeepCollectionEquality().hash(disableSport),
+      const DeepCollectionEquality().hash(disableTrad));
 
   @JsonKey(ignore: true)
   @override
@@ -241,9 +241,9 @@ abstract class _TickFilters extends TickFilters {
       {final String minGrade,
       final String maxGrade,
       final double minRating,
-      final bool enableTopRope,
-      final bool enableSport,
-      final bool enableTrad}) = _$_TickFilters;
+      final bool disableTopRope,
+      final bool disableSport,
+      final bool disableTrad}) = _$_TickFilters;
   _TickFilters._() : super._();
 
   factory _TickFilters.fromJson(Map<String, dynamic> json) =
@@ -256,11 +256,11 @@ abstract class _TickFilters extends TickFilters {
   @override
   double get minRating;
   @override
-  bool get enableTopRope;
+  bool get disableTopRope;
   @override
-  bool get enableSport;
+  bool get disableSport;
   @override
-  bool get enableTrad;
+  bool get disableTrad;
   @override
   @JsonKey(ignore: true)
   _$$_TickFiltersCopyWith<_$_TickFilters> get copyWith =>

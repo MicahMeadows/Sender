@@ -180,6 +180,11 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   Widget _makeTickList(TickFilters? filters, List<RouteTick> ticks) {
+    final filteredTicks = context.read<TickFilterCubit>().filterTicks(
+          ticks,
+          filters,
+          _searchFieldController.text,
+        );
     return Column(
       children: [
         const SizedBox(height: 35),
@@ -282,7 +287,7 @@ class _TodoPageState extends State<TodoPage> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                '${ticks.length} Result${ticks.length > 1 ? 's' : ''}',
+                '${filteredTicks.length} Result${filteredTicks.length > 1 ? 's' : ''}',
                 style: const TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 14,
@@ -296,15 +301,15 @@ class _TodoPageState extends State<TodoPage> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: _sidePadding),
             child: ListView.builder(
-              itemCount: ticks.length,
+              itemCount: filteredTicks.length,
               itemBuilder: (ctx, idx) {
-                var tickItem = ticks[idx];
+                var tickItem = filteredTicks[idx];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TickCard(
                     tick: tickItem,
                     onDismiss: () {
-                      todoListCubit.removeTick(ticks[idx]);
+                      todoListCubit.removeTick(filteredTicks[idx]);
                     },
                   ),
                 );

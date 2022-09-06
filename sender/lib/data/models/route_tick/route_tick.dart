@@ -14,6 +14,7 @@ class RouteTick with _$RouteTick {
     required String grade,
     required String area,
     required String type,
+    required String? routeType,
   }) = _RouteTick;
 
   factory RouteTick.fromJson(Map<String, dynamic> json) =>
@@ -37,6 +38,7 @@ class RouteTick with _$RouteTick {
       rating: route.rating ?? 0,
       grade: route.grade ?? 'N/A',
       area: route.area ?? 'Unavailable',
+      routeType: route.type ?? 'N/A',
       type: tickType,
     );
   }

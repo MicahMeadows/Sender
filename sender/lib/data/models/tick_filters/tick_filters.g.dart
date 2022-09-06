@@ -11,9 +11,9 @@ _$_TickFilters _$$_TickFiltersFromJson(Map<String, dynamic> json) =>
       minGrade: json['minGrade'] as String? ?? '5.0',
       maxGrade: json['maxGrade'] as String? ?? '5.15d',
       minRating: (json['minRating'] as num?)?.toDouble() ?? 0,
-      enableTopRope: json['enableTopRope'] as bool? ?? true,
-      enableSport: json['enableSport'] as bool? ?? true,
-      enableTrad: json['enableTrad'] as bool? ?? true,
+      disableTopRope: json['disableTopRope'] as bool? ?? false,
+      disableSport: json['disableSport'] as bool? ?? false,
+      disableTrad: json['disableTrad'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_TickFiltersToJson(_$_TickFilters instance) =>
@@ -21,7 +21,7 @@ Map<String, dynamic> _$$_TickFiltersToJson(_$_TickFilters instance) =>
       'minGrade': instance.minGrade,
       'maxGrade': instance.maxGrade,
       'minRating': instance.minRating,
-      'enableTopRope': instance.enableTopRope,
-      'enableSport': instance.enableSport,
-      'enableTrad': instance.enableTrad,
+      'disableTopRope': instance.disableTopRope,
+      'disableSport': instance.disableSport,
+      'disableTrad': instance.disableTrad,
     };
