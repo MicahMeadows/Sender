@@ -215,12 +215,6 @@ class _SwipableCardState extends State<RouteCard>
           );
         },
       ));
-      // var workingImage = () {
-      //   return _tryMakeImage(imageUrl,
-      //       replaceString: "large",
-      //       backupOptions: ["medium", "smallMed", "small"]);
-      // }();
-      // _routeImages.add(workingImage);
     }
 
     super.initState();

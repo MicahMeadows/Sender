@@ -95,26 +95,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
         imageUrl,
         fit: BoxFit.fitWidth,
       );
-      // try {
-      //   return Image.network(
-      //     imageUrl,
-      //     fit: BoxFit.fitWidth,
-      //   );
-      // } catch (ex) {
-      //   try {
-      //     return Image.network(
-      //       imageUrl.replaceAll('large', 'medium'),
-      //       fit: BoxFit.fitWidth,
-      //     );
-      //   } catch (ex2) {
-      //     return Image.network(
-      //       imageUrl
-      //           .replaceAll('large', 'smallMed')
-      //           .replaceAll('medium', 'smallMed'),
-      //       fit: BoxFit.fitWidth,
-      //     );
-      //   }
-      // }
     }).toList();
 
     _scrollController.addListener(() {
