@@ -105,6 +105,15 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
   }
 
   @override
+  void didChangeDependencies() {
+    images.forEach((element) {
+      precacheImage(element.image, context);
+    });
+
+    super.didChangeDependencies();
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _scrollController.dispose();
