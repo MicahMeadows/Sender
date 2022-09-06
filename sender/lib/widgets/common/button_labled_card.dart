@@ -17,6 +17,7 @@ class ButtonLabledCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LabledCard(
+      sidePriority: LabledCardSidePriority.left,
       title: title,
       child: InkWell(
         onTap: onTap,
