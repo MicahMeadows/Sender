@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/data/models/tick_filters/tick_filters.dart';
 import 'package:sender/main.dart';
+import 'package:sender/widgets/common/custom_drop_down.dart';
 import 'package:sender/widgets/common/drop_button.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/round_button.dart';
@@ -26,6 +29,13 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   int tabIndex = 0;
   final double _sidePadding = 20;
+  bool showSearch = true;
+
+  late final TextEditingController _searchFieldController =
+      TextEditingController()
+        ..addListener(() {
+          setState(() {});
+        });
 
   @override
   Widget build(BuildContext context) {
@@ -131,8 +141,19 @@ class _TodoPageState extends State<TodoPage> {
           padding: EdgeInsets.symmetric(horizontal: _sidePadding),
           child: Row(
             children: [
-              const DropButton(title: 'Order'),
-              const SizedBox(width: 14),
+              // CustomDropDown(
+              //   onChange: (newVal) {
+              //     //
+              //   },
+              //   items: const [
+              //     'Order',
+              //     'Highest Grade',
+              //     'Highest Rating',
+              //     'Lowest Grade',
+              //     'Lowest Rating',
+              //   ],
+              // ),
+              // const SizedBox(width: 14),
               RoundButton(
                 child: Center(
                   child: Padding(
@@ -154,14 +175,49 @@ class _TodoPageState extends State<TodoPage> {
                 ),
                 onTap: () {},
               ),
-              const Spacer(),
-              RoundButton.circular(
-                onTap: () {
-                  debugPrint('search pressed');
-                },
-                child: const Icon(
-                  Icons.search,
-                  color: col.text1,
+              const SizedBox(width: 10),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: col.secondary,
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [BoxShadow()]),
+                  child: Row(children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 2,
+                        ),
+                        child: TextField(
+                          controller: _searchFieldController,
+                          style: const TextStyle(fontSize: 20),
+                          // decoration: null,
+                          cursorColor: Colors.white,
+                          decoration: const InputDecoration.collapsed(
+                            hintText: 'Search...',
+                            hintStyle: TextStyle(
+                              fontSize: 16,
+                              color: col.text2,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (_searchFieldController.text != '')
+                      GestureDetector(
+                        child: const Icon(
+                          Icons.close,
+                          color: col.text1,
+                        ),
+                        onTap: (() {
+                          setState(() {
+                            _searchFieldController.clear();
+                          });
+                        }),
+                      ),
+                    const SizedBox(width: 10)
+                  ]),
                 ),
               ),
             ],
