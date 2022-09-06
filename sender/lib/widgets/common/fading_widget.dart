@@ -37,7 +37,6 @@ class _FadingWidgetState extends State<FadingWidget>
         Random()
             .nextInt(widget.maxRotationAmount - -widget.maxRotationAmount)
             .toDouble();
-    debugPrint('init');
     _animationController = AnimationController(
       vsync: this,
       duration: widget.animationDuration,

@@ -27,11 +27,21 @@ class TickFilterCubit extends Cubit<TickFilterState> {
     return false;
   }
 
+// fix me
   bool inGradeRange(RouteTick tick, TickFilters filters) {
-    final minOfLower = minClimbingGrade(tick.grade, filters.minGrade);
-    final minOfUpper = minClimbingGrade(tick.grade, filters.maxGrade);
+    return true;
+    // TODO: fix this by adding grade ranking
+    final tickLowerThanMax =
+        minClimbingGrade(tick.grade, filters.maxGrade) == tick.grade;
 
-    return minOfLower != tick.grade && minOfUpper == tick.grade;
+    final tickHigherThanMin =
+        minClimbingGrade(tick.grade, filters.minGrade) == filters.maxGrade;
+
+    if (tickHigherThanMin && tickLowerThanMax) {
+      print('here');
+    }
+
+    return tickLowerThanMax && tickHigherThanMin;
   }
 
   bool aboveMinRating(RouteTick tick, TickFilters filters) {

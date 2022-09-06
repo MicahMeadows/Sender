@@ -10,7 +10,6 @@ import 'package:sender/data/cubits/tick_filter/tick_filter_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/data/repository/area_repository/i_area_repository.dart';
 import 'package:sender/data/repository/area_repository/retrofit_area_repository.dart';
-import 'package:sender/data/repository/area_repository/test_area_repository.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/data/repository/user_repository/caching_user_repository.dart';
@@ -20,7 +19,6 @@ import 'package:sender/data/sender_api/retrofit_sender_api.dart';
 import 'package:sender/firebase_options.dart';
 import 'package:sender/widgets/auth_gate.dart';
 import 'package:dio/dio.dart';
-import 'package:sender/widgets/pages/todo_page/todo_filter_dialog.dart';
 import 'data/repository/queue_route_repository/retrofit_queue_route_repository.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 
@@ -54,7 +52,7 @@ final TodoListCubit todoListCubit = TodoListCubit(_userRepository)..loadTicks();
 
 // initially load single route to get on page then force load more in background
 final RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository)
-  ..loadRoutes(count: 1)
+  ..loadRoutes(count: 3)
   ..queueUpRoutes(5);
 final NavigationCubit navigationCubit = NavigationCubit();
 final RouteSettingsCubit routeSettingsCubit = RouteSettingsCubit(
@@ -109,7 +107,7 @@ class MyApp extends StatelessWidget {
               home: const Scaffold(
                 backgroundColor: col.background,
                 body: SafeArea(
-                  child: const AuthGate(),
+                  child: AuthGate(),
                 ),
               ),
               routes: const {},

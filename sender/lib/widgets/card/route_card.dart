@@ -190,12 +190,31 @@ class _SwipableCardState extends State<RouteCard>
     }
 
     for (String imageUrl in widget.route.imageUrls ?? []) {
-      var workingImage = () {
-        return _tryMakeImage(imageUrl,
-            replaceString: "large",
-            backupOptions: ["medium", "smallMed", "small"]);
-      }();
-      _routeImages.add(workingImage);
+      _routeImages.add(Image.network(
+        imageUrl,
+        fit: BoxFit.cover,
+        loadingBuilder: _loadingBuilder,
+        errorBuilder: (ctx, obj, trace) {
+          return Container(
+            decoration: const BoxDecoration(
+              color: col.tertiary,
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.error_outline,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  Text('Failed to load image'),
+                ],
+              ),
+            ),
+          );
+        },
+      ));
     }
 
     super.initState();
