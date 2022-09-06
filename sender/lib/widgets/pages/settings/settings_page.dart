@@ -129,7 +129,7 @@ class _SettingsPageState extends State<SettingsPage> {
       barrierLabel: "Barrier",
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.5),
-      transitionDuration: Duration(milliseconds: 300),
+      transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (_, __, ___) {
         return Stack(
           alignment: Alignment.center,
@@ -149,28 +149,28 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         );
       },
-      transitionBuilder: (_, anim, __, child) {
-        Tween<Offset> tween;
-        if (anim.status == AnimationStatus.reverse) {
-          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
-        } else {
-          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
-        }
+      // transitionBuilder: (_, anim, __, child) {
+      //   Tween<Offset> tween;
+      //   if (anim.status == AnimationStatus.reverse) {
+      //     tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+      //   } else {
+      //     tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+      //   }
 
-        return BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 4 * anim.value,
-            sigmaY: 4 * anim.value,
-          ),
-          child: SlideTransition(
-            position: tween.animate(anim),
-            child: FadeTransition(
-              opacity: anim,
-              child: child,
-            ),
-          ),
-        );
-      },
+      //   return BackdropFilter(
+      //     filter: ImageFilter.blur(
+      //       sigmaX: 4 * anim.value,
+      //       sigmaY: 4 * anim.value,
+      //     ),
+      //     child: SlideTransition(
+      //       position: tween.animate(anim),
+      //       child: FadeTransition(
+      //         opacity: anim,
+      //         child: child,
+      //       ),
+      //     ),
+      //   );
+      // },
     );
   }
 

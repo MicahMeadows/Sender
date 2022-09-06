@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,18 +26,8 @@ class TickCard extends StatelessWidget {
           width: double.infinity,
           height: _cardHeight,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Neumorphic(
-              style: NeumorphicStyle(
-                color: col.error,
-                depth: -5,
-                intensity: 5,
-                surfaceIntensity: .15,
-                shadowDarkColor: Colors.black.withOpacity(.5),
-                // shadowLightColor: Colors.transparent,
-                lightSource: LightSource.top,
-                // shadowLightColorEmboss: Colors.transparent,
-              ),
+            child: Container(
+              decoration: const BoxDecoration(color: col.error),
               child: const Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
@@ -49,6 +39,7 @@ class TickCard extends StatelessWidget {
                 ),
               ),
             ),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
         Dismissible(

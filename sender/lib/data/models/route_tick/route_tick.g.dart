@@ -13,6 +13,7 @@ _$_RouteTick _$$_RouteTickFromJson(Map<String, dynamic> json) => _$_RouteTick(
       grade: json['grade'] as String,
       area: json['area'] as String,
       type: json['type'] as String,
+      routeType: json['routeType'] as String?,
     );
 
 Map<String, dynamic> _$$_RouteTickToJson(_$_RouteTick instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$_RouteTickToJson(_$_RouteTick instance) =>
       'grade': instance.grade,
       'area': instance.area,
       'type': instance.type,
+      'routeType': instance.routeType,
     };

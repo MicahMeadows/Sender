@@ -41,9 +41,17 @@ class RouteDetailsPage extends StatefulWidget {
   State<RouteDetailsPage> createState() => _RouteDetailsPageState();
 }
 
-class _RouteDetailsPageState extends State<RouteDetailsPage> {
+class _RouteDetailsPageState extends State<RouteDetailsPage>
+    with TickerProviderStateMixin {
   final GlobalKey _aboveAppBarKey = GlobalKey();
   final GlobalKey _belowAppBarKey = GlobalKey();
+  late final AnimationController _headerAnimationController =
+      AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 100),
+  );
+  late final Animation _headerAnimation;
+
   late final _appTextTheme = Theme.of(context).textTheme;
 
   int _selectedImageIdx = 0;
@@ -66,6 +74,22 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
 
   @override
   void initState() {
+    _headerAnimation = Tween<double>(begin: 1, end: 0).animate(
+      _headerAnimationController,
+    );
+    var firstRender = true;
+    _scrollController.addListener(() {
+      if (firstRender) {
+        firstRender = false;
+        return;
+      }
+      final double height = MediaQuery.of(context).size.height;
+      if (_lastBelowAppBarDistanceFromTop >= height * .98) {
+        _headerAnimationController.forward();
+      } else {
+        _headerAnimationController.reverse();
+      }
+    });
     images = (widget.route.imageUrls ?? []).map((imageUrl) {
       try {
         return Image.network(
@@ -144,6 +168,12 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
             _lastBelowAppBarDistanceFromTop =
                 belowAppBarRenderObj.localToGlobal(Offset.zero).dy;
             // print('last below dist: $_lastBelowAppBarDistanceFromTop');
+
+            double height = MediaQuery.of(context).size.height;
+            double distanceFromBottom =
+                height - _lastBelowAppBarDistanceFromTop;
+
+            // print(distanceFromBottom);
 
             if (!_initialized) {
               // _scrollController
@@ -229,9 +259,13 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                           height: MediaQuery.of(context).size.height -
                               (_lastBelowAppBarDistanceFromTop -
                                   _lastAboveAppBarDistanceFromTop) -
-                              10,
+                              15,
                           child: GestureDetector(
                             onTapDown: (details) {
+                              if ((widget.route.imageUrls?.length ?? 0) < 2) {
+                                return;
+                              }
+
                               var tapPosX = details.globalPosition.dx;
                               const buttonScaler = .3;
                               const pageFlipDuration = Duration(
@@ -293,7 +327,15 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                         ),
                       ),
                       SliverAppBar(
-                        backgroundColor: col.primary,
+                        backgroundColor:
+                            col.primary.withOpacity(_headerAnimation.value),
+                        // backgroundColor: () {
+                        //   // double height = MediaQuery.of(context).size.height;
+                        //   // if (_lastBelowAppBarDistanceFromTop >= height * .98) {
+                        //   //   return Colors.transparent;
+                        //   // }
+                        //   // return col.primary;
+                        // }(),
                         toolbarHeight: 0,
                         elevation: 2,
                         pinned: true,
@@ -314,20 +356,22 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                               Expanded(
                                 flex: 4,
                                 child: FittedBox(
+                                  alignment: Alignment.center,
                                   fit: BoxFit.scaleDown,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Text(
-                                      widget.route.name,
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.nunito(
-                                        // color: Colors.black,
-                                        color: col.text1,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24,
-                                      ),
+                                  // child: Padding(
+                                  // padding:
+                                  //     const EdgeInsets.only(bottom: 15.0),
+                                  child: Text(
+                                    widget.route.name,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.nunito(
+                                      // color: Colors.black,
+                                      color: col.text1,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24,
                                     ),
                                   ),
+                                  // ),
                                 ),
                               ),
                               Expanded(
@@ -354,7 +398,9 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
                         ),
                       ),
                       SliverToBoxAdapter(
-                        child: _buildRouteDetailsWidget(context),
+                        child: Opacity(
+                            opacity: _headerAnimation.value,
+                            child: _buildRouteDetailsWidget(context)),
                       ),
                     ],
                   ),

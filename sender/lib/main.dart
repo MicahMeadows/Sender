@@ -6,6 +6,7 @@ import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
+import 'package:sender/data/cubits/tick_filter/tick_filter_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/data/repository/area_repository/i_area_repository.dart';
 import 'package:sender/data/repository/area_repository/retrofit_area_repository.dart';
@@ -19,6 +20,7 @@ import 'package:sender/data/sender_api/retrofit_sender_api.dart';
 import 'package:sender/firebase_options.dart';
 import 'package:sender/widgets/auth_gate.dart';
 import 'package:dio/dio.dart';
+import 'package:sender/widgets/pages/todo_page/todo_filter_dialog.dart';
 import 'data/repository/queue_route_repository/retrofit_queue_route_repository.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 
@@ -45,6 +47,8 @@ final IQueueRouteRepository _queueRouteRepository =
 final IUserRepository _userRepository = CachingUserRepository(
   RetrofitUserRepostiroy(_retrofitSenderApi),
 );
+
+final TickFilterCubit tickFilterCubit = TickFilterCubit();
 
 final TodoListCubit todoListCubit = TodoListCubit(_userRepository)..loadTicks();
 
@@ -89,6 +93,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(create: (_) => tickFilterCubit),
           BlocProvider(create: (_) => todoListCubit),
           BlocProvider(create: (_) => routeQueueCubit),
           BlocProvider(create: (_) => navigationCubit),
@@ -101,7 +106,7 @@ class MyApp extends StatelessWidget {
               title: 'Sender',
               theme: _themeData,
               initialRoute: '/',
-              home: Scaffold(
+              home: const Scaffold(
                 backgroundColor: col.background,
                 body: SafeArea(
                   child: const AuthGate(),
