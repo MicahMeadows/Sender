@@ -262,6 +262,10 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
                               15,
                           child: GestureDetector(
                             onTapDown: (details) {
+                              if ((widget.route.imageUrls?.length ?? 0) < 2) {
+                                return;
+                              }
+
                               var tapPosX = details.globalPosition.dx;
                               const buttonScaler = .3;
                               const pageFlipDuration = Duration(
