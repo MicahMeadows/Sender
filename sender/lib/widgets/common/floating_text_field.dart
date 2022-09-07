@@ -5,7 +5,7 @@ import 'package:sender/common/constants/colors.dart' as col;
 class FloatingTextField extends StatelessWidget {
   final String? hintText;
   final TextEditingController? controller;
-  final obscureText;
+  final bool obscureText;
   const FloatingTextField({
     this.hintText,
     this.controller,
@@ -18,17 +18,19 @@ class FloatingTextField extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-          color: col.primary,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 4),
-              blurRadius: 4,
-              color: Colors.black.withOpacity(.25),
-            )
-          ]),
+        color: col.primary,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(0, 4),
+            blurRadius: 4,
+            color: Colors.black.withOpacity(.25),
+          )
+        ],
+      ),
       child: TextField(
         obscureText: obscureText,
+        cursorColor: col.text2,
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
