@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart' as col;
@@ -142,7 +144,8 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
                   onTap: () {
                     setState(() {
                       final newRating = pageFilters.minRating - .5;
-                      pageFilters = pageFilters.copyWith(minRating: newRating);
+                      pageFilters =
+                          pageFilters.copyWith(minRating: max(0, newRating));
                     });
                   },
                   child: const Icon(
@@ -162,7 +165,8 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
                   onTap: () {
                     setState(() {
                       final newRating = pageFilters.minRating + .5;
-                      pageFilters = pageFilters.copyWith(minRating: newRating);
+                      pageFilters =
+                          pageFilters.copyWith(minRating: min(newRating, 4));
                     });
                   },
                   child: const Icon(
