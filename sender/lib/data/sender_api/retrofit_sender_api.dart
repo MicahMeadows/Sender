@@ -5,6 +5,8 @@ import 'package:sender/data/models/climbing_route/climbing_route.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/data/models/route_tick/route_tick.dart';
 
+import '../models/profile/profile.dart';
+
 part 'retrofit_sender_api.g.dart';
 
 @RestApi(baseUrl: 'http://127.0.0.1:8080')
@@ -25,8 +27,8 @@ abstract class RetrofitSenderApi {
     @Body() RoutePreferences newPreferences,
   );
 
-  // @POST('/user')
-  // Future<Profile> createUser();
+  @POST('/user')
+  Future<Profile> createUser(@Body() Profile profile);
 
   @GET('/routes/{id}/details')
   Future<ClimbingRoute> getRouteDetails(@Path("id") String id);

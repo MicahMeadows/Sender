@@ -10,9 +10,9 @@ class RetrofitUserRepostiroy implements IUserRepository {
   RetrofitUserRepostiroy(this._api);
 
   @override
-  Future<Profile> createProfile(String displayName) {
-    // TODO: implement createProfile
-    throw UnimplementedError();
+  Future<Profile> createProfile(String email, String displayName) async {
+    return await _api
+        .createUser(Profile(email: email, displayName: displayName));
   }
 
   @override

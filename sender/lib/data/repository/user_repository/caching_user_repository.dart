@@ -13,9 +13,9 @@ class CachingUserRepository implements IUserRepository {
   CachingUserRepository(this._userRepository);
 
   @override
-  Future<Profile> createProfile(String displayName) async {
+  Future<Profile> createProfile(String email, String displayName) async {
     loadedProfile = null;
-    return await _userRepository.createProfile(displayName);
+    return await _userRepository.createProfile(email, displayName);
   }
 
   @override

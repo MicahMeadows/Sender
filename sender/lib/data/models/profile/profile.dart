@@ -9,6 +9,7 @@ part 'profile.g.dart';
 @freezed
 class Profile with _$Profile {
   factory Profile({
+    String? uid,
     required String email,
     required String displayName,
     RoutePreferences? routePreferences,

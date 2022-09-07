@@ -20,6 +20,7 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Profile {
+  String? get uid => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get displayName => throw _privateConstructorUsedError;
   RoutePreferences? get routePreferences => throw _privateConstructorUsedError;
@@ -35,7 +36,8 @@ abstract class $ProfileCopyWith<$Res> {
   factory $ProfileCopyWith(Profile value, $Res Function(Profile) then) =
       _$ProfileCopyWithImpl<$Res>;
   $Res call(
-      {String email,
+      {String? uid,
+      String email,
       String displayName,
       RoutePreferences? routePreferences,
       List<RouteTick>? routeTicks});
@@ -53,12 +55,17 @@ class _$ProfileCopyWithImpl<$Res> implements $ProfileCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? uid = freezed,
     Object? email = freezed,
     Object? displayName = freezed,
     Object? routePreferences = freezed,
     Object? routeTicks = freezed,
   }) {
     return _then(_value.copyWith(
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -97,7 +104,8 @@ abstract class _$$_ProfileCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       __$$_ProfileCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String email,
+      {String? uid,
+      String email,
       String displayName,
       RoutePreferences? routePreferences,
       List<RouteTick>? routeTicks});
@@ -117,12 +125,17 @@ class __$$_ProfileCopyWithImpl<$Res> extends _$ProfileCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? uid = freezed,
     Object? email = freezed,
     Object? displayName = freezed,
     Object? routePreferences = freezed,
     Object? routeTicks = freezed,
   }) {
     return _then(_$_Profile(
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -147,7 +160,8 @@ class __$$_ProfileCopyWithImpl<$Res> extends _$ProfileCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Profile implements _Profile {
   _$_Profile(
-      {required this.email,
+      {this.uid,
+      required this.email,
       required this.displayName,
       this.routePreferences,
       final List<RouteTick>? routeTicks})
@@ -156,6 +170,8 @@ class _$_Profile implements _Profile {
   factory _$_Profile.fromJson(Map<String, dynamic> json) =>
       _$$_ProfileFromJson(json);
 
+  @override
+  final String? uid;
   @override
   final String email;
   @override
@@ -173,7 +189,7 @@ class _$_Profile implements _Profile {
 
   @override
   String toString() {
-    return 'Profile(email: $email, displayName: $displayName, routePreferences: $routePreferences, routeTicks: $routeTicks)';
+    return 'Profile(uid: $uid, email: $email, displayName: $displayName, routePreferences: $routePreferences, routeTicks: $routeTicks)';
   }
 
   @override
@@ -181,6 +197,7 @@ class _$_Profile implements _Profile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Profile &&
+            const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality()
                 .equals(other.displayName, displayName) &&
@@ -194,6 +211,7 @@ class _$_Profile implements _Profile {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(displayName),
       const DeepCollectionEquality().hash(routePreferences),
@@ -214,13 +232,16 @@ class _$_Profile implements _Profile {
 
 abstract class _Profile implements Profile {
   factory _Profile(
-      {required final String email,
+      {final String? uid,
+      required final String email,
       required final String displayName,
       final RoutePreferences? routePreferences,
       final List<RouteTick>? routeTicks}) = _$_Profile;
 
   factory _Profile.fromJson(Map<String, dynamic> json) = _$_Profile.fromJson;
 
+  @override
+  String? get uid;
   @override
   String get email;
   @override
