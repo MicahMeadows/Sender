@@ -9,7 +9,7 @@ import '../models/profile/profile.dart';
 
 part 'retrofit_sender_api.g.dart';
 
-@RestApi(baseUrl: 'http://127.0.0.1:8080')
+@RestApi(baseUrl: 'https://sender-76256.web.app')
 abstract class RetrofitSenderApi {
   factory RetrofitSenderApi(
     Dio dio, {

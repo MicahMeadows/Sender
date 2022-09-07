@@ -10,7 +10,7 @@ part of 'retrofit_sender_api.dart';
 
 class _RetrofitSenderApi implements RetrofitSenderApi {
   _RetrofitSenderApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://127.0.0.1:8080';
+    baseUrl ??= 'https://sender-76256.web.app';
   }
 
   final Dio _dio;

@@ -156,9 +156,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             SectionBanner(
                               text: 'Account Settings',
                               trailing: InkWell(
-                                  onTap: () {
-                                    context.read<FirebaseAuthCubit>().signOut();
-                                  },
+                                  onTap: () => context
+                                      .read<FirebaseAuthCubit>()
+                                      .signOut(),
                                   child: const Padding(
                                     padding: EdgeInsets.only(right: 20.0),
                                     child: Text(
