@@ -7,6 +7,7 @@ part of 'profile.dart';
 // **************************************************************************
 
 _$_Profile _$$_ProfileFromJson(Map<String, dynamic> json) => _$_Profile(
+      uid: json['uid'] as String?,
       email: json['email'] as String,
       displayName: json['displayName'] as String,
       routePreferences: json['routePreferences'] == null
@@ -20,6 +21,7 @@ _$_Profile _$$_ProfileFromJson(Map<String, dynamic> json) => _$_Profile(
 
 Map<String, dynamic> _$$_ProfileToJson(_$_Profile instance) =>
     <String, dynamic>{
+      'uid': instance.uid,
       'email': instance.email,
       'displayName': instance.displayName,
       'routePreferences': instance.routePreferences,

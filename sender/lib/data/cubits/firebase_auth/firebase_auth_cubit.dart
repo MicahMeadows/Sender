@@ -41,7 +41,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthState> {
         password: password,
       );
 
-      await userRepository.createProfile(name);
+      await userRepository.createProfile(email, name);
     } catch (e) {
       throw Exception('Failed to sign up: $e');
     }

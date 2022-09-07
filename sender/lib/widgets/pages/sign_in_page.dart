@@ -26,7 +26,7 @@ class _SignInPageState extends State<SignInPage> {
 
   String get _nameText => nameController.text.trim();
 
-  bool signIn = false;
+  bool signIn = true;
 
   final signInTop = SizedBox(
     // color: Colors.white,
@@ -57,7 +57,7 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget getTopSection() {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 450),
+      duration: const Duration(milliseconds: 250),
       transitionBuilder: (Widget child, Animation<double> animation) {
         return ScaleTransition(
           scale: animation,
@@ -69,7 +69,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget getLoginBottom(FirebaseAuthCubit authCubit) {
-    return Column(key: UniqueKey(), children: [
+    return Column(children: [
       const SizedBox(height: 23),
       ThickButton(
         text: 'Sign In',
@@ -119,7 +119,7 @@ class _SignInPageState extends State<SignInPage> {
             left: 30,
             top: 30,
             child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 450),
+              duration: const Duration(milliseconds: 250),
               opacity: signIn ? 0 : 1,
               child: ThickButton(
                 mainColor: col.primary,
@@ -143,7 +143,7 @@ class _SignInPageState extends State<SignInPage> {
             bottom: 30,
             right: 30,
             child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 450),
+              duration: const Duration(milliseconds: 250),
               opacity: signIn ? 0 : 1,
               child: ThickButton(
                 mainColor: col.accent,
@@ -184,13 +184,22 @@ class _SignInPageState extends State<SignInPage> {
                     hintText: 'Password',
                   ),
                   const SizedBox(height: 14),
-                  if (!signIn)
-                    FloatingTextField(
-                      controller: nameController,
-                      hintText: 'Name',
-                    ),
                   AnimatedSize(
+                    alignment: Alignment.bottomCenter,
                     duration: Duration(milliseconds: 300),
+                    reverseDuration: Duration(milliseconds: 300),
+                    child: SizedBox(
+                      height: signIn ? 0 : null,
+                      child: FloatingTextField(
+                        controller: nameController,
+                        hintText: 'Name',
+                      ),
+                    ),
+                  ),
+                  AnimatedSize(
+                    alignment: Alignment.bottomCenter,
+                    duration: Duration(milliseconds: 350),
+                    reverseDuration: Duration(milliseconds: 350),
                     child: SizedBox(
                       height: signIn ? null : 0,
                       child: getLoginBottom(authCubit),
