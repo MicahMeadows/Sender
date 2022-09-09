@@ -39,7 +39,8 @@ final Dio _dioClient = Dio()..interceptors.add(firebaseAuthenticatorWrapper);
 
 final RetrofitSenderApi _retrofitSenderApi = RetrofitSenderApi(_dioClient);
 
-final IAreaRepository _areaRepository = MPScrapeAreaRepository();
+final IAreaRepository _areaRepository =
+    RetrofitAreaRepository(_retrofitSenderApi);
 
 final IQueueRouteRepository _queueRouteRepository =
     RetrofitQueueRouteRepository(_retrofitSenderApi);
