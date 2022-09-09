@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:sender/common/constants/colors.dart' as col;
+import 'package:sender/data/cubits/area_select_cubit/area_select_cubit.dart';
 import 'package:sender/data/cubits/firebase_auth/firebase_auth_cubit.dart';
 import 'package:sender/data/cubits/route_preferences/route_settings_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
@@ -78,7 +79,8 @@ class _SettingsPageState extends State<SettingsPage> {
             Material(
               color: Colors.transparent,
               child: AreaSelector(
-                areaCubit: routeSettingsCubit.createAreaSelectCubit(),
+                // areaCubit: routeSettingsCubit.createAreaSelectCubit(),
+                areaCubit: context.read<AreaSelectCubit>(),
                 onSave: (newArea) {
                   setState(() {
                     pagePreferences = pagePreferences.copyWith(area: newArea);

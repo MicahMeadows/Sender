@@ -26,7 +26,7 @@ class AreaSelector extends StatefulWidget {
 class _AreaSelectorState extends State<AreaSelector> {
   @override
   void dispose() {
-    widget.areaCubit.close();
+    // widget.areaCubit.close();
     super.dispose();
   }
 

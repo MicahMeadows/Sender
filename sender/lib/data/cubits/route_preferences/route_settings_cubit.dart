@@ -20,23 +20,23 @@ class RouteSettingsCubit extends Cubit<RouteSettingsState> {
     loadSavedPreferences();
   }
 
-  AreaSelectCubit createAreaSelectCubit() {
-    if (state is! _settingsLoaded) {
-      throw Exception('Cannot create area selector no settings loaded');
-    }
+  // AreaSelectCubit createAreaSelectCubit() {
+  //   if (state is! _settingsLoaded) {
+  //     throw Exception('Cannot create area selector no settings loaded');
+  //   }
 
-    final loadedState = state as _settingsLoaded;
+  //   final loadedState = state as _settingsLoaded;
 
-    final loadedSettings = loadedState.settings;
+  //   final loadedSettings = loadedState.settings;
 
-    final newCubit = AreaSelectCubit(
-      areaRepository,
-      initialArea: loadedSettings.area,
-    );
+  //   final newCubit = AreaSelectCubit(
+  //     areaRepository,
+  //     initialArea: loadedSettings.area,
+  //   );
 
-    newCubit.setSelectedArea(loadedSettings.area);
-    return newCubit;
-  }
+  //   newCubit.setSelectedArea(loadedSettings.area);
+  //   return newCubit;
+  // }
 
   void setPreferences(RoutePreferences newPreferences) {
     emit(RouteSettingsState.settingsLoaded(settings: newPreferences));
