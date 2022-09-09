@@ -33,23 +33,10 @@ class AreaSelectCubit extends Cubit<AreaSelectState> {
     }
   }
 
-  void goBackArea() {
-    state.whenOrNull(loaded: (selected, subAreas, isLeaf) {
-      if (selected.level == null) return;
-      if (selected.level! == 0) return;
-      final parentArea = subAreas
-          .firstWhere((element) => element.level == selected.level! - 1);
-
-      setSelectedArea(parentArea);
-    });
-  }
-
   void setSelectedArea(Area newArea) {
     state.maybeWhen(
-      loaded: ((selectedArea, subAreas, leaf) {
-        if (leaf) {
-          emit(AreaSelectState.loaded(selectedArea, subAreas, true));
-        } else {
+      loaded: ((selectedArea, areas) {
+        if (selectedArea != newArea) {
           _loadSubAreas(newArea);
         }
       }),

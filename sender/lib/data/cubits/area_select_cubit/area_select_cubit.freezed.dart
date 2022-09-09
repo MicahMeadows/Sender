@@ -19,25 +19,21 @@ mixin _$AreaSelectState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            Area selectedarea, List<Area> subareas, bool isLeaf)
-        loaded,
+    required TResult Function(Area selectedarea, List<Area> areas) loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> subareas, bool isLeaf)?
-        loaded,
+    TResult Function(Area selectedarea, List<Area> areas)? loaded,
     TResult Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> subareas, bool isLeaf)?
-        loaded,
+    TResult Function(Area selectedarea, List<Area> areas)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -123,9 +119,7 @@ class _$_loading implements _loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            Area selectedarea, List<Area> subareas, bool isLeaf)
-        loaded,
+    required TResult Function(Area selectedarea, List<Area> areas) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -135,8 +129,7 @@ class _$_loading implements _loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> subareas, bool isLeaf)?
-        loaded,
+    TResult Function(Area selectedarea, List<Area> areas)? loaded,
     TResult Function(String message)? error,
   }) {
     return loading?.call();
@@ -146,8 +139,7 @@ class _$_loading implements _loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> subareas, bool isLeaf)?
-        loaded,
+    TResult Function(Area selectedarea, List<Area> areas)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -200,7 +192,9 @@ abstract class _loading implements AreaSelectState {
 abstract class _$$_loadedCopyWith<$Res> {
   factory _$$_loadedCopyWith(_$_loaded value, $Res Function(_$_loaded) then) =
       __$$_loadedCopyWithImpl<$Res>;
-  $Res call({Area selectedarea, List<Area> subareas, bool isLeaf});
+  $Res call({Area selectedarea, List<Area> areas});
+
+  $AreaCopyWith<$Res> get selectedarea;
 }
 
 /// @nodoc
@@ -215,49 +209,45 @@ class __$$_loadedCopyWithImpl<$Res> extends _$AreaSelectStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? selectedarea = freezed,
-    Object? subareas = freezed,
-    Object? isLeaf = freezed,
+    Object? areas = freezed,
   }) {
     return _then(_$_loaded(
       selectedarea == freezed
           ? _value.selectedarea
           : selectedarea // ignore: cast_nullable_to_non_nullable
               as Area,
-      subareas == freezed
-          ? _value._subareas
-          : subareas // ignore: cast_nullable_to_non_nullable
+      areas == freezed
+          ? _value._areas
+          : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
-      isLeaf == freezed
-          ? _value.isLeaf
-          : isLeaf // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
+  }
+
+  @override
+  $AreaCopyWith<$Res> get selectedarea {
+    return $AreaCopyWith<$Res>(_value.selectedarea, (value) {
+      return _then(_value.copyWith(selectedarea: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_loaded implements _loaded {
-  const _$_loaded(this.selectedarea, final List<Area> subareas,
-      [this.isLeaf = false])
-      : _subareas = subareas;
+  const _$_loaded(this.selectedarea, final List<Area> areas) : _areas = areas;
 
   @override
   final Area selectedarea;
-  final List<Area> _subareas;
+  final List<Area> _areas;
   @override
-  List<Area> get subareas {
+  List<Area> get areas {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_subareas);
+    return EqualUnmodifiableListView(_areas);
   }
 
   @override
-  @JsonKey()
-  final bool isLeaf;
-
-  @override
   String toString() {
-    return 'AreaSelectState.loaded(selectedarea: $selectedarea, subareas: $subareas, isLeaf: $isLeaf)';
+    return 'AreaSelectState.loaded(selectedarea: $selectedarea, areas: $areas)';
   }
 
   @override
@@ -267,16 +257,14 @@ class _$_loaded implements _loaded {
             other is _$_loaded &&
             const DeepCollectionEquality()
                 .equals(other.selectedarea, selectedarea) &&
-            const DeepCollectionEquality().equals(other._subareas, _subareas) &&
-            const DeepCollectionEquality().equals(other.isLeaf, isLeaf));
+            const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(selectedarea),
-      const DeepCollectionEquality().hash(_subareas),
-      const DeepCollectionEquality().hash(isLeaf));
+      const DeepCollectionEquality().hash(_areas));
 
   @JsonKey(ignore: true)
   @override
@@ -287,36 +275,32 @@ class _$_loaded implements _loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            Area selectedarea, List<Area> subareas, bool isLeaf)
-        loaded,
+    required TResult Function(Area selectedarea, List<Area> areas) loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(selectedarea, subareas, isLeaf);
+    return loaded(selectedarea, areas);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> subareas, bool isLeaf)?
-        loaded,
+    TResult Function(Area selectedarea, List<Area> areas)? loaded,
     TResult Function(String message)? error,
   }) {
-    return loaded?.call(selectedarea, subareas, isLeaf);
+    return loaded?.call(selectedarea, areas);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> subareas, bool isLeaf)?
-        loaded,
+    TResult Function(Area selectedarea, List<Area> areas)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(selectedarea, subareas, isLeaf);
+      return loaded(selectedarea, areas);
     }
     return orElse();
   }
@@ -357,12 +341,11 @@ class _$_loaded implements _loaded {
 }
 
 abstract class _loaded implements AreaSelectState {
-  const factory _loaded(final Area selectedarea, final List<Area> subareas,
-      [final bool isLeaf]) = _$_loaded;
+  const factory _loaded(final Area selectedarea, final List<Area> areas) =
+      _$_loaded;
 
   Area get selectedarea;
-  List<Area> get subareas;
-  bool get isLeaf;
+  List<Area> get areas;
   @JsonKey(ignore: true)
   _$$_loadedCopyWith<_$_loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -431,9 +414,7 @@ class _$_error implements _error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            Area selectedarea, List<Area> subareas, bool isLeaf)
-        loaded,
+    required TResult Function(Area selectedarea, List<Area> areas) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -443,8 +424,7 @@ class _$_error implements _error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> subareas, bool isLeaf)?
-        loaded,
+    TResult Function(Area selectedarea, List<Area> areas)? loaded,
     TResult Function(String message)? error,
   }) {
     return error?.call(message);
@@ -454,8 +434,7 @@ class _$_error implements _error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> subareas, bool isLeaf)?
-        loaded,
+    TResult Function(Area selectedarea, List<Area> areas)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

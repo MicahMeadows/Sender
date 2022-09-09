@@ -50,6 +50,8 @@ abstract class $RoutePreferencesCopyWith<$Res> {
       bool showTopRope,
       double minRating,
       bool showMultipitch});
+
+  $AreaCopyWith<$Res> get area;
 }
 
 /// @nodoc
@@ -107,6 +109,13 @@ class _$RoutePreferencesCopyWithImpl<$Res>
               as bool,
     ));
   }
+
+  @override
+  $AreaCopyWith<$Res> get area {
+    return $AreaCopyWith<$Res>(_value.area, (value) {
+      return _then(_value.copyWith(area: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -125,6 +134,9 @@ abstract class _$$_RoutePreferencesCopyWith<$Res>
       bool showTopRope,
       double minRating,
       bool showMultipitch});
+
+  @override
+  $AreaCopyWith<$Res> get area;
 }
 
 /// @nodoc

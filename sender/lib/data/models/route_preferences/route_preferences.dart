@@ -22,7 +22,7 @@ class RoutePreferences with _$RoutePreferences {
   factory RoutePreferences.newPreferences() {
     return const RoutePreferences(
       // areaId: "0",
-      area: Area(id: "0", name: "All Locations", level: 0),
+      area: Area(id: "0", name: "All Locations"),
       minGrade: "5.0",
       maxGrade: "5.15d",
       showTrad: true,
