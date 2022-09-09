@@ -10,7 +10,7 @@ part of 'retrofit_sender_api.dart';
 
 class _RetrofitSenderApi implements RetrofitSenderApi {
   _RetrofitSenderApi(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://sender-76256.web.app';
+    baseUrl ??= 'https://api.choss.rocks';
   }
 
   final Dio _dio;

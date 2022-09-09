@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart' as col;
+import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/round_button.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 
@@ -25,17 +26,19 @@ class AreaSelector extends StatefulWidget {
 class _AreaSelectorState extends State<AreaSelector> {
   @override
   void dispose() {
-    widget.areaCubit.close();
+    // widget.areaCubit.close();
     super.dispose();
   }
 
   int? selectedIdx;
   final ScrollController controller = ScrollController();
 
-  Widget _buildAreaList(List<Area> areas, bool isLeaf) {
+  Widget _buildAreaList(List<Area> areas, Area selected) {
+    final selIdx = areas.indexOf(selected);
     return ListView.builder(
       controller: controller,
       itemCount: areas.length,
+      padding: const EdgeInsets.symmetric(vertical: 15),
       itemBuilder: (ctx, idx) {
         return InkWell(
           onTap: () {
@@ -50,11 +53,11 @@ class _AreaSelectorState extends State<AreaSelector> {
               vertical: 5,
             ),
             child: Text(
-              areas[idx].name,
+              '${idx > selIdx ? '- ' : ''}${areas[idx].name}',
               style: TextStyle(
-                fontWeight: isLeaf && idx == selectedIdx
-                    ? FontWeight.bold
-                    : FontWeight.w300,
+                color: idx > selIdx ? col.accent : Colors.white,
+                fontWeight:
+                    selected == areas[idx] ? FontWeight.bold : FontWeight.w300,
               ),
             ),
           ),
@@ -63,33 +66,17 @@ class _AreaSelectorState extends State<AreaSelector> {
     );
   }
 
-  Widget _makeLoadedWidget(Area selected, List<Area> subAreas, bool isLeaf) {
+  Widget _makeLoadedWidget(Area selected, List<Area> subAreas) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
-            children: [
-              InkWell(
-                onTap: widget.areaCubit.goBackArea,
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.chevron_left,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  selected.name,
-                  maxLines: 3,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ],
+          const Text(
+            'Select Area',
+            // selected.name,
+            maxLines: 3,
+            style: TextStyle(fontSize: 24),
           ),
           const SizedBox(height: 10),
           Expanded(
@@ -103,11 +90,7 @@ class _AreaSelectorState extends State<AreaSelector> {
                 controller: controller,
                 thickness: 8,
                 radius: const Radius.circular(100),
-                child: subAreas.isEmpty
-                    ? Center(
-                        child: Text("No more sub areas!"),
-                      )
-                    : _buildAreaList(subAreas, isLeaf),
+                child: _buildAreaList(subAreas, selected),
               ),
             ),
           ),
@@ -147,14 +130,21 @@ class _AreaSelectorState extends State<AreaSelector> {
         bloc: widget.areaCubit,
         builder: (context, state) {
           return state.when(
-            loading: () => Center(child: Text("Loading")),
-            loaded: (selected, subAreas, isLeaf) {
-              final areas = subAreas.where((area) {
-                if (selected.level == null) return false;
-                if (area.level == null) return false;
-                return area.level! > selected.level!;
-              }).toList();
-              return _makeLoadedWidget(selected, areas, isLeaf);
+            loading: () => const Center(
+              child: KnotProgressIndicator(
+                color: Colors.white,
+              ),
+            ),
+            loaded: (selected, subAreas) {
+              // final areas = subAreas.where((area) {
+              //   if (selected.level == null) return false;
+              //   if (area.level == null) return false;
+              //   return area.level! > selected.level!;
+              // }).toList();
+              selectedIdx = subAreas.indexOf(
+                  subAreas.firstWhere((element) => element.id == selected.id));
+
+              return _makeLoadedWidget(selected, subAreas);
             },
             error: (message) => Center(child: Text("error: $message")),
           );
