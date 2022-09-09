@@ -390,10 +390,83 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
                           key: _belowAppBarKey,
                         ),
                       ),
-                      SliverToBoxAdapter(
-                        child: Opacity(
-                            opacity: _headerAnimation.value,
-                            child: _buildRouteDetailsWidget(context)),
+                      // SliverToBoxAdapter(
+                      //   child: Opacity(
+                      //     opacity: _headerAnimation.value,
+                      //     child: _buildRouteDetailsWidget(context),
+                      //   ),
+                      // ),
+                      SliverList(
+                        delegate: SliverChildListDelegate([
+                          if (widget.route.rating != null)
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: RatingWidget(
+                                rating: widget.route.rating!,
+                                height: 25,
+                                color: col.accent,
+                              ),
+                            ),
+                          const SizedBox(height: 5),
+                          const SectionBanner(text: 'Details'),
+                          const SizedBox(height: 3),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: _sidePadding),
+                            child: Column(
+                              children: [
+                                if (widget.route.type != null)
+                                  _buildLabledCard('Type:', widget.route.type!),
+                                _buildLabledCard(
+                                    'Height:',
+                                    widget.route.length == null
+                                        ? 'Unknown height'
+                                        : '${widget.route.length.toString()}ft'),
+                                if (widget.route.grade != null)
+                                  _buildLabledCard(
+                                      'Grade:', widget.route.grade!),
+                                if (widget.route.firstAscent != null)
+                                  _buildLabledCard('First Ascent:',
+                                      widget.route.firstAscent!),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 23),
+                          const SectionBanner(text: 'Area'),
+                          const SizedBox(height: 8),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: _sidePadding),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Wrap(
+                                spacing: 10,
+                                runSpacing: 10,
+                                children: [
+                                  for (var area in widget.route.areas ?? [])
+                                    _buildTextCard(area.name),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 23),
+                          for (var detail in widget.route.details ?? [])
+                            _makeDetailSection(detail),
+                          const SizedBox(height: 30),
+                          for (var option in widget.bottomOptions)
+                            ThickButton(
+                                text: option.buttonText,
+                                onPressed: option.onPress),
+                          const SizedBox(height: 50),
+                        ]
+                            .map((e) => Opacity(
+                                  opacity: _headerAnimation.value,
+                                  child: Container(
+                                    color: col.primary,
+                                    child: e,
+                                  ),
+                                ))
+                            .toList()),
                       ),
                     ],
                   ),
@@ -406,71 +479,71 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
     );
   }
 
-  Widget _buildRouteDetailsWidget(BuildContext context) {
-    return Container(
-      // color: Colors.white,
-      color: col.primary,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (widget.route.rating != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RatingWidget(
-                rating: widget.route.rating!,
-                height: 25,
-                color: col.accent,
-              ),
-            ),
-          const SizedBox(height: 5),
-          const SectionBanner(text: 'Details'),
-          const SizedBox(height: 3),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
-            child: Column(
-              children: [
-                if (widget.route.type != null)
-                  _buildLabledCard('Type:', widget.route.type!),
-                _buildLabledCard(
-                    'Height:',
-                    widget.route.length == null
-                        ? 'Unknown height'
-                        : '${widget.route.length.toString()}ft'),
-                if (widget.route.grade != null)
-                  _buildLabledCard('Grade:', widget.route.grade!),
-                if (widget.route.firstAscent != null)
-                  _buildLabledCard('First Ascent:', widget.route.firstAscent!),
-              ],
-            ),
-          ),
-          const SizedBox(height: 23),
-          const SectionBanner(text: 'Area'),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  for (var area in widget.route.areas ?? [])
-                    _buildTextCard(area.name),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 23),
-          for (var detail in widget.route.details ?? [])
-            _makeDetailSection(detail),
-          const SizedBox(height: 30),
-          for (var option in widget.bottomOptions)
-            ThickButton(text: option.buttonText, onPressed: option.onPress),
-          const SizedBox(height: 50),
-        ],
-      ),
-    );
-  }
+  // Widget _buildRouteDetailsWidget(BuildContext context) {
+  //   return Container(
+  //     // color: Colors.white,
+  //     color: col.primary,
+  //     child: ListView(
+  //       // crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: [
+  //         if (widget.route.rating != null)
+  //           Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: RatingWidget(
+  //               rating: widget.route.rating!,
+  //               height: 25,
+  //               color: col.accent,
+  //             ),
+  //           ),
+  //         const SizedBox(height: 5),
+  //         const SectionBanner(text: 'Details'),
+  //         const SizedBox(height: 3),
+  //         Padding(
+  //           padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
+  //           child: Column(
+  //             children: [
+  //               if (widget.route.type != null)
+  //                 _buildLabledCard('Type:', widget.route.type!),
+  //               _buildLabledCard(
+  //                   'Height:',
+  //                   widget.route.length == null
+  //                       ? 'Unknown height'
+  //                       : '${widget.route.length.toString()}ft'),
+  //               if (widget.route.grade != null)
+  //                 _buildLabledCard('Grade:', widget.route.grade!),
+  //               if (widget.route.firstAscent != null)
+  //                 _buildLabledCard('First Ascent:', widget.route.firstAscent!),
+  //             ],
+  //           ),
+  //         ),
+  //         const SizedBox(height: 23),
+  //         const SectionBanner(text: 'Area'),
+  //         const SizedBox(height: 8),
+  //         Padding(
+  //           padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
+  //           child: Align(
+  //             alignment: Alignment.centerLeft,
+  //             child: Wrap(
+  //               spacing: 10,
+  //               runSpacing: 10,
+  //               children: [
+  //                 for (var area in widget.route.areas ?? [])
+  //                   _buildTextCard(area.name),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //         const SizedBox(height: 23),
+  //         for (var detail in widget.route.details ?? [])
+  //           _makeDetailSection(detail),
+  //         const SizedBox(height: 30),
+  //         for (var option in widget.bottomOptions)
+  //           ThickButton(text: option.buttonText, onPressed: option.onPress),
+  //         const SizedBox(height: 50),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildLabledCard(String title, String content) {
     return LabledCard.text(
