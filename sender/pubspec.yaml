@@ -47,6 +47,7 @@ dependencies:
   retrofit: ^3.0.1+1
   retrofit_generator: ^4.0.1
   html: ^0.15.0
+  web_scraper: ^0.1.4
   
 
 dev_dependencies:

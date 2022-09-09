@@ -9,6 +9,7 @@ import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/tick_filter/tick_filter_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/data/repository/area_repository/i_area_repository.dart';
+import 'package:sender/data/repository/area_repository/mp_scrape_area_repository.dart';
 import 'package:sender/data/repository/area_repository/retrofit_area_repository.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,8 +37,7 @@ final Dio _dioClient = Dio()..interceptors.add(firebaseAuthenticatorWrapper);
 
 final RetrofitSenderApi _retrofitSenderApi = RetrofitSenderApi(_dioClient);
 
-final IAreaRepository _areaRepository =
-    RetrofitAreaRepository(_retrofitSenderApi);
+final IAreaRepository _areaRepository = MPScrapeAreaRepository();
 
 final IQueueRouteRepository _queueRouteRepository =
     RetrofitQueueRouteRepository(_retrofitSenderApi);
