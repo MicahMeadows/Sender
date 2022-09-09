@@ -13,6 +13,7 @@ import 'package:sender/widgets/common/labled_card.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
 import 'package:sender/widgets/common/section_banner.dart';
 import 'package:sender/widgets/common/thick_button.dart';
+import 'package:sender/widgets/pages/route_detail/custom_details_list.dart';
 
 import '../../../data/models/climbing_route/climbing_route.dart';
 
@@ -390,83 +391,11 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
                           key: _belowAppBarKey,
                         ),
                       ),
-                      // SliverToBoxAdapter(
-                      //   child: Opacity(
-                      //     opacity: _headerAnimation.value,
-                      //     child: _buildRouteDetailsWidget(context),
-                      //   ),
-                      // ),
-                      SliverList(
-                        delegate: SliverChildListDelegate([
-                          if (widget.route.rating != null)
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: RatingWidget(
-                                rating: widget.route.rating!,
-                                height: 25,
-                                color: col.accent,
-                              ),
-                            ),
-                          const SizedBox(height: 5),
-                          const SectionBanner(text: 'Details'),
-                          const SizedBox(height: 3),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: _sidePadding),
-                            child: Column(
-                              children: [
-                                if (widget.route.type != null)
-                                  _buildLabledCard('Type:', widget.route.type!),
-                                _buildLabledCard(
-                                    'Height:',
-                                    widget.route.length == null
-                                        ? 'Unknown height'
-                                        : '${widget.route.length.toString()}ft'),
-                                if (widget.route.grade != null)
-                                  _buildLabledCard(
-                                      'Grade:', widget.route.grade!),
-                                if (widget.route.firstAscent != null)
-                                  _buildLabledCard('First Ascent:',
-                                      widget.route.firstAscent!),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 23),
-                          const SectionBanner(text: 'Area'),
-                          const SizedBox(height: 8),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: _sidePadding),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Wrap(
-                                spacing: 10,
-                                runSpacing: 10,
-                                children: [
-                                  for (var area in widget.route.areas ?? [])
-                                    _buildTextCard(area.name),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 23),
-                          for (var detail in widget.route.details ?? [])
-                            _makeDetailSection(detail),
-                          const SizedBox(height: 30),
-                          for (var option in widget.bottomOptions)
-                            ThickButton(
-                                text: option.buttonText,
-                                onPressed: option.onPress),
-                          const SizedBox(height: 50),
-                        ]
-                            .map((e) => Opacity(
-                                  opacity: _headerAnimation.value,
-                                  child: Container(
-                                    color: col.primary,
-                                    child: e,
-                                  ),
-                                ))
-                            .toList()),
+                      CustomDetailsList(
+                        animValue: _headerAnimation.value,
+                        bottomOptions: widget.bottomOptions,
+                        route: widget.route,
+                        sidePadding: _sidePadding,
                       ),
                     ],
                   ),
@@ -479,100 +408,26 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
     );
   }
 
-  // Widget _buildRouteDetailsWidget(BuildContext context) {
-  //   return Container(
-  //     // color: Colors.white,
-  //     color: col.primary,
-  //     child: ListView(
-  //       // crossAxisAlignment: CrossAxisAlignment.center,
-  //       children: [
-  //         if (widget.route.rating != null)
-  //           Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: RatingWidget(
-  //               rating: widget.route.rating!,
-  //               height: 25,
-  //               color: col.accent,
-  //             ),
-  //           ),
-  //         const SizedBox(height: 5),
-  //         const SectionBanner(text: 'Details'),
-  //         const SizedBox(height: 3),
-  //         Padding(
-  //           padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
-  //           child: Column(
-  //             children: [
-  //               if (widget.route.type != null)
-  //                 _buildLabledCard('Type:', widget.route.type!),
-  //               _buildLabledCard(
-  //                   'Height:',
-  //                   widget.route.length == null
-  //                       ? 'Unknown height'
-  //                       : '${widget.route.length.toString()}ft'),
-  //               if (widget.route.grade != null)
-  //                 _buildLabledCard('Grade:', widget.route.grade!),
-  //               if (widget.route.firstAscent != null)
-  //                 _buildLabledCard('First Ascent:', widget.route.firstAscent!),
-  //             ],
-  //           ),
-  //         ),
-  //         const SizedBox(height: 23),
-  //         const SectionBanner(text: 'Area'),
-  //         const SizedBox(height: 8),
-  //         Padding(
-  //           padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
-  //           child: Align(
-  //             alignment: Alignment.centerLeft,
-  //             child: Wrap(
-  //               spacing: 10,
-  //               runSpacing: 10,
-  //               children: [
-  //                 for (var area in widget.route.areas ?? [])
-  //                   _buildTextCard(area.name),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //         const SizedBox(height: 23),
-  //         for (var detail in widget.route.details ?? [])
-  //           _makeDetailSection(detail),
-  //         const SizedBox(height: 30),
-  //         for (var option in widget.bottomOptions)
-  //           ThickButton(text: option.buttonText, onPressed: option.onPress),
-  //         const SizedBox(height: 50),
-  //       ],
+  // Widget _buildTextCard(String text, {double? width}) {
+  //   return BaseCard(
+  //     width: width,
+  //     child: Text(
+  //       text,
+  //       style: _appTextTheme.bodySmall?.apply(color: col.text1),
   //     ),
   //   );
   // }
 
-  Widget _buildLabledCard(String title, String content) {
-    return LabledCard.text(
-      title: title,
-      content: content,
-      style: _appTextTheme.bodySmall?.apply(color: col.text1),
-    );
-  }
-
-  Widget _buildTextCard(String text, {double? width}) {
-    return BaseCard(
-      width: width,
-      child: Text(
-        text,
-        style: _appTextTheme.bodySmall?.apply(color: col.text1),
-      ),
-    );
-  }
-
-  _makeDetailSection(ClimbingRouteDetail detail) {
-    return Column(
-      children: [
-        SectionBanner(text: detail.title),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
-          child: _buildTextCard(detail.content, width: double.infinity),
-        ),
-      ],
-    );
-  }
+  // _makeDetailSection(ClimbingRouteDetail detail) {
+  //   return Column(
+  //     children: [
+  //       SectionBanner(text: detail.title),
+  //       const SizedBox(height: 8),
+  //       Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
+  //         child: _buildTextCard(detail.content, width: double.infinity),
+  //       ),
+  //     ],
+  //   );
+  // }
 }
