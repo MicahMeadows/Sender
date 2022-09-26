@@ -8,6 +8,7 @@ import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/models/route_preferences/route_preferences.dart';
 import 'package:sender/main.dart';
 import 'package:sender/widgets/common/button_labled_card.dart';
+import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/labled_card.dart';
 import 'package:sender/widgets/common/labled_toggle_card.dart';
 import 'package:sender/widgets/common/rating_widget.dart';
@@ -429,62 +430,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                       ],
                                     ),
                                   );
-                                  // return Container(
-                                  //   color: col.primary,
-                                  //   child: BlocConsumer<RouteSettingsCubit,
-                                  //       RouteSettingsState>(
-                                  //     buildWhen: (previous, current) =>
-                                  //         previous != current,
-                                  //     listener: (context, state) {
-                                  //       state.whenOrNull(
-                                  //         settingsLoaded: (settings) {
-                                  //           setPagePreferences(settings);
-                                  //         },
-                                  //       );
-                                  //     },
-                                  //     builder: (context, state) {
-                                  //       return state.when(
-                                  //         settingsLoading: () {
-                                  //           return Container(
-                                  //             margin: const EdgeInsets.only(
-                                  //                 top: 30),
-                                  //             child: const Center(
-                                  //               child: KnotProgressIndicator(
-                                  //                 color: Colors.white,
-                                  //               ),
-                                  //             ),
-                                  //           );
-                                  //         },
-                                  //         error: (message) => Padding(
-                                  //           padding:
-                                  //               const EdgeInsets.all(30.0),
-                                  //           child: Center(
-                                  //             child: Column(
-                                  //               children: [
-                                  //                 const SizedBox(height: 30),
-                                  //                 const Icon(
-                                  //                   Icons
-                                  //                       .error_outline_rounded,
-                                  //                   color: Colors.white,
-                                  //                   size: 30,
-                                  //                 ),
-                                  //                 Text(
-                                  //                     'Failed to load route preferences: $message'),
-                                  //               ],
-                                  //             ),
-                                  //           ),
-                                  //         ),
-                                  //         // error: (message) => Center(
-                                  //         //   child: Text('Error: $message'),
-                                  //         // ),
-                                  //         settingsLoaded: (settings) {},
-                                  //       );
-                                  //     },
-                                  //   ),
-                                  // );
                                 },
                                 settingsLoading: () {
-                                  return Text('loading...');
+                                  return const Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: KnotProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  );
                                 },
                               );
                             },
