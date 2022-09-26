@@ -67,24 +67,15 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
 
   late List<Image> images;
 
+  final double _fadeOutStartHeight = 100;
+  final double _fadeOutStopHeight = 20;
+  double _headerOpacity = 1;
+
   @override
   void initState() {
     _headerAnimation = Tween<double>(begin: 1, end: 0).animate(
       _headerAnimationController,
     );
-    var firstRender = true;
-    _scrollController.addListener(() {
-      debugPrint(_scrollController.position.pixels.toString());
-      if (firstRender) {
-        firstRender = false;
-        return;
-      }
-      if (_scrollController.position.pixels < 50) {
-        _headerAnimationController.forward();
-      } else {
-        _headerAnimationController.reverse();
-      }
-    });
     images = (widget.route.imageUrls ?? []).map((imageUrl) {
       return Image.network(
         imageUrl,
@@ -103,6 +94,16 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
   void didChangeDependencies() {
     images.forEach((element) {
       precacheImage(element.image, context);
+    });
+
+    _scrollController.addListener(() {
+      double scrollPos = _scrollController.position.pixels;
+      double perc = ((scrollPos - _fadeOutStopHeight) /
+          (_fadeOutStartHeight - _fadeOutStopHeight));
+      debugPrint(perc.toString());
+      setState(() {
+        _headerOpacity = perc.clamp(0, 1);
+      });
     });
 
     super.didChangeDependencies();
@@ -306,7 +307,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
                       ),
                       SliverAppBar(
                         backgroundColor:
-                            col.primary.withOpacity(_headerAnimation.value),
+                            col.primary.withOpacity(_headerOpacity),
                         toolbarHeight: 0,
                         elevation: 2,
                         pinned: true,
@@ -366,7 +367,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
                         ),
                       ),
                       CustomDetailsList(
-                        animValue: _headerAnimation.value,
+                        animValue: _headerOpacity,
                         bottomOptions: widget.bottomOptions,
                         route: widget.route,
                         sidePadding: _sidePadding,
