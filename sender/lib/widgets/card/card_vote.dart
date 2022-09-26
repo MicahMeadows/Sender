@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -135,6 +136,21 @@ class _CardVoteState extends State<CardVote> {
     // widget.onRoutesChanged?.call(widget.routes);
   }
 
+  static const _choices = [
+    "Finding for your ankle brute",
+    "Loading some choss",
+    "Stickclipping the second bolt",
+    "Finding another cheater stone",
+    "Looking for the right hold",
+    "Brushing off ticks",
+    "Loading rigs",
+  ];
+
+  String get _randomLoadingQuote {
+    int randomIdx = Random().nextInt(_choices.length);
+    return _choices[randomIdx];
+  }
+
   Widget _createRouteWidget(ClimbingRoute route) {
     return Positioned(
       key: ValueKey<String>(route.id),
@@ -183,8 +199,15 @@ class _CardVoteState extends State<CardVote> {
         }
 
         if (state is RouteQueueLoading) {
-          return const KnotProgressIndicator(
-            color: Colors.white,
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const KnotProgressIndicator(
+                color: Colors.white,
+              ),
+              SizedBox(height: 40),
+              Text(_randomLoadingQuote),
+            ],
           );
         }
         if (state is RouteQueueEmpty) {
