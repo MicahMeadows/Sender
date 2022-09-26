@@ -5,14 +5,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sender/common/constants/colors.dart' as col;
-import 'package:sender/data/models/climbing_route_detail/climbing_route_detail.dart';
-import 'package:sender/widgets/common/base_card.dart';
 import 'package:sender/widgets/common/breadcrumbs.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
-import 'package:sender/widgets/common/labled_card.dart';
-import 'package:sender/widgets/common/rating_widget.dart';
-import 'package:sender/widgets/common/section_banner.dart';
-import 'package:sender/widgets/common/thick_button.dart';
 import 'package:sender/widgets/pages/route_detail/custom_details_list.dart';
 
 import '../../../data/models/climbing_route/climbing_route.dart';
@@ -80,12 +74,12 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
     );
     var firstRender = true;
     _scrollController.addListener(() {
+      debugPrint(_scrollController.position.pixels.toString());
       if (firstRender) {
         firstRender = false;
         return;
       }
-      final double height = MediaQuery.of(context).size.height;
-      if (_lastBelowAppBarDistanceFromTop >= height * .98) {
+      if (_scrollController.position.pixels < 50) {
         _headerAnimationController.forward();
       } else {
         _headerAnimationController.reverse();
@@ -157,21 +151,15 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
 
             _lastAboveAppBarDistanceFromTop =
                 aboveAppBarRenderObj.localToGlobal(Offset.zero).dy;
-            // print('last above dist: $_lastAboveAppBarDistanceFromTop');
 
             _lastBelowAppBarDistanceFromTop =
                 belowAppBarRenderObj.localToGlobal(Offset.zero).dy;
-            // print('last below dist: $_lastBelowAppBarDistanceFromTop');
 
             double height = MediaQuery.of(context).size.height;
             double distanceFromBottom =
                 height - _lastBelowAppBarDistanceFromTop;
 
-            // print(distanceFromBottom);
-
             if (!_initialized) {
-              // _scrollController
-              //     .jumpTo(MediaQuery.of(context).size.height * .55);
               setState(() {
                 _scrollController.jumpTo(_initialImageSectionHeight);
               });
@@ -308,10 +296,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
                               startDragPos = null;
                             },
                           ),
-                          // child: Container(
-                          //   child: images[_selectedImageIdx],
-                          //   height: max(0, _lastBelowAppBarDistanceFromTop),
-                          // ),
                         ),
                       ),
                       SliverToBoxAdapter(
@@ -323,13 +307,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
                       SliverAppBar(
                         backgroundColor:
                             col.primary.withOpacity(_headerAnimation.value),
-                        // backgroundColor: () {
-                        //   // double height = MediaQuery.of(context).size.height;
-                        //   // if (_lastBelowAppBarDistanceFromTop >= height * .98) {
-                        //   //   return Colors.transparent;
-                        //   // }
-                        //   // return col.primary;
-                        // }(),
                         toolbarHeight: 0,
                         elevation: 2,
                         pinned: true,
@@ -352,9 +329,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
                                 child: FittedBox(
                                   alignment: Alignment.center,
                                   fit: BoxFit.scaleDown,
-                                  // child: Padding(
-                                  // padding:
-                                  //     const EdgeInsets.only(bottom: 15.0),
                                   child: Text(
                                     widget.route.name,
                                     textAlign: TextAlign.center,
@@ -407,27 +381,4 @@ class _RouteDetailsPageState extends State<RouteDetailsPage>
       },
     );
   }
-
-  // Widget _buildTextCard(String text, {double? width}) {
-  //   return BaseCard(
-  //     width: width,
-  //     child: Text(
-  //       text,
-  //       style: _appTextTheme.bodySmall?.apply(color: col.text1),
-  //     ),
-  //   );
-  // }
-
-  // _makeDetailSection(ClimbingRouteDetail detail) {
-  //   return Column(
-  //     children: [
-  //       SectionBanner(text: detail.title),
-  //       const SizedBox(height: 8),
-  //       Padding(
-  //         padding: const EdgeInsets.symmetric(horizontal: _sidePadding),
-  //         child: _buildTextCard(detail.content, width: double.infinity),
-  //       ),
-  //     ],
-  //   );
-  // }
 }
