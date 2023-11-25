@@ -34,7 +34,7 @@ final InterceptorsWrapper firebaseAuthenticatorWrapper = InterceptorsWrapper(
   },
 );
 
-final Dio _dioClient = Dio(BaseOptions(baseUrl: 'http://localhost:8080'))
+final Dio _dioClient = Dio(BaseOptions(baseUrl: 'https://api.choss.rocks'))
   ..interceptors.add(firebaseAuthenticatorWrapper);
 
 final RetrofitSenderApi _retrofitSenderApi = RetrofitSenderApi(_dioClient);
