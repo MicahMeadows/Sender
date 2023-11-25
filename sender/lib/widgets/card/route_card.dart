@@ -222,9 +222,9 @@ class _SwipableCardState extends State<RouteCard>
 
   @override
   void didChangeDependencies() {
-    for (final image in _routeImages) {
-      precacheImage(image.image, context);
-    }
+    // for (final image in _routeImages) {
+    //   precacheImage(image.image, context);
+    // }
     super.didChangeDependencies();
   }
 
@@ -560,6 +560,9 @@ class _SwipableCardState extends State<RouteCard>
 
   @override
   Widget build(BuildContext context) {
+    for (final image in _routeImages) {
+      precacheImage(image.image, context);
+    }
     return SizedBox(
       key: cardKey,
       child: GestureDetector(

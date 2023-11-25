@@ -26,9 +26,14 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     }
   }
 
-  void reloadRoutes() {
+  Future<void> reloadRoutes() async {
     emit(RouteQueueEmpty());
-    loadRoutes(count: 2, clearOnLoad: true);
+    print('realoding routes...');
+    await loadRoutes(
+      count: 2,
+      clearOnLoad: true,
+      forceLoad: true,
+    );
   }
 
   void queueUpRoutes(int count) {

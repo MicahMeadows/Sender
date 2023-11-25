@@ -62,7 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
     widget.routeSettingsCubit.setPreferences(pagePreferences);
     widget.routeSettingsCubit.uploadPreferences();
     navigationCubit.showHome();
-    widget.queueCubit.reloadRoutes();
+    await widget.queueCubit.reloadRoutes();
   }
 
   void showCustomDialog(BuildContext context) {
