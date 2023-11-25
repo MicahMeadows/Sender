@@ -47,6 +47,7 @@ abstract class RetrofitSenderApi {
   Future<List<ClimbingRoute>> getQueueRoutes({
     @Body() Map<String, dynamic> settings = const {
       "ignore": [],
+      "cached": true,
     },
     @Query('includePageData') String includePageData = 'true',
     @Query('needImages') String needImages = 'true',

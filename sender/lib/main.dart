@@ -63,7 +63,7 @@ final AreaSelectCubit areaSelectCubit = AreaSelectCubit(
 
 // initially load single route to get on page then force load more in background
 final RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository)
-  ..loadRoutes(count: 3)
+  ..loadRoutes(loadCached: true, count: 3)
   ..queueUpRoutes(5);
 final NavigationCubit navigationCubit = NavigationCubit();
 final RouteSettingsCubit routeSettingsCubit = RouteSettingsCubit(

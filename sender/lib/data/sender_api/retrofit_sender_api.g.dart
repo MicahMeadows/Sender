@@ -206,7 +206,7 @@ class _RetrofitSenderApi implements RetrofitSenderApi {
 
   @override
   Future<List<ClimbingRoute>> getQueueRoutes({
-    settings = const {"ignore": []},
+    settings = const {"ignore": [], "cached": true},
     includePageData = 'true',
     needImages = 'true',
     numResults,

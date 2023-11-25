@@ -28,7 +28,6 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
 
   Future<void> reloadRoutes() async {
     emit(RouteQueueEmpty());
-    print('realoding routes...');
     await loadRoutes(
       count: 2,
       clearOnLoad: true,
@@ -44,6 +43,7 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
     int count = 7,
     bool clearOnLoad = false,
     bool forceLoad = false,
+    bool loadCached = false,
   }) async {
     if (loadingNewRoutes && !forceLoad) return;
 
@@ -60,8 +60,9 @@ class RouteQueueCubit extends Cubit<RouteQueueState> {
       final currentQueueIds = loadedRoutes.map((e) => e.id).toList();
 
       var newRoutes = await _queueRouteRepository.getClimbingRoutesExcluding(
-        currentQueueIds,
-        count,
+        routesIdsToExclude: currentQueueIds,
+        count: count,
+        getCached: loadCached,
       );
 
       loadedRoutes.addAll(newRoutes);
