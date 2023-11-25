@@ -6,7 +6,8 @@ part of 'route_tick.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RouteTick _$$_RouteTickFromJson(Map<String, dynamic> json) => _$_RouteTick(
+_$RouteTickImpl _$$RouteTickImplFromJson(Map<String, dynamic> json) =>
+    _$RouteTickImpl(
       id: json['id'] as String,
       name: json['name'] as String,
       rating: (json['rating'] as num).toDouble(),
@@ -16,7 +17,7 @@ _$_RouteTick _$$_RouteTickFromJson(Map<String, dynamic> json) => _$_RouteTick(
       routeType: json['routeType'] as String?,
     );
 
-Map<String, dynamic> _$$_RouteTickToJson(_$_RouteTick instance) =>
+Map<String, dynamic> _$$RouteTickImplToJson(_$RouteTickImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

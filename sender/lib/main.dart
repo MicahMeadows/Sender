@@ -10,7 +10,6 @@ import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
 import 'package:sender/data/cubits/tick_filter/tick_filter_cubit.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/data/repository/area_repository/i_area_repository.dart';
-import 'package:sender/data/repository/area_repository/mp_scrape_area_repository.dart';
 import 'package:sender/data/repository/area_repository/retrofit_area_repository.dart';
 import 'package:sender/data/repository/queue_route_repository/i_queue_route_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,7 +34,8 @@ final InterceptorsWrapper firebaseAuthenticatorWrapper = InterceptorsWrapper(
   },
 );
 
-final Dio _dioClient = Dio()..interceptors.add(firebaseAuthenticatorWrapper);
+final Dio _dioClient = Dio(BaseOptions(baseUrl: 'http://localhost:8080'))
+  ..interceptors.add(firebaseAuthenticatorWrapper);
 
 final RetrofitSenderApi _retrofitSenderApi = RetrofitSenderApi(_dioClient);
 
@@ -63,7 +63,7 @@ final AreaSelectCubit areaSelectCubit = AreaSelectCubit(
 
 // initially load single route to get on page then force load more in background
 final RouteQueueCubit routeQueueCubit = RouteQueueCubit(_queueRouteRepository)
-  ..loadRoutes(count: 3)
+  ..loadRoutes(loadCached: true, count: 3)
   ..queueUpRoutes(5);
 final NavigationCubit navigationCubit = NavigationCubit();
 final RouteSettingsCubit routeSettingsCubit = RouteSettingsCubit(

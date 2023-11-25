@@ -8,7 +8,6 @@ import 'package:sender/data/models/tick_filters/tick_filters.dart';
 
 import '../../common/rating_widget.dart';
 import '../../common/thick_button.dart';
-import '../settings/settings_helper.dart';
 
 class TodoFilterDialog extends StatefulWidget {
   const TodoFilterDialog({Key? key}) : super(key: key);
@@ -177,12 +176,12 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
               ],
             ),
             const SizedBox(height: 15),
-            Text('Disabled Types'),
+            const Text('Disabled Types'),
             FittedBox(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Trad'),
+                  const Text('Trad'),
                   Switch(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       value: pageFilters.disableTrad,
@@ -192,7 +191,7 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
                               pageFilters.copyWith(disableTrad: newVal);
                         });
                       }),
-                  Text('Sport'),
+                  const Text('Sport'),
                   Switch(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       value: pageFilters.disableSport,
@@ -209,7 +208,7 @@ class _TodoFilterDialogState extends State<TodoFilterDialog> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Top Rope'),
+                  const Text('Top Rope'),
                   Switch(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       value: pageFilters.disableTopRope,

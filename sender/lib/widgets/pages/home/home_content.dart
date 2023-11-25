@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sender/data/cubits/navigation/navigation_cubit.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
-import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
-import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/card/card_vote.dart';
-import 'package:sender/widgets/pages/home/no_results.dart';
-import 'package:sender/widgets/pages/home/queue_error.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({Key? key}) : super(key: key);
@@ -48,7 +43,7 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   Widget _buildMainContent(RouteQueueState state) {
-    return CardVote();
+    return const CardVote();
     // if (state is RouteQueueLoaded) {
     //   return CardVote(
     //     queueCubit: context.read<RouteQueueCubit>(),

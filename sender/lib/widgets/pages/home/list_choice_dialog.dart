@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sender/widgets/common/round_button.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 
@@ -32,8 +31,8 @@ class ListChoiceDialog extends StatelessWidget {
               ),
             ],
           ),
-          margin: EdgeInsets.only(top: 32),
-          padding: EdgeInsets.all(20),
+          margin: const EdgeInsets.only(top: 32),
+          padding: const EdgeInsets.all(20),
           width: MediaQuery.of(context).size.width * .8,
           child: Column(
             children: [
@@ -54,8 +53,10 @@ class ListChoiceDialog extends StatelessWidget {
                     ThickButton(
                       text: option.buttonText,
                       onPressed: option.onTap,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
                     ),
                 ],
               ),

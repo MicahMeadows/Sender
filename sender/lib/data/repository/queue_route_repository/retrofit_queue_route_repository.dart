@@ -17,31 +17,37 @@ class RetrofitQueueRouteRepository implements IQueueRouteRepository {
     }
   }
 
+  // @override
+  // Future<List<ClimbingRoute>> getClimbingRoutes(
+  //   List<String> routeIds,
+  //   int count,
+  // ) async {
+  //   try {
+  //     var loadedRoutes = await _api.getQueueRoutes(numResults: count);
+
+  //     // loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
+
+  //     return loadedRoutes;
+  //   } catch (ex) {
+  //     debugPrint('failed to get routes: $ex');
+  //     rethrow;
+  //   }
+  // }
+
   @override
-  Future<List<ClimbingRoute>> getClimbingRoutes(
-      List<String> routeIds, int count) async {
+  Future<List<ClimbingRoute>> getClimbingRoutesExcluding({
+    required List<String> routesIdsToExclude,
+    required int count,
+    bool getCached = false,
+  }) async {
     try {
-      var loadedRoutes = await _api.getQueueRoutes(numResults: count);
-
-      // loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
-
-      return loadedRoutes;
-    } catch (ex) {
-      debugPrint('failed to get routes: $ex');
-      rethrow;
-    }
-  }
-
-  @override
-  Future<List<ClimbingRoute>> getClimbingRoutesExcluding(
-    List<String> routesIdsToExclude,
-    int count,
-  ) async {
-    try {
-      var loadedRoutes =
-          await _api.getQueueRoutes(numResults: count, settings: {
-        "ignore": routesIdsToExclude,
-      });
+      var loadedRoutes = await _api.getQueueRoutes(
+        numResults: count,
+        settings: {
+          "ignore": routesIdsToExclude,
+          "cached": getCached,
+        },
+      );
 
       // loadedRoutes.removeWhere((element) => element.imageUrls?.isEmpty ?? true);
 

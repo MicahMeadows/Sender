@@ -21,12 +21,12 @@ class CustomDropDown<T> extends StatelessWidget {
         child: DropdownButtonHideUnderline(
           child: IntrinsicWidth(
             child: DropdownButton<String>(
-              icon: Icon(
+              icon: const Icon(
                 Icons.keyboard_arrow_down_rounded,
                 color: col.text2,
               ),
               dropdownColor: col.secondary,
-              hint: Text('test'),
+              hint: const Text('test'),
               alignment: Alignment.center,
               items: items
                   .map(

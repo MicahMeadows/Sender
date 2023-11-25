@@ -22,8 +22,8 @@ class TickFilterCubit extends Cubit<TickFilterState> {
   bool isDisabled(RouteTick tick, TickFilters filters) {
     final tickType = tick.routeType;
     if (filters.disableSport && tickType == 'sport') return true;
-    if (filters.disableSport && tickType == 'trad') return true;
-    if (filters.disableSport && tickType == 'top') return true;
+    if (filters.disableTrad && tickType == 'trad') return true;
+    if (filters.disableTopRope && tickType == 'top') return true;
     return false;
   }
 

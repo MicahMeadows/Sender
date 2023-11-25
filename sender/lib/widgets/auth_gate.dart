@@ -15,7 +15,7 @@ class AuthGate extends StatelessWidget {
       builder: (context, state) {
         return state.when(
           authenticated: (user) => const MainNavigation(),
-          unauthenticated: () => SignInPage(),
+          unauthenticated: () => const SignInPage(),
         );
       },
     );

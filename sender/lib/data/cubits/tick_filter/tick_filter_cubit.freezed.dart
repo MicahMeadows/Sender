@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'tick_filter_cubit.dart';
 
@@ -24,8 +24,8 @@ mixin _$TickFilterState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? none,
-    TResult Function(TickFilters filters)? set,
+    TResult? Function()? none,
+    TResult? Function(TickFilters filters)? set,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$TickFilterState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_none value)? none,
-    TResult Function(_set value)? set,
+    TResult? Function(_none value)? none,
+    TResult? Function(_set value)? set,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,39 +60,39 @@ mixin _$TickFilterState {
 abstract class $TickFilterStateCopyWith<$Res> {
   factory $TickFilterStateCopyWith(
           TickFilterState value, $Res Function(TickFilterState) then) =
-      _$TickFilterStateCopyWithImpl<$Res>;
+      _$TickFilterStateCopyWithImpl<$Res, TickFilterState>;
 }
 
 /// @nodoc
-class _$TickFilterStateCopyWithImpl<$Res>
+class _$TickFilterStateCopyWithImpl<$Res, $Val extends TickFilterState>
     implements $TickFilterStateCopyWith<$Res> {
   _$TickFilterStateCopyWithImpl(this._value, this._then);
 
-  final TickFilterState _value;
   // ignore: unused_field
-  final $Res Function(TickFilterState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$_noneCopyWith<$Res> {
-  factory _$$_noneCopyWith(_$_none value, $Res Function(_$_none) then) =
-      __$$_noneCopyWithImpl<$Res>;
+abstract class _$$noneImplCopyWith<$Res> {
+  factory _$$noneImplCopyWith(
+          _$noneImpl value, $Res Function(_$noneImpl) then) =
+      __$$noneImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_noneCopyWithImpl<$Res> extends _$TickFilterStateCopyWithImpl<$Res>
-    implements _$$_noneCopyWith<$Res> {
-  __$$_noneCopyWithImpl(_$_none _value, $Res Function(_$_none) _then)
-      : super(_value, (v) => _then(v as _$_none));
-
-  @override
-  _$_none get _value => super._value as _$_none;
+class __$$noneImplCopyWithImpl<$Res>
+    extends _$TickFilterStateCopyWithImpl<$Res, _$noneImpl>
+    implements _$$noneImplCopyWith<$Res> {
+  __$$noneImplCopyWithImpl(_$noneImpl _value, $Res Function(_$noneImpl) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_none implements _none {
-  const _$_none();
+class _$noneImpl implements _none {
+  const _$noneImpl();
 
   @override
   String toString() {
@@ -102,7 +102,7 @@ class _$_none implements _none {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_none);
+        (other.runtimeType == runtimeType && other is _$noneImpl);
   }
 
   @override
@@ -120,8 +120,8 @@ class _$_none implements _none {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? none,
-    TResult Function(TickFilters filters)? set,
+    TResult? Function()? none,
+    TResult? Function(TickFilters filters)? set,
   }) {
     return none?.call();
   }
@@ -151,8 +151,8 @@ class _$_none implements _none {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_none value)? none,
-    TResult Function(_set value)? set,
+    TResult? Function(_none value)? none,
+    TResult? Function(_set value)? set,
   }) {
     return none?.call(this);
   }
@@ -172,33 +172,33 @@ class _$_none implements _none {
 }
 
 abstract class _none implements TickFilterState {
-  const factory _none() = _$_none;
+  const factory _none() = _$noneImpl;
 }
 
 /// @nodoc
-abstract class _$$_setCopyWith<$Res> {
-  factory _$$_setCopyWith(_$_set value, $Res Function(_$_set) then) =
-      __$$_setCopyWithImpl<$Res>;
+abstract class _$$setImplCopyWith<$Res> {
+  factory _$$setImplCopyWith(_$setImpl value, $Res Function(_$setImpl) then) =
+      __$$setImplCopyWithImpl<$Res>;
+  @useResult
   $Res call({TickFilters filters});
 
   $TickFiltersCopyWith<$Res> get filters;
 }
 
 /// @nodoc
-class __$$_setCopyWithImpl<$Res> extends _$TickFilterStateCopyWithImpl<$Res>
-    implements _$$_setCopyWith<$Res> {
-  __$$_setCopyWithImpl(_$_set _value, $Res Function(_$_set) _then)
-      : super(_value, (v) => _then(v as _$_set));
+class __$$setImplCopyWithImpl<$Res>
+    extends _$TickFilterStateCopyWithImpl<$Res, _$setImpl>
+    implements _$$setImplCopyWith<$Res> {
+  __$$setImplCopyWithImpl(_$setImpl _value, $Res Function(_$setImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_set get _value => super._value as _$_set;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? filters = freezed,
+    Object? filters = null,
   }) {
-    return _then(_$_set(
-      filters == freezed
+    return _then(_$setImpl(
+      null == filters
           ? _value.filters
           : filters // ignore: cast_nullable_to_non_nullable
               as TickFilters,
@@ -206,6 +206,7 @@ class __$$_setCopyWithImpl<$Res> extends _$TickFilterStateCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TickFiltersCopyWith<$Res> get filters {
     return $TickFiltersCopyWith<$Res>(_value.filters, (value) {
       return _then(_value.copyWith(filters: value));
@@ -215,8 +216,8 @@ class __$$_setCopyWithImpl<$Res> extends _$TickFilterStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_set implements _set {
-  const _$_set(this.filters);
+class _$setImpl implements _set {
+  const _$setImpl(this.filters);
 
   @override
   final TickFilters filters;
@@ -230,18 +231,18 @@ class _$_set implements _set {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_set &&
-            const DeepCollectionEquality().equals(other.filters, filters));
+            other is _$setImpl &&
+            (identical(other.filters, filters) || other.filters == filters));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(filters));
+  int get hashCode => Object.hash(runtimeType, filters);
 
   @JsonKey(ignore: true)
   @override
-  _$$_setCopyWith<_$_set> get copyWith =>
-      __$$_setCopyWithImpl<_$_set>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$setImplCopyWith<_$setImpl> get copyWith =>
+      __$$setImplCopyWithImpl<_$setImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -255,8 +256,8 @@ class _$_set implements _set {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? none,
-    TResult Function(TickFilters filters)? set,
+    TResult? Function()? none,
+    TResult? Function(TickFilters filters)? set,
   }) {
     return set?.call(filters);
   }
@@ -286,8 +287,8 @@ class _$_set implements _set {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_none value)? none,
-    TResult Function(_set value)? set,
+    TResult? Function(_none value)? none,
+    TResult? Function(_set value)? set,
   }) {
     return set?.call(this);
   }
@@ -307,9 +308,10 @@ class _$_set implements _set {
 }
 
 abstract class _set implements TickFilterState {
-  const factory _set(final TickFilters filters) = _$_set;
+  const factory _set(final TickFilters filters) = _$setImpl;
 
   TickFilters get filters;
   @JsonKey(ignore: true)
-  _$$_setCopyWith<_$_set> get copyWith => throw _privateConstructorUsedError;
+  _$$setImplCopyWith<_$setImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/route_queue/route_queue_cubit.dart';
@@ -45,20 +43,22 @@ class _CardVoteState extends State<CardVote> {
     late OverlayEntry entry;
 
     setState(() {
-      entry = OverlayEntry(builder: (ctx) {
-        return FadingWidget(
-          maxRotationAmount: rotation,
-          animationCurve: Curves.easeInExpo,
-          animationDuration: const Duration(milliseconds: 800),
-          child: widget,
-          onComplete: () {
-            entry.remove();
-          },
-          onUpdate: () {
-            entry.markNeedsBuild();
-          },
-        );
-      });
+      entry = OverlayEntry(
+        builder: (ctx) {
+          return FadingWidget(
+            maxRotationAmount: rotation,
+            animationCurve: Curves.easeInExpo,
+            animationDuration: const Duration(milliseconds: 800),
+            child: widget,
+            onComplete: () {
+              entry.remove();
+            },
+            onUpdate: () {
+              entry.markNeedsBuild();
+            },
+          );
+        },
+      );
 
       overlayState?.insert(entry);
     });

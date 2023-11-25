@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'navigation_cubit.dart';
 
@@ -26,10 +26,10 @@ mixin _$NavigationState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? profile,
-    TResult Function()? todo,
-    TResult Function(String errorMessage)? error,
+    TResult? Function()? home,
+    TResult? Function()? profile,
+    TResult? Function()? todo,
+    TResult? Function(String errorMessage)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,10 +51,10 @@ mixin _$NavigationState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_home value)? home,
-    TResult Function(_profile value)? profile,
-    TResult Function(_todo value)? todo,
-    TResult Function(_error value)? error,
+    TResult? Function(_home value)? home,
+    TResult? Function(_profile value)? profile,
+    TResult? Function(_todo value)? todo,
+    TResult? Function(_error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,39 +72,39 @@ mixin _$NavigationState {
 abstract class $NavigationStateCopyWith<$Res> {
   factory $NavigationStateCopyWith(
           NavigationState value, $Res Function(NavigationState) then) =
-      _$NavigationStateCopyWithImpl<$Res>;
+      _$NavigationStateCopyWithImpl<$Res, NavigationState>;
 }
 
 /// @nodoc
-class _$NavigationStateCopyWithImpl<$Res>
+class _$NavigationStateCopyWithImpl<$Res, $Val extends NavigationState>
     implements $NavigationStateCopyWith<$Res> {
   _$NavigationStateCopyWithImpl(this._value, this._then);
 
-  final NavigationState _value;
   // ignore: unused_field
-  final $Res Function(NavigationState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$_homeCopyWith<$Res> {
-  factory _$$_homeCopyWith(_$_home value, $Res Function(_$_home) then) =
-      __$$_homeCopyWithImpl<$Res>;
+abstract class _$$homeImplCopyWith<$Res> {
+  factory _$$homeImplCopyWith(
+          _$homeImpl value, $Res Function(_$homeImpl) then) =
+      __$$homeImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_homeCopyWithImpl<$Res> extends _$NavigationStateCopyWithImpl<$Res>
-    implements _$$_homeCopyWith<$Res> {
-  __$$_homeCopyWithImpl(_$_home _value, $Res Function(_$_home) _then)
-      : super(_value, (v) => _then(v as _$_home));
-
-  @override
-  _$_home get _value => super._value as _$_home;
+class __$$homeImplCopyWithImpl<$Res>
+    extends _$NavigationStateCopyWithImpl<$Res, _$homeImpl>
+    implements _$$homeImplCopyWith<$Res> {
+  __$$homeImplCopyWithImpl(_$homeImpl _value, $Res Function(_$homeImpl) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_home implements _home {
-  const _$_home();
+class _$homeImpl implements _home {
+  const _$homeImpl();
 
   @override
   String toString() {
@@ -114,7 +114,7 @@ class _$_home implements _home {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_home);
+        (other.runtimeType == runtimeType && other is _$homeImpl);
   }
 
   @override
@@ -134,10 +134,10 @@ class _$_home implements _home {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? profile,
-    TResult Function()? todo,
-    TResult Function(String errorMessage)? error,
+    TResult? Function()? home,
+    TResult? Function()? profile,
+    TResult? Function()? todo,
+    TResult? Function(String errorMessage)? error,
   }) {
     return home?.call();
   }
@@ -171,10 +171,10 @@ class _$_home implements _home {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_home value)? home,
-    TResult Function(_profile value)? profile,
-    TResult Function(_todo value)? todo,
-    TResult Function(_error value)? error,
+    TResult? Function(_home value)? home,
+    TResult? Function(_profile value)? profile,
+    TResult? Function(_todo value)? todo,
+    TResult? Function(_error value)? error,
   }) {
     return home?.call(this);
   }
@@ -196,30 +196,29 @@ class _$_home implements _home {
 }
 
 abstract class _home implements NavigationState {
-  const factory _home() = _$_home;
+  const factory _home() = _$homeImpl;
 }
 
 /// @nodoc
-abstract class _$$_profileCopyWith<$Res> {
-  factory _$$_profileCopyWith(
-          _$_profile value, $Res Function(_$_profile) then) =
-      __$$_profileCopyWithImpl<$Res>;
+abstract class _$$profileImplCopyWith<$Res> {
+  factory _$$profileImplCopyWith(
+          _$profileImpl value, $Res Function(_$profileImpl) then) =
+      __$$profileImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_profileCopyWithImpl<$Res> extends _$NavigationStateCopyWithImpl<$Res>
-    implements _$$_profileCopyWith<$Res> {
-  __$$_profileCopyWithImpl(_$_profile _value, $Res Function(_$_profile) _then)
-      : super(_value, (v) => _then(v as _$_profile));
-
-  @override
-  _$_profile get _value => super._value as _$_profile;
+class __$$profileImplCopyWithImpl<$Res>
+    extends _$NavigationStateCopyWithImpl<$Res, _$profileImpl>
+    implements _$$profileImplCopyWith<$Res> {
+  __$$profileImplCopyWithImpl(
+      _$profileImpl _value, $Res Function(_$profileImpl) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_profile implements _profile {
-  const _$_profile();
+class _$profileImpl implements _profile {
+  const _$profileImpl();
 
   @override
   String toString() {
@@ -229,7 +228,7 @@ class _$_profile implements _profile {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_profile);
+        (other.runtimeType == runtimeType && other is _$profileImpl);
   }
 
   @override
@@ -249,10 +248,10 @@ class _$_profile implements _profile {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? profile,
-    TResult Function()? todo,
-    TResult Function(String errorMessage)? error,
+    TResult? Function()? home,
+    TResult? Function()? profile,
+    TResult? Function()? todo,
+    TResult? Function(String errorMessage)? error,
   }) {
     return profile?.call();
   }
@@ -286,10 +285,10 @@ class _$_profile implements _profile {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_home value)? home,
-    TResult Function(_profile value)? profile,
-    TResult Function(_todo value)? todo,
-    TResult Function(_error value)? error,
+    TResult? Function(_home value)? home,
+    TResult? Function(_profile value)? profile,
+    TResult? Function(_todo value)? todo,
+    TResult? Function(_error value)? error,
   }) {
     return profile?.call(this);
   }
@@ -311,29 +310,28 @@ class _$_profile implements _profile {
 }
 
 abstract class _profile implements NavigationState {
-  const factory _profile() = _$_profile;
+  const factory _profile() = _$profileImpl;
 }
 
 /// @nodoc
-abstract class _$$_todoCopyWith<$Res> {
-  factory _$$_todoCopyWith(_$_todo value, $Res Function(_$_todo) then) =
-      __$$_todoCopyWithImpl<$Res>;
+abstract class _$$todoImplCopyWith<$Res> {
+  factory _$$todoImplCopyWith(
+          _$todoImpl value, $Res Function(_$todoImpl) then) =
+      __$$todoImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_todoCopyWithImpl<$Res> extends _$NavigationStateCopyWithImpl<$Res>
-    implements _$$_todoCopyWith<$Res> {
-  __$$_todoCopyWithImpl(_$_todo _value, $Res Function(_$_todo) _then)
-      : super(_value, (v) => _then(v as _$_todo));
-
-  @override
-  _$_todo get _value => super._value as _$_todo;
+class __$$todoImplCopyWithImpl<$Res>
+    extends _$NavigationStateCopyWithImpl<$Res, _$todoImpl>
+    implements _$$todoImplCopyWith<$Res> {
+  __$$todoImplCopyWithImpl(_$todoImpl _value, $Res Function(_$todoImpl) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_todo implements _todo {
-  const _$_todo();
+class _$todoImpl implements _todo {
+  const _$todoImpl();
 
   @override
   String toString() {
@@ -343,7 +341,7 @@ class _$_todo implements _todo {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_todo);
+        (other.runtimeType == runtimeType && other is _$todoImpl);
   }
 
   @override
@@ -363,10 +361,10 @@ class _$_todo implements _todo {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? profile,
-    TResult Function()? todo,
-    TResult Function(String errorMessage)? error,
+    TResult? Function()? home,
+    TResult? Function()? profile,
+    TResult? Function()? todo,
+    TResult? Function(String errorMessage)? error,
   }) {
     return todo?.call();
   }
@@ -400,10 +398,10 @@ class _$_todo implements _todo {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_home value)? home,
-    TResult Function(_profile value)? profile,
-    TResult Function(_todo value)? todo,
-    TResult Function(_error value)? error,
+    TResult? Function(_home value)? home,
+    TResult? Function(_profile value)? profile,
+    TResult? Function(_todo value)? todo,
+    TResult? Function(_error value)? error,
   }) {
     return todo?.call(this);
   }
@@ -425,31 +423,33 @@ class _$_todo implements _todo {
 }
 
 abstract class _todo implements NavigationState {
-  const factory _todo() = _$_todo;
+  const factory _todo() = _$todoImpl;
 }
 
 /// @nodoc
-abstract class _$$_errorCopyWith<$Res> {
-  factory _$$_errorCopyWith(_$_error value, $Res Function(_$_error) then) =
-      __$$_errorCopyWithImpl<$Res>;
+abstract class _$$errorImplCopyWith<$Res> {
+  factory _$$errorImplCopyWith(
+          _$errorImpl value, $Res Function(_$errorImpl) then) =
+      __$$errorImplCopyWithImpl<$Res>;
+  @useResult
   $Res call({String errorMessage});
 }
 
 /// @nodoc
-class __$$_errorCopyWithImpl<$Res> extends _$NavigationStateCopyWithImpl<$Res>
-    implements _$$_errorCopyWith<$Res> {
-  __$$_errorCopyWithImpl(_$_error _value, $Res Function(_$_error) _then)
-      : super(_value, (v) => _then(v as _$_error));
+class __$$errorImplCopyWithImpl<$Res>
+    extends _$NavigationStateCopyWithImpl<$Res, _$errorImpl>
+    implements _$$errorImplCopyWith<$Res> {
+  __$$errorImplCopyWithImpl(
+      _$errorImpl _value, $Res Function(_$errorImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_error get _value => super._value as _$_error;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errorMessage = freezed,
+    Object? errorMessage = null,
   }) {
-    return _then(_$_error(
-      errorMessage == freezed
+    return _then(_$errorImpl(
+      null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
@@ -459,8 +459,8 @@ class __$$_errorCopyWithImpl<$Res> extends _$NavigationStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_error implements _error {
-  const _$_error(this.errorMessage);
+class _$errorImpl implements _error {
+  const _$errorImpl(this.errorMessage);
 
   @override
   final String errorMessage;
@@ -474,19 +474,19 @@ class _$_error implements _error {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_error &&
-            const DeepCollectionEquality()
-                .equals(other.errorMessage, errorMessage));
+            other is _$errorImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(errorMessage));
+  int get hashCode => Object.hash(runtimeType, errorMessage);
 
   @JsonKey(ignore: true)
   @override
-  _$$_errorCopyWith<_$_error> get copyWith =>
-      __$$_errorCopyWithImpl<_$_error>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$errorImplCopyWith<_$errorImpl> get copyWith =>
+      __$$errorImplCopyWithImpl<_$errorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -502,10 +502,10 @@ class _$_error implements _error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? home,
-    TResult Function()? profile,
-    TResult Function()? todo,
-    TResult Function(String errorMessage)? error,
+    TResult? Function()? home,
+    TResult? Function()? profile,
+    TResult? Function()? todo,
+    TResult? Function(String errorMessage)? error,
   }) {
     return error?.call(errorMessage);
   }
@@ -539,10 +539,10 @@ class _$_error implements _error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_home value)? home,
-    TResult Function(_profile value)? profile,
-    TResult Function(_todo value)? todo,
-    TResult Function(_error value)? error,
+    TResult? Function(_home value)? home,
+    TResult? Function(_profile value)? profile,
+    TResult? Function(_todo value)? todo,
+    TResult? Function(_error value)? error,
   }) {
     return error?.call(this);
   }
@@ -564,10 +564,10 @@ class _$_error implements _error {
 }
 
 abstract class _error implements NavigationState {
-  const factory _error(final String errorMessage) = _$_error;
+  const factory _error(final String errorMessage) = _$errorImpl;
 
   String get errorMessage;
   @JsonKey(ignore: true)
-  _$$_errorCopyWith<_$_error> get copyWith =>
+  _$$errorImplCopyWith<_$errorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

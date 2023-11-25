@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'climbing_route_detail.dart';
 
@@ -33,69 +33,71 @@ mixin _$ClimbingRouteDetail {
 abstract class $ClimbingRouteDetailCopyWith<$Res> {
   factory $ClimbingRouteDetailCopyWith(
           ClimbingRouteDetail value, $Res Function(ClimbingRouteDetail) then) =
-      _$ClimbingRouteDetailCopyWithImpl<$Res>;
+      _$ClimbingRouteDetailCopyWithImpl<$Res, ClimbingRouteDetail>;
+  @useResult
   $Res call({String title, String content});
 }
 
 /// @nodoc
-class _$ClimbingRouteDetailCopyWithImpl<$Res>
+class _$ClimbingRouteDetailCopyWithImpl<$Res, $Val extends ClimbingRouteDetail>
     implements $ClimbingRouteDetailCopyWith<$Res> {
   _$ClimbingRouteDetailCopyWithImpl(this._value, this._then);
 
-  final ClimbingRouteDetail _value;
   // ignore: unused_field
-  final $Res Function(ClimbingRouteDetail) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = freezed,
-    Object? content = freezed,
+    Object? title = null,
+    Object? content = null,
   }) {
     return _then(_value.copyWith(
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_ClimbingRouteDetailCopyWith<$Res>
+abstract class _$$ClimbingRouteDetailImplCopyWith<$Res>
     implements $ClimbingRouteDetailCopyWith<$Res> {
-  factory _$$_ClimbingRouteDetailCopyWith(_$_ClimbingRouteDetail value,
-          $Res Function(_$_ClimbingRouteDetail) then) =
-      __$$_ClimbingRouteDetailCopyWithImpl<$Res>;
+  factory _$$ClimbingRouteDetailImplCopyWith(_$ClimbingRouteDetailImpl value,
+          $Res Function(_$ClimbingRouteDetailImpl) then) =
+      __$$ClimbingRouteDetailImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String title, String content});
 }
 
 /// @nodoc
-class __$$_ClimbingRouteDetailCopyWithImpl<$Res>
-    extends _$ClimbingRouteDetailCopyWithImpl<$Res>
-    implements _$$_ClimbingRouteDetailCopyWith<$Res> {
-  __$$_ClimbingRouteDetailCopyWithImpl(_$_ClimbingRouteDetail _value,
-      $Res Function(_$_ClimbingRouteDetail) _then)
-      : super(_value, (v) => _then(v as _$_ClimbingRouteDetail));
+class __$$ClimbingRouteDetailImplCopyWithImpl<$Res>
+    extends _$ClimbingRouteDetailCopyWithImpl<$Res, _$ClimbingRouteDetailImpl>
+    implements _$$ClimbingRouteDetailImplCopyWith<$Res> {
+  __$$ClimbingRouteDetailImplCopyWithImpl(_$ClimbingRouteDetailImpl _value,
+      $Res Function(_$ClimbingRouteDetailImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_ClimbingRouteDetail get _value => super._value as _$_ClimbingRouteDetail;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = freezed,
-    Object? content = freezed,
+    Object? title = null,
+    Object? content = null,
   }) {
-    return _then(_$_ClimbingRouteDetail(
-      title: title == freezed
+    return _then(_$ClimbingRouteDetailImpl(
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
@@ -105,11 +107,11 @@ class __$$_ClimbingRouteDetailCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ClimbingRouteDetail implements _ClimbingRouteDetail {
-  _$_ClimbingRouteDetail({required this.title, required this.content});
+class _$ClimbingRouteDetailImpl implements _ClimbingRouteDetail {
+  _$ClimbingRouteDetailImpl({required this.title, required this.content});
 
-  factory _$_ClimbingRouteDetail.fromJson(Map<String, dynamic> json) =>
-      _$$_ClimbingRouteDetailFromJson(json);
+  factory _$ClimbingRouteDetailImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClimbingRouteDetailImplFromJson(json);
 
   @override
   final String title;
@@ -125,27 +127,25 @@ class _$_ClimbingRouteDetail implements _ClimbingRouteDetail {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ClimbingRouteDetail &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.content, content));
+            other is _$ClimbingRouteDetailImpl &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.content, content) || other.content == content));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(content));
+  int get hashCode => Object.hash(runtimeType, title, content);
 
   @JsonKey(ignore: true)
   @override
-  _$$_ClimbingRouteDetailCopyWith<_$_ClimbingRouteDetail> get copyWith =>
-      __$$_ClimbingRouteDetailCopyWithImpl<_$_ClimbingRouteDetail>(
+  @pragma('vm:prefer-inline')
+  _$$ClimbingRouteDetailImplCopyWith<_$ClimbingRouteDetailImpl> get copyWith =>
+      __$$ClimbingRouteDetailImplCopyWithImpl<_$ClimbingRouteDetailImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ClimbingRouteDetailToJson(
+    return _$$ClimbingRouteDetailImplToJson(
       this,
     );
   }
@@ -154,10 +154,10 @@ class _$_ClimbingRouteDetail implements _ClimbingRouteDetail {
 abstract class _ClimbingRouteDetail implements ClimbingRouteDetail {
   factory _ClimbingRouteDetail(
       {required final String title,
-      required final String content}) = _$_ClimbingRouteDetail;
+      required final String content}) = _$ClimbingRouteDetailImpl;
 
   factory _ClimbingRouteDetail.fromJson(Map<String, dynamic> json) =
-      _$_ClimbingRouteDetail.fromJson;
+      _$ClimbingRouteDetailImpl.fromJson;
 
   @override
   String get title;
@@ -165,6 +165,6 @@ abstract class _ClimbingRouteDetail implements ClimbingRouteDetail {
   String get content;
   @override
   @JsonKey(ignore: true)
-  _$$_ClimbingRouteDetailCopyWith<_$_ClimbingRouteDetail> get copyWith =>
+  _$$ClimbingRouteDetailImplCopyWith<_$ClimbingRouteDetailImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

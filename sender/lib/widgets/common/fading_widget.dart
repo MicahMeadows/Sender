@@ -66,13 +66,15 @@ class _FadingWidgetState extends State<FadingWidget>
   Widget build(BuildContext context) {
     double flipped = 1.0 - _fadeAnimation.value;
 
-    return Transform.rotate(
-      angle: vec.radians(_startRotation),
-      child: Transform.scale(
-        scale: flipped / 2,
-        child: Opacity(
-          opacity: flipped,
-          child: widget.child,
+    return IgnorePointer(
+      child: Transform.rotate(
+        angle: vec.radians(_startRotation),
+        child: Transform.scale(
+          scale: flipped / 2,
+          child: Opacity(
+            opacity: flipped,
+            child: widget.child,
+          ),
         ),
       ),
     );

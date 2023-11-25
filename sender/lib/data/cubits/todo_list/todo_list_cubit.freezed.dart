@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'todo_list_cubit.dart';
 
@@ -27,11 +27,11 @@ mixin _$TodoListState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<RouteTick> sends, List<RouteTick> todos,
+    TResult? Function(List<RouteTick> sends, List<RouteTick> todos,
             List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
-    TResult Function()? loading,
-    TResult Function(String errorMessage)? error,
+    TResult? Function()? loading,
+    TResult? Function(String errorMessage)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,9 +53,9 @@ mixin _$TodoListState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_loading value)? loading,
-    TResult Function(_error value)? error,
+    TResult? Function(_loaded value)? loaded,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,23 +72,26 @@ mixin _$TodoListState {
 abstract class $TodoListStateCopyWith<$Res> {
   factory $TodoListStateCopyWith(
           TodoListState value, $Res Function(TodoListState) then) =
-      _$TodoListStateCopyWithImpl<$Res>;
+      _$TodoListStateCopyWithImpl<$Res, TodoListState>;
 }
 
 /// @nodoc
-class _$TodoListStateCopyWithImpl<$Res>
+class _$TodoListStateCopyWithImpl<$Res, $Val extends TodoListState>
     implements $TodoListStateCopyWith<$Res> {
   _$TodoListStateCopyWithImpl(this._value, this._then);
 
-  final TodoListState _value;
   // ignore: unused_field
-  final $Res Function(TodoListState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$_loadedCopyWith<$Res> {
-  factory _$$_loadedCopyWith(_$_loaded value, $Res Function(_$_loaded) then) =
-      __$$_loadedCopyWithImpl<$Res>;
+abstract class _$$loadedImplCopyWith<$Res> {
+  factory _$$loadedImplCopyWith(
+          _$loadedImpl value, $Res Function(_$loadedImpl) then) =
+      __$$loadedImplCopyWithImpl<$Res>;
+  @useResult
   $Res call(
       {List<RouteTick> sends,
       List<RouteTick> todos,
@@ -97,35 +100,35 @@ abstract class _$$_loadedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_loadedCopyWithImpl<$Res> extends _$TodoListStateCopyWithImpl<$Res>
-    implements _$$_loadedCopyWith<$Res> {
-  __$$_loadedCopyWithImpl(_$_loaded _value, $Res Function(_$_loaded) _then)
-      : super(_value, (v) => _then(v as _$_loaded));
+class __$$loadedImplCopyWithImpl<$Res>
+    extends _$TodoListStateCopyWithImpl<$Res, _$loadedImpl>
+    implements _$$loadedImplCopyWith<$Res> {
+  __$$loadedImplCopyWithImpl(
+      _$loadedImpl _value, $Res Function(_$loadedImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_loaded get _value => super._value as _$_loaded;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sends = freezed,
-    Object? todos = freezed,
-    Object? skips = freezed,
-    Object? likes = freezed,
+    Object? sends = null,
+    Object? todos = null,
+    Object? skips = null,
+    Object? likes = null,
   }) {
-    return _then(_$_loaded(
-      sends: sends == freezed
+    return _then(_$loadedImpl(
+      sends: null == sends
           ? _value._sends
           : sends // ignore: cast_nullable_to_non_nullable
               as List<RouteTick>,
-      todos: todos == freezed
+      todos: null == todos
           ? _value._todos
           : todos // ignore: cast_nullable_to_non_nullable
               as List<RouteTick>,
-      skips: skips == freezed
+      skips: null == skips
           ? _value._skips
           : skips // ignore: cast_nullable_to_non_nullable
               as List<RouteTick>,
-      likes: likes == freezed
+      likes: null == likes
           ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
               as List<RouteTick>,
@@ -135,8 +138,8 @@ class __$$_loadedCopyWithImpl<$Res> extends _$TodoListStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_loaded implements _loaded {
-  const _$_loaded(
+class _$loadedImpl implements _loaded {
+  const _$loadedImpl(
       {required final List<RouteTick> sends,
       required final List<RouteTick> todos,
       required final List<RouteTick> skips,
@@ -149,6 +152,7 @@ class _$_loaded implements _loaded {
   final List<RouteTick> _sends;
   @override
   List<RouteTick> get sends {
+    if (_sends is EqualUnmodifiableListView) return _sends;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_sends);
   }
@@ -156,6 +160,7 @@ class _$_loaded implements _loaded {
   final List<RouteTick> _todos;
   @override
   List<RouteTick> get todos {
+    if (_todos is EqualUnmodifiableListView) return _todos;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_todos);
   }
@@ -163,6 +168,7 @@ class _$_loaded implements _loaded {
   final List<RouteTick> _skips;
   @override
   List<RouteTick> get skips {
+    if (_skips is EqualUnmodifiableListView) return _skips;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_skips);
   }
@@ -170,6 +176,7 @@ class _$_loaded implements _loaded {
   final List<RouteTick> _likes;
   @override
   List<RouteTick> get likes {
+    if (_likes is EqualUnmodifiableListView) return _likes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_likes);
   }
@@ -183,7 +190,7 @@ class _$_loaded implements _loaded {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_loaded &&
+            other is _$loadedImpl &&
             const DeepCollectionEquality().equals(other._sends, _sends) &&
             const DeepCollectionEquality().equals(other._todos, _todos) &&
             const DeepCollectionEquality().equals(other._skips, _skips) &&
@@ -200,8 +207,9 @@ class _$_loaded implements _loaded {
 
   @JsonKey(ignore: true)
   @override
-  _$$_loadedCopyWith<_$_loaded> get copyWith =>
-      __$$_loadedCopyWithImpl<_$_loaded>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$loadedImplCopyWith<_$loadedImpl> get copyWith =>
+      __$$loadedImplCopyWithImpl<_$loadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -218,11 +226,11 @@ class _$_loaded implements _loaded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<RouteTick> sends, List<RouteTick> todos,
+    TResult? Function(List<RouteTick> sends, List<RouteTick> todos,
             List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
-    TResult Function()? loading,
-    TResult Function(String errorMessage)? error,
+    TResult? Function()? loading,
+    TResult? Function(String errorMessage)? error,
   }) {
     return loaded?.call(sends, todos, skips, likes);
   }
@@ -256,9 +264,9 @@ class _$_loaded implements _loaded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_loading value)? loading,
-    TResult Function(_error value)? error,
+    TResult? Function(_loaded value)? loaded,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_error value)? error,
   }) {
     return loaded?.call(this);
   }
@@ -283,38 +291,37 @@ abstract class _loaded implements TodoListState {
       {required final List<RouteTick> sends,
       required final List<RouteTick> todos,
       required final List<RouteTick> skips,
-      required final List<RouteTick> likes}) = _$_loaded;
+      required final List<RouteTick> likes}) = _$loadedImpl;
 
   List<RouteTick> get sends;
   List<RouteTick> get todos;
   List<RouteTick> get skips;
   List<RouteTick> get likes;
   @JsonKey(ignore: true)
-  _$$_loadedCopyWith<_$_loaded> get copyWith =>
+  _$$loadedImplCopyWith<_$loadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_loadingCopyWith<$Res> {
-  factory _$$_loadingCopyWith(
-          _$_loading value, $Res Function(_$_loading) then) =
-      __$$_loadingCopyWithImpl<$Res>;
+abstract class _$$loadingImplCopyWith<$Res> {
+  factory _$$loadingImplCopyWith(
+          _$loadingImpl value, $Res Function(_$loadingImpl) then) =
+      __$$loadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_loadingCopyWithImpl<$Res> extends _$TodoListStateCopyWithImpl<$Res>
-    implements _$$_loadingCopyWith<$Res> {
-  __$$_loadingCopyWithImpl(_$_loading _value, $Res Function(_$_loading) _then)
-      : super(_value, (v) => _then(v as _$_loading));
-
-  @override
-  _$_loading get _value => super._value as _$_loading;
+class __$$loadingImplCopyWithImpl<$Res>
+    extends _$TodoListStateCopyWithImpl<$Res, _$loadingImpl>
+    implements _$$loadingImplCopyWith<$Res> {
+  __$$loadingImplCopyWithImpl(
+      _$loadingImpl _value, $Res Function(_$loadingImpl) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_loading implements _loading {
-  const _$_loading();
+class _$loadingImpl implements _loading {
+  const _$loadingImpl();
 
   @override
   String toString() {
@@ -324,7 +331,7 @@ class _$_loading implements _loading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_loading);
+        (other.runtimeType == runtimeType && other is _$loadingImpl);
   }
 
   @override
@@ -345,11 +352,11 @@ class _$_loading implements _loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<RouteTick> sends, List<RouteTick> todos,
+    TResult? Function(List<RouteTick> sends, List<RouteTick> todos,
             List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
-    TResult Function()? loading,
-    TResult Function(String errorMessage)? error,
+    TResult? Function()? loading,
+    TResult? Function(String errorMessage)? error,
   }) {
     return loading?.call();
   }
@@ -383,9 +390,9 @@ class _$_loading implements _loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_loading value)? loading,
-    TResult Function(_error value)? error,
+    TResult? Function(_loaded value)? loaded,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_error value)? error,
   }) {
     return loading?.call(this);
   }
@@ -406,31 +413,33 @@ class _$_loading implements _loading {
 }
 
 abstract class _loading implements TodoListState {
-  const factory _loading() = _$_loading;
+  const factory _loading() = _$loadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_errorCopyWith<$Res> {
-  factory _$$_errorCopyWith(_$_error value, $Res Function(_$_error) then) =
-      __$$_errorCopyWithImpl<$Res>;
+abstract class _$$errorImplCopyWith<$Res> {
+  factory _$$errorImplCopyWith(
+          _$errorImpl value, $Res Function(_$errorImpl) then) =
+      __$$errorImplCopyWithImpl<$Res>;
+  @useResult
   $Res call({String errorMessage});
 }
 
 /// @nodoc
-class __$$_errorCopyWithImpl<$Res> extends _$TodoListStateCopyWithImpl<$Res>
-    implements _$$_errorCopyWith<$Res> {
-  __$$_errorCopyWithImpl(_$_error _value, $Res Function(_$_error) _then)
-      : super(_value, (v) => _then(v as _$_error));
+class __$$errorImplCopyWithImpl<$Res>
+    extends _$TodoListStateCopyWithImpl<$Res, _$errorImpl>
+    implements _$$errorImplCopyWith<$Res> {
+  __$$errorImplCopyWithImpl(
+      _$errorImpl _value, $Res Function(_$errorImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_error get _value => super._value as _$_error;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errorMessage = freezed,
+    Object? errorMessage = null,
   }) {
-    return _then(_$_error(
-      errorMessage: errorMessage == freezed
+    return _then(_$errorImpl(
+      errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
@@ -440,8 +449,8 @@ class __$$_errorCopyWithImpl<$Res> extends _$TodoListStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_error implements _error {
-  const _$_error({required this.errorMessage});
+class _$errorImpl implements _error {
+  const _$errorImpl({required this.errorMessage});
 
   @override
   final String errorMessage;
@@ -455,19 +464,19 @@ class _$_error implements _error {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_error &&
-            const DeepCollectionEquality()
-                .equals(other.errorMessage, errorMessage));
+            other is _$errorImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(errorMessage));
+  int get hashCode => Object.hash(runtimeType, errorMessage);
 
   @JsonKey(ignore: true)
   @override
-  _$$_errorCopyWith<_$_error> get copyWith =>
-      __$$_errorCopyWithImpl<_$_error>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$errorImplCopyWith<_$errorImpl> get copyWith =>
+      __$$errorImplCopyWithImpl<_$errorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -484,11 +493,11 @@ class _$_error implements _error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<RouteTick> sends, List<RouteTick> todos,
+    TResult? Function(List<RouteTick> sends, List<RouteTick> todos,
             List<RouteTick> skips, List<RouteTick> likes)?
         loaded,
-    TResult Function()? loading,
-    TResult Function(String errorMessage)? error,
+    TResult? Function()? loading,
+    TResult? Function(String errorMessage)? error,
   }) {
     return error?.call(errorMessage);
   }
@@ -522,9 +531,9 @@ class _$_error implements _error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_loading value)? loading,
-    TResult Function(_error value)? error,
+    TResult? Function(_loaded value)? loaded,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_error value)? error,
   }) {
     return error?.call(this);
   }
@@ -545,10 +554,10 @@ class _$_error implements _error {
 }
 
 abstract class _error implements TodoListState {
-  const factory _error({required final String errorMessage}) = _$_error;
+  const factory _error({required final String errorMessage}) = _$errorImpl;
 
   String get errorMessage;
   @JsonKey(ignore: true)
-  _$$_errorCopyWith<_$_error> get copyWith =>
+  _$$errorImplCopyWith<_$errorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

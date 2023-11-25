@@ -171,10 +171,10 @@ class _SwipableCardState extends State<RouteCard>
             decoration: const BoxDecoration(
               color: col.tertiary,
             ),
-            child: Center(
+            child: const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(
                     Icons.error_outline,
                     color: Colors.white,
@@ -199,10 +199,10 @@ class _SwipableCardState extends State<RouteCard>
             decoration: const BoxDecoration(
               color: col.tertiary,
             ),
-            child: Center(
+            child: const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(
                     Icons.error_outline,
                     color: Colors.white,
@@ -222,9 +222,9 @@ class _SwipableCardState extends State<RouteCard>
 
   @override
   void didChangeDependencies() {
-    for (final image in _routeImages) {
-      precacheImage(image.image, context);
-    }
+    // for (final image in _routeImages) {
+    //   precacheImage(image.image, context);
+    // }
     super.didChangeDependencies();
   }
 
@@ -418,10 +418,10 @@ class _SwipableCardState extends State<RouteCard>
         a = currentReangleAngle;
       }
       return Positioned(
-        width: loadedSize != null ? loadedSize!.width : null,
-        height: loadedSize != null ? loadedSize!.height : null,
-        left: dX,
-        top: dY,
+        width: loadedSize != null ? loadedSize!.width + 10 : null,
+        height: loadedSize != null ? loadedSize!.height + 10 : null,
+        left: dX - 5,
+        top: dY - 5,
         child: Opacity(
           opacity: fadeAnimation.value as double,
           child: Transform.rotate(
@@ -516,12 +516,12 @@ class _SwipableCardState extends State<RouteCard>
                           Align(
                               alignment: Alignment.centerLeft,
                               child: currentPageInfo),
-                          Opacity(
+                          const Opacity(
                             opacity: .85,
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.info_outline_rounded,
                                   color: Colors.white,
@@ -560,6 +560,9 @@ class _SwipableCardState extends State<RouteCard>
 
   @override
   Widget build(BuildContext context) {
+    for (final image in _routeImages) {
+      precacheImage(image.image, context);
+    }
     return SizedBox(
       key: cardKey,
       child: GestureDetector(

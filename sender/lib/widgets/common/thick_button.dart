@@ -3,7 +3,7 @@ import 'package:sender/common/constants/colors.dart' as col;
 
 class ThickButton extends StatelessWidget {
   final Color mainColor;
-  late Color shadowColor;
+  late final Color shadowColor;
   final Color textColor;
   final String? text;
   final double? width;

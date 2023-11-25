@@ -62,7 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
     widget.routeSettingsCubit.setPreferences(pagePreferences);
     widget.routeSettingsCubit.uploadPreferences();
     navigationCubit.showHome();
-    widget.queueCubit.reloadRoutes();
+    await widget.queueCubit.reloadRoutes();
   }
 
   void showCustomDialog(BuildContext context) {
@@ -218,7 +218,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     color: col.primary,
                                     child: Column(
                                       children: [
-                                        SectionBanner(text: 'Location'),
+                                        const SectionBanner(text: 'Location'),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: _sidePadding,
@@ -484,7 +484,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   // );
                                 },
                                 settingsLoading: () {
-                                  return Text('loading...');
+                                  return const Text('loading...');
                                 },
                               );
                             },

@@ -42,20 +42,19 @@ dependencies:
   firebase_core: ^2.23.0
   firebase_auth: ^4.14.1
   freezed: ^2.0.3+1
-  chopper_generator: ^4.0.5
-  chopper: ^4.0.5
   retrofit: ^3.0.1+1
   retrofit_generator: ^4.0.1
   html: ^0.15.0
   web_scraper: ^0.1.4
+  json_annotation: ^4.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
   freezed_annotation: ^2.0.3
-  json_annotation: ^4.4.0
-  build_runner: ^2.1.8
+  build_runner: ^2.4.6
+  build_runner_core: ^7.2.9
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

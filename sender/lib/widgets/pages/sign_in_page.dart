@@ -7,7 +7,7 @@ import 'package:sender/widgets/common/thick_button.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 
 class SignInPage extends StatefulWidget {
-  SignInPage({Key? key}) : super(key: key);
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -39,8 +39,8 @@ class _SignInPageState extends State<SignInPage> {
 
   final registerTop = Container(
     padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Column(
-      children: const [
+    child: const Column(
+      children: [
         Text(
           'Welcome to Sender',
           style: TextStyle(fontSize: 24),
@@ -85,10 +85,10 @@ class _SignInPageState extends State<SignInPage> {
             signIn = false;
           });
         },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Column(
-            children: const [
+            children: [
               Text(
                 'Need an account?',
                 style: TextStyle(fontSize: 18, height: 1),
@@ -186,8 +186,8 @@ class _SignInPageState extends State<SignInPage> {
                   const SizedBox(height: 14),
                   AnimatedSize(
                     alignment: Alignment.bottomCenter,
-                    duration: Duration(milliseconds: 300),
-                    reverseDuration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
+                    reverseDuration: const Duration(milliseconds: 300),
                     child: SizedBox(
                       height: signIn ? 0 : null,
                       child: FloatingTextField(
@@ -198,8 +198,8 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   AnimatedSize(
                     alignment: Alignment.bottomCenter,
-                    duration: Duration(milliseconds: 350),
-                    reverseDuration: Duration(milliseconds: 350),
+                    duration: const Duration(milliseconds: 350),
+                    reverseDuration: const Duration(milliseconds: 350),
                     child: SizedBox(
                       height: signIn ? null : 0,
                       child: getLoginBottom(authCubit),

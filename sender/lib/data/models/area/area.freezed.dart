@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'area.dart';
 
@@ -31,64 +31,69 @@ mixin _$Area {
 /// @nodoc
 abstract class $AreaCopyWith<$Res> {
   factory $AreaCopyWith(Area value, $Res Function(Area) then) =
-      _$AreaCopyWithImpl<$Res>;
+      _$AreaCopyWithImpl<$Res, Area>;
+  @useResult
   $Res call({String id, String name});
 }
 
 /// @nodoc
-class _$AreaCopyWithImpl<$Res> implements $AreaCopyWith<$Res> {
+class _$AreaCopyWithImpl<$Res, $Val extends Area>
+    implements $AreaCopyWith<$Res> {
   _$AreaCopyWithImpl(this._value, this._then);
 
-  final Area _value;
   // ignore: unused_field
-  final $Res Function(Area) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
-  factory _$$_AreaCopyWith(_$_Area value, $Res Function(_$_Area) then) =
-      __$$_AreaCopyWithImpl<$Res>;
+abstract class _$$AreaImplCopyWith<$Res> implements $AreaCopyWith<$Res> {
+  factory _$$AreaImplCopyWith(
+          _$AreaImpl value, $Res Function(_$AreaImpl) then) =
+      __$$AreaImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id, String name});
 }
 
 /// @nodoc
-class __$$_AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
-    implements _$$_AreaCopyWith<$Res> {
-  __$$_AreaCopyWithImpl(_$_Area _value, $Res Function(_$_Area) _then)
-      : super(_value, (v) => _then(v as _$_Area));
+class __$$AreaImplCopyWithImpl<$Res>
+    extends _$AreaCopyWithImpl<$Res, _$AreaImpl>
+    implements _$$AreaImplCopyWith<$Res> {
+  __$$AreaImplCopyWithImpl(_$AreaImpl _value, $Res Function(_$AreaImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_Area get _value => super._value as _$_Area;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
   }) {
-    return _then(_$_Area(
-      id: id == freezed
+    return _then(_$AreaImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -98,10 +103,11 @@ class __$$_AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Area implements _Area {
-  const _$_Area({required this.id, required this.name});
+class _$AreaImpl implements _Area {
+  const _$AreaImpl({required this.id, required this.name});
 
-  factory _$_Area.fromJson(Map<String, dynamic> json) => _$$_AreaFromJson(json);
+  factory _$AreaImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AreaImplFromJson(json);
 
   @override
   final String id;
@@ -117,26 +123,24 @@ class _$_Area implements _Area {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Area &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name));
+            other is _$AreaImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name));
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @JsonKey(ignore: true)
   @override
-  _$$_AreaCopyWith<_$_Area> get copyWith =>
-      __$$_AreaCopyWithImpl<_$_Area>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$AreaImplCopyWith<_$AreaImpl> get copyWith =>
+      __$$AreaImplCopyWithImpl<_$AreaImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AreaToJson(
+    return _$$AreaImplToJson(
       this,
     );
   }
@@ -144,9 +148,9 @@ class _$_Area implements _Area {
 
 abstract class _Area implements Area {
   const factory _Area({required final String id, required final String name}) =
-      _$_Area;
+      _$AreaImpl;
 
-  factory _Area.fromJson(Map<String, dynamic> json) = _$_Area.fromJson;
+  factory _Area.fromJson(Map<String, dynamic> json) = _$AreaImpl.fromJson;
 
   @override
   String get id;
@@ -154,5 +158,6 @@ abstract class _Area implements Area {
   String get name;
   @override
   @JsonKey(ignore: true)
-  _$$_AreaCopyWith<_$_Area> get copyWith => throw _privateConstructorUsedError;
+  _$$AreaImplCopyWith<_$AreaImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

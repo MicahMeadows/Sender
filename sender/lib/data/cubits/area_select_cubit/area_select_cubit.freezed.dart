@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'area_select_cubit.dart';
 
@@ -25,9 +25,9 @@ mixin _$AreaSelectState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> areas)? loaded,
-    TResult Function(String message)? error,
+    TResult? Function()? loading,
+    TResult? Function(Area selectedarea, List<Area> areas)? loaded,
+    TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,9 +47,9 @@ mixin _$AreaSelectState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_error value)? error,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_loaded value)? loaded,
+    TResult? Function(_error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,40 +66,40 @@ mixin _$AreaSelectState {
 abstract class $AreaSelectStateCopyWith<$Res> {
   factory $AreaSelectStateCopyWith(
           AreaSelectState value, $Res Function(AreaSelectState) then) =
-      _$AreaSelectStateCopyWithImpl<$Res>;
+      _$AreaSelectStateCopyWithImpl<$Res, AreaSelectState>;
 }
 
 /// @nodoc
-class _$AreaSelectStateCopyWithImpl<$Res>
+class _$AreaSelectStateCopyWithImpl<$Res, $Val extends AreaSelectState>
     implements $AreaSelectStateCopyWith<$Res> {
   _$AreaSelectStateCopyWithImpl(this._value, this._then);
 
-  final AreaSelectState _value;
   // ignore: unused_field
-  final $Res Function(AreaSelectState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$_loadingCopyWith<$Res> {
-  factory _$$_loadingCopyWith(
-          _$_loading value, $Res Function(_$_loading) then) =
-      __$$_loadingCopyWithImpl<$Res>;
+abstract class _$$loadingImplCopyWith<$Res> {
+  factory _$$loadingImplCopyWith(
+          _$loadingImpl value, $Res Function(_$loadingImpl) then) =
+      __$$loadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_loadingCopyWithImpl<$Res> extends _$AreaSelectStateCopyWithImpl<$Res>
-    implements _$$_loadingCopyWith<$Res> {
-  __$$_loadingCopyWithImpl(_$_loading _value, $Res Function(_$_loading) _then)
-      : super(_value, (v) => _then(v as _$_loading));
-
-  @override
-  _$_loading get _value => super._value as _$_loading;
+class __$$loadingImplCopyWithImpl<$Res>
+    extends _$AreaSelectStateCopyWithImpl<$Res, _$loadingImpl>
+    implements _$$loadingImplCopyWith<$Res> {
+  __$$loadingImplCopyWithImpl(
+      _$loadingImpl _value, $Res Function(_$loadingImpl) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_loading implements _loading {
-  const _$_loading();
+class _$loadingImpl implements _loading {
+  const _$loadingImpl();
 
   @override
   String toString() {
@@ -109,7 +109,7 @@ class _$_loading implements _loading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_loading);
+        (other.runtimeType == runtimeType && other is _$loadingImpl);
   }
 
   @override
@@ -128,9 +128,9 @@ class _$_loading implements _loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> areas)? loaded,
-    TResult Function(String message)? error,
+    TResult? Function()? loading,
+    TResult? Function(Area selectedarea, List<Area> areas)? loaded,
+    TResult? Function(String message)? error,
   }) {
     return loading?.call();
   }
@@ -162,9 +162,9 @@ class _$_loading implements _loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_error value)? error,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_loaded value)? loaded,
+    TResult? Function(_error value)? error,
   }) {
     return loading?.call(this);
   }
@@ -185,38 +185,40 @@ class _$_loading implements _loading {
 }
 
 abstract class _loading implements AreaSelectState {
-  const factory _loading() = _$_loading;
+  const factory _loading() = _$loadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_loadedCopyWith<$Res> {
-  factory _$$_loadedCopyWith(_$_loaded value, $Res Function(_$_loaded) then) =
-      __$$_loadedCopyWithImpl<$Res>;
+abstract class _$$loadedImplCopyWith<$Res> {
+  factory _$$loadedImplCopyWith(
+          _$loadedImpl value, $Res Function(_$loadedImpl) then) =
+      __$$loadedImplCopyWithImpl<$Res>;
+  @useResult
   $Res call({Area selectedarea, List<Area> areas});
 
   $AreaCopyWith<$Res> get selectedarea;
 }
 
 /// @nodoc
-class __$$_loadedCopyWithImpl<$Res> extends _$AreaSelectStateCopyWithImpl<$Res>
-    implements _$$_loadedCopyWith<$Res> {
-  __$$_loadedCopyWithImpl(_$_loaded _value, $Res Function(_$_loaded) _then)
-      : super(_value, (v) => _then(v as _$_loaded));
+class __$$loadedImplCopyWithImpl<$Res>
+    extends _$AreaSelectStateCopyWithImpl<$Res, _$loadedImpl>
+    implements _$$loadedImplCopyWith<$Res> {
+  __$$loadedImplCopyWithImpl(
+      _$loadedImpl _value, $Res Function(_$loadedImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_loaded get _value => super._value as _$_loaded;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedarea = freezed,
-    Object? areas = freezed,
+    Object? selectedarea = null,
+    Object? areas = null,
   }) {
-    return _then(_$_loaded(
-      selectedarea == freezed
+    return _then(_$loadedImpl(
+      null == selectedarea
           ? _value.selectedarea
           : selectedarea // ignore: cast_nullable_to_non_nullable
               as Area,
-      areas == freezed
+      null == areas
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
@@ -224,6 +226,7 @@ class __$$_loadedCopyWithImpl<$Res> extends _$AreaSelectStateCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AreaCopyWith<$Res> get selectedarea {
     return $AreaCopyWith<$Res>(_value.selectedarea, (value) {
       return _then(_value.copyWith(selectedarea: value));
@@ -233,14 +236,16 @@ class __$$_loadedCopyWithImpl<$Res> extends _$AreaSelectStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_loaded implements _loaded {
-  const _$_loaded(this.selectedarea, final List<Area> areas) : _areas = areas;
+class _$loadedImpl implements _loaded {
+  const _$loadedImpl(this.selectedarea, final List<Area> areas)
+      : _areas = areas;
 
   @override
   final Area selectedarea;
   final List<Area> _areas;
   @override
   List<Area> get areas {
+    if (_areas is EqualUnmodifiableListView) return _areas;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_areas);
   }
@@ -254,22 +259,21 @@ class _$_loaded implements _loaded {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_loaded &&
-            const DeepCollectionEquality()
-                .equals(other.selectedarea, selectedarea) &&
+            other is _$loadedImpl &&
+            (identical(other.selectedarea, selectedarea) ||
+                other.selectedarea == selectedarea) &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(selectedarea),
-      const DeepCollectionEquality().hash(_areas));
+      runtimeType, selectedarea, const DeepCollectionEquality().hash(_areas));
 
   @JsonKey(ignore: true)
   @override
-  _$$_loadedCopyWith<_$_loaded> get copyWith =>
-      __$$_loadedCopyWithImpl<_$_loaded>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$loadedImplCopyWith<_$loadedImpl> get copyWith =>
+      __$$loadedImplCopyWithImpl<_$loadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -284,9 +288,9 @@ class _$_loaded implements _loaded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> areas)? loaded,
-    TResult Function(String message)? error,
+    TResult? Function()? loading,
+    TResult? Function(Area selectedarea, List<Area> areas)? loaded,
+    TResult? Function(String message)? error,
   }) {
     return loaded?.call(selectedarea, areas);
   }
@@ -318,9 +322,9 @@ class _$_loaded implements _loaded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_error value)? error,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_loaded value)? loaded,
+    TResult? Function(_error value)? error,
   }) {
     return loaded?.call(this);
   }
@@ -342,37 +346,39 @@ class _$_loaded implements _loaded {
 
 abstract class _loaded implements AreaSelectState {
   const factory _loaded(final Area selectedarea, final List<Area> areas) =
-      _$_loaded;
+      _$loadedImpl;
 
   Area get selectedarea;
   List<Area> get areas;
   @JsonKey(ignore: true)
-  _$$_loadedCopyWith<_$_loaded> get copyWith =>
+  _$$loadedImplCopyWith<_$loadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_errorCopyWith<$Res> {
-  factory _$$_errorCopyWith(_$_error value, $Res Function(_$_error) then) =
-      __$$_errorCopyWithImpl<$Res>;
+abstract class _$$errorImplCopyWith<$Res> {
+  factory _$$errorImplCopyWith(
+          _$errorImpl value, $Res Function(_$errorImpl) then) =
+      __$$errorImplCopyWithImpl<$Res>;
+  @useResult
   $Res call({String message});
 }
 
 /// @nodoc
-class __$$_errorCopyWithImpl<$Res> extends _$AreaSelectStateCopyWithImpl<$Res>
-    implements _$$_errorCopyWith<$Res> {
-  __$$_errorCopyWithImpl(_$_error _value, $Res Function(_$_error) _then)
-      : super(_value, (v) => _then(v as _$_error));
+class __$$errorImplCopyWithImpl<$Res>
+    extends _$AreaSelectStateCopyWithImpl<$Res, _$errorImpl>
+    implements _$$errorImplCopyWith<$Res> {
+  __$$errorImplCopyWithImpl(
+      _$errorImpl _value, $Res Function(_$errorImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_error get _value => super._value as _$_error;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = freezed,
+    Object? message = null,
   }) {
-    return _then(_$_error(
-      message == freezed
+    return _then(_$errorImpl(
+      null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
@@ -382,8 +388,8 @@ class __$$_errorCopyWithImpl<$Res> extends _$AreaSelectStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_error implements _error {
-  const _$_error(this.message);
+class _$errorImpl implements _error {
+  const _$errorImpl(this.message);
 
   @override
   final String message;
@@ -397,18 +403,18 @@ class _$_error implements _error {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_error &&
-            const DeepCollectionEquality().equals(other.message, message));
+            other is _$errorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
+  int get hashCode => Object.hash(runtimeType, message);
 
   @JsonKey(ignore: true)
   @override
-  _$$_errorCopyWith<_$_error> get copyWith =>
-      __$$_errorCopyWithImpl<_$_error>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$errorImplCopyWith<_$errorImpl> get copyWith =>
+      __$$errorImplCopyWithImpl<_$errorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -423,9 +429,9 @@ class _$_error implements _error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(Area selectedarea, List<Area> areas)? loaded,
-    TResult Function(String message)? error,
+    TResult? Function()? loading,
+    TResult? Function(Area selectedarea, List<Area> areas)? loaded,
+    TResult? Function(String message)? error,
   }) {
     return error?.call(message);
   }
@@ -457,9 +463,9 @@ class _$_error implements _error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_loading value)? loading,
-    TResult Function(_loaded value)? loaded,
-    TResult Function(_error value)? error,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_loaded value)? loaded,
+    TResult? Function(_error value)? error,
   }) {
     return error?.call(this);
   }
@@ -480,10 +486,10 @@ class _$_error implements _error {
 }
 
 abstract class _error implements AreaSelectState {
-  const factory _error(final String message) = _$_error;
+  const factory _error(final String message) = _$errorImpl;
 
   String get message;
   @JsonKey(ignore: true)
-  _$$_errorCopyWith<_$_error> get copyWith =>
+  _$$errorImplCopyWith<_$errorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

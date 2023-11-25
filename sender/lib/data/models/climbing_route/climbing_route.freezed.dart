@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'climbing_route.dart';
 
@@ -45,7 +45,8 @@ mixin _$ClimbingRoute {
 abstract class $ClimbingRouteCopyWith<$Res> {
   factory $ClimbingRouteCopyWith(
           ClimbingRoute value, $Res Function(ClimbingRoute) then) =
-      _$ClimbingRouteCopyWithImpl<$Res>;
+      _$ClimbingRouteCopyWithImpl<$Res, ClimbingRoute>;
+  @useResult
   $Res call(
       {String id,
       String? grade,
@@ -64,19 +65,21 @@ abstract class $ClimbingRouteCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ClimbingRouteCopyWithImpl<$Res>
+class _$ClimbingRouteCopyWithImpl<$Res, $Val extends ClimbingRoute>
     implements $ClimbingRouteCopyWith<$Res> {
   _$ClimbingRouteCopyWithImpl(this._value, this._then);
 
-  final ClimbingRoute _value;
   // ignore: unused_field
-  final $Res Function(ClimbingRoute) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? grade = freezed,
-    Object? name = freezed,
+    Object? name = null,
     Object? area = freezed,
     Object? rating = freezed,
     Object? type = freezed,
@@ -90,73 +93,74 @@ class _$ClimbingRouteCopyWithImpl<$Res>
     Object? details = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      grade: grade == freezed
+      grade: freezed == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      area: area == freezed
+      area: freezed == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as String?,
-      rating: rating == freezed
+      rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      pitches: pitches == freezed
+      pitches: freezed == pitches
           ? _value.pitches
           : pitches // ignore: cast_nullable_to_non_nullable
               as int?,
-      length: length == freezed
+      length: freezed == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as int?,
-      longitude: longitude == freezed
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      latitude: latitude == freezed
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      firstAscent: firstAscent == freezed
+      firstAscent: freezed == firstAscent
           ? _value.firstAscent
           : firstAscent // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrls: imageUrls == freezed
+      imageUrls: freezed == imageUrls
           ? _value.imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      areas: areas == freezed
+      areas: freezed == areas
           ? _value.areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>?,
-      details: details == freezed
+      details: freezed == details
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as List<ClimbingRouteDetail>?,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_ClimbingRouteCopyWith<$Res>
+abstract class _$$ClimbingRouteImplCopyWith<$Res>
     implements $ClimbingRouteCopyWith<$Res> {
-  factory _$$_ClimbingRouteCopyWith(
-          _$_ClimbingRoute value, $Res Function(_$_ClimbingRoute) then) =
-      __$$_ClimbingRouteCopyWithImpl<$Res>;
+  factory _$$ClimbingRouteImplCopyWith(
+          _$ClimbingRouteImpl value, $Res Function(_$ClimbingRouteImpl) then) =
+      __$$ClimbingRouteImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String? grade,
@@ -175,21 +179,19 @@ abstract class _$$_ClimbingRouteCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ClimbingRouteCopyWithImpl<$Res>
-    extends _$ClimbingRouteCopyWithImpl<$Res>
-    implements _$$_ClimbingRouteCopyWith<$Res> {
-  __$$_ClimbingRouteCopyWithImpl(
-      _$_ClimbingRoute _value, $Res Function(_$_ClimbingRoute) _then)
-      : super(_value, (v) => _then(v as _$_ClimbingRoute));
+class __$$ClimbingRouteImplCopyWithImpl<$Res>
+    extends _$ClimbingRouteCopyWithImpl<$Res, _$ClimbingRouteImpl>
+    implements _$$ClimbingRouteImplCopyWith<$Res> {
+  __$$ClimbingRouteImplCopyWithImpl(
+      _$ClimbingRouteImpl _value, $Res Function(_$ClimbingRouteImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_ClimbingRoute get _value => super._value as _$_ClimbingRoute;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? grade = freezed,
-    Object? name = freezed,
+    Object? name = null,
     Object? area = freezed,
     Object? rating = freezed,
     Object? type = freezed,
@@ -202,60 +204,60 @@ class __$$_ClimbingRouteCopyWithImpl<$Res>
     Object? areas = freezed,
     Object? details = freezed,
   }) {
-    return _then(_$_ClimbingRoute(
-      id: id == freezed
+    return _then(_$ClimbingRouteImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      grade: grade == freezed
+      grade: freezed == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      area: area == freezed
+      area: freezed == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as String?,
-      rating: rating == freezed
+      rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      pitches: pitches == freezed
+      pitches: freezed == pitches
           ? _value.pitches
           : pitches // ignore: cast_nullable_to_non_nullable
               as int?,
-      length: length == freezed
+      length: freezed == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as int?,
-      longitude: longitude == freezed
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      latitude: latitude == freezed
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      firstAscent: firstAscent == freezed
+      firstAscent: freezed == firstAscent
           ? _value.firstAscent
           : firstAscent // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrls: imageUrls == freezed
+      imageUrls: freezed == imageUrls
           ? _value._imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      areas: areas == freezed
+      areas: freezed == areas
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>?,
-      details: details == freezed
+      details: freezed == details
           ? _value._details
           : details // ignore: cast_nullable_to_non_nullable
               as List<ClimbingRouteDetail>?,
@@ -265,8 +267,8 @@ class __$$_ClimbingRouteCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ClimbingRoute implements _ClimbingRoute {
-  _$_ClimbingRoute(
+class _$ClimbingRouteImpl implements _ClimbingRoute {
+  _$ClimbingRouteImpl(
       {required this.id,
       required this.grade,
       required this.name,
@@ -285,8 +287,8 @@ class _$_ClimbingRoute implements _ClimbingRoute {
         _areas = areas,
         _details = details;
 
-  factory _$_ClimbingRoute.fromJson(Map<String, dynamic> json) =>
-      _$$_ClimbingRouteFromJson(json);
+  factory _$ClimbingRouteImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClimbingRouteImplFromJson(json);
 
   @override
   final String id;
@@ -315,6 +317,7 @@ class _$_ClimbingRoute implements _ClimbingRoute {
   List<String>? get imageUrls {
     final value = _imageUrls;
     if (value == null) return null;
+    if (_imageUrls is EqualUnmodifiableListView) return _imageUrls;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -324,6 +327,7 @@ class _$_ClimbingRoute implements _ClimbingRoute {
   List<Area>? get areas {
     final value = _areas;
     if (value == null) return null;
+    if (_areas is EqualUnmodifiableListView) return _areas;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -333,6 +337,7 @@ class _$_ClimbingRoute implements _ClimbingRoute {
   List<ClimbingRouteDetail>? get details {
     final value = _details;
     if (value == null) return null;
+    if (_details is EqualUnmodifiableListView) return _details;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -346,19 +351,21 @@ class _$_ClimbingRoute implements _ClimbingRoute {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ClimbingRoute &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.grade, grade) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.area, area) &&
-            const DeepCollectionEquality().equals(other.rating, rating) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.pitches, pitches) &&
-            const DeepCollectionEquality().equals(other.length, length) &&
-            const DeepCollectionEquality().equals(other.longitude, longitude) &&
-            const DeepCollectionEquality().equals(other.latitude, latitude) &&
-            const DeepCollectionEquality()
-                .equals(other.firstAscent, firstAscent) &&
+            other is _$ClimbingRouteImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.grade, grade) || other.grade == grade) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.pitches, pitches) || other.pitches == pitches) &&
+            (identical(other.length, length) || other.length == length) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.firstAscent, firstAscent) ||
+                other.firstAscent == firstAscent) &&
             const DeepCollectionEquality()
                 .equals(other._imageUrls, _imageUrls) &&
             const DeepCollectionEquality().equals(other._areas, _areas) &&
@@ -369,29 +376,30 @@ class _$_ClimbingRoute implements _ClimbingRoute {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(grade),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(area),
-      const DeepCollectionEquality().hash(rating),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(pitches),
-      const DeepCollectionEquality().hash(length),
-      const DeepCollectionEquality().hash(longitude),
-      const DeepCollectionEquality().hash(latitude),
-      const DeepCollectionEquality().hash(firstAscent),
+      id,
+      grade,
+      name,
+      area,
+      rating,
+      type,
+      pitches,
+      length,
+      longitude,
+      latitude,
+      firstAscent,
       const DeepCollectionEquality().hash(_imageUrls),
       const DeepCollectionEquality().hash(_areas),
       const DeepCollectionEquality().hash(_details));
 
   @JsonKey(ignore: true)
   @override
-  _$$_ClimbingRouteCopyWith<_$_ClimbingRoute> get copyWith =>
-      __$$_ClimbingRouteCopyWithImpl<_$_ClimbingRoute>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$ClimbingRouteImplCopyWith<_$ClimbingRouteImpl> get copyWith =>
+      __$$ClimbingRouteImplCopyWithImpl<_$ClimbingRouteImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ClimbingRouteToJson(
+    return _$$ClimbingRouteImplToJson(
       this,
     );
   }
@@ -412,10 +420,10 @@ abstract class _ClimbingRoute implements ClimbingRoute {
       required final String? firstAscent,
       required final List<String>? imageUrls,
       required final List<Area>? areas,
-      required final List<ClimbingRouteDetail>? details}) = _$_ClimbingRoute;
+      required final List<ClimbingRouteDetail>? details}) = _$ClimbingRouteImpl;
 
   factory _ClimbingRoute.fromJson(Map<String, dynamic> json) =
-      _$_ClimbingRoute.fromJson;
+      _$ClimbingRouteImpl.fromJson;
 
   @override
   String get id;
@@ -447,6 +455,6 @@ abstract class _ClimbingRoute implements ClimbingRoute {
   List<ClimbingRouteDetail>? get details;
   @override
   @JsonKey(ignore: true)
-  _$$_ClimbingRouteCopyWith<_$_ClimbingRoute> get copyWith =>
+  _$$ClimbingRouteImplCopyWith<_$ClimbingRouteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
