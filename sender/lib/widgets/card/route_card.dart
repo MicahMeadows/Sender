@@ -418,10 +418,10 @@ class _SwipableCardState extends State<RouteCard>
         a = currentReangleAngle;
       }
       return Positioned(
-        width: loadedSize != null ? loadedSize!.width : null,
-        height: loadedSize != null ? loadedSize!.height : null,
-        left: dX,
-        top: dY,
+        width: loadedSize != null ? loadedSize!.width + 10 : null,
+        height: loadedSize != null ? loadedSize!.height + 10 : null,
+        left: dX - 5,
+        top: dY - 5,
         child: Opacity(
           opacity: fadeAnimation.value as double,
           child: Transform.rotate(
