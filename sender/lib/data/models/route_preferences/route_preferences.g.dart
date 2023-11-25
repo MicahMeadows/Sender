@@ -6,8 +6,9 @@ part of 'route_preferences.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RoutePreferences _$$_RoutePreferencesFromJson(Map<String, dynamic> json) =>
-    _$_RoutePreferences(
+_$RoutePreferencesImpl _$$RoutePreferencesImplFromJson(
+        Map<String, dynamic> json) =>
+    _$RoutePreferencesImpl(
       area: Area.fromJson(json['area'] as Map<String, dynamic>),
       minGrade: json['minGrade'] as String,
       maxGrade: json['maxGrade'] as String,
@@ -18,7 +19,8 @@ _$_RoutePreferences _$$_RoutePreferencesFromJson(Map<String, dynamic> json) =>
       showMultipitch: json['showMultipitch'] as bool,
     );
 
-Map<String, dynamic> _$$_RoutePreferencesToJson(_$_RoutePreferences instance) =>
+Map<String, dynamic> _$$RoutePreferencesImplToJson(
+        _$RoutePreferencesImpl instance) =>
     <String, dynamic>{
       'area': instance.area,
       'minGrade': instance.minGrade,

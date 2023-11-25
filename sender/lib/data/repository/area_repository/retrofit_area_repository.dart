@@ -10,9 +10,6 @@ class RetrofitAreaRepository implements IAreaRepository {
   @override
   Future<List<Area>> getAreas(String parentId) async {
     final areas = await _api.getClimbingAreas(parentId);
-    areas.forEach((element) {
-      print(element.toJson());
-    });
     return areas;
   }
 }

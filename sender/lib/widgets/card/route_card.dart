@@ -171,10 +171,10 @@ class _SwipableCardState extends State<RouteCard>
             decoration: const BoxDecoration(
               color: col.tertiary,
             ),
-            child: Center(
+            child: const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(
                     Icons.error_outline,
                     color: Colors.white,
@@ -199,10 +199,10 @@ class _SwipableCardState extends State<RouteCard>
             decoration: const BoxDecoration(
               color: col.tertiary,
             ),
-            child: Center(
+            child: const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(
                     Icons.error_outline,
                     color: Colors.white,
@@ -516,12 +516,12 @@ class _SwipableCardState extends State<RouteCard>
                           Align(
                               alignment: Alignment.centerLeft,
                               child: currentPageInfo),
-                          Opacity(
+                          const Opacity(
                             opacity: .85,
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.info_outline_rounded,
                                   color: Colors.white,

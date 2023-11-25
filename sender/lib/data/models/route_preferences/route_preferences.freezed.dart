@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'route_preferences.dart';
 
@@ -40,7 +40,8 @@ mixin _$RoutePreferences {
 abstract class $RoutePreferencesCopyWith<$Res> {
   factory $RoutePreferencesCopyWith(
           RoutePreferences value, $Res Function(RoutePreferences) then) =
-      _$RoutePreferencesCopyWithImpl<$Res>;
+      _$RoutePreferencesCopyWithImpl<$Res, RoutePreferences>;
+  @useResult
   $Res call(
       {Area area,
       String minGrade,
@@ -55,76 +56,80 @@ abstract class $RoutePreferencesCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RoutePreferencesCopyWithImpl<$Res>
+class _$RoutePreferencesCopyWithImpl<$Res, $Val extends RoutePreferences>
     implements $RoutePreferencesCopyWith<$Res> {
   _$RoutePreferencesCopyWithImpl(this._value, this._then);
 
-  final RoutePreferences _value;
   // ignore: unused_field
-  final $Res Function(RoutePreferences) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? area = freezed,
-    Object? minGrade = freezed,
-    Object? maxGrade = freezed,
-    Object? showTrad = freezed,
-    Object? showSport = freezed,
-    Object? showTopRope = freezed,
-    Object? minRating = freezed,
-    Object? showMultipitch = freezed,
+    Object? area = null,
+    Object? minGrade = null,
+    Object? maxGrade = null,
+    Object? showTrad = null,
+    Object? showSport = null,
+    Object? showTopRope = null,
+    Object? minRating = null,
+    Object? showMultipitch = null,
   }) {
     return _then(_value.copyWith(
-      area: area == freezed
+      area: null == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as Area,
-      minGrade: minGrade == freezed
+      minGrade: null == minGrade
           ? _value.minGrade
           : minGrade // ignore: cast_nullable_to_non_nullable
               as String,
-      maxGrade: maxGrade == freezed
+      maxGrade: null == maxGrade
           ? _value.maxGrade
           : maxGrade // ignore: cast_nullable_to_non_nullable
               as String,
-      showTrad: showTrad == freezed
+      showTrad: null == showTrad
           ? _value.showTrad
           : showTrad // ignore: cast_nullable_to_non_nullable
               as bool,
-      showSport: showSport == freezed
+      showSport: null == showSport
           ? _value.showSport
           : showSport // ignore: cast_nullable_to_non_nullable
               as bool,
-      showTopRope: showTopRope == freezed
+      showTopRope: null == showTopRope
           ? _value.showTopRope
           : showTopRope // ignore: cast_nullable_to_non_nullable
               as bool,
-      minRating: minRating == freezed
+      minRating: null == minRating
           ? _value.minRating
           : minRating // ignore: cast_nullable_to_non_nullable
               as double,
-      showMultipitch: showMultipitch == freezed
+      showMultipitch: null == showMultipitch
           ? _value.showMultipitch
           : showMultipitch // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AreaCopyWith<$Res> get area {
     return $AreaCopyWith<$Res>(_value.area, (value) {
-      return _then(_value.copyWith(area: value));
+      return _then(_value.copyWith(area: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_RoutePreferencesCopyWith<$Res>
+abstract class _$$RoutePreferencesImplCopyWith<$Res>
     implements $RoutePreferencesCopyWith<$Res> {
-  factory _$$_RoutePreferencesCopyWith(
-          _$_RoutePreferences value, $Res Function(_$_RoutePreferences) then) =
-      __$$_RoutePreferencesCopyWithImpl<$Res>;
+  factory _$$RoutePreferencesImplCopyWith(_$RoutePreferencesImpl value,
+          $Res Function(_$RoutePreferencesImpl) then) =
+      __$$RoutePreferencesImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {Area area,
       String minGrade,
@@ -140,57 +145,55 @@ abstract class _$$_RoutePreferencesCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RoutePreferencesCopyWithImpl<$Res>
-    extends _$RoutePreferencesCopyWithImpl<$Res>
-    implements _$$_RoutePreferencesCopyWith<$Res> {
-  __$$_RoutePreferencesCopyWithImpl(
-      _$_RoutePreferences _value, $Res Function(_$_RoutePreferences) _then)
-      : super(_value, (v) => _then(v as _$_RoutePreferences));
+class __$$RoutePreferencesImplCopyWithImpl<$Res>
+    extends _$RoutePreferencesCopyWithImpl<$Res, _$RoutePreferencesImpl>
+    implements _$$RoutePreferencesImplCopyWith<$Res> {
+  __$$RoutePreferencesImplCopyWithImpl(_$RoutePreferencesImpl _value,
+      $Res Function(_$RoutePreferencesImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_RoutePreferences get _value => super._value as _$_RoutePreferences;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? area = freezed,
-    Object? minGrade = freezed,
-    Object? maxGrade = freezed,
-    Object? showTrad = freezed,
-    Object? showSport = freezed,
-    Object? showTopRope = freezed,
-    Object? minRating = freezed,
-    Object? showMultipitch = freezed,
+    Object? area = null,
+    Object? minGrade = null,
+    Object? maxGrade = null,
+    Object? showTrad = null,
+    Object? showSport = null,
+    Object? showTopRope = null,
+    Object? minRating = null,
+    Object? showMultipitch = null,
   }) {
-    return _then(_$_RoutePreferences(
-      area: area == freezed
+    return _then(_$RoutePreferencesImpl(
+      area: null == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as Area,
-      minGrade: minGrade == freezed
+      minGrade: null == minGrade
           ? _value.minGrade
           : minGrade // ignore: cast_nullable_to_non_nullable
               as String,
-      maxGrade: maxGrade == freezed
+      maxGrade: null == maxGrade
           ? _value.maxGrade
           : maxGrade // ignore: cast_nullable_to_non_nullable
               as String,
-      showTrad: showTrad == freezed
+      showTrad: null == showTrad
           ? _value.showTrad
           : showTrad // ignore: cast_nullable_to_non_nullable
               as bool,
-      showSport: showSport == freezed
+      showSport: null == showSport
           ? _value.showSport
           : showSport // ignore: cast_nullable_to_non_nullable
               as bool,
-      showTopRope: showTopRope == freezed
+      showTopRope: null == showTopRope
           ? _value.showTopRope
           : showTopRope // ignore: cast_nullable_to_non_nullable
               as bool,
-      minRating: minRating == freezed
+      minRating: null == minRating
           ? _value.minRating
           : minRating // ignore: cast_nullable_to_non_nullable
               as double,
-      showMultipitch: showMultipitch == freezed
+      showMultipitch: null == showMultipitch
           ? _value.showMultipitch
           : showMultipitch // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -200,8 +203,8 @@ class __$$_RoutePreferencesCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RoutePreferences implements _RoutePreferences {
-  const _$_RoutePreferences(
+class _$RoutePreferencesImpl implements _RoutePreferences {
+  const _$RoutePreferencesImpl(
       {required this.area,
       required this.minGrade,
       required this.maxGrade,
@@ -211,8 +214,8 @@ class _$_RoutePreferences implements _RoutePreferences {
       required this.minRating,
       required this.showMultipitch});
 
-  factory _$_RoutePreferences.fromJson(Map<String, dynamic> json) =>
-      _$$_RoutePreferencesFromJson(json);
+  factory _$RoutePreferencesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RoutePreferencesImplFromJson(json);
 
 // required String areaId,
   @override
@@ -241,40 +244,39 @@ class _$_RoutePreferences implements _RoutePreferences {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RoutePreferences &&
-            const DeepCollectionEquality().equals(other.area, area) &&
-            const DeepCollectionEquality().equals(other.minGrade, minGrade) &&
-            const DeepCollectionEquality().equals(other.maxGrade, maxGrade) &&
-            const DeepCollectionEquality().equals(other.showTrad, showTrad) &&
-            const DeepCollectionEquality().equals(other.showSport, showSport) &&
-            const DeepCollectionEquality()
-                .equals(other.showTopRope, showTopRope) &&
-            const DeepCollectionEquality().equals(other.minRating, minRating) &&
-            const DeepCollectionEquality()
-                .equals(other.showMultipitch, showMultipitch));
+            other is _$RoutePreferencesImpl &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.minGrade, minGrade) ||
+                other.minGrade == minGrade) &&
+            (identical(other.maxGrade, maxGrade) ||
+                other.maxGrade == maxGrade) &&
+            (identical(other.showTrad, showTrad) ||
+                other.showTrad == showTrad) &&
+            (identical(other.showSport, showSport) ||
+                other.showSport == showSport) &&
+            (identical(other.showTopRope, showTopRope) ||
+                other.showTopRope == showTopRope) &&
+            (identical(other.minRating, minRating) ||
+                other.minRating == minRating) &&
+            (identical(other.showMultipitch, showMultipitch) ||
+                other.showMultipitch == showMultipitch));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(area),
-      const DeepCollectionEquality().hash(minGrade),
-      const DeepCollectionEquality().hash(maxGrade),
-      const DeepCollectionEquality().hash(showTrad),
-      const DeepCollectionEquality().hash(showSport),
-      const DeepCollectionEquality().hash(showTopRope),
-      const DeepCollectionEquality().hash(minRating),
-      const DeepCollectionEquality().hash(showMultipitch));
+  int get hashCode => Object.hash(runtimeType, area, minGrade, maxGrade,
+      showTrad, showSport, showTopRope, minRating, showMultipitch);
 
   @JsonKey(ignore: true)
   @override
-  _$$_RoutePreferencesCopyWith<_$_RoutePreferences> get copyWith =>
-      __$$_RoutePreferencesCopyWithImpl<_$_RoutePreferences>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$RoutePreferencesImplCopyWith<_$RoutePreferencesImpl> get copyWith =>
+      __$$RoutePreferencesImplCopyWithImpl<_$RoutePreferencesImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RoutePreferencesToJson(
+    return _$$RoutePreferencesImplToJson(
       this,
     );
   }
@@ -289,10 +291,10 @@ abstract class _RoutePreferences implements RoutePreferences {
       required final bool showSport,
       required final bool showTopRope,
       required final double minRating,
-      required final bool showMultipitch}) = _$_RoutePreferences;
+      required final bool showMultipitch}) = _$RoutePreferencesImpl;
 
   factory _RoutePreferences.fromJson(Map<String, dynamic> json) =
-      _$_RoutePreferences.fromJson;
+      _$RoutePreferencesImpl.fromJson;
 
   @override // required String areaId,
   Area get area;
@@ -312,6 +314,6 @@ abstract class _RoutePreferences implements RoutePreferences {
   bool get showMultipitch;
   @override
   @JsonKey(ignore: true)
-  _$$_RoutePreferencesCopyWith<_$_RoutePreferences> get copyWith =>
+  _$$RoutePreferencesImplCopyWith<_$RoutePreferencesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

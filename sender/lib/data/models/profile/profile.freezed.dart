@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'profile.dart';
 
@@ -34,7 +34,8 @@ mixin _$Profile {
 /// @nodoc
 abstract class $ProfileCopyWith<$Res> {
   factory $ProfileCopyWith(Profile value, $Res Function(Profile) then) =
-      _$ProfileCopyWithImpl<$Res>;
+      _$ProfileCopyWithImpl<$Res, Profile>;
+  @useResult
   $Res call(
       {String? uid,
       String email,
@@ -46,63 +47,68 @@ abstract class $ProfileCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProfileCopyWithImpl<$Res> implements $ProfileCopyWith<$Res> {
+class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
+    implements $ProfileCopyWith<$Res> {
   _$ProfileCopyWithImpl(this._value, this._then);
 
-  final Profile _value;
   // ignore: unused_field
-  final $Res Function(Profile) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? uid = freezed,
-    Object? email = freezed,
-    Object? displayName = freezed,
+    Object? email = null,
+    Object? displayName = null,
     Object? routePreferences = freezed,
     Object? routeTicks = freezed,
   }) {
     return _then(_value.copyWith(
-      uid: uid == freezed
+      uid: freezed == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: displayName == freezed
+      displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      routePreferences: routePreferences == freezed
+      routePreferences: freezed == routePreferences
           ? _value.routePreferences
           : routePreferences // ignore: cast_nullable_to_non_nullable
               as RoutePreferences?,
-      routeTicks: routeTicks == freezed
+      routeTicks: freezed == routeTicks
           ? _value.routeTicks
           : routeTicks // ignore: cast_nullable_to_non_nullable
               as List<RouteTick>?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RoutePreferencesCopyWith<$Res>? get routePreferences {
     if (_value.routePreferences == null) {
       return null;
     }
 
     return $RoutePreferencesCopyWith<$Res>(_value.routePreferences!, (value) {
-      return _then(_value.copyWith(routePreferences: value));
+      return _then(_value.copyWith(routePreferences: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_ProfileCopyWith<$Res> implements $ProfileCopyWith<$Res> {
-  factory _$$_ProfileCopyWith(
-          _$_Profile value, $Res Function(_$_Profile) then) =
-      __$$_ProfileCopyWithImpl<$Res>;
+abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
+  factory _$$ProfileImplCopyWith(
+          _$ProfileImpl value, $Res Function(_$ProfileImpl) then) =
+      __$$ProfileImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? uid,
       String email,
@@ -115,40 +121,40 @@ abstract class _$$_ProfileCopyWith<$Res> implements $ProfileCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ProfileCopyWithImpl<$Res> extends _$ProfileCopyWithImpl<$Res>
-    implements _$$_ProfileCopyWith<$Res> {
-  __$$_ProfileCopyWithImpl(_$_Profile _value, $Res Function(_$_Profile) _then)
-      : super(_value, (v) => _then(v as _$_Profile));
+class __$$ProfileImplCopyWithImpl<$Res>
+    extends _$ProfileCopyWithImpl<$Res, _$ProfileImpl>
+    implements _$$ProfileImplCopyWith<$Res> {
+  __$$ProfileImplCopyWithImpl(
+      _$ProfileImpl _value, $Res Function(_$ProfileImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_Profile get _value => super._value as _$_Profile;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? uid = freezed,
-    Object? email = freezed,
-    Object? displayName = freezed,
+    Object? email = null,
+    Object? displayName = null,
     Object? routePreferences = freezed,
     Object? routeTicks = freezed,
   }) {
-    return _then(_$_Profile(
-      uid: uid == freezed
+    return _then(_$ProfileImpl(
+      uid: freezed == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: displayName == freezed
+      displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      routePreferences: routePreferences == freezed
+      routePreferences: freezed == routePreferences
           ? _value.routePreferences
           : routePreferences // ignore: cast_nullable_to_non_nullable
               as RoutePreferences?,
-      routeTicks: routeTicks == freezed
+      routeTicks: freezed == routeTicks
           ? _value._routeTicks
           : routeTicks // ignore: cast_nullable_to_non_nullable
               as List<RouteTick>?,
@@ -158,8 +164,8 @@ class __$$_ProfileCopyWithImpl<$Res> extends _$ProfileCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Profile implements _Profile {
-  _$_Profile(
+class _$ProfileImpl implements _Profile {
+  _$ProfileImpl(
       {this.uid,
       required this.email,
       required this.displayName,
@@ -167,8 +173,8 @@ class _$_Profile implements _Profile {
       final List<RouteTick>? routeTicks})
       : _routeTicks = routeTicks;
 
-  factory _$_Profile.fromJson(Map<String, dynamic> json) =>
-      _$$_ProfileFromJson(json);
+  factory _$ProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProfileImplFromJson(json);
 
   @override
   final String? uid;
@@ -183,6 +189,7 @@ class _$_Profile implements _Profile {
   List<RouteTick>? get routeTicks {
     final value = _routeTicks;
     if (value == null) return null;
+    if (_routeTicks is EqualUnmodifiableListView) return _routeTicks;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -196,35 +203,31 @@ class _$_Profile implements _Profile {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Profile &&
-            const DeepCollectionEquality().equals(other.uid, uid) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality()
-                .equals(other.displayName, displayName) &&
-            const DeepCollectionEquality()
-                .equals(other.routePreferences, routePreferences) &&
+            other is _$ProfileImpl &&
+            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
+            (identical(other.routePreferences, routePreferences) ||
+                other.routePreferences == routePreferences) &&
             const DeepCollectionEquality()
                 .equals(other._routeTicks, _routeTicks));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(uid),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(displayName),
-      const DeepCollectionEquality().hash(routePreferences),
-      const DeepCollectionEquality().hash(_routeTicks));
+  int get hashCode => Object.hash(runtimeType, uid, email, displayName,
+      routePreferences, const DeepCollectionEquality().hash(_routeTicks));
 
   @JsonKey(ignore: true)
   @override
-  _$$_ProfileCopyWith<_$_Profile> get copyWith =>
-      __$$_ProfileCopyWithImpl<_$_Profile>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$ProfileImplCopyWith<_$ProfileImpl> get copyWith =>
+      __$$ProfileImplCopyWithImpl<_$ProfileImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ProfileToJson(
+    return _$$ProfileImplToJson(
       this,
     );
   }
@@ -236,9 +239,9 @@ abstract class _Profile implements Profile {
       required final String email,
       required final String displayName,
       final RoutePreferences? routePreferences,
-      final List<RouteTick>? routeTicks}) = _$_Profile;
+      final List<RouteTick>? routeTicks}) = _$ProfileImpl;
 
-  factory _Profile.fromJson(Map<String, dynamic> json) = _$_Profile.fromJson;
+  factory _Profile.fromJson(Map<String, dynamic> json) = _$ProfileImpl.fromJson;
 
   @override
   String? get uid;
@@ -252,6 +255,6 @@ abstract class _Profile implements Profile {
   List<RouteTick>? get routeTicks;
   @override
   @JsonKey(ignore: true)
-  _$$_ProfileCopyWith<_$_Profile> get copyWith =>
+  _$$ProfileImplCopyWith<_$ProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

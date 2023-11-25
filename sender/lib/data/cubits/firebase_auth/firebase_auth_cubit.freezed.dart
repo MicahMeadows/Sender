@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'firebase_auth_cubit.dart';
 
@@ -24,8 +24,8 @@ mixin _$FirebaseAuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(User user)? authenticated,
-    TResult Function()? unauthenticated,
+    TResult? Function(User user)? authenticated,
+    TResult? Function()? unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$FirebaseAuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_authenticated value)? authenticated,
-    TResult Function(_unauthenticated value)? unauthenticated,
+    TResult? Function(_authenticated value)? authenticated,
+    TResult? Function(_unauthenticated value)? unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,44 +60,44 @@ mixin _$FirebaseAuthState {
 abstract class $FirebaseAuthStateCopyWith<$Res> {
   factory $FirebaseAuthStateCopyWith(
           FirebaseAuthState value, $Res Function(FirebaseAuthState) then) =
-      _$FirebaseAuthStateCopyWithImpl<$Res>;
+      _$FirebaseAuthStateCopyWithImpl<$Res, FirebaseAuthState>;
 }
 
 /// @nodoc
-class _$FirebaseAuthStateCopyWithImpl<$Res>
+class _$FirebaseAuthStateCopyWithImpl<$Res, $Val extends FirebaseAuthState>
     implements $FirebaseAuthStateCopyWith<$Res> {
   _$FirebaseAuthStateCopyWithImpl(this._value, this._then);
 
-  final FirebaseAuthState _value;
   // ignore: unused_field
-  final $Res Function(FirebaseAuthState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$_authenticatedCopyWith<$Res> {
-  factory _$$_authenticatedCopyWith(
-          _$_authenticated value, $Res Function(_$_authenticated) then) =
-      __$$_authenticatedCopyWithImpl<$Res>;
+abstract class _$$authenticatedImplCopyWith<$Res> {
+  factory _$$authenticatedImplCopyWith(
+          _$authenticatedImpl value, $Res Function(_$authenticatedImpl) then) =
+      __$$authenticatedImplCopyWithImpl<$Res>;
+  @useResult
   $Res call({User user});
 }
 
 /// @nodoc
-class __$$_authenticatedCopyWithImpl<$Res>
-    extends _$FirebaseAuthStateCopyWithImpl<$Res>
-    implements _$$_authenticatedCopyWith<$Res> {
-  __$$_authenticatedCopyWithImpl(
-      _$_authenticated _value, $Res Function(_$_authenticated) _then)
-      : super(_value, (v) => _then(v as _$_authenticated));
+class __$$authenticatedImplCopyWithImpl<$Res>
+    extends _$FirebaseAuthStateCopyWithImpl<$Res, _$authenticatedImpl>
+    implements _$$authenticatedImplCopyWith<$Res> {
+  __$$authenticatedImplCopyWithImpl(
+      _$authenticatedImpl _value, $Res Function(_$authenticatedImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_authenticated get _value => super._value as _$_authenticated;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? user = null,
   }) {
-    return _then(_$_authenticated(
-      user == freezed
+    return _then(_$authenticatedImpl(
+      null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User,
@@ -107,8 +107,8 @@ class __$$_authenticatedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_authenticated implements _authenticated {
-  const _$_authenticated(this.user);
+class _$authenticatedImpl implements _authenticated {
+  const _$authenticatedImpl(this.user);
 
   @override
   final User user;
@@ -122,18 +122,18 @@ class _$_authenticated implements _authenticated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_authenticated &&
-            const DeepCollectionEquality().equals(other.user, user));
+            other is _$authenticatedImpl &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
+  int get hashCode => Object.hash(runtimeType, user);
 
   @JsonKey(ignore: true)
   @override
-  _$$_authenticatedCopyWith<_$_authenticated> get copyWith =>
-      __$$_authenticatedCopyWithImpl<_$_authenticated>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$authenticatedImplCopyWith<_$authenticatedImpl> get copyWith =>
+      __$$authenticatedImplCopyWithImpl<_$authenticatedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -147,8 +147,8 @@ class _$_authenticated implements _authenticated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(User user)? authenticated,
-    TResult Function()? unauthenticated,
+    TResult? Function(User user)? authenticated,
+    TResult? Function()? unauthenticated,
   }) {
     return authenticated?.call(user);
   }
@@ -178,8 +178,8 @@ class _$_authenticated implements _authenticated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_authenticated value)? authenticated,
-    TResult Function(_unauthenticated value)? unauthenticated,
+    TResult? Function(_authenticated value)? authenticated,
+    TResult? Function(_unauthenticated value)? unauthenticated,
   }) {
     return authenticated?.call(this);
   }
@@ -199,37 +199,34 @@ class _$_authenticated implements _authenticated {
 }
 
 abstract class _authenticated implements FirebaseAuthState {
-  const factory _authenticated(final User user) = _$_authenticated;
+  const factory _authenticated(final User user) = _$authenticatedImpl;
 
   User get user;
   @JsonKey(ignore: true)
-  _$$_authenticatedCopyWith<_$_authenticated> get copyWith =>
+  _$$authenticatedImplCopyWith<_$authenticatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_unauthenticatedCopyWith<$Res> {
-  factory _$$_unauthenticatedCopyWith(
-          _$_unauthenticated value, $Res Function(_$_unauthenticated) then) =
-      __$$_unauthenticatedCopyWithImpl<$Res>;
+abstract class _$$unauthenticatedImplCopyWith<$Res> {
+  factory _$$unauthenticatedImplCopyWith(_$unauthenticatedImpl value,
+          $Res Function(_$unauthenticatedImpl) then) =
+      __$$unauthenticatedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_unauthenticatedCopyWithImpl<$Res>
-    extends _$FirebaseAuthStateCopyWithImpl<$Res>
-    implements _$$_unauthenticatedCopyWith<$Res> {
-  __$$_unauthenticatedCopyWithImpl(
-      _$_unauthenticated _value, $Res Function(_$_unauthenticated) _then)
-      : super(_value, (v) => _then(v as _$_unauthenticated));
-
-  @override
-  _$_unauthenticated get _value => super._value as _$_unauthenticated;
+class __$$unauthenticatedImplCopyWithImpl<$Res>
+    extends _$FirebaseAuthStateCopyWithImpl<$Res, _$unauthenticatedImpl>
+    implements _$$unauthenticatedImplCopyWith<$Res> {
+  __$$unauthenticatedImplCopyWithImpl(
+      _$unauthenticatedImpl _value, $Res Function(_$unauthenticatedImpl) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_unauthenticated implements _unauthenticated {
-  const _$_unauthenticated();
+class _$unauthenticatedImpl implements _unauthenticated {
+  const _$unauthenticatedImpl();
 
   @override
   String toString() {
@@ -239,7 +236,7 @@ class _$_unauthenticated implements _unauthenticated {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_unauthenticated);
+        (other.runtimeType == runtimeType && other is _$unauthenticatedImpl);
   }
 
   @override
@@ -257,8 +254,8 @@ class _$_unauthenticated implements _unauthenticated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(User user)? authenticated,
-    TResult Function()? unauthenticated,
+    TResult? Function(User user)? authenticated,
+    TResult? Function()? unauthenticated,
   }) {
     return unauthenticated?.call();
   }
@@ -288,8 +285,8 @@ class _$_unauthenticated implements _unauthenticated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_authenticated value)? authenticated,
-    TResult Function(_unauthenticated value)? unauthenticated,
+    TResult? Function(_authenticated value)? authenticated,
+    TResult? Function(_unauthenticated value)? unauthenticated,
   }) {
     return unauthenticated?.call(this);
   }
@@ -309,5 +306,5 @@ class _$_unauthenticated implements _unauthenticated {
 }
 
 abstract class _unauthenticated implements FirebaseAuthState {
-  const factory _unauthenticated() = _$_unauthenticated;
+  const factory _unauthenticated() = _$unauthenticatedImpl;
 }

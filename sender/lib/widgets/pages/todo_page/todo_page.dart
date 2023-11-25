@@ -1,12 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/data/cubits/todo_list/todo_list_cubit.dart';
 import 'package:sender/data/models/tick_filters/tick_filters.dart';
 import 'package:sender/main.dart';
-import 'package:sender/widgets/common/custom_drop_down.dart';
-import 'package:sender/widgets/common/drop_button.dart';
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
 import 'package:sender/widgets/common/round_button.dart';
 import 'package:sender/widgets/common/tab_switcher.dart';
@@ -94,10 +90,10 @@ class _TodoPageState extends State<TodoPage> {
                         color: Colors.white,
                       ),
                     ),
-                    error: (msg) => Center(
+                    error: (msg) => const Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(
                               Icons.error_outline_rounded,
                               size: 30,
@@ -192,23 +188,10 @@ class _TodoPageState extends State<TodoPage> {
           padding: EdgeInsets.symmetric(horizontal: _sidePadding),
           child: Row(
             children: [
-              // CustomDropDown(
-              //   onChange: (newVal) {
-              //     //
-              //   },
-              //   items: const [
-              //     'Order',
-              //     'Highest Grade',
-              //     'Highest Rating',
-              //     'Lowest Grade',
-              //     'Lowest Rating',
-              //   ],
-              // ),
-              // const SizedBox(width: 14),
               RoundButton(
                 child: Center(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       children: [
                         Text(filterText(filters)),

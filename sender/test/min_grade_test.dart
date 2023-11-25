@@ -18,10 +18,10 @@ void main() {
       };
       // Assert
       checks.forEach((lower, uppers) {
-        uppers.forEach((upper) {
+        for (var upper in uppers) {
           final result = minClimbingGrade(lower, upper);
           expect(result, lower);
-        });
+        }
       });
     });
   });

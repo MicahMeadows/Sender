@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sender/common/constants/colors.dart' as col;
 import 'package:sender/widgets/common/knot_progress_indicator.dart';
-import 'package:sender/widgets/common/round_button.dart';
 import 'package:sender/widgets/common/thick_button.dart';
 
 import '../../../data/cubits/area_select_cubit/area_select_cubit.dart';
 import '../../../data/models/area/area.dart';
-import '../../../data/models/climbing_route/climbing_route.dart';
 
 class AreaSelector extends StatefulWidget {
   final AreaSelectCubit areaCubit;
@@ -100,7 +98,7 @@ class _AreaSelectorState extends State<AreaSelector> {
             children: [
               ThickButton(
                   mainColor: col.error,
-                  shadowColor: Color(0xFFB05175),
+                  shadowColor: const Color(0xFFB05175),
                   text: 'Cancel',
                   onPressed: () => Navigator.of(context).pop()),
               ThickButton(

@@ -18,7 +18,6 @@ class HttpRestApi implements IRestApi {
         Uri.parse(baseUrl + path),
         headers: headers,
       );
-      if (responseJson == null) return null;
       responseJson = _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection', '');
@@ -99,14 +98,12 @@ class HttpRestApi implements IRestApi {
       case 400:
         throw BadRequestException(response.body.toString(), '400');
       case 401:
-
       case 403:
         throw UnauthorizedException(response.body.toString(), '403');
       case 404:
         throw BadRequestException(
             response.body.toString(), HttpStatus.notFound.toString());
       case 500:
-
       default:
         throw FetchDataException(
           'Error occurred while Communication with Server with StatusCode : ${response.statusCode}',
