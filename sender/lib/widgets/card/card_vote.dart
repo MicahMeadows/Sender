@@ -43,20 +43,22 @@ class _CardVoteState extends State<CardVote> {
     late OverlayEntry entry;
 
     setState(() {
-      entry = OverlayEntry(builder: (ctx) {
-        return FadingWidget(
-          maxRotationAmount: rotation,
-          animationCurve: Curves.easeInExpo,
-          animationDuration: const Duration(milliseconds: 800),
-          child: widget,
-          onComplete: () {
-            entry.remove();
-          },
-          onUpdate: () {
-            entry.markNeedsBuild();
-          },
-        );
-      });
+      entry = OverlayEntry(
+        builder: (ctx) {
+          return FadingWidget(
+            maxRotationAmount: rotation,
+            animationCurve: Curves.easeInExpo,
+            animationDuration: const Duration(milliseconds: 800),
+            child: widget,
+            onComplete: () {
+              entry.remove();
+            },
+            onUpdate: () {
+              entry.markNeedsBuild();
+            },
+          );
+        },
+      );
 
       overlayState?.insert(entry);
     });
