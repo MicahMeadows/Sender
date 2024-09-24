@@ -30,7 +30,6 @@ The goal for this app is for me to complete a full stack project. And build an a
 - Design a Mountain Project scraping tool
 - Build a Database
 - Build an API that leverages the scraping tool and databse to provide data to the front end
-- Finally have something on my resume
 
 --- 
 
