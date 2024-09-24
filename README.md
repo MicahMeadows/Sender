@@ -1,4 +1,4 @@
-# Sender *(Work in Progress)*
+# Sender
 ### Do you ever day dream about finding the perfect match?
 ### Do you get sweaty hands thinking about putting your hands in their rocky pockets?
 ### Well with sender. You dont have to anymore! Just swipe left and right to filter down climbing routes until you've found your next project!
